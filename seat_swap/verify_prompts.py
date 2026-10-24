@@ -28,13 +28,16 @@ def main(argv=None) -> dict:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("run_dir")
     ap.add_argument("--max-checks", type=int, default=40)
+    ap.add_argument("--seat", type=int, default=None, help="only this seat's calls (one model per check)")
     args = ap.parse_args(argv)
     calls = [c for c in read_jsonl(Path(args.run_dir) / "calls.jsonl")
-             if c["provider"] == "vllm" and c["raw_completion"] is not None]
+             if c["provider"] == "vllm" and c["raw_completion"] is not None and args.seat in (None, c["seat"])]
+    if len({c["model"] for c in calls}) > 1:
+        raise SystemExit("calls from more than one model: pass --seat")
     if len(calls) > args.max_checks:
         raise SystemExit(f"{len(calls)} calls > --max-checks {args.max_checks}")
     tok = _tokenizer(calls[0]["model"], calls[0]["model_revision"])
-    p = RawCompletions.from_env()
+    p = RawCompletions.from_env(calls[0]["model"])  # the endpoint that served these calls
     p.wait_ready()
     out = {"calls": len(calls), "tokens_match": 0, "echo_match": 0, "ids_match": 0, "ids_unavailable": 0,
            "server_ids_decode_to_logged": 0,
