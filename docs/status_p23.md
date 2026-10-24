@@ -84,9 +84,9 @@ None.
 |---|---|---|
 | `seat-swap-vllm-8b` (P2) | **$4.70** (final, Modal hourly report) | first attempt $1.05, rerun $3.65; weights $0.02 |
 | `seat-swap-vllm-oth` (P3) | ≈ **$6.0** ($5.57 billed to 20:00 UTC + ≈ $0.4 to the stop at 20:07) | first attempt $0.73; weights $0.03 |
-| seat 0 on `seat-swap-vllm` (14B, billed to Kickoff 07's app) | ≈ $3–4 estimated | 4.03 M generated tokens (P2 1.62 M, P3 2.41 M); exact split by tokens in Kickoff 07's final report |
+| seat 0 on `seat-swap-vllm` (14B, billed to Kickoff 07's app) | ≈ **$4.7** (P2 ≈ $1.9, P3 ≈ $2.8) | the 14B app's hourly cost split by generated tokens per hour (Kickoff 07's `status.md`); within each family by its seat-0 tokens (P2 1.62 M, P3 2.41 M) |
 
-Caps P2 $9, P3 $11 (including the first attempt): both inside, with the seat-0 share included.
+Totals with the seat-0 share: **P2 ≈ $6.6** (cap $9), **P3 ≈ $8.8** (cap $11), first attempts included.
 
 ## Modal state
 `seat-swap-vllm-8b` and `seat-swap-vllm-oth`: redeployed at 2 min, then stopped (19:47 and 20:07 UTC). `seat-swap-vllm` not touched.
