@@ -15,8 +15,9 @@ Sellers:
                 punishment logic: a one-round cut moves it by only 1/30 of the gap. This is
                 the innocence benchmark for the retaliation test.
   fixed_price   always the same price.
-  lookalike     the Phase B `lookalike` arm's seat 0: repeats its own last price and never
-                reacts to the opponent.
+  lookalike     the Phase B `lookalike` arm's seat 0: repeats its own last chosen price and
+                never reacts to the opponent (a forced shock price is not its choice, so it
+                goes back to its pre-shock price afterwards).
   ramp_policy   dry-run plumbing only: walks from Nash toward monopoly.
 """
 
@@ -82,7 +83,7 @@ def fixed_price(price: float):
 
 def lookalike(p_m: float = P_MONOPOLY):
     def policy(seat, rnd, history):
-        own = [row["prices"][seat] for row in history if row["round"] >= 1]
+        own = [row["prices"][seat] for row in history if row["round"] >= 1 and str(seat) not in row.get("forced", {})]
         return own[-1] if own else p_m
 
     return policy
@@ -95,3 +96,7 @@ def ramp_policy(p_n: float, p_m: float, step: float = 0.04):
         return round(min(p_m, p_n + step * rnd - 0.01 * seat), 2)
 
     return policy
+
+
+# CLI names for dry runs (run.py --dry-seat0/1, branch.py --dry-seat0/1)
+POLICIES = {"grim": grim_trigger, "tft": tit_for_tat, "copier": copier, "lookalike": lookalike}
