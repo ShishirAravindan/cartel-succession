@@ -18,6 +18,11 @@ def test_price_on_same_line():
     assert p.ok and p.price == 1.85
 
 
+def test_price_rounded_to_two_decimals():
+    assert parse_response(BODY + "My chosen price:\n1.8537").price == 1.85
+    assert parse_response(BODY + "My chosen price:\n2").price == 2.0
+
+
 def test_think_block_is_ignored():
     assert parse_response("<think>\nmaybe 1.2\n</think>\n\n" + BODY + "My chosen price:\n1.9").price == 1.9
 

@@ -134,6 +134,7 @@ class Parsed:
     error: str = ""
 
 
+PRICE_DECIMALS = 2
 _THINK = re.compile(r"^\s*<think>.*?</think>", re.DOTALL)
 _PRICE_LINE = r"My chosen price:[ \t]*\n?[ \t]*(\d+(?:\.\d+)?)\s*$"
 _NOTES_RE = re.compile(
@@ -152,7 +153,8 @@ def parse_response(text: str, notes_on: bool = True) -> Parsed:
     m = (_NOTES_RE if notes_on else _PLAIN_RE).match(body)
     if not m:
         return Parsed(ok=False, price=None, error="response does not match the template")
-    price = float(m.group(m.lastindex))
+    # 2 dp like upstream, so the market is computed at the price the tables show (raw_completion keeps the original)
+    price = round(float(m.group(m.lastindex)), PRICE_DECIMALS)
     if not notes_on:
         return Parsed(ok=True, price=price)
     return Parsed(

@@ -105,6 +105,7 @@ class Game:
             "market": MARKET, "p_nash": env.lower_prices, "p_monopoly": env.upper_prices,
             "window": env.window_size, "inheritance": INHERITANCE, "round_convention": ROUND_CONVENTION,
             "prior_steps": env.prior_steps, "prior_actions": env.prior_actions, "notes_on": env.notes_on,
+            "price_decimals": prompts.PRICE_DECIMALS,
             "prompt_prefix": env.prefixes, "prompt_template_sha": template_hash(), "prompt_source": FISH_CITATION,
             "seats": [{"seat": i, "provider": s.provider.name, "model": s.provider.model,
                        "model_revision": s.provider.model_revision, "prompt_mode": s.provider.prompt_mode,
