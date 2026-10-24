@@ -159,6 +159,7 @@ enforcers' notes (13/18 vs 11/27 over both arms), but no note states how long th
 Newcomers 57.8 s/call, 954 reasoning tok/call. Wall clock 18:10–20:35 UTC (2 h 25 min, including the cold start).
 
 ## Surprises or worries
+- Failures over all 90 P1b games (base, enforce, arms): 1 parse failure and 6 transport errors, all recovered on retry; 0 aborts.
 - `same_notes` re-formed more often than `same_full` (8 vs 4 of 15). With n = 15 that's noise-compatible, but it's in
   the direction that the table may *dilute* the notes' effect.
 - Newcomers can copy the inherited notes verbatim on their first round (s215), including stale round numbers.
