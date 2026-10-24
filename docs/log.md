@@ -140,3 +140,22 @@ are separate requests.
 
 **Cost.** Modal metered this month: $0.45 (deployed apps $0.38), covered by credits.
 App stopped.
+
+## 2026-10-24 — Phase 0, scripted (kickoff 2, task 2)
+
+`seat_swap.phase0_scripted`, dry-run, $0. Grim trigger in seat 0. Each pair: 150-round main line
+→ `control` branch at T = 150 (seat 0 forced to p_N at T+30) → enforcement side branch (seat 0
+forced at T+1). Runs `20261024-1451xx_phase0_dry-grim-<seller>_s0` plus their branches (ids in
+`seat_swap/results/phase0_scripted.json`).
+
+| seat 1 | CI 121–150 | br_gap | retaliation (T+30) | enforcement retaliation (T+1) |
+|---|---|---|---|---|
+| grim | +1.011 | +0.590 | −1.018 | −1.018 |
+| tit-for-tat | +1.011 | +0.590 | −0.678 | −0.678 |
+| copier | +1.011 | +0.590 | −0.044 | −0.044 |
+| lookalike | +1.011 | +0.590 | +0.000 | +0.000 |
+
+All four have the same br_gap, so br_gap alone can't tell a colluder from a look-alike; the
+retaliation test separates them. Against a grim seat 0, tit-for-tat alternates p_N/p_M/p_N after
+the shock: its own punishment trips the grim. The two shock timings give identical numbers for
+scripted sellers.
