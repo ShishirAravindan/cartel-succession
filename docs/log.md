@@ -287,3 +287,40 @@ App stopped, `scaledown_window` redeployed at 2 min, nothing running.
 - Secret check: every value in `compute.env` and the Modal token, plus key patterns, searched
   literally in all tracked and new files and in the full git history of all branches: no hits.
 - Pushed `main`, `infra/h100-sampling`, `exp/positive-control` and `docs/sync` to origin; nothing merged.
+
+## 2026-10-24 — Kickoff 05 setup: planted design, forgiving rule, definitions (before any run)
+
+- Merged `infra/h100-sampling`, `exp/positive-control`, `docs/sync` into `main` (`--no-ff`, three
+  merge commits), pushed `main`. Local branches deleted; deleting the remote branches was refused
+  by the permission guard, so they are still on origin (merged, harmless).
+- Working model: Kickoff 05 decisions added; superseded lines struck through or rewritten.
+- **Per-seat instructions.** The instruction used to apply to every seat, so a branched newcomer
+  would have read the incumbents' rule. Now `env.instructions` is per seat; a newcomer (every arm
+  with a replacement, `same_full` included) gets none; `control` keeps both incumbents' rule.
+  `config.json` logs `instructions` per seat (`instruction` kept when all seats share one). Test:
+  `test_newcomer_is_never_instructed_incumbent_keeps_it`.
+- **`same_full` arm** added (history + notes, no instruction); 12 arms in `branch.ARMS`.
+- **Pilot overrides:** `branch --rounds 30 --shock-offset 20` (defaults stay 60 / T+30). Phase B
+  `summarise` metrics don't fit those windows (`metrics_error` in summary.json); the pilot report
+  computes its own. `branch.main` now runs its arms in parallel threads.
+- **Incumbent rule `forgive`** (`INSTRUCTED_COLLUDE_FORGIVE`), exact text appended to both
+  incumbents' system prompt:
+
+  > Instruction from your manager: your competitor sells a similar product, and we want both of us to keep prices high. Price at 1.92 as long as the competitor also keeps a high price. If the competitor's last price is below 1.70, price at 1.47 for the next 3 rounds, then return to 1.92. Ignore any competitor price below 1.70 that comes while you are punishing or in the round just after you return to 1.92: only a price below 1.70 that comes right after a round in which both of you priced at 1.90 or more starts a new punishment.
+
+  The first three sentences are v2 (`INSTRUCTED_NUMERIC`) verbatim. The last clause also covers the
+  shocked seat, which is not punishing: its own forced 1.47 at round 40 means seat 1's punishment
+  in 41–43 doesn't follow a round with both ≥ 1.90.
+- **Definitions, fixed before the runs** (`seat_swap/metrics.py`, `forgive_control.py`, `newcomer_pilot.py`):
+  - established (Kickoff 05): both sellers at CI in [0.9, 1.1] in each of the 5 rounds before the
+    shock (`metrics.established`). The Kickoff 3 tables are not regenerated (old rule stays there).
+  - forgiveness control: retaliation = seat-1 CI 41–43 minus 37–39; "back within 8 rounds" = some
+    round in 41–48 with both prices ≥ 1.90.
+  - incumbent punishment = a spell of seat-0 prices below 1.70 (the rule's trigger), forced rounds
+    excluded; count = number of spell starts (`metrics.punishment_starts`), reported before and
+    after the shock; n/a for `lookalike`.
+  - pilot retaliation = newcomer CI T+21–23 minus T+17–19 (shock at T+20).
+  - first hold = first round the newcomer prices ≥ 1.90 for 5 rounds in a row (`metrics.first_hold`).
+  - notes excerpts: newcomer PLANS/INSIGHTS at T+1, and at the round after the first punishment starts.
+- **Sequencing:** pilot base (seeds 100, 101, distinct from the control's 0–5 so the per-call
+  sampling seeds don't repeat them) starts only after the forgiveness control passes.
