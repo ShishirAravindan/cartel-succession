@@ -154,6 +154,7 @@ def run_branch(parent_dir: Path, T: int, arm: str, *, dry_run: bool, max_calls: 
     logger = RunLogger(runs_root, run_id)
     game = Game(env, [Seat(p, t) for p, t in zip(providers, thinking)], logger, phase=phase, arm=arm, seed=seed,
                 temperature=cfg["temperature"], max_tokens=cfg["max_tokens"], max_calls=max_calls,
+                top_p=cfg.get("top_p"), top_k=cfg.get("top_k"),
                 shocks=shocks, shock_calls_llm=False, parallel=parallel)
     logger.config(game.config({
         "parent_run_id": cfg["run_id"], "parent_git": cfg["git"], "branch_T": T, "rounds": rounds,

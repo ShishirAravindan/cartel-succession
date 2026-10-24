@@ -94,6 +94,19 @@ def test_raw_completions_pins_extra_sampling_and_logs_it(tmp_path):
     game, logger = make_game(tmp_path, [p, ramp_providers()[1]])
     assert game.run(1)["status"] == "completed"
     kw = create.kwargs[0]
-    assert kw["top_p"] == 1.0 and kw["extra_body"] == {"top_k": -1, "add_special_tokens": False}
+    assert kw["top_p"] == 0.8 and kw["extra_body"] == {"top_k": 20, "add_special_tokens": False}
     c = next(c for c in read(logger.dir / "calls.jsonl") if c["seat"] == 0)
-    assert c["sampling_params"]["top_k"] == -1 and c["sampling_params"]["add_special_tokens"] is False
+    sp = c["sampling_params"]
+    assert (sp["top_p"], sp["top_k"], sp["add_special_tokens"]) == (0.8, 20, False)
+    assert (sp["temperature"], sp["max_tokens"]) == (kw["temperature"], kw["max_tokens"])
+
+
+def test_run_defaults_to_qwen_sampling_per_thinking_mode(tmp_path):
+    from seat_swap import run
+    from seat_swap.model_config import SAMPLING
+
+    for mode, on in (("off", False), ("on", True)):
+        run.main(["--dry-run", "--rounds", "1", "--thinking", mode, "--runs-root", str(tmp_path), "--run-id", mode])
+        sp = read(tmp_path / mode / "calls.jsonl")[0]["sampling_params"]
+        assert {k: sp[k] for k in ("temperature", "top_p", "top_k", "max_tokens")} == SAMPLING[on]
+    assert SAMPLING[True]["max_tokens"] == 8192 and SAMPLING[False]["temperature"] == 0.7

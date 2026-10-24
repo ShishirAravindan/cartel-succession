@@ -59,7 +59,9 @@ class OpenRouterChat(ChatProvider):
                 temperature=sampling["temperature"],
                 max_tokens=sampling["max_tokens"],
                 seed=sampling["seed"],
-                extra_body={"reasoning": {"enabled": sampling["thinking"]}, "usage": {"include": True}},
+                **({"top_p": sampling["top_p"]} if sampling.get("top_p") is not None else {}),
+                extra_body={"reasoning": {"enabled": sampling["thinking"]}, "usage": {"include": True},
+                            **({"top_k": sampling["top_k"]} if sampling.get("top_k") is not None else {})},
             )
         except (NotFoundError, AuthenticationError, PermissionDeniedError, BadRequestError) as e:
             raise FatalProviderError(f"{self.spec}: {e}") from e
@@ -81,14 +83,14 @@ class OpenRouterChat(ChatProvider):
 class RawCompletions:
     """OpenAI-compatible /v1/completions (Modal vLLM): sends the locally rendered string.
 
-    Sampling beyond what the game passes is fixed here and merged into the logged sampling_params:
-    no nucleus/top-k truncation, and no special tokens added on top of our string (the server
-    runs with --generation-config vllm, so model defaults don't sneak in either).
+    temperature / top_p / top_k / max_tokens come from the game's sampling dict (logged as sent);
+    the server runs with --generation-config vllm, so model defaults never fill in a missing one.
+    No special tokens are added on top of our string.
     """
 
     name = "vllm"
     prompt_mode = "string"
-    fixed_sampling = {"top_p": 1.0, "top_k": -1, "add_special_tokens": False}
+    fixed_sampling = {"add_special_tokens": False}
 
     def __init__(self, model: str, base_url: str, api_key: str, model_revision: str, timeout_s: float = 600):
         from openai import OpenAI
@@ -134,17 +136,18 @@ class RawCompletions:
         from openai import AuthenticationError, BadRequestError, NotFoundError, PermissionDeniedError
 
         start = time.time()
-        fixed = self.fixed_sampling
+        if sampling.get("top_p") is None or sampling.get("top_k") is None:
+            raise FatalProviderError("vllm: top_p and top_k must be set explicitly")
         try:
             resp = self._client.completions.create(
                 model=self.model,
                 prompt=rendered,
                 temperature=sampling["temperature"],
-                top_p=fixed["top_p"],
+                top_p=sampling["top_p"],
                 max_tokens=sampling["max_tokens"],
                 seed=sampling["seed"],
                 stop=QWEN3_STOP,
-                extra_body={"top_k": fixed["top_k"], "add_special_tokens": fixed["add_special_tokens"]},
+                extra_body={"top_k": sampling["top_k"], "add_special_tokens": sampling["add_special_tokens"]},
             )
         except (NotFoundError, AuthenticationError, PermissionDeniedError, BadRequestError) as e:
             raise FatalProviderError(f"vllm {self.model}: {e}") from e

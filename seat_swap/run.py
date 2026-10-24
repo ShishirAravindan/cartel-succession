@@ -15,6 +15,7 @@ from pathlib import Path
 from seat_swap.game import Game, Seat, git_state, make_env
 from seat_swap.logging import RunLogger
 from seat_swap.metrics import P_NASH
+from seat_swap.model_config import SAMPLING
 from seat_swap.prompts import INSTRUCTIONS
 from seat_swap.providers import OpenRouterChat, RawCompletions, ScriptedProvider
 from seat_swap.scripted import POLICIES, ramp_policy
@@ -36,8 +37,8 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--model", default=DEFAULT_MODEL, help="OpenRouter id for both seats")
     ap.add_argument("--thinking", choices=["on", "off"], default="off")
     ap.add_argument("--notes", choices=["on", "off"], default="on")
-    ap.add_argument("--temperature", type=float, default=1.0)
-    ap.add_argument("--max-tokens", type=int, default=4096)
+    ap.add_argument("--temperature", type=float, default=None, help="default: model_config.SAMPLING for the thinking mode")
+    ap.add_argument("--max-tokens", type=int, default=None, help="default: model_config.SAMPLING for the thinking mode")
     ap.add_argument("--phase", default="smoke")
     ap.add_argument("--arm", default="main")
     ap.add_argument("--instruction", choices=sorted(INSTRUCTIONS), default=None,
@@ -61,6 +62,11 @@ def main(argv=None) -> dict:
         sys.exit("working tree is dirty: commit first so the run's git sha points at the code it ran "
                  "(or pass --allow-dirty)")
     notes_on, thinking = args.notes == "on", args.thinking == "on"
+    sampling = dict(SAMPLING[thinking])
+    if args.temperature is not None:
+        sampling["temperature"] = args.temperature
+    if args.max_tokens is not None:
+        sampling["max_tokens"] = args.max_tokens
     env = make_env(args.seed, notes_on=notes_on, instruction=INSTRUCTIONS.get(args.instruction))
     if args.dry_run:
         providers = [ScriptedProvider.from_price_policy(
@@ -70,7 +76,8 @@ def main(argv=None) -> dict:
         providers = [RawCompletions.from_env() for _ in range(2)]
         print(f"vllm endpoint ready after {providers[0].wait_ready()}s")
     else:
-        providers = [OpenRouterChat(args.model, args.temperature, args.max_tokens, thinking) for _ in range(2)]
+        providers = [OpenRouterChat(args.model, sampling["temperature"], sampling["max_tokens"], thinking)
+                     for _ in range(2)]
     model_tag = f"dry-{args.dry_seat0}-{args.dry_seat1}" if args.dry_run else providers[0].model.split("/")[-1].lower()
     run_id = args.run_id or (
         f"{time.strftime('%Y%m%d-%H%M%S')}_{args.phase}_{model_tag}"
@@ -78,7 +85,8 @@ def main(argv=None) -> dict:
     )
     logger = RunLogger(args.runs_root, run_id)
     game = Game(env, [Seat(p, thinking) for p in providers], logger, phase=args.phase, arm=args.arm,
-                seed=args.seed, temperature=args.temperature, max_tokens=args.max_tokens,
+                seed=args.seed, temperature=sampling["temperature"], max_tokens=sampling["max_tokens"],
+                top_p=sampling["top_p"], top_k=sampling["top_k"],
                 max_calls=args.max_calls, parallel=not args.sequential,
                 shocks={args.shock_round: {0: P_NASH}} if args.shock_round else None,
                 shock_calls_llm=False if args.shock_round else None)

@@ -99,6 +99,7 @@ def call_seed(seed: int, arm: str, rnd: int, seat: int, attempt: int) -> int:
 class Game:
     def __init__(self, env: NotesOligopoly, seats: list[Seat], logger: RunLogger, *, phase: str, arm: str,
                  seed: int, temperature: float, max_tokens: int, max_calls: Optional[int],
+                 top_p: Optional[float] = None, top_k: Optional[int] = None,
                  shocks: Optional[dict] = None, shock_calls_llm: Optional[bool] = None, parallel: bool = True):
         """shocks: {round: {seat: forced_price}}. Whether a forced seat's LLM is still called that
         round (and its notes updated) is part of the arm definition, so it must be stated."""
@@ -107,6 +108,7 @@ class Game:
         self.env, self.seats, self.log = env, seats, logger
         self.phase, self.arm, self.seed = phase, arm, seed
         self.temperature, self.max_tokens = temperature, max_tokens
+        self.top_p, self.top_k = top_p, top_k
         self.max_calls, self.shocks, self.shock_calls_llm = max_calls, shocks or {}, shock_calls_llm
         self.parallel = parallel
         self.calls_made = self.parse_failures = self.transport_failures = 0
@@ -128,6 +130,7 @@ class Game:
                        "model_revision": s.provider.model_revision, "prompt_mode": s.provider.prompt_mode,
                        "thinking": s.thinking} for i, s in enumerate(self.seats)],
             "temperature": self.temperature, "max_tokens": self.max_tokens, "max_calls": self.max_calls,
+            "top_p": self.top_p, "top_k": self.top_k,
             "tokenizer_model": TOKENIZER_MODEL, "tokenizer_revision": TOKENIZER_REVISION,
             "git": git_state(), "created": now(), **extra,
         }
@@ -194,7 +197,8 @@ class Game:
         attempt = 0
         while True:
             self._reserve_call()
-            sampling = {"temperature": self.temperature, "max_tokens": self.max_tokens, "thinking": seat.thinking,
+            sampling = {"temperature": self.temperature, "top_p": self.top_p, "top_k": self.top_k,
+                        "max_tokens": self.max_tokens, "thinking": seat.thinking,
                         "seed": call_seed(self.seed, self.arm, rnd, seat_idx, attempt),
                         **getattr(seat.provider, "fixed_sampling", {})}
             comp = parsed = None

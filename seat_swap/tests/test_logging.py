@@ -18,6 +18,7 @@ def read(path: Path) -> list[dict]:
 def make_game(tmp_path, providers, max_calls=None, run_id="t", **kw):
     env = make_env(seed=0)
     logger = RunLogger(tmp_path, run_id)
+    kw = {"top_p": 0.8, "top_k": 20, **kw}
     game = Game(env, [Seat(p, thinking=False) for p in providers], logger, phase="test", arm="main",
                 seed=0, temperature=1.0, max_tokens=4096, max_calls=max_calls, **kw)
     logger.config(game.config({}))
