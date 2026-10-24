@@ -5,6 +5,9 @@
     uv run --project seat_swap modal deploy seat_swap/modal_vllm.py          # back to 2 min idle scaledown
     uv run --project seat_swap modal app stop -y seat-swap-vllm              # stop it
 
+SEAT_SWAP_MODEL picks the model (model_config.BY_KEY; default 14b): app name, weights Volume, Secret
+and model all follow it, e.g. SEAT_SWAP_MODEL=8b deploys `seat-swap-vllm-8b` (Kickoff 08).
+
 The client (providers.RawCompletions) sends the locally rendered chat-template string to
 /v1/completions, so the server never applies a template. The URL and key come from
 compute.env (SEAT_SWAP_VLLM_URL, SEAT_SWAP_VLLM_KEY); the key reaches the server through the
@@ -18,9 +21,13 @@ import os
 
 import modal
 
-from seat_swap.model_config import MODEL_NAME, MODEL_REVISION
+from seat_swap.model_config import BY_KEY
 
-APP_NAME = "seat-swap-vllm"
+# read at deploy time and baked into the image env, so the container imports the same choice
+MODEL_KEY = os.environ.get("SEAT_SWAP_MODEL", "14b")
+SPEC = BY_KEY[MODEL_KEY]
+MODEL_NAME, MODEL_REVISION = SPEC.name, SPEC.revision
+APP_NAME = SPEC.app
 GPU = "H100"  # run policy: one H100 (bf16 weights unchanged); ~3x the L40S decode speed
 # idle scaledown, read at deploy time: 10 min during an active task, 2 min otherwise (run policy)
 SCALEDOWN_MIN = int(os.environ.get("SEAT_SWAP_SCALEDOWN_MIN", "2"))
@@ -35,11 +42,13 @@ vllm_image = (
     modal.Image.from_registry("nvidia/cuda:12.9.0-devel-ubuntu22.04", add_python="3.12")
     .entrypoint([])
     .uv_pip_install(f"vllm=={VLLM_VERSION}", "huggingface_hub[hf_xet]")
-    .env({"HF_XET_HIGH_PERFORMANCE": "1", "HF_HOME": "/root/.cache/huggingface"})
+    .env({"HF_XET_HIGH_PERFORMANCE": "1", "HF_HOME": "/root/.cache/huggingface", "SEAT_SWAP_MODEL": MODEL_KEY})
     .add_local_python_source("seat_swap")
 )
-hf_cache = modal.Volume.from_name("seat-swap-hf-cache", create_if_missing=True)
-vllm_cache = modal.Volume.from_name("seat-swap-vllm-cache", create_if_missing=True)
+hf_cache = modal.Volume.from_name(SPEC.volume, create_if_missing=True)
+# compile cache: the 14B keeps its Volume; other models get their own
+vllm_cache = modal.Volume.from_name("seat-swap-vllm-cache" if MODEL_KEY == "14b" else f"seat-swap-vllm-cache-{MODEL_KEY}",
+                                    create_if_missing=True)
 VOLUMES = {"/root/.cache/huggingface": hf_cache, "/root/.cache/vllm": vllm_cache}
 
 app = modal.App(APP_NAME)
@@ -49,7 +58,7 @@ app = modal.App(APP_NAME)
     image=vllm_image,
     gpu=GPU,
     volumes=VOLUMES,
-    secrets=[modal.Secret.from_name("seat-swap-vllm")],
+    secrets=[modal.Secret.from_name(SPEC.secret)],
     port=VLLM_PORT,
     scaledown_window=SCALEDOWN_MIN * MINUTES,
     target_concurrency=TARGET_CONCURRENCY,
