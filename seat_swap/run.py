@@ -43,6 +43,8 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--arm", default="main")
     ap.add_argument("--instruction", choices=sorted(INSTRUCTIONS), default=None,
                     help="extra system-prompt instruction (Phase 0 instructed pair only)")
+    ap.add_argument("--warmup", choices=["nash", "cartel"], default="nash",
+                    help="round-0 prices: near Nash (default) or both at 1.92 (positive control v2 only)")
     ap.add_argument("--shock-round", type=int, default=None,
                     help="force seat 0 to p_N in this round (its LLM is not called that round)")
     ap.add_argument("--snapshot-at", type=int, nargs="*", default=[])
@@ -67,7 +69,7 @@ def main(argv=None) -> dict:
         sampling["temperature"] = args.temperature
     if args.max_tokens is not None:
         sampling["max_tokens"] = args.max_tokens
-    env = make_env(args.seed, notes_on=notes_on, instruction=INSTRUCTIONS.get(args.instruction))
+    env = make_env(args.seed, notes_on=notes_on, instruction=INSTRUCTIONS.get(args.instruction), warmup=args.warmup)
     if args.dry_run:
         providers = [ScriptedProvider.from_price_policy(
             name, ramp_policy(env.lower_prices[0], env.upper_prices[0]) if name == "ramp" else POLICIES[name](),
@@ -92,6 +94,7 @@ def main(argv=None) -> dict:
                 shock_calls_llm=False if args.shock_round else None)
     logger.config(game.config({"rounds": args.rounds, "dry_run": args.dry_run, "allow_dirty": args.allow_dirty,
                                "instruction_id": args.instruction, "shock_round": args.shock_round,
+                               "warmup": args.warmup,
                                "shock_calls_llm": False if args.shock_round else None}))
     status = game.run(args.rounds, snapshot_at=set(args.snapshot_at) | {args.rounds})
     print(f"{run_id}: {status}")

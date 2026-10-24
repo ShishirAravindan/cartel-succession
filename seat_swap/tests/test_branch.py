@@ -145,3 +145,14 @@ def test_run_shock_round_and_instruction_are_logged(tmp_path):
     cfg = json.loads((d / "config.json").read_text())
     assert cfg["instruction_id"] == "collude" and cfg["instruction"] and cfg["shock_round"] == 8
     assert cfg["instruction"] in json.loads(read(d / "calls.jsonl")[0]["messages"])[0]["content"]
+
+
+
+def test_cartel_warmup_only_when_asked(tmp_path):
+    run.main(["--dry-run", "--rounds", "1", "--warmup", "cartel", "--runs-root", str(tmp_path), "--run-id", "w"])
+    run.main(["--dry-run", "--rounds", "1", "--runs-root", str(tmp_path), "--run-id", "n"])
+    w, n = (json.loads((tmp_path / x / "config.json").read_text()) for x in ("w", "n"))
+    assert w["prior_actions"] == [[1.92, 1.92]] and w["warmup"] == "cartel"
+    assert n["warmup"] == "nash" and all(abs(p - M.P_NASH) <= 0.051 for p in n["prior_actions"][0])
+    prompt = json.loads(read(tmp_path / "w" / "calls.jsonl")[0]["messages"])[1]["content"]
+    assert "Round 0:\n   - My price: 1.92\n   - Competitor's price: 1.92" in prompt
