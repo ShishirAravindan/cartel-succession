@@ -274,13 +274,16 @@ class Game:
         })
         self.rounds_done = rnd
 
-    def run(self, rounds: int, snapshot_at=(), start: int = 1) -> dict:
+    def run(self, rounds: int, snapshot_at=(), start: int = 1, on_snapshot=None) -> dict:
+        """on_snapshot(t): called right after snapshot_T<t>.json is written (e.g. to launch a side branch)."""
         status = {"status": "completed", "detail": ""}
         try:
             for rnd in range(start, start + rounds):
                 self.play_round(rnd)
                 if rnd in snapshot_at:
                     self.snapshot(rnd)
+                    if on_snapshot:
+                        on_snapshot(rnd)
         except StopRun as e:
             status = {"status": e.status, "detail": e.detail}
         status.update(rounds_completed=self.rounds_done, calls_made=self.calls_made,

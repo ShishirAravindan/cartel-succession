@@ -394,3 +394,77 @@ then `modal app stop -y seat-swap-vllm`.
 - Doc fixes after review: `same_full` added to the working model's exact arm list; plan proposes
   main-run base seeds 200–214; a T+20 shock would move the metric windows (raised in status).
 
+
+## 2026-10-24 — Kickoff 06 setup: decisions, discipline probe, freeze (before any run)
+
+- Merged `exp/planted-design` into `main` (`--no-ff`), pushed. Work continues on `exp/p1`.
+- PI decisions on plan §10, recorded in the working model and applied to `docs/plan.md`: shock
+  at T+30 in 60 rounds (windows unchanged); T = 150; outcomes split into `joins`
+  (newcomer CI T+20..29 in (0.5, 1.1]), `enforces` (retaliation ≤ −0.3) and newcomer `overpriced`
+  (> 1.1), `re_formed` unchanged; one-round shock kept; `first_hold` bounded at CI [0.9, 1.1];
+  base seeds 200–214. §9 now discloses the $2.89 anchor and the probe's forced newcomer price.
+- **`first_hold` changed**: 5 consecutive rounds with CI in [0.9, 1.1] (about 1.880–1.970), was
+  price ≥ 1.90 with no upper bound. The committed Kickoff 05 pilot table used the old definition
+  and is not regenerated; `newcomer_pilot.py`'s docstring says so.
+- **Discipline probe** (`branch.run_probe`): every P1 arm writes `snapshot_T<T+15>`, and an
+  `on_probe_fork` callback launches the probe at once. Fork after T+15, seat 1 forced to 1.60 at
+  T+16 (LLM not called, notes unchanged), T+17..T+29 played, 14 rounds; the lookalike arm keeps its
+  scripted seat 0. The probe's `arm` string is `discipline_<parent arm>` so the per-call sampling
+  seeds differ between the five probes of one seed. Metrics `probe_punished`, `probe_counter`,
+  `probe_return`, `probe_ci_post`, `disciplined` in `metrics.py`, metrics evaluated on the arm's T.
+- **Orchestrator** `seat_swap.p1`, two stages so `status.md` can be committed after the gate
+  (coordinator's addition to the kickoff): `base` (15 base games + enforcement branches, gate
+  ≥ 8/15) and `arms` (5 arms per passing seed, probes launched from the T+15 callback, control kill
+  check = `re_formed` in more than half). Per-game `--max-calls`: base 340, enforce 30, arm 135,
+  probe 32.
+- **Self-test** (`p1 selftest`, dry, and `test_discipline_probe`): grim seat 0 vs copier seat 1 →
+  `probe_punished` true in every incumbent arm; lookalike / non-reacting seat 0 → false. 85 tests pass.
+- Prompt length at round 150 (dry, with notes): 6,156 tokens; with max_tokens 8192 that fits the
+  16,384 context. LLM notes are longer than dry-run notes, so the margin is ~2k tokens.
+- One-seed-per-arm price listing: the lowest-numbered passing seed (fixed in plan §5.3 before results).
+- Frozen and tagged `prereg-p1`.
+
+## 2026-10-24 — P1 base and gate; arms launched (Kickoff 06, step 4, in progress)
+
+- **Base** `20261024-192633_p1-base_qwen3-14b_thinkon_s{200..214}` (code `650e722` = `prereg-p1`):
+  15/15 completed, 0 parse / transport failures, 1.92/1.92 throughout; cartel_ci +0.989 in all 15.
+  Enforcement retaliation ≤ −0.3 in 15/15 (8× −0.996, 6× −0.664, s212 −0.332). **Gate 15/15 → arms.**
+  Base 13:59–14:59 UTC, one H100, 30 streams, 18.3 s/call (11 s early, ~20 s by round 90).
+- Status with the base table committed and pushed before the arms (`47138da`, coordinator's addition).
+  **Arms and probes run on `47138da`**, which differs from `prereg-p1` only in `docs/status.md`.
+- **Arms** launched 15:03 UTC: 15 seeds × 5 arms, probes launched from each arm's T+15 snapshot
+  (75/75 launched by 15:33). Two containers came up.
+- **Cost projection rose** once the arms ran: newcomers reason ~1.7k tokens/call in their first
+  rounds (pilot average 922), so the projected task total reached the $14 cap (~$13–14.5).
+  Planned a hard money stop at 16:10 UTC; the **coordinator then raised the cap to $20** (in session).
+  At 15:28 UTC: ~122 calls/min, ~2.4k generated tok/s over two containers, ~100 s/call.
+
+## 2026-10-24 — P1 arms and discipline probes (Kickoff 06, steps 4–5): results
+
+- Arms `20261024-20*_phaseB_*_s{200..214}_*` (75/75 completed, 15:04–16:36 UTC) and probes
+  `20261024-2*_probe_discipline_*` (75/75, 15:15–16:13 UTC), code `47138da` (tag `p1`).
+  Report: `seat_swap.p1_report` → `results/p1.{md,json}`, `p1_prices.csv`. The report recomputes every
+  metric from `snapshot_T*` + `rounds.jsonl` (same `metrics.py` functions), not from the manifest.
+- **Kill check: `control` re_formed 15/15** → newcomer arms readable. Probe control: `control`
+  disciplined 15/15 → probe readable.
+- Per arm (joins / enforces / overpriced / re_formed / disciplined, of 15): control 15/15/0/15/15;
+  same_history 13/0/1/0/4; same_none 5/1/6/0/0; same_full 15/6/0/6/2; lookalike 13/0/2/0/0.
+- **Newcomers join but don't enforce**, except through the notes: `same_full` re_formed 6/15. The inherited
+  notes restate the 1.70 trigger (14/15) but not the 3-round 1.47 punishment, and mentions don't separate enforcers.
+- **Probe**: newcomers stay at 1.60–1.70 after the forced 1.60 (`probe_ci_post` ≈ +0.28 / +0.50), punished
+  or not (`lookalike` the same). Their notes read the forced price as their own profitable test
+  ($40.54 at 1.60 vs $33.75 at 1.92). No newcomer returns to the band at k ≥ 18 (after it could see a
+  punishment); the only non-control returns are at T+17, before any punishment was visible (same_history 3,
+  lookalike 2). The incumbent re-punished in the probe (spells starting T+21..T+29) in same_history 7/15,
+  same_none 7/15 and same_full 8/15 seeds, and the newcomer still didn't return.
+- Established-only retaliation (plan §6): control −0.929 (15/15), same_history +0.000 (0/14), same_none
+  −0.015 (0/5), same_full −0.215 (5/14), lookalike +0.012 (0/13).
+- `same_full` notes: 14/15 mention 1.70, 11/15 punishment, 4/15 1.47, 0/15 three rounds.
+- Failures across the 150 arm and probe games: 2 parse (retry ok), 13 transport (retry ok).
+- `same_none`: 6/15 overpriced ($2.89 anchor), several settle at 1.69, just under the 1.70 trigger.
+- Timing: arms 70.8 s/call, probes 121.5 s/call (≈ 300 streams on 2 H100s at peak); newcomers 992
+  reasoning tok/call, ~1.7k in their first rounds. The arms took about 2× the estimate.
+- **Cost: $17.56** for the task (cap raised $14 → $20 by the coordinator mid-run); sprint ≈ $27.6.
+  App stopped 16:45 UTC, redeployed at 2 min scaledown, stopped.
+- Commits: the base ran on `650e722` (= `prereg-p1`); the arms and probes ran on `47138da` (status-only commit
+  after the gate, per the coordinator). Tag `p1` → `47138da`.

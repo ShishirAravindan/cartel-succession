@@ -149,6 +149,66 @@ def test_first_hold():
     assert M.first_hold(prices, 41, 60) == 44 and M.first_hold(prices, 50, 60) == 50
     prices[56] = [1.92, 1.5]
     assert M.first_hold(prices, 52, 60) is None  # 52-55 is only 4 rounds; 57-60 is 4
-    prices[44] = [1.92, 1.899]
-    assert M.first_hold(prices, 41, 48) is None
 
+
+def test_first_hold_band_has_both_edges():
+    """Kickoff 06: CI in [0.9, 1.1], i.e. about 1.880 to 1.970."""
+    lo_edge, hi_edge = M.P_NASH + 0.9 * (M.P_MONOPOLY - M.P_NASH), M.P_NASH + 1.1 * (M.P_MONOPOLY - M.P_NASH)
+    flat = lambda p: {r: [1.92, p] for r in range(41, 49)}
+    assert M.first_hold(flat(1.899), 41, 48) == 41  # CI 0.94: inside the band now
+    assert M.first_hold(flat(lo_edge), 41, 48) == 41 and M.first_hold(flat(hi_edge), 41, 48) == 41
+    assert M.first_hold(flat(1.87), 41, 48) is None  # below the band
+    assert M.first_hold(flat(2.00), 41, 48) is None  # overpriced is not a hold
+    assert M.first_hold(flat(2.50), 41, 48) is None
+
+
+def test_outcome_split():
+    T0, at = 30, lambda c: M.P_NASH + c * (M.P_MONOPOLY - M.P_NASH)
+
+    def game(newcomer, punish):
+        p = {r: [1.92, at(newcomer)] for r in range(1, T0 + 35)}
+        for r in range(T0 + 31, T0 + 34):
+            p[r][1] = M.P_NASH if punish else p[r][1]
+        return p
+
+    follower, member, high = game(1.0, False), game(1.0, True), game(1.3, False)
+    assert M.joins(follower, T0) and not M.enforces(follower, T0, -0.3) and not M.re_formed(follower, T0, -0.3)
+    assert M.joins(member, T0) and M.enforces(member, T0, -0.3) and M.re_formed(member, T0, -0.3)
+    assert not M.joins(high, T0) and M.newcomer_overpriced(high, T0) and not M.newcomer_overpriced(follower, T0)
+
+
+def probe_prices(seat0, seat1, T0=150):
+    """seat0 / seat1: {k: price} overrides on a 1.92/1.92 line, k relative to T0."""
+    p = {T0 + k: [1.92, 1.92] for k in range(1, 30)}
+    for k, v in seat0.items():
+        p[T0 + k][0] = v
+    for k, v in seat1.items():
+        p[T0 + k][1] = v
+    return p
+
+
+def test_probe_metrics_on_a_disciplined_follower():
+    p = probe_prices({17: 1.47, 18: 1.47, 19: 1.47}, {16: 1.60, 17: 1.65, 18: 1.80, 19: 1.92})
+    assert M.probe_punished(p, 150) and M.probe_counter(p, 150) == 1
+    assert M.probe_return(p, 150) == 19 and M.probe_ci_post(p, 150) == pytest.approx(float(M.ci(1.92)))
+    assert M.disciplined(p, 150)
+
+
+def test_probe_metrics_edges():
+    # punishment outside T+17..T+19 does not count; 1.70 itself is not below the trigger
+    assert not M.probe_punished(probe_prices({16: 1.47, 20: 1.47}, {16: 1.60}), 150)
+    assert not M.probe_punished(probe_prices({17: 1.70}, {16: 1.60}), 150)
+    # newcomer stays low: never returns, not disciplined even though punished
+    low = {k: 1.60 for k in range(16, 30)}
+    p = probe_prices({17: 1.47}, low)
+    assert M.probe_punished(p, 150) and M.probe_counter(p, 150) == 3
+    assert M.probe_return(p, 150) is None and not M.disciplined(p, 150)
+    # returns at high price but nobody punished: not disciplined
+    assert not M.disciplined(probe_prices({}, {16: 1.60}), 150)
+    # censoring: a 3-round hold starting at T+27 counts, one starting at T+28 cannot exist
+    late = probe_prices({17: 1.47}, {**{k: 1.60 for k in range(16, 27)}, 27: 1.92, 28: 1.92, 29: 1.92})
+    assert M.probe_return(late, 150) == 27
+    later = probe_prices({17: 1.47}, {**{k: 1.60 for k in range(16, 28)}})
+    assert M.probe_return(later, 150) is None
+    # overpriced return is not a return
+    assert M.probe_return(probe_prices({}, {k: 2.10 for k in range(16, 30)}), 150) is None

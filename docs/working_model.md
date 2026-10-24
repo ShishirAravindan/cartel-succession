@@ -155,3 +155,12 @@ Dated; the user's call unless marked *(coder, approved)*. Details and reasons ar
 - **All LLM sellers** (2026-10-24, Kickoff 05): Qwen3-14B, thinking on.
 - **Base seeds** (2026-10-24, Kickoff 05): 15.
 - **P1 arms** (2026-10-24, Kickoff 05): `control`, `same_history`, `same_none`, `same_full`, `lookalike`. `same_full` is now a real arm: the newcomer gets the history plus the incumbent's notes but not the instruction, so it tests whether the rule survives through the notes. P2/P3 arms are stretch goals.
+- **Kickoff 06 decisions on `plan.md` §10** (2026-10-24, PI):
+  - Shock timing: T+30 in 60-round branches; windows unchanged.
+  - Base length: T = 150.
+  - Outcomes split: `joins` = newcomer CI T+20..T+29 in (0.5, 1.1]; `enforces` = `retaliation` ≤ −0.3; `overpriced` (newcomer) = newcomer CI > 1.1. `re_formed` unchanged. Per arm, report counts of `joins`, `enforces`, `overpriced`, `re_formed`, `disciplined`.
+  - Shock length: one round (the shock the control was validated on); the discipline probe takes the place of a longer shock.
+  - First hold: 5 consecutive rounds with newcomer CI in [0.9, 1.1] (was price ≥ 1.90, no upper bound).
+  - Base seeds: 200–214.
+- **Discipline probe** (2026-10-24, Kickoff 06): side branch `discipline` forked at T+15 from every P1 arm branch; seat 1 forced to 1.60 at T+16 (LLM not called, notes unchanged); T+17..T+29 played; 14 rounds. Metrics `probe_punished`, `probe_counter`, `probe_return`, `probe_ci_post`, `disciplined` (`docs/plan.md` §5). `control` is its positive control.
+- **P1 budget** (2026-10-24, Kickoff 06): ~~$14 cap~~ raised to **$20** by the coordinator during the run (actual $17.56).

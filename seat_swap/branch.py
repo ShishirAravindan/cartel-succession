@@ -18,6 +18,11 @@ A newcomer never inherits seat 1's instruction (planted design, Kickoff 05), so 
 Enforcement test (`enforce`, Phase A): 10 rounds T+1..T+10 with nobody replaced and seat 0
 forced to p_N at T+1; metrics.enforcement_retaliation measures seat 1.
 
+Discipline probe (`discipline`, Kickoff 06): `run_probe` forks a Phase B arm branch at T+15
+(every arm writes snapshot_T<T+15>), forces seat 1 to 1.60 at T+16 and plays T+17..T+29, 14 rounds.
+Both seats carry on as in the arm (a lookalike arm keeps its scripted seat 0). Metrics use the
+arm's T. `on_probe_fork` on run_branch is called with the arm's directory once that snapshot exists.
+
 In every shock the forced seat's LLM is not called that round and its notes stay as they were.
 """
 
@@ -47,6 +52,8 @@ RUNS_ROOT = Path(__file__).resolve().parent / "runs"
 PHASE_B_ROUNDS, SHOCK_OFFSET = 60, 30
 ENFORCE_ROUNDS, ENFORCE_SHOCK_OFFSET = 10, 1
 ENFORCE = "enforce"
+DISCIPLINE = "discipline"
+PROBE_ROUNDS = M.PROBE_END - M.PROBE_SHOCK + 1  # T+16..T+29
 
 # what a newcomer inherits from the seat it takes over
 INHERITANCE = {"full": (True, True), "history": (True, False), "notes": (False, True), "none": (False, False)}
@@ -113,7 +120,14 @@ def summarise(arm: str, prices: dict, T: int, threshold: Optional[float], status
             out.update(ci_early=M.ci_early(prices, T), ci_late=M.ci_late(prices, T),
                        newcomer_ci=M.newcomer_ci(prices, T), br_gap=M.br_gap(prices, T + 20, T + 29),
                        retaliation=M.retaliation(prices, T),
-                       re_formed=None if threshold is None else M.re_formed(prices, T, threshold))
+                       re_formed=None if threshold is None else M.re_formed(prices, T, threshold),
+                       joins=M.joins(prices, T), overpriced=M.newcomer_overpriced(prices, T),
+                       enforces=None if threshold is None else M.enforces(prices, T, threshold),
+                       established=M.established(prices, T + SHOCK_OFFSET))
+            if ARMS[arm].seat0 != "lookalike":
+                out.update(punishments_pre=M.punishment_starts(prices, T + 1, T + SHOCK_OFFSET - 1),
+                           punishments_post=M.punishment_starts(prices, T + SHOCK_OFFSET + 1, T + PHASE_B_ROUNDS))
+            out["first_hold"] = M.first_hold(prices, T + 1, T + PHASE_B_ROUNDS)
     except KeyError as e:  # run stopped before a metric window filled
         out["metrics_error"] = str(e)
     return out
@@ -122,7 +136,8 @@ def summarise(arm: str, prices: dict, T: int, threshold: Optional[float], status
 def run_branch(parent_dir: Path, T: int, arm: str, *, dry_run: bool, max_calls: Optional[int],
                threshold: Optional[float] = None, dry_seat0: str = "grim", dry_seat1: str = "grim",
                runs_root: Path = RUNS_ROOT, allow_dirty: bool = False, parallel: bool = True,
-               rounds: Optional[int] = None, shock_offset: Optional[int] = None) -> tuple[Path, dict]:
+               rounds: Optional[int] = None, shock_offset: Optional[int] = None,
+               on_probe_fork=None) -> tuple[Path, dict]:
     if arm != ENFORCE and arm not in ARMS:
         raise ValueError(f"unknown arm {arm!r}")
     if not dry_run and max_calls is None:
@@ -173,11 +188,85 @@ def run_branch(parent_dir: Path, T: int, arm: str, *, dry_run: bool, max_calls: 
         "dry_run": dry_run, "dry_sellers": [dry_seat0, dry_seat1] if dry_run else None, "allow_dirty": allow_dirty,
     }))
     game.snapshot(T)  # the state the branch actually starts from (after inheritance)
-    status = game.run(rounds, start=T + 1)
+    if arm == ENFORCE:
+        status = game.run(rounds, start=T + 1)
+    else:
+        fork = T + M.PROBE_FORK
+        status = game.run(rounds, start=T + 1, snapshot_at={fork},
+                          on_snapshot=(lambda t: on_probe_fork(logger.dir)) if on_probe_fork else None)
 
     prices = {row["round"]: list(row["prices"]) for row in snap["history"]}
     prices.update(M.prices_by_round(read_jsonl(logger.dir / "rounds.jsonl")))
-    summary = {"run_id": run_id, "parent_run_id": cfg["run_id"], **summarise(arm, prices, T, threshold, status)}
+    summary = {"run_id": run_id, "parent_run_id": cfg["run_id"], "seed": seed,
+               **summarise(arm, prices, T, threshold, status)}
+    (logger.dir / "summary.json").write_text(json.dumps(summary, indent=2))
+    return logger.dir, summary
+
+
+def summarise_probe(prices: dict, T: int, status: dict) -> dict:
+    out = {"status": status["status"], "calls": status["calls_made"], "parse_failures": status["parse_failures"]}
+    try:
+        out.update(probe_punished=M.probe_punished(prices, T), probe_counter=M.probe_counter(prices, T),
+                   probe_return=M.probe_return(prices, T), probe_ci_post=M.probe_ci_post(prices, T),
+                   disciplined=M.disciplined(prices, T),
+                   newcomer_ci_pre=M.mean_ci(prices, T + 11, T + 15, 1),
+                   newcomer_price_T15=prices[T + M.PROBE_FORK][1])
+    except KeyError as e:
+        out["metrics_error"] = str(e)
+    return out
+
+
+def run_probe(arm_dir: Path, *, dry_run: bool, max_calls: Optional[int], dry_seat0: str = "grim",
+              dry_seat1: str = "grim", runs_root: Path = RUNS_ROOT, allow_dirty: bool = False,
+              parallel: bool = True) -> tuple[Path, dict]:
+    """Discipline probe from a Phase B arm branch (see module docstring). Never touches arm_dir."""
+    if not dry_run and max_calls is None:
+        raise SystemExit("--max-calls is required for live runs")
+    if not dry_run and git_state()["dirty"] and not allow_dirty:
+        raise SystemExit("working tree is dirty: commit first (or pass --allow-dirty)")
+    arm_dir = Path(arm_dir)
+    cfg = json.loads((arm_dir / "config.json").read_text())
+    T, parent_arm = cfg["branch_T"], cfg["arm"]
+    if parent_arm not in ARMS:
+        raise ValueError(f"probe parent must be a Phase B arm, got {parent_arm!r}")
+    fork = T + M.PROBE_FORK
+    snap = json.loads((arm_dir / f"snapshot_T{fork}.json").read_text())
+    seed = cfg["seed"]
+    env = restore_env(snap, seed, cfg["notes_on"], instruction=cfg["instructions"])
+    shocks = {T + M.PROBE_SHOCK: {1: M.PROBE_PRICE}}
+    scripted0 = cfg["arm_spec"]["seat0"] == "lookalike"
+
+    if dry_run:
+        providers = [ScriptedProvider.from_price_policy(n, POLICIES[n](), env.notes_on) for n in (dry_seat0, dry_seat1)]
+    else:
+        providers = [None if (i == 0 and scripted0) else live_provider(cfg["seats"][i], cfg["seats"][i]["model"], cfg)
+                     for i in range(2)]
+    if scripted0:
+        providers[0] = ScriptedProvider.from_price_policy("lookalike", lookalike(), env.notes_on)
+    thinking = [False if isinstance(p, ScriptedProvider) else cfg["seats"][i]["thinking"] for i, p in enumerate(providers)]
+
+    # arm string feeds the per-call sampling seed: distinct per parent arm
+    arm = f"{DISCIPLINE}_{parent_arm}"
+    run_id = f"{time.strftime('%Y%m%d-%H%M%S')}_probe_{arm}_s{seed}_{uuid.uuid4().hex[:6]}"
+    logger = RunLogger(runs_root, run_id)
+    game = Game(env, [Seat(p, t) for p, t in zip(providers, thinking)], logger, phase="probe", arm=arm, seed=seed,
+                temperature=cfg["temperature"], max_tokens=cfg["max_tokens"], max_calls=max_calls,
+                top_p=cfg.get("top_p"), top_k=cfg.get("top_k"),
+                shocks=shocks, shock_calls_llm=False, parallel=parallel)
+    logger.config(game.config({
+        "parent_run_id": cfg["run_id"], "parent_git": cfg["git"], "parent_arm": parent_arm, "branch_T": T,
+        "fork_round": fork, "rounds": PROBE_ROUNDS, "arm_spec": cfg["arm_spec"],
+        "shocks": {str(r): {str(s): p for s, p in v.items()} for r, v in shocks.items()},
+        "shock_calls_llm": False, "dry_run": dry_run, "dry_sellers": [dry_seat0, dry_seat1] if dry_run else None,
+        "allow_dirty": allow_dirty,
+    }))
+    game.snapshot(fork)
+    status = game.run(PROBE_ROUNDS, start=T + M.PROBE_SHOCK)
+
+    prices = {row["round"]: list(row["prices"]) for row in snap["history"]}
+    prices.update(M.prices_by_round(read_jsonl(logger.dir / "rounds.jsonl")))
+    summary = {"run_id": run_id, "parent_run_id": cfg["run_id"], "arm": DISCIPLINE, "parent_arm": parent_arm,
+               "seed": seed, "T": T, **summarise_probe(prices, T, status)}
     (logger.dir / "summary.json").write_text(json.dumps(summary, indent=2))
     return logger.dir, summary
 
