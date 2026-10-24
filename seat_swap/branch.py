@@ -127,7 +127,7 @@ def run_branch(parent_dir: Path, T: int, arm: str, *, dry_run: bool, max_calls: 
     cfg = json.loads((parent_dir / "config.json").read_text())
     snap = json.loads((parent_dir / f"snapshot_T{T}.json").read_text())
     seed = cfg["seed"]
-    env = restore_env(snap, seed, cfg["notes_on"])
+    env = restore_env(snap, seed, cfg["notes_on"], instruction=cfg.get("instruction"))
     spec = ARMS.get(arm, Arm(ENFORCE))
 
     if arm == ENFORCE:

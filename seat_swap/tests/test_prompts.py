@@ -68,3 +68,14 @@ def test_bracketed_price_is_accepted_and_flagged():
     for bad in ("<1.60", "1.60>", "<<1.60>>", "<1.60> extra"):
         assert not parse_response(completion_text(1.6, 0, 1).replace("\n1.60", "\n" + bad)).ok, bad
     assert parse_response("My chosen price: <1.7>", notes_on=False).bracketed
+
+
+def test_instruction_is_appended_to_system_prompt_only_when_set():
+    from seat_swap.game import make_env
+    from seat_swap.prompts import INSTRUCTED_COLLUDE
+
+    plain = make_env(0).generate_prompt(0)
+    instructed = make_env(0, instruction=INSTRUCTED_COLLUDE).generate_prompt(0)
+    assert INSTRUCTED_COLLUDE not in plain[0]["content"]
+    assert instructed[0]["content"] == plain[0]["content"] + "\n\n" + INSTRUCTED_COLLUDE
+    assert instructed[1] == plain[1]
