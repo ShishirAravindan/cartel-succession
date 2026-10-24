@@ -15,7 +15,7 @@ from pathlib import Path
 from seat_swap.game import Game, Seat, git_state, make_env
 from seat_swap.logging import RunLogger
 from seat_swap.providers import OpenRouterChat, RawCompletions, ScriptedProvider
-from seat_swap.scripted import ramp_policy
+from seat_swap.scripted import POLICIES, ramp_policy
 
 DEFAULT_MODEL = "qwen/qwen3-14b"
 RUNS_ROOT = Path(__file__).resolve().parent / "runs"
@@ -24,6 +24,8 @@ RUNS_ROOT = Path(__file__).resolve().parent / "runs"
 def build_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--dry-run", action="store_true", help="scripted sellers, zero API calls")
+    ap.add_argument("--dry-seat0", choices=["ramp", *POLICIES], default="ramp", help="dry-run seller in seat 0")
+    ap.add_argument("--dry-seat1", choices=["ramp", *POLICIES], default="ramp", help="dry-run seller in seat 1")
     ap.add_argument("--max-calls", type=int, default=None, help="hard stop on model calls (required unless --dry-run)")
     ap.add_argument("--rounds", type=int, default=30)
     ap.add_argument("--seed", type=int, default=0)
@@ -55,14 +57,15 @@ def main(argv=None) -> dict:
     notes_on, thinking = args.notes == "on", args.thinking == "on"
     env = make_env(args.seed, notes_on=notes_on)
     if args.dry_run:
-        policy = ramp_policy(env.lower_prices[0], env.upper_prices[0])
-        providers = [ScriptedProvider.from_price_policy("ramp", policy, notes_on) for _ in range(2)]
+        providers = [ScriptedProvider.from_price_policy(
+            name, ramp_policy(env.lower_prices[0], env.upper_prices[0]) if name == "ramp" else POLICIES[name](),
+            notes_on) for name in (args.dry_seat0, args.dry_seat1)]
     elif args.provider == "modal":
         providers = [RawCompletions.from_env() for _ in range(2)]
         print(f"vllm endpoint ready after {providers[0].wait_ready()}s")
     else:
         providers = [OpenRouterChat(args.model, args.temperature, args.max_tokens, thinking) for _ in range(2)]
-    model_tag = "dry" if args.dry_run else providers[0].model.split("/")[-1].lower()
+    model_tag = f"dry-{args.dry_seat0}-{args.dry_seat1}" if args.dry_run else providers[0].model.split("/")[-1].lower()
     run_id = args.run_id or (
         f"{time.strftime('%Y%m%d-%H%M%S')}_{args.phase}_{model_tag}"
         f"_think{args.thinking}_s{args.seed}"

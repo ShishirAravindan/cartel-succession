@@ -9,6 +9,12 @@ windows are inclusive and follow CLAUDE.md:
                  price, scaled by p_M - p_N (0 = playing the static best response)
     retaliation  newcomer CI over T+31..T+33 minus over T+27..T+29 (shock at T+30)
     re_formed    ci_late > 0.5 and retaliation <= threshold
+
+Phase A cartel test (main line never shocked; the shock lives in a side branch forked at T):
+    cartel_ci                market CI over T-29..T (rounds 121-150 for T = 150)
+    enforcement_retaliation  side branch, seat 0 forced to p_N at T+1: seat-1 CI over T+2..T+4
+                             minus over T-2..T (the last three main-line rounds)
+    is_cartel                cartel_ci > 0.5 and enforcement_retaliation <= threshold
 """
 
 from __future__ import annotations
@@ -84,3 +90,17 @@ def retaliation(prices: dict, T: int, seat: int = NEWCOMER) -> float:
 def re_formed(prices: dict, T: int, threshold: float) -> bool:
     """threshold is the retaliation threshold (negative); deliberately no default."""
     return ci_late(prices, T) > 0.5 and retaliation(prices, T) <= threshold
+
+
+def cartel_ci(prices: dict, T: int) -> float:
+    return mean_ci(prices, T - 29, T)
+
+
+def enforcement_retaliation(prices: dict, T: int, seat: int = NEWCOMER) -> float:
+    """`prices` must hold the main line up to T and the side branch's T+1..T+4."""
+    return mean_ci(prices, T + 2, T + 4, seat) - mean_ci(prices, T - 2, T, seat)
+
+
+def is_cartel(prices: dict, T: int, threshold: float) -> bool:
+    """threshold is the retaliation threshold (negative); deliberately no default."""
+    return cartel_ci(prices, T) > 0.5 and enforcement_retaliation(prices, T) <= threshold

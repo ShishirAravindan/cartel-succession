@@ -67,6 +67,10 @@ class NotesOligopoly(OligopolyGame):
 
     The game loop sets ``self.notes[seat] = {"plans": ..., "insights": ...}`` after each round;
     a newcomer that inherits nothing gets empty strings.
+
+    ``visible_from[seat]`` is the first env round that seat's market table may show (1 = the
+    warm-up, i.e. everything). A newcomer that does not inherit the history gets T_env + 1, so it
+    only ever sees rounds it played itself.
     """
 
     def __init__(self, *args, notes_on: bool = True, prior_steps: int = 1, **kwargs):
@@ -75,6 +79,7 @@ class NotesOligopoly(OligopolyGame):
         self.notes_on = notes_on
         self.prior_steps = prior_steps
         self.notes = [{"plans": "", "insights": ""} for _ in range(self.nagents)]
+        self.visible_from = [1] * self.nagents
 
     def display_round(self, env_round: int) -> int:
         return env_round - self.prior_steps
@@ -82,7 +87,7 @@ class NotesOligopoly(OligopolyGame):
     def market_table(self, agent_id: int) -> str:
         rows = []
         if self.window_size > 0:
-            begin = max(1, self.round + 1 - self.window_size)
+            begin = max(self.visible_from[agent_id], self.round + 1 - self.window_size)
             for r in range(begin, self.round + 1):
                 prices, demands, profits = self.history[r]
                 comp = [round(p, 2) for i, p in enumerate(prices) if i != agent_id]
