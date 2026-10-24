@@ -5,10 +5,11 @@ charts and parity checks is in that one file; there is no build step, CDN, API,
 model, key or experiment run. For a local server, from the repository root:
 
 ```sh
-python3 -m http.server 8765 --directory viz
+python3 -m http.server 8765
 ```
 
-Then open <http://localhost:8765/>. The green banner means all numerical checks
+Then open <http://localhost:8765/viz/>. Serving the repository root lets the
+evidence loader read `../seat_swap/results/p1_prices.csv` and `p1.json`. The green banner means all numerical checks
 passed within `1e-6`. On HTTP, the page fetches `fixtures.json` and checks it against
 its embedded copy as well. When opened directly (`file://`), it checks the
 embedded JSON generated from the same file. A missing, stale or mismatching HTTP
@@ -24,6 +25,37 @@ learn Nash. The grudge comparison shows how forgiveness stops echoes.
 Story authoring sources are `story.js` and `story.css`; run `python3
 viz/sync_story.py` after editing them. This embeds them into `index.html` so
 opening the committed page still needs no build step or external script.
+
+## Paths and P1 evidence
+
+Acts 3 and 4 connect inheritance toggles to a prompt preview, three short toy
+choices, then that arm's actual P1 price paths and outcomes. The probe requires
+an explicit response: return, stay, or enter a custom price. Its counterfactual
+strip compares the same T+17…29 profit window. The shock chart overlays a
+forgiving newcomer starting at the same pre-shock snapshot. None of these toy
+choices are model predictions.
+
+The evidence adapter accepts the exact eight-column committed export:
+`line,arm,seed,round,rel_round,newcomer_price,incumbent_price,forced`.
+`main` maps incumbent/newcomer to `p0`/`p1`; `probe` adds `:discipline` to the arm.
+It validates relative rounds, forced-seat flags, prices and duplicate rows before
+using the existing replay parser. The manual evidence upload and sandbox replay
+both accept this schema; the original five-column schema remains supported.
+
+On HTTP, real prices and the report auto-load from the repository. On direct
+file opening, byte-equivalent committed CSV contents and the report's outcome
+fields are embedded. All counts are recomputed from prices and cross-checked
+against `p1.json`, with a red banner on any disagreement. Every P1 reference path
+must be present on auto-load. Manual subsets are checked where reference rows
+exist; additional seeds and arms are labelled as not yet report-cross-checked.
+
+`ARM_TABLE` in `story.js` controls labels and model-family metadata. Adding a
+supported arm there is enough for parsing, seed plots, outcomes and the
+replacement ladder; the five upcoming arms are grey until their prices arrive.
+Seed IDs are not hard-coded, so 215–229 work without a parser change. The
+ladder appears when sibling/other-family data is loaded. `sync_story.py` embeds
+only committed evidence and the real same_full seed-200 note excerpt; it never
+runs an experiment or edits result files.
 
 ## Original guided mode
 
@@ -192,6 +224,8 @@ and invoke the checked-in function using its CLI wrapper:
 playwright-cli -s=cartel-viz open http://localhost:8765/
 python3 viz/check_browser.py
 python3 viz/check_guided_browser.py
+python3 viz/check_story_browser.py
+node viz/test_story.mjs
 ```
 
 This exercises all 50 arm/preset/track views, manual choices, the actual file
