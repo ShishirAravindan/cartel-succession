@@ -184,6 +184,20 @@ def main(argv=None) -> dict:
                      f"{fmt(mean([r.get('retaliation') for r in rs]), '+.3f')} | {fmt(mean(fh), '.1f')} ({never}) | {pun} | "
                      f"{fmt(mean([r.get('probe_counter') for r in rs]), '.2f')} | {fmt(mean(pret), '.1f')} ({pnever}) | "
                      f"{fmt(mean([r.get('probe_ci_post') for r in rs]))} |")
+        L += ["", "Established branches only (plan §6), and descriptive probe counts: a return at T+17 comes before "
+              "the newcomer can see any punishment (its T+17 prompt shows rounds up to T+16); incumbent re-punishments "
+              "= seat-0 spells below 1.70 starting in T+21..T+29 of the probe.", "",
+              "| arm | established | retaliation (established) | enforces (established) | return at T+17 | return at k ≥ 18 "
+              "| seeds with probe re-punishment (spells) |", "|---|---|---|---|---|---|---|"]
+        for arm in P1_ARMS:
+            rs = [r for r in rows if r["arm"] == arm]
+            est = [r["retaliation"] for r in rs if r.get("established") and r.get("retaliation") is not None]
+            rep = [len(M.punishment_starts(prices_of(Path(r["probe_dir"]), T, T + M.PROBE_FORK), T + 21, T + 29))
+                   for r in rs if r.get("probe_status") == "completed"]
+            L.append(f"| {arm} | {len(est)}/{len(rs)} | {fmt(mean(est), '+.3f')} | {sum(x <= THRESHOLD for x in est)}/{len(est)} | "
+                     f"{sum(r.get('probe_return') == 17 for r in rs)} | "
+                     f"{sum((r.get('probe_return') or 0) >= 18 for r in rs)} | "
+                     f"{sum(x > 0 for x in rep)}/{len(rep)} ({sum(rep)}) |")
         L += ["", "## Seed level", "",
               "| arm | seed | status (last round) | newcomer_ci | br_gap | retaliation | joins | enforces | overpr. | re_formed | "
               "first_hold | pun. pre / post | probe: status | newc. CI T+11–15 | punished | counter | return | ci_post | disciplined |",
