@@ -110,3 +110,25 @@ def test_run_defaults_to_qwen_sampling_per_thinking_mode(tmp_path):
         sp = read(tmp_path / mode / "calls.jsonl")[0]["sampling_params"]
         assert {k: sp[k] for k in ("temperature", "top_p", "top_k", "max_tokens")} == SAMPLING[on]
     assert SAMPLING[True]["max_tokens"] == 8192 and SAMPLING[False]["temperature"] == 0.7
+
+
+
+def test_think_block_is_split_out_but_raw_completion_kept(tmp_path):
+    from seat_swap.providers import think_text
+
+    body = completion_text(1.7, 0, 1)
+    assert think_text("<think>\nIf they cut to 1.47 I go to 1.47.\n</think>\n\n" + body) == "If they cut to 1.47 I go to 1.47."
+    assert think_text("<think>\nrunning out of tok") == "running out of tok"
+    assert think_text(body) is None
+
+    text = "<think>\nreason here\n</think>\n\n" + body
+    create = FakeCreate(lambda kw: OAICompletion.model_validate({
+        "id": "c1", "object": "text_completion", "created": 0, "model": "m",
+        "choices": [{"index": 0, "text": text, "finish_reason": "stop", "logprobs": None}],
+    }))
+    p = RawCompletions("m", "http://fake.invalid/v1", "x", model_revision="abc123")
+    p._client = SimpleNamespace(completions=SimpleNamespace(create=create))
+    game, logger = make_game(tmp_path, [p, ramp_providers()[1]])
+    assert game.run(1)["status"] == "completed"
+    c = next(c for c in read(logger.dir / "calls.jsonl") if c["seat"] == 0)
+    assert c["raw_completion"] == text and c["reasoning_text"] == "reason here" and c["parsed_price"] == 1.7

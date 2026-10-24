@@ -9,6 +9,7 @@ prompt_mode tells the logger what the model actually received:
 
 from __future__ import annotations
 
+import re
 import time
 from dataclasses import dataclass
 from typing import Callable, Optional
@@ -19,6 +20,13 @@ from poseidon_compute import endpoint_kind
 from seat_swap.scripted import completion_text
 
 QWEN3_STOP = ["<|im_end|>"]
+_THINK_BLOCK = re.compile(r"^\s*<think>(.*?)(?:</think>|$)", re.DOTALL)
+
+
+def think_text(text: str) -> Optional[str]:
+    """Content of a leading <think> block (also an unclosed one, e.g. cut off by max_tokens)."""
+    m = _THINK_BLOCK.match(text)
+    return m.group(1).strip() if m else None
 
 
 @dataclass
@@ -153,8 +161,10 @@ class RawCompletions:
             raise FatalProviderError(f"vllm {self.model}: {e}") from e
         raw = resp.model_dump()
         choice = raw["choices"][0]
+        text = choice.get("text") or ""
         return Completion(
-            text=choice.get("text") or "",
+            text=text,  # verbatim, think block included (the parser skips it)
+            reasoning=think_text(text),
             finish_reason=choice.get("finish_reason"),
             usage=raw.get("usage"),
             served_provider="vllm",
