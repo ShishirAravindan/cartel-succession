@@ -504,3 +504,4 @@ then `modal app stop -y seat-swap-vllm`.
 - Cost split by generated tokens: P1b ≈ $12 of the 14B app's ≈ $16.6 (20:00 UTC hour estimated); Kickoff 08 seat 0 ≈ $4.7.
 - `seat-swap-vllm` back to 2 min scaledown, not stopped (Kickoff 07 finish).
 - Failures over the 90 P1b games: 1 parse (retry ok), 6 transport (retry ok), 0 aborts.
+- Final cost (20:00 UTC hour billed): 14B app $17.40 tonight; **P1b $12.69**, Kickoff 08 seat 0 $4.71. Sprint ≈ $55.8.

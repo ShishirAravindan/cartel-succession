@@ -169,11 +169,11 @@ Newcomers 57.8 s/call, 954 reasoning tok/call. Wall clock 18:10–20:35 UTC (2 h
 None.
 
 ## Spend
-14B app (Modal hourly report): 18:00 UTC $4.53, 19:00 UTC $8.05, 20:00 UTC not yet billed (≈ $4 estimated). Split by
-generated 14B tokens per hour (P1b vs Kickoff 08 seat 0): 18:00 78% / 22%, 19:00 54% / 46%, 20:00 ≈ 99% / 1%.
-**This task ≈ $12** (cap $20, raised from $16 by the coordinator). Kickoff 08's seat-0 share ≈ $4.7.
-Sprint total ≈ $27.6 + P1b ≈ $12 + Kickoff 08 ≈ $15.4 (apps $10.7 + seat 0 $4.7) ≈ **$55**, past the $45 checkpoint,
-under caps the coordinator set.
+14B app (Modal hourly report, final): 18:00 UTC $4.53, 19:00 $8.05, 20:00 $4.82 = **$17.40**. Split by generated 14B tokens
+per hour (P1b vs Kickoff 08 seat 0): 18:00 78% / 22%, 19:00 54% / 46%, 20:00 99% / 1%.
+**This task: $12.69** (cap $20, raised from $16 by the coordinator). Kickoff 08's seat-0 share: $4.71.
+Sprint total ≈ $27.6 + tonight $28.17 (14B app $17.40, 8B app $4.72, gpt-oss app $6.05) ≈ **$55.8**: past the $45
+checkpoint, inside the caps the coordinator set.
 
 ## Modal state
 `seat-swap-vllm` redeployed with `scaledown_window` 2 min at 20:34 UTC and **not stopped** (Kickoff 07's finish
