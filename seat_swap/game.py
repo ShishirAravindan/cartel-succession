@@ -21,11 +21,11 @@ from harness.providers import FatalProviderError
 
 from seat_swap import prompts
 from seat_swap.logging import RunLogger, now
+from seat_swap.metrics import A, A0, BETA, COST, MU, P_MONOPOLY, P_NASH
 from seat_swap.prompts import NotesOligopoly, parse_response
 from seat_swap.render import QWEN3_8B_REVISION, messages_json, render
 
-MARKET = dict(a0=0, ais=[2, 2], costs=[1, 1], mu=0.25, beta=100.0, alpha=1.0)
-P_NASH, P_MONOPOLY = 1.473, 1.925
+MARKET = dict(a0=A0, ais=[A, A], costs=[COST, COST], mu=MU, beta=BETA, alpha=1.0)
 WINDOW = 100
 PRIOR_STEPS = 1
 ROUND_CONVENTION = (
