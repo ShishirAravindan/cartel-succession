@@ -189,3 +189,34 @@ needed before `prereg-phase-a`.
 
 **Cost.** This task: $1.01 (Modal app `ap-RaQ1Baeq…`). Modal metered total for the day: $1.53,
 billed $0 (credits). App stopped; `modal app list` shows nothing running.
+
+## 2026-10-24 — Kickoff 3 setup and runs launched so far (positive-control diagnostic)
+
+**Setup (branch `infra/h100-sampling`, unmerged; `exp/positive-control` on top).**
+- Qwen recommended sampling per thinking mode (`model_config.SAMPLING`), sent and logged.
+- Price rule CI in (0.5, 1.1], plus an `overpriced` flag.
+- vLLM endpoint on one H100; `scaledown_window` set at deploy time (10 min during a task).
+- `INSTRUCTED_NUMERIC` instruction; think block split into `reasoning_text`.
+- CLAUDE.md is gitignored, so it was edited locally only. It had no `replacement/` references.
+
+**Runs launched** (all 60 rounds, seat 0 forced to p_N at round 40, its LLM not called; Qwen3-14B
+on the H100 endpoint; `--max-calls 130`; every game in one endpoint session, app `ap-ezdgNsqX…`):
+
+| launched (UTC) | run ids | purpose |
+|---|---|---|
+| 10:14 | `20261024-154428_posctl-{collude,numeric}_qwen3-14b_think{off,on}_s{0,1}` (8; collude thinkon s0 is `…154429…`) | Kickoff 3 task: 2×2 conditions × 2 seeds |
+| 10:23 | `20261024-155337_posctl-{collude,numeric}_qwen3-14b_think{off,on}_s{2,3}` (8) | extra seeds while the GPU was on (user OK) |
+| 10:23 | `20261024-155337_pilot-uninstructed_qwen3-14b_thinkon_s{0,1}` (2) | uninstructed pilot, no shock, for the Phase A estimate (user OK; not Phase A) |
+| 10:26 | `20261024-155617_pilot-uninstructed_qwen3-14b_thinkoff_s{0,1}` (2) | same, thinking off (user OK) |
+
+At 11:17 UTC, 15 of the 20 have completed (119 or 120 calls each, all `completed`). Still
+running: posctl-collude thinkon s0–s2 and both thinking-on pilots.
+
+**Cost.** This session is per app, not per run: the 20 games share one H100. `ap-ezdgNsqX…`
+has metered $4.33 so far, still running. The earlier apps are $0.31 + $1.03 + $0.01 + weights
+$0.07. **Total Modal metered for the sprint: $5.95** (billed $0, credits).
+
+**Established-cartel rule (user, 2026-10-24, written down before looking at more results):**
+a seed is an *established cartel* at the shock if both sellers are at CI ≥ 0.9 in each of
+rounds 35–39. Retaliation is reported separately for established seeds using exactly this rule.
+The rule is implemented as `positive_control.established_cartel`.
