@@ -30,6 +30,7 @@ def summarise(run_dir: Path) -> dict:
         "run_id": run_dir.name,
         "status": status["status"], "detail": status["detail"], "rounds": status["rounds_completed"],
         "calls": len(calls), "parse_failures": sum(not c["parse_ok"] for c in done),
+        "parse_bracketed": sum(bool(c.get("parse_bracketed")) for c in done),
         "call_errors": sum(c["raw_completion"] is None for c in calls),  # transport or fatal; see "error"
         "finish_reasons": dict(Counter(c["finish_reason"] for c in done)),
         "served_by": dict(Counter(c["served_provider"] for c in done)),

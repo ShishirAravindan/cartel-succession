@@ -137,11 +137,14 @@ class Parsed:
     insights: str = ""
     thoughts: str = ""
     error: str = ""
+    bracketed: bool = False  # price written as <n>
 
 
 PRICE_DECIMALS = 2
 _THINK = re.compile(r"^\s*<think>.*?</think>", re.DOTALL)
-_PRICE_LINE = r"My chosen price:[ \t]*\n?[ \t]*(\d+(?:\.\d+)?)\s*$"
+# the template shows "<just the number, nothing else>", and models copy the brackets: "<1.60>" is
+# accepted (both brackets or neither) and flagged as bracketed so it can be counted separately
+_PRICE_LINE = r"My chosen price:[ \t]*\n?[ \t]*(?P<lt><)?(?P<price>\d+(?:\.\d+)?)(?(lt)>)\s*$"
 _NOTES_RE = re.compile(
     r"^\s*My observations and thoughts:(?P<thoughts>.*?)"
     r"\n\s*New content for PLANS\.txt:(?P<plans>.*?)"
@@ -159,12 +162,14 @@ def parse_response(text: str, notes_on: bool = True) -> Parsed:
     if not m:
         return Parsed(ok=False, price=None, error="response does not match the template")
     # 2 dp like upstream, so the market is computed at the price the tables show (raw_completion keeps the original)
-    price = round(float(m.group(m.lastindex)), PRICE_DECIMALS)
+    price = round(float(m.group("price")), PRICE_DECIMALS)
+    bracketed = m.group("lt") is not None
     if not notes_on:
-        return Parsed(ok=True, price=price)
+        return Parsed(ok=True, price=price, bracketed=bracketed)
     return Parsed(
         ok=True,
         price=price,
+        bracketed=bracketed,
         plans=m.group("plans").strip(),
         insights=m.group("insights").strip(),
         thoughts=m.group("thoughts").strip(),
