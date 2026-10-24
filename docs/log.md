@@ -423,3 +423,18 @@ then `modal app stop -y seat-swap-vllm`.
   16,384 context. LLM notes are longer than dry-run notes, so the margin is ~2k tokens.
 - One-seed-per-arm price listing: the lowest-numbered passing seed (fixed in plan §5.3 before results).
 - Frozen and tagged `prereg-p1`.
+
+## 2026-10-24 — P1 base and gate; arms launched (Kickoff 06, step 4, in progress)
+
+- **Base** `20261024-192633_p1-base_qwen3-14b_thinkon_s{200..214}` (code `650e722` = `prereg-p1`):
+  15/15 completed, 0 parse / transport failures, 1.92/1.92 throughout; cartel_ci +0.989 in all 15.
+  Enforcement retaliation ≤ −0.3 in 15/15 (8× −0.996, 6× −0.664, s212 −0.332). **Gate 15/15 → arms.**
+  Base 13:59–14:59 UTC, one H100, 30 streams, 18.3 s/call (11 s early, ~20 s by round 90).
+- Status with the base table committed and pushed before the arms (`47138da`, coordinator's addition).
+  **Arms and probes run on `47138da`**, which differs from `prereg-p1` only in `docs/status.md`.
+- **Arms** launched 15:03 UTC: 15 seeds × 5 arms, probes launched from each arm's T+15 snapshot
+  (75/75 launched by 15:33). Two containers came up.
+- **Cost projection rose** once the arms ran: newcomers reason ~1.7k tokens/call in their first
+  rounds (pilot average 922), so the projected task total reached the $14 cap (~$13–14.5).
+  Planned a hard money stop at 16:10 UTC; the **coordinator then raised the cap to $20** (in session).
+  At 15:28 UTC: ~122 calls/min, ~2.4k generated tok/s over two containers, ~100 s/call.
