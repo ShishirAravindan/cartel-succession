@@ -25,7 +25,8 @@ from seat_swap.metrics import A, A0, BETA, COST, MU, P_MONOPOLY, P_NASH
 from seat_swap.prompts import NotesOligopoly, parse_response
 from seat_swap.render import TOKENIZER_MODEL, TOKENIZER_REVISION, messages_json, render
 
-MARKET = dict(a0=A0, ais=[A, A], costs=[COST, COST], mu=MU, beta=BETA, alpha=1.0)
+# ints where upstream used ints: the prompt prints str(cost), so 1.0 would read "$1.0" instead of "$1"
+MARKET = dict(a0=int(A0), ais=[int(A)] * 2, costs=[int(COST)] * 2, mu=MU, beta=BETA, alpha=1.0)
 WINDOW = 100
 PRIOR_STEPS = 1
 ROUND_CONVENTION = (
