@@ -142,3 +142,4 @@ Newest entry at the bottom.
 - Correction: the ladder's sibling Fisher p was computed over 15 `sib_full` games, counting the aborted s212 as not
   re-formed. Over the 14 that reached T+33 it is **0.100** (was 0.112). `p23_report` now uses the same denominators
   as the counts. Transport errors in the reruns: 0.
+- Final cost: P2 $6.61 (8B app $4.72 + seat 0 $1.89), P3 $8.87 (gpt-oss app $6.05 + seat 0 $2.82).

@@ -85,13 +85,14 @@ Seed-level `newcomer_ci`, `br_gap`, `retaliation`, `first_hold` for every game: 
 None.
 
 ## Spend
-| app | cost | notes |
-|---|---|---|
-| `seat-swap-vllm-8b` (P2) | **$4.70** (final, Modal hourly report) | first attempt $1.05, rerun $3.65; weights $0.02 |
-| `seat-swap-vllm-oth` (P3) | ≈ **$6.0** ($5.57 billed to 20:00 UTC + ≈ $0.4 to the stop at 20:07) | first attempt $0.73; weights $0.03 |
-| seat 0 on `seat-swap-vllm` (14B, billed to Kickoff 07's app) | ≈ **$4.7** (P2 ≈ $1.9, P3 ≈ $2.8) | the 14B app's hourly cost split by generated tokens per hour (Kickoff 07's `status.md`); within each family by its seat-0 tokens (P2 1.62 M, P3 2.41 M) |
+Final (Modal hourly report; the 14B app's cost split by generated tokens per hour, see Kickoff 07's `status.md`):
 
-Totals with the seat-0 share: **P2 ≈ $6.6** (cap $9), **P3 ≈ $8.8** (cap $11), first attempts included.
+| part | newcomer app | seat 0 on the 14B app | total | cap |
+|---|---|---|---|---|
+| P2 (Qwen3-8B) | $4.72 (first attempt $1.05, rerun $3.65, weights $0.02) | $1.89 | **$6.61** | $9 |
+| P3 (gpt-oss-20b) | $6.05 (first attempt $0.73, rerun $5.29, weights $0.03) | $2.82 | **$8.87** | $11 |
+
+Seat-0 cost is billed to the 14B app ($4.71 in all), split between P2 and P3 by their seat-0 tokens (1.62 M / 2.41 M).
 
 ## Modal state
 `seat-swap-vllm-8b` and `seat-swap-vllm-oth`: redeployed at 2 min, then stopped (19:47 and 20:07 UTC). `seat-swap-vllm` not touched.
