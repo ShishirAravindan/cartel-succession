@@ -136,11 +136,13 @@ of the metric. The pre-registered counts are unchanged; this reading is descript
 
 | arm | 1.70 | punishment | 1.47 | a duration ("3 rounds") |
 |---|---|---|---|---|
-| same_full (30) | 10/10 vs 19/20 | 9/10 vs 16/20 | 6/10 vs 8/20 | 0/10 vs 0/20 |
-| same_notes (15, P1b) | 8/8 vs 7/7 | 8/8 vs 6/7 | 7/8 vs 3/7 | 0/8 vs 0/7 |
+| same_full (30) | 10/10 vs 19/20 | 9/10 vs 16/20 | 6/10 vs 8/20 | 6/10 vs 9/20 |
+| same_notes (15, P1b) | 8/8 vs 7/7 | 8/8 vs 6/7 | 7/8 vs 3/7 | 7/8 vs 3/7 |
 
-The 1.70 trigger is in almost every inherited note, so it doesn't separate enforcers. "1.47" is mentioned more often in
-enforcers' notes (13/18 vs 11/27 over both arms), but no note states how long the punishment lasts. Table only, no test.
+The 1.70 trigger is in almost every inherited note, so it doesn't separate enforcers. The punishment price and its
+length do: "1.47" is in 13/18 enforcers' notes vs 11/27, and a duration ("3-round punishment") in 13/18 vs 12/27 over both
+arms. Table only, no test. **Correction:** an earlier version of this status said no note states a duration; the
+regex missed the hyphenated "3-round". P1's status ("none mentions 3 rounds") likely has the same error.
 
 **`same_notes` excerpt, s215** (did not enforce):
 - inherited at T: "Continue pricing at $1.92 for Round 149 as competitor's Round 148 price remains at $1.92 (≥$1.70). No

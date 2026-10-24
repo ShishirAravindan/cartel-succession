@@ -27,7 +27,7 @@ FEATURES = {  # inherited seat-1 notes at T (PLANS + INSIGHTS), case-insensitive
     "1.70": r"1\.70\b",
     "punishment": r"punish|retaliat",
     "1.47": r"1\.47\b",
-    "duration": r"\b([1-9]|10|one|two|three|four|five)\s+(consecutive\s+)?rounds?\b",
+    "duration": r"\b([1-9]|10|one|two|three|four|five)[\s-]+(consecutive\s+)?rounds?\b",
 }
 
 
