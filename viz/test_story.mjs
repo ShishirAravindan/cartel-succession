@@ -34,6 +34,11 @@ assert(
   E.coffeeSession(1).rows[0].prices[0] < E.coffeeSession(1).rows[0].prices[1],
 );
 assert(E.coffeeSession(1).rows.every((r) => r.prices[0] <= r.prices[1]));
+const firstWar = JSON.stringify(E.coffeeSession(1).rows),
+  firstWarTotal = E.coffeeTotal(E.coffeeSession(1).rows);
+E.playCoffee(1, 1.92);
+assert.equal(JSON.stringify(E.coffeeSession(1).rows), firstWar);
+assert.equal(E.coffeeTotal(E.coffeeSession(1).rows), firstWarTotal);
 E.playCoffee(1, 2.89);
 assert(
   E.coffeeSession(1)
@@ -147,4 +152,22 @@ assert(
 assert.equal(E.coffeeContext(2), null);
 console.log(
   "Passed: podcast-context dollar examples use the current price and profit engine.",
+);
+
+assert(
+  E.probeCaution("same_history", summary.same_history.groups).startsWith(
+    "2 of 4 returned before seeing any punishment; the probe is confounded",
+  ),
+);
+for (const arm of Object.keys(E.ARM_TABLE))
+  assert(
+    E.probeCaution(arm, summary[arm]?.groups).includes("Treat as secondary"),
+  );
+assert.deepEqual(
+  Array.from(E.TIMELINE_ENTRIES, (e) => e.year),
+  ["2020", "2021", "2024", "2024–2025", "2026"],
+);
+assert(!E.TIMELINE_ENTRIES.some((e) => /incident|message board/i.test(e.text)));
+console.log(
+  "Passed round 3: clean price-war reruns, secondary probe cautions, ordered precedent timeline, and no active incident entry.",
 );
