@@ -118,3 +118,10 @@ Newest entry at the bottom.
 | 33 | `e2abc9` | 154 | 0 | `My chosen price:\n```\n1.92\n```` | 1.92 |
 
   Rows 1, 5 and 14 show a bold price header with a colon that still fails. In each, a notes header (`New content for PLANS.txt`) has no colon, so the template doesn't match.
+
+## 2026-10-25 — Budget priority (coordinator)
+
+- P1b's cap is raised to $20 and **P1b has priority**: if total spend would pass the caps, the P2/P3 games are stopped
+  first, never P1b. P2 ($9) and P3 ($11) caps unchanged (they include the stopped first attempt).
+- Reruns launched about 18:55 UTC from `prereg-p23b` (`126cf3f`): manifests `p23_sib_20261025-002242.json`,
+  `p23_oth_20261025-002243.json`, 30 games each. `sib_full` s212 aborted at T+17 (4 unparseable answers).
