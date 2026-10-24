@@ -168,7 +168,8 @@ class Game:
         while True:
             self._reserve_call()
             sampling = {"temperature": self.temperature, "max_tokens": self.max_tokens, "thinking": seat.thinking,
-                        "seed": call_seed(self.seed, self.arm, rnd, seat_idx, attempt)}
+                        "seed": call_seed(self.seed, self.arm, rnd, seat_idx, attempt),
+                        **getattr(seat.provider, "fixed_sampling", {})}
             comp = parsed = None
             try:
                 comp = seat.provider.complete(messages, rendered, sampling, ctx)

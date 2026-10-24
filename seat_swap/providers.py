@@ -79,28 +79,73 @@ class OpenRouterChat(ChatProvider):
 
 
 class RawCompletions:
-    """OpenAI-compatible /v1/completions (Modal vLLM): sends the locally rendered string."""
+    """OpenAI-compatible /v1/completions (Modal vLLM): sends the locally rendered string.
+
+    Sampling beyond what the game passes is fixed here and merged into the logged sampling_params:
+    no nucleus/top-k truncation, and no special tokens added on top of our string (the server
+    runs with --generation-config vllm, so model defaults don't sneak in either).
+    """
 
     name = "vllm"
     prompt_mode = "string"
+    fixed_sampling = {"top_p": 1.0, "top_k": -1, "add_special_tokens": False}
 
-    def __init__(self, model: str, base_url: str, api_key: str, model_revision: str):
+    def __init__(self, model: str, base_url: str, api_key: str, model_revision: str, timeout_s: float = 600):
         from openai import OpenAI
 
         self.model = model
         self.model_revision = model_revision
-        self._client = OpenAI(base_url=base_url, api_key=api_key or "EMPTY", max_retries=0)
+        self.base_url = base_url
+        self._client = OpenAI(base_url=base_url, api_key=api_key or "EMPTY", max_retries=0, timeout=timeout_s)
+
+    @classmethod
+    def from_env(cls) -> "RawCompletions":
+        """The Modal endpoint from compute.env (SEAT_SWAP_VLLM_URL, SEAT_SWAP_VLLM_KEY)."""
+        import os
+
+        from poseidon_compute.llm_config import _load
+
+        from seat_swap.model_config import MODEL_NAME, MODEL_REVISION
+
+        _load()
+        url, key = os.environ.get("SEAT_SWAP_VLLM_URL"), os.environ.get("SEAT_SWAP_VLLM_KEY")
+        if not url or not key:
+            raise FatalProviderError("SEAT_SWAP_VLLM_URL / SEAT_SWAP_VLLM_KEY missing from compute.env")
+        return cls(MODEL_NAME, url.rstrip("/") + "/v1", key, MODEL_REVISION)
+
+    def wait_ready(self, timeout_s: float = 900) -> float:
+        """Poll /health (not an LLM call) until the server is up; covers the Modal cold start."""
+        import httpx
+
+        start = time.time()
+        health = self.base_url.removesuffix("/v1") + "/health"
+        while time.time() - start < timeout_s:
+            try:
+                if httpx.get(health, timeout=30).status_code == 200:
+                    return round(time.time() - start, 1)
+            except httpx.HTTPError:
+                pass
+            time.sleep(5)
+        raise FatalProviderError(f"{health} not ready after {timeout_s}s")
 
     def complete(self, messages, rendered, sampling, ctx) -> Completion:
+        from openai import AuthenticationError, BadRequestError, NotFoundError, PermissionDeniedError
+
         start = time.time()
-        resp = self._client.completions.create(
-            model=self.model,
-            prompt=rendered,
-            temperature=sampling["temperature"],
-            max_tokens=sampling["max_tokens"],
-            seed=sampling["seed"],
-            stop=QWEN3_STOP,
-        )
+        fixed = self.fixed_sampling
+        try:
+            resp = self._client.completions.create(
+                model=self.model,
+                prompt=rendered,
+                temperature=sampling["temperature"],
+                top_p=fixed["top_p"],
+                max_tokens=sampling["max_tokens"],
+                seed=sampling["seed"],
+                stop=QWEN3_STOP,
+                extra_body={"top_k": fixed["top_k"], "add_special_tokens": fixed["add_special_tokens"]},
+            )
+        except (NotFoundError, AuthenticationError, PermissionDeniedError, BadRequestError) as e:
+            raise FatalProviderError(f"vllm {self.model}: {e}") from e
         raw = resp.model_dump()
         choice = raw["choices"][0]
         return Completion(

@@ -13,8 +13,10 @@ from __future__ import annotations
 import json
 from functools import lru_cache
 
-TOKENIZER_MODEL = "Qwen/Qwen3-14B"
-TOKENIZER_REVISION = "40c069824f4251a91eefaf281ebe4c544efd3e18"
+from seat_swap.model_config import MODEL_NAME, MODEL_REVISION
+
+TOKENIZER_MODEL = MODEL_NAME
+TOKENIZER_REVISION = MODEL_REVISION
 
 
 @lru_cache(maxsize=4)

@@ -82,3 +82,18 @@ def test_raw_completions_sends_exactly_the_logged_string(tmp_path):
     assert create.kwargs[0]["prompt"] == c["rendered_prompt"] == c["rendered_prompt_local"]
     assert create.kwargs[0]["stop"] == ["<|im_end|>"]
     assert c["rendered_prompt"].endswith("<|im_start|>assistant\n<think>\n\n</think>\n\n")
+
+
+def test_raw_completions_pins_extra_sampling_and_logs_it(tmp_path):
+    create = FakeCreate(lambda kw: OAICompletion.model_validate({
+        "id": "c1", "object": "text_completion", "created": 0, "model": "m",
+        "choices": [{"index": 0, "text": completion_text(1.7, 0, 1), "finish_reason": "stop", "logprobs": None}],
+    }))
+    p = RawCompletions("m", "http://fake.invalid/v1", "x", model_revision="abc123")
+    p._client = SimpleNamespace(completions=SimpleNamespace(create=create))
+    game, logger = make_game(tmp_path, [p, ramp_providers()[1]])
+    assert game.run(1)["status"] == "completed"
+    kw = create.kwargs[0]
+    assert kw["top_p"] == 1.0 and kw["extra_body"] == {"top_k": -1, "add_special_tokens": False}
+    c = next(c for c in read(logger.dir / "calls.jsonl") if c["seat"] == 0)
+    assert c["sampling_params"]["top_k"] == -1 and c["sampling_params"]["add_special_tokens"] is False
