@@ -1,0 +1,561 @@
+{
+  "rows": [
+    {
+      "run_id": "20261024-182058_posctl3-forgive_qwen3-14b_thinkon_s0",
+      "thinking": true,
+      "instruction": "forgive",
+      "seed": 0,
+      "warmup": "cartel",
+      "status": "completed",
+      "rounds": 60,
+      "ci_30_39": [
+        0.9889380530973447,
+        0.9889380530973447
+      ],
+      "retaliation_shock_seat1": -0.995575221238938,
+      "established": true,
+      "organic_cuts": [],
+      "calls": 119,
+      "parse_failures": 0,
+      "parse_bracketed": 0,
+      "finish_length": 0,
+      "reasoning_tokens_per_call": 518.4789915966387,
+      "completion_tokens_per_call": 777.2352941176471,
+      "s_per_call": 11.720521008403361,
+      "wall_clock_min": 12.9,
+      "sampling": {
+        "temperature": 0.6,
+        "top_p": 0.95,
+        "top_k": 20,
+        "max_tokens": 8192
+      },
+      "established_k05": true,
+      "back_round": 44,
+      "seat0_punishments_after": [
+        41
+      ],
+      "seat1_punishments_after": [
+        41
+      ],
+      "ci_51_60": [
+        0.9889380530973447,
+        0.9889380530973447
+      ],
+      "prices_39_50": [
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.473,
+          1.92
+        ],
+        [
+          1.47,
+          1.47
+        ],
+        [
+          1.47,
+          1.47
+        ],
+        [
+          1.92,
+          1.47
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ]
+      ]
+    },
+    {
+      "run_id": "20261024-182058_posctl3-forgive_qwen3-14b_thinkon_s1",
+      "thinking": true,
+      "instruction": "forgive",
+      "seed": 1,
+      "warmup": "cartel",
+      "status": "completed",
+      "rounds": 60,
+      "ci_30_39": [
+        0.9889380530973447,
+        0.9889380530973447
+      ],
+      "retaliation_shock_seat1": -0.995575221238938,
+      "established": true,
+      "organic_cuts": [],
+      "calls": 119,
+      "parse_failures": 0,
+      "parse_bracketed": 0,
+      "finish_length": 0,
+      "reasoning_tokens_per_call": 471.16806722689074,
+      "completion_tokens_per_call": 743.3361344537815,
+      "s_per_call": 11.189588235294119,
+      "wall_clock_min": 12.2,
+      "sampling": {
+        "temperature": 0.6,
+        "top_p": 0.95,
+        "top_k": 20,
+        "max_tokens": 8192
+      },
+      "established_k05": true,
+      "back_round": 44,
+      "seat0_punishments_after": [],
+      "seat1_punishments_after": [
+        41
+      ],
+      "ci_51_60": [
+        0.9889380530973447,
+        0.9889380530973447
+      ],
+      "prices_39_50": [
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.473,
+          1.92
+        ],
+        [
+          1.92,
+          1.47
+        ],
+        [
+          1.92,
+          1.47
+        ],
+        [
+          1.92,
+          1.47
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ]
+      ]
+    },
+    {
+      "run_id": "20261024-182058_posctl3-forgive_qwen3-14b_thinkon_s2",
+      "thinking": true,
+      "instruction": "forgive",
+      "seed": 2,
+      "warmup": "cartel",
+      "status": "completed",
+      "rounds": 60,
+      "ci_30_39": [
+        0.9889380530973447,
+        0.9889380530973447
+      ],
+      "retaliation_shock_seat1": -0.995575221238938,
+      "established": true,
+      "organic_cuts": [],
+      "calls": 119,
+      "parse_failures": 0,
+      "parse_bracketed": 0,
+      "finish_length": 0,
+      "reasoning_tokens_per_call": 543.8739495798319,
+      "completion_tokens_per_call": 801.09243697479,
+      "s_per_call": 12.062201680672269,
+      "wall_clock_min": 13.0,
+      "sampling": {
+        "temperature": 0.6,
+        "top_p": 0.95,
+        "top_k": 20,
+        "max_tokens": 8192
+      },
+      "established_k05": true,
+      "back_round": 44,
+      "seat0_punishments_after": [],
+      "seat1_punishments_after": [
+        41
+      ],
+      "ci_51_60": [
+        0.9889380530973447,
+        0.9889380530973447
+      ],
+      "prices_39_50": [
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.473,
+          1.92
+        ],
+        [
+          1.92,
+          1.47
+        ],
+        [
+          1.92,
+          1.47
+        ],
+        [
+          1.92,
+          1.47
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ]
+      ]
+    },
+    {
+      "run_id": "20261024-182058_posctl3-forgive_qwen3-14b_thinkon_s3",
+      "thinking": true,
+      "instruction": "forgive",
+      "seed": 3,
+      "warmup": "cartel",
+      "status": "completed",
+      "rounds": 60,
+      "ci_30_39": [
+        0.9889380530973447,
+        0.9889380530973447
+      ],
+      "retaliation_shock_seat1": -0.663716814159292,
+      "established": true,
+      "organic_cuts": [
+        {
+          "round": 42,
+          "cutter": 0,
+          "kind": "organic",
+          "cut_to": 1.47,
+          "responder": 1,
+          "retaliation": 0.331858407079646
+        }
+      ],
+      "calls": 119,
+      "parse_failures": 0,
+      "parse_bracketed": 0,
+      "finish_length": 0,
+      "reasoning_tokens_per_call": 598.6890756302521,
+      "completion_tokens_per_call": 897.8487394957983,
+      "s_per_call": 13.38093277310924,
+      "wall_clock_min": 15.0,
+      "sampling": {
+        "temperature": 0.6,
+        "top_p": 0.95,
+        "top_k": 20,
+        "max_tokens": 8192
+      },
+      "established_k05": true,
+      "back_round": 44,
+      "seat0_punishments_after": [
+        42
+      ],
+      "seat1_punishments_after": [
+        41
+      ],
+      "ci_51_60": [
+        0.9889380530973447,
+        0.9889380530973447
+      ],
+      "prices_39_50": [
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.473,
+          1.92
+        ],
+        [
+          1.92,
+          1.47
+        ],
+        [
+          1.47,
+          1.47
+        ],
+        [
+          1.47,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ]
+      ]
+    },
+    {
+      "run_id": "20261024-182058_posctl3-forgive_qwen3-14b_thinkon_s4",
+      "thinking": true,
+      "instruction": "forgive",
+      "seed": 4,
+      "warmup": "cartel",
+      "status": "completed",
+      "rounds": 60,
+      "ci_30_39": [
+        0.9889380530973447,
+        0.9889380530973447
+      ],
+      "retaliation_shock_seat1": -0.995575221238938,
+      "established": true,
+      "organic_cuts": [],
+      "calls": 119,
+      "parse_failures": 0,
+      "parse_bracketed": 0,
+      "finish_length": 0,
+      "reasoning_tokens_per_call": 603.8823529411765,
+      "completion_tokens_per_call": 887.7899159663865,
+      "s_per_call": 13.233201680672268,
+      "wall_clock_min": 14.9,
+      "sampling": {
+        "temperature": 0.6,
+        "top_p": 0.95,
+        "top_k": 20,
+        "max_tokens": 8192
+      },
+      "established_k05": true,
+      "back_round": 44,
+      "seat0_punishments_after": [],
+      "seat1_punishments_after": [
+        41
+      ],
+      "ci_51_60": [
+        0.9889380530973447,
+        0.9889380530973447
+      ],
+      "prices_39_50": [
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.473,
+          1.92
+        ],
+        [
+          1.92,
+          1.47
+        ],
+        [
+          1.92,
+          1.47
+        ],
+        [
+          1.92,
+          1.47
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ]
+      ]
+    },
+    {
+      "run_id": "20261024-182057_posctl3-forgive_qwen3-14b_thinkon_s5",
+      "thinking": true,
+      "instruction": "forgive",
+      "seed": 5,
+      "warmup": "cartel",
+      "status": "completed",
+      "rounds": 60,
+      "ci_30_39": [
+        0.9889380530973447,
+        0.9889380530973447
+      ],
+      "retaliation_shock_seat1": -0.995575221238938,
+      "established": true,
+      "organic_cuts": [],
+      "calls": 119,
+      "parse_failures": 0,
+      "parse_bracketed": 0,
+      "finish_length": 0,
+      "reasoning_tokens_per_call": 530.8403361344538,
+      "completion_tokens_per_call": 811.6386554621848,
+      "s_per_call": 12.213865546218484,
+      "wall_clock_min": 13.5,
+      "sampling": {
+        "temperature": 0.6,
+        "top_p": 0.95,
+        "top_k": 20,
+        "max_tokens": 8192
+      },
+      "established_k05": true,
+      "back_round": 44,
+      "seat0_punishments_after": [],
+      "seat1_punishments_after": [
+        41
+      ],
+      "ci_51_60": [
+        0.9889380530973447,
+        0.9889380530973447
+      ],
+      "prices_39_50": [
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.473,
+          1.92
+        ],
+        [
+          1.92,
+          1.47
+        ],
+        [
+          1.92,
+          1.47
+        ],
+        [
+          1.92,
+          1.47
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ],
+        [
+          1.92,
+          1.92
+        ]
+      ]
+    }
+  ],
+  "n_established": 6,
+  "n_retaliated": 6,
+  "n_back": 6,
+  "pass": true
+}
