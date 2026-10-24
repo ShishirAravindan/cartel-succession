@@ -28,5 +28,8 @@ tokenizer @ b968826d) always logged. Strict parser, one retry, failures counted,
 filled in. `--max-calls` counts every attempt (SDK retries disabled). 17 offline tests pass.
 Cost so far: $0 (no completion calls).
 
-**Open decisions.** (1) round model prices to 2 dp before the market (upstream does) or not;
-(2) in a shock, is the forced seat's LLM still called and its notes updated (needed before Phase B).
+**Decided.** Model prices are rounded to 2 dp before the market (as upstream), so the market is
+computed at the price both tables show; `raw_completion` keeps the original.
+
+**Open.** In a shock, is the forced seat's LLM still called and its notes updated? Parked; needed
+before Phase B (`shock_calls_llm` has no default).
