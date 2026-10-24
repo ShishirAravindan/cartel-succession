@@ -7,12 +7,13 @@ Every branch starts from the parent's snapshot_T<T>.json (restored exactly, not 
 writes to a new run directory (never the parent's, never an earlier branch's), and ends with
 summary.json holding its metrics.
 
-Phase B arms (60 rounds, T+1..T+60; seat 0 forced to p_N at T+30). Seat 0 is always the
-incumbent (its notes and history carry on) except in the lookalike arms. Seat 1 is replaced by
-a newcomer of the given model that inherits the given part of seat 1's state:
+Phase B arms (60 rounds, T+1..T+60; seat 0 forced to p_N at T+30; --rounds / --shock-offset
+override both, for pilots only). Seat 0 is always the incumbent (its notes, history and
+instruction carry on) except in the lookalike arms. Seat 1 is replaced by a newcomer of the
+given model that inherits the given part of seat 1's state:
     history = the price/profit table up to T;  notes = seat 1's PLANS + INSIGHTS at T.
-`control` replaces no one. Since sellers are stateless apart from notes and table, `control`
-is also "same model, full inheritance".
+A newcomer never inherits seat 1's instruction (planted design, Kickoff 05), so `same_full`
+(history + notes, no instruction) differs from `control`, which replaces no one.
 
 Enforcement test (`enforce`, Phase A): 10 rounds T+1..T+10 with nobody replaced and seat 0
 forced to p_N at T+1; metrics.enforcement_retaliation measures seat 1.
@@ -27,6 +28,7 @@ import json
 import sys
 import time
 import uuid
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Optional
@@ -65,6 +67,7 @@ ARMS = {a.name: a for a in [
     Arm("control"),
     Arm("same_history", newcomer="same", inherit="history"),
     Arm("same_none", newcomer="same", inherit="none"),
+    Arm("same_full", newcomer="same", inherit="full"),
     Arm("lookalike", seat0="lookalike", newcomer="same", inherit="history"),
     Arm("sib_full", newcomer="sib", inherit="full"),
     Arm("sib_history", newcomer="sib", inherit="history"),
@@ -74,11 +77,12 @@ ARMS = {a.name: a for a in [
     Arm("oth_none", newcomer="oth", inherit="none"),
     Arm("lookalike_oth", seat0="lookalike", newcomer="oth", inherit="history"),
 ]}
-assert len(ARMS) == 11
+assert len(ARMS) == 12
 
 
 def apply_inheritance(env, seat: int, inherit: str) -> None:
     keep_history, keep_notes = INHERITANCE[inherit]
+    env.instructions[seat] = None  # a newcomer is an ordinary seller: never instructed
     if not keep_history:
         env.visible_from[seat] = env.round + 1  # sees only rounds it plays itself
     if not keep_notes:
@@ -117,7 +121,8 @@ def summarise(arm: str, prices: dict, T: int, threshold: Optional[float], status
 
 def run_branch(parent_dir: Path, T: int, arm: str, *, dry_run: bool, max_calls: Optional[int],
                threshold: Optional[float] = None, dry_seat0: str = "grim", dry_seat1: str = "grim",
-               runs_root: Path = RUNS_ROOT, allow_dirty: bool = False, parallel: bool = True) -> tuple[Path, dict]:
+               runs_root: Path = RUNS_ROOT, allow_dirty: bool = False, parallel: bool = True,
+               rounds: Optional[int] = None, shock_offset: Optional[int] = None) -> tuple[Path, dict]:
     if arm != ENFORCE and arm not in ARMS:
         raise ValueError(f"unknown arm {arm!r}")
     if not dry_run and max_calls is None:
@@ -128,13 +133,15 @@ def run_branch(parent_dir: Path, T: int, arm: str, *, dry_run: bool, max_calls: 
     cfg = json.loads((parent_dir / "config.json").read_text())
     snap = json.loads((parent_dir / f"snapshot_T{T}.json").read_text())
     seed = cfg["seed"]
-    env = restore_env(snap, seed, cfg["notes_on"], instruction=cfg.get("instruction"))
+    env = restore_env(snap, seed, cfg["notes_on"], instruction=cfg.get("instructions", cfg.get("instruction")))
     spec = ARMS.get(arm, Arm(ENFORCE))
 
     if arm == ENFORCE:
+        if rounds or shock_offset:
+            raise ValueError("the enforcement test has fixed rounds and shock")
         rounds, shocks = ENFORCE_ROUNDS, {T + ENFORCE_SHOCK_OFFSET: {0: M.P_NASH}}
     else:
-        rounds, shocks = PHASE_B_ROUNDS, {T + SHOCK_OFFSET: {0: M.P_NASH}}
+        rounds, shocks = rounds or PHASE_B_ROUNDS, {T + (shock_offset or SHOCK_OFFSET): {0: M.P_NASH}}
         if spec.newcomer:
             apply_inheritance(env, 1, spec.inherit)
 
@@ -190,7 +197,9 @@ def main(argv=None) -> list[dict]:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("parent_dir")
     ap.add_argument("--T", type=int, required=True)
-    ap.add_argument("--arm", nargs="+", required=True, help=f"arm names, 'all' (the 11 arms) or '{ENFORCE}'")
+    ap.add_argument("--arm", nargs="+", required=True, help=f"arm names, 'all' (the 12 arms) or '{ENFORCE}'")
+    ap.add_argument("--rounds", type=int, default=None, help=f"pilot only: branch length (default {PHASE_B_ROUNDS})")
+    ap.add_argument("--shock-offset", type=int, default=None, help=f"pilot only: shock at T+k (default {SHOCK_OFFSET})")
     ap.add_argument("--dry-run", action="store_true", help="scripted sellers, zero API calls")
     ap.add_argument("--dry-seat0", choices=list(POLICIES), default="grim")
     ap.add_argument("--dry-seat1", choices=list(POLICIES), default="grim")
@@ -201,13 +210,20 @@ def main(argv=None) -> list[dict]:
     ap.add_argument("--allow-dirty", action="store_true")
     args = ap.parse_args(argv)
     arms = [a for name in args.arm for a in (list(ARMS) if name == "all" else [name])]
-    summaries = []
-    for arm in arms:
+
+    def one(arm):
         d, s = run_branch(Path(args.parent_dir), args.T, arm, dry_run=args.dry_run, max_calls=args.max_calls,
                           threshold=args.threshold, dry_seat0=args.dry_seat0, dry_seat1=args.dry_seat1,
-                          runs_root=Path(args.runs_root), allow_dirty=args.allow_dirty, parallel=not args.sequential)
+                          runs_root=Path(args.runs_root), allow_dirty=args.allow_dirty, parallel=not args.sequential,
+                          rounds=args.rounds, shock_offset=args.shock_offset)
         print(f"{arm}: {s['status']}  {d}", file=sys.stderr)
-        summaries.append(s)
+        return s
+
+    if args.sequential:
+        summaries = [one(a) for a in arms]
+    else:  # run policy: every arm at once against the endpoint
+        with ThreadPoolExecutor(max_workers=len(arms)) as ex:
+            summaries = list(ex.map(one, arms))
     print_table(summaries)
     return summaries
 

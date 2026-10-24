@@ -12,13 +12,13 @@ from seat_swap.game import Game, Seat, restore_env
 from seat_swap.tests.test_logging import read
 
 T = 40
-CLAUDE_MD_ARMS = ["control", "same_history", "same_none", "lookalike", "sib_full", "sib_history", "sib_none",
+CLAUDE_MD_ARMS = ["control", "same_history", "same_none", "same_full", "lookalike", "sib_full", "sib_history", "sib_none",
                   "oth_full", "oth_history", "oth_none", "lookalike_oth"]
 
 
-def parent(tmp_path, seat0="grim", seat1="grim", run_id="parent"):
+def parent(tmp_path, seat0="grim", seat1="grim", run_id="parent", extra=()):
     run.main(["--dry-run", "--dry-seat0", seat0, "--dry-seat1", seat1, "--rounds", str(T),
-              "--runs-root", str(tmp_path), "--run-id", run_id])
+              "--runs-root", str(tmp_path), "--run-id", run_id, *extra])
     return tmp_path / run_id
 
 
@@ -70,7 +70,7 @@ def test_restore_is_exact(tmp_path):
 
 
 @pytest.mark.parametrize("arm,history,notes", [
-    ("control", True, True), ("same_history", True, False), ("same_none", False, False),
+    ("control", True, True), ("same_history", True, False), ("same_none", False, False), ("same_full", True, True),
     ("sib_full", True, True), ("oth_none", False, False), ("lookalike", True, False),
 ])
 def test_newcomer_sees_only_what_it_inherits(tmp_path, arm, history, notes):
@@ -156,3 +156,31 @@ def test_cartel_warmup_only_when_asked(tmp_path):
     assert n["warmup"] == "nash" and all(abs(p - M.P_NASH) <= 0.051 for p in n["prior_actions"][0])
     prompt = json.loads(read(tmp_path / "w" / "calls.jsonl")[0]["messages"])[1]["content"]
     assert "Round 0:\n   - My price: 1.92\n   - Competitor's price: 1.92" in prompt
+
+
+def system_prompt(branch_dir, seat, rnd=T + 1):
+    c = next(c for c in read(branch_dir / "calls.jsonl") if c["round"] == rnd and c["seat"] == seat)
+    return json.loads(c["messages"])[0]["content"]
+
+
+@pytest.mark.parametrize("arm", ["control", "same_history", "same_none", "same_full", "lookalike"])
+def test_newcomer_is_never_instructed_incumbent_keeps_it(tmp_path, arm):
+    from seat_swap.prompts import INSTRUCTED_COLLUDE_FORGIVE as RULE
+    p = parent(tmp_path, extra=["--instruction", "forgive", "--warmup", "cartel"])
+    assert RULE in system_prompt(p, 1, rnd=T)  # both planted incumbents read the rule on the main line
+    d, _ = run_branch(p, T, arm, dry_run=True, max_calls=None, runs_root=tmp_path)
+    cfg = json.loads((d / "config.json").read_text())
+    assert (RULE in system_prompt(d, 1)) == (arm == "control")
+    assert cfg["instructions"][1] == (RULE if arm == "control" else None)
+    if arm != "lookalike":  # lookalike seat 0 is scripted (its prompt is still built, but nobody reads it)
+        assert RULE in system_prompt(d, 0) and cfg["instructions"][0] == RULE
+
+
+def test_pilot_rounds_and_shock_offset(tmp_path):
+    p = parent(tmp_path)
+    d, s = run_branch(p, T, "same_history", dry_run=True, max_calls=None, runs_root=tmp_path, rounds=30, shock_offset=20)
+    rounds = read(d / "rounds.jsonl")
+    assert [r["round"] for r in rounds] == list(range(T + 1, T + 31))
+    assert [r["round"] for r in rounds if r["shock"]] == [T + 20]
+    assert "metrics_error" in s  # the Phase B retaliation window (T+31..T+33) does not exist here
+
