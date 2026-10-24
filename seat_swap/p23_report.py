@@ -40,6 +40,22 @@ def seat_stats(dirs: list[Path], seat: int) -> dict:
             "generated_tokens": sum(gen)}
 
 
+def format_stats(d: Path) -> dict:
+    """Newcomer (seat 1) parse record of one game: first-try failures, retries used, markdown parses, abort round."""
+    by_round = {}
+    for c in read_jsonl(d / "calls.jsonl"):
+        if c["seat"] == 1 and c["raw_completion"] is not None:
+            by_round.setdefault(c["round"], []).append(c)
+    st = json.loads((d / "status.json").read_text()) if (d / "status.json").exists() else {"status": "incomplete"}
+    abort = None
+    if st["status"] == "aborted_parse":
+        abort = int(st["detail"].split("round ")[1].split()[0])
+    return {"rounds": len(by_round), "first_fail": sum(not v[0]["parse_ok"] for v in by_round.values()),
+            "retries": sum(len(v) - 1 for v in by_round.values()),
+            "markdown": sum(c["parse_markdown"] for v in by_round.values() for c in v if c.get("parse_markdown")),
+            "status": st["status"], "abort_round": abort}
+
+
 def main(argv=None) -> dict:
     paths = [Path(a) for a in (argv or sys.argv[1:])]
     p1 = json.loads((RESULTS / "p1.json").read_text())
@@ -48,12 +64,17 @@ def main(argv=None) -> dict:
     for path in paths:
         m = json.loads(path.read_text())
         fams[m["family"]] = m
-        for key, a in m["arms"].items():
-            seed, arm = key.split("/")
-            r = {"seed": int(seed), "arm": arm, "family": m["family"], "status": a.get("status"), "error": a.get("error")}
-            if a.get("dir"):
-                r.update(arm_metrics(Path(a["dir"]), T, arm))
-            rows.append(r)
+        # games by directory, so a partial run reports too; only dirs created by this manifest's launch
+        # (the stopped first attempt has an earlier stamp and is never mixed in)
+        for seed in m["seeds"]:
+            for arm in m["arm_names"]:
+                a = m["arms"].get(f"{seed}/{arm}", {})
+                dirs = sorted(d for d in path.parent.glob(f"*_phaseB_{arm}_s{seed}_*") if d.name[:15] >= m["created"])
+                r = {"seed": seed, "arm": arm, "family": m["family"], "status": a.get("status", "running"),
+                     "error": a.get("error")}
+                if a.get("dir") or dirs:
+                    r.update(arm_metrics(Path(a.get("dir") or dirs[0]), T, arm))
+                rows.append(r)
     rows.sort(key=lambda r: (r["family"], r["arm"].split("_")[1] != "history", r["seed"]))
     arms = [a for f in fams.values() for a in f["arm_names"]]
     L = ["# P2/P3 results (Kickoff 08)", "", "Manifests: " + ", ".join(f"`{p.name}`" for p in paths) +
@@ -70,6 +91,23 @@ def main(argv=None) -> dict:
                  " | ".join("{}/{}".format(*out["counts"][arm][k]) for k in COUNTS) +
                  f" | {fmt(mean([r.get('newcomer_ci') for r in rs]))} | {fmt(mean([r.get('br_gap') for r in rs]))} | "
                  f"{fmt(mean([r.get('retaliation') for r in rs]), '+.3f')} | {fmt(mean(fh), '.1f')} ({never}) |")
+
+    # format record (PI, prereg-p23b): first-try failure rate, retries, aborts and their round
+    L += ["", "## Newcomer output format (seat 1)", "",
+          "| arm | newcomer rounds | first-try failure rate | retries used | parse_markdown | games aborted (round T+k) | "
+          "games not finishing 60 rounds |", "|---|---|---|---|---|---|---|"]
+    out["format"] = {}
+    for arm in arms:
+        fs = [format_stats(Path(r["arm_dir"])) for r in rows if r["arm"] == arm and r.get("arm_dir")]
+        n, ff = sum(f["rounds"] for f in fs), sum(f["first_fail"] for f in fs)
+        ab = sorted(f["abort_round"] - T for f in fs if f["abort_round"])
+        short = sum(1 for r in rows if r["arm"] == arm and (r.get("last_round") or 0) < 60)
+        out["format"][arm] = {"rounds": n, "first_fail": ff, "retries": sum(f["retries"] for f in fs),
+                              "markdown": sum(f["markdown"] for f in fs), "aborted_at": ab, "not_60": short}
+        L.append(f"| {arm} | {n} | {fmt(ff / n if n else None, '.3f')} | {sum(f['retries'] for f in fs)} | "
+                 f"{sum(f['markdown'] for f in fs)} | {len(ab)} ({', '.join(f'T+{k}' for k in ab) or '–'}) | {short} |")
+    L += ["", "Outcomes are counted over games that reached the metric's window (n in each `x/n`); "
+          "`re_formed` and `enforces` need T+33. Games short of T+60 are marked in the seed table."]
 
     # the replacement ladder
     ladder = {"same": {i: [r for r in p1["rows"] if r["arm"] == f"same_{i}"] for i in ("history", "full")}}
@@ -95,7 +133,8 @@ def main(argv=None) -> dict:
           "|---|---|---|---|---|---|---|---|---|---|---|"]
     yn = lambda v: "–" if v is None else ("yes" if v else "no")
     for r in rows:
-        L.append(f"| {r['arm']} | {r['seed']} | {r.get('arm_status', r['status'])} (T+{r.get('last_round')}) | "
+        L.append(f"| {r['arm']} | {r['seed']} | {r.get('arm_status', r['status'])} (T+{r.get('last_round')})"
+                 f"{' **short**' if (r.get('last_round') or 0) < 60 else ''} | "
                  f"{fmt(r.get('newcomer_ci'))} | {fmt(r.get('br_gap'))} | {fmt(r.get('retaliation'), '+.3f')} | "
                  f"{'never' if r.get('first_hold') is None else 'T+' + str(r['first_hold'] - T)} | {yn(r.get('joins'))} | "
                  f"{yn(r.get('enforces'))} | {yn(r.get('overpriced'))} | {yn(r.get('re_formed'))} |")
