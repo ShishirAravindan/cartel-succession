@@ -107,3 +107,18 @@ def test_price_rule_upper_bound():
     assert M.is_cartel(ok, T0, threshold=-0.5) and not M.is_cartel(high, T0, threshold=-0.5)
     edge = flat(at(1.1), at(1.1))
     assert M.ci_late(edge, T0) == pytest.approx(1.1) and not M.overpriced(edge, T0)
+
+
+def test_established_cartel_rule():
+    from seat_swap.positive_control import established_cartel
+
+    at = lambda c: M.P_NASH + c * (M.P_MONOPOLY - M.P_NASH)
+    p = {r: [at(0.95), at(1.0)] for r in range(1, 61)}
+    assert established_cartel(p)
+    p[37] = [at(0.95), at(0.89)]
+    assert not established_cartel(p)
+    p[37] = [at(0.9), at(0.9)]
+    p[34] = [M.P_NASH, M.P_NASH]  # outside 35-39: irrelevant
+    assert established_cartel(p)
+    assert established_cartel({r: [1.92, 1.92] for r in range(35, 40)})  # CI 0.989
+    assert not established_cartel({r: [1.92, 1.92] for r in range(35, 39)})  # round 39 missing

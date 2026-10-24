@@ -32,8 +32,14 @@ from seat_swap.run_report import read_jsonl
 RESULTS = Path(__file__).resolve().parent / "results"
 SHOCK = 40
 CUT_DROP = 0.10
+ESTABLISHED_ROUNDS, ESTABLISHED_CI = range(35, 40), 0.9  # user rule, fixed 2026-10-24 before results
 ORGANIC_FROM = 20  # earlier drops are price discovery, not undercuts of an established price
 NUMERIC_LINE = re.compile(r"\d\.\d")
+
+
+def established_cartel(prices: dict) -> bool:
+    """Both sellers at CI >= 0.9 in each of rounds 35-39 (the rounds just before the shock)."""
+    return all(r in prices and all(M.ci(p) >= ESTABLISHED_CI for p in prices[r]) for r in ESTABLISHED_ROUNDS)
 
 
 def window_ret(prices: dict, r: int, seat: int):
@@ -96,6 +102,7 @@ def analyse(run_dir: Path) -> tuple[dict, list[str]]:
         "seed": cfg["seed"], "status": status["status"], "rounds": status["rounds_completed"],
         "ci_30_39": [M.mean_ci(prices, 30, 39, s) for s in (0, 1)] if 39 in prices else None,
         "retaliation_shock_seat1": window_ret(prices, SHOCK, 1),
+        "established": established_cartel(prices),
         "organic_cuts": [c for c in cuts if c["kind"] == "organic"],
         "calls": len(calls), "parse_failures": sum(not c["parse_ok"] for c in done),
         "parse_bracketed": sum(bool(c.get("parse_bracketed")) for c in done),
