@@ -394,3 +394,32 @@ then `modal app stop -y seat-swap-vllm`.
 - Doc fixes after review: `same_full` added to the working model's exact arm list; plan proposes
   main-run base seeds 200–214; a T+20 shock would move the metric windows (raised in status).
 
+
+## 2026-10-24 — Kickoff 06 setup: decisions, discipline probe, freeze (before any run)
+
+- Merged `exp/planted-design` into `main` (`--no-ff`), pushed. Work continues on `exp/p1`.
+- PI decisions on plan §10, recorded in the working model and applied to `docs/plan.md`: shock
+  at T+30 in 60 rounds (windows unchanged); T = 150; outcomes split into `joins`
+  (newcomer CI T+20..29 in (0.5, 1.1]), `enforces` (retaliation ≤ −0.3) and newcomer `overpriced`
+  (> 1.1), `re_formed` unchanged; one-round shock kept; `first_hold` bounded at CI [0.9, 1.1];
+  base seeds 200–214. §9 now discloses the $2.89 anchor and the probe's forced newcomer price.
+- **`first_hold` changed**: 5 consecutive rounds with CI in [0.9, 1.1] (about 1.880–1.970), was
+  price ≥ 1.90 with no upper bound. The committed Kickoff 05 pilot table used the old definition
+  and is not regenerated; `newcomer_pilot.py`'s docstring says so.
+- **Discipline probe** (`branch.run_probe`): every P1 arm writes `snapshot_T<T+15>`, and an
+  `on_probe_fork` callback launches the probe at once. Fork after T+15, seat 1 forced to 1.60 at
+  T+16 (LLM not called, notes unchanged), T+17..T+29 played, 14 rounds; the lookalike arm keeps its
+  scripted seat 0. The probe's `arm` string is `discipline_<parent arm>` so the per-call sampling
+  seeds differ between the five probes of one seed. Metrics `probe_punished`, `probe_counter`,
+  `probe_return`, `probe_ci_post`, `disciplined` in `metrics.py`, metrics evaluated on the arm's T.
+- **Orchestrator** `seat_swap.p1`, two stages so `status.md` can be committed after the gate
+  (coordinator's addition to the kickoff): `base` (15 base games + enforcement branches, gate
+  ≥ 8/15) and `arms` (5 arms per passing seed, probes launched from the T+15 callback, control kill
+  check = `re_formed` in more than half). Per-game `--max-calls`: base 340, enforce 30, arm 135,
+  probe 32.
+- **Self-test** (`p1 selftest`, dry, and `test_discipline_probe`): grim seat 0 vs copier seat 1 →
+  `probe_punished` true in every incumbent arm; lookalike / non-reacting seat 0 → false. 85 tests pass.
+- Prompt length at round 150 (dry, with notes): 6,156 tokens; with max_tokens 8192 that fits the
+  16,384 context. LLM notes are longer than dry-run notes, so the margin is ~2k tokens.
+- One-seed-per-arm price listing: the lowest-numbered passing seed (fixed in plan §5.3 before results).
+- Frozen and tagged `prereg-p1`.
