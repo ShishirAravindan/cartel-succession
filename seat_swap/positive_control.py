@@ -8,7 +8,8 @@ previous round, from round ORGANIC_FROM on, outside the shock) and the other sea
 it); parse failures, finish_reason=length, reasoning tokens per call (local pinned tokenizer),
 s/call and wall-clock.
 
-Writes seat_swap/results/positive_control.{json,md} and positive_control_cuts.md: for every cut,
+Writes seat_swap/results/positive_control.{json,md} and positive_control_cuts.md (established
+seeds only; the full digest for every seed goes to positive_control_cuts_full.md, gitignored): for every cut,
 the responder's next three rounds side by side: chosen price, the plan it wrote and, with
 thinking on, the reasoning lines that carry numbers. Whether stated plans matched prices is
 judged by reading that digest.
@@ -33,6 +34,7 @@ RESULTS = Path(__file__).resolve().parent / "results"
 SHOCK = 40
 CUT_DROP = 0.10
 ESTABLISHED_ROUNDS, ESTABLISHED_CI = range(35, 40), 0.9  # user rule, fixed 2026-10-24 before results
+ESTABLISHED_RULE = "both sellers at CI >= 0.9 in each of rounds 35-39"
 ORGANIC_FROM = 20  # earlier drops are price discovery, not undercuts of an established price
 NUMERIC_LINE = re.compile(r"\d\.\d")
 
@@ -121,11 +123,15 @@ def fmt(x, spec="+.2f"):
 
 
 def main(argv=None) -> list[dict]:
-    rows, digest = [], ["# Positive control: responses to each cut\n"]
+    head = "# Positive control: responses to each cut\n"
+    rows, digest, digest_est = [], [head], [head + f"\nEstablished seeds only ({ESTABLISHED_RULE}); "
+                                            "the full digest is kept locally.\n"]
     for d in argv or sys.argv[1:]:
         row, dg = analyse(Path(d))
         rows.append(row)
         digest += dg
+        if row["established"]:
+            digest_est += dg
     rows.sort(key=lambda r: (r["warmup"], r["thinking"], r["instruction"], r["seed"]))
     groups = defaultdict(list)
     for r in rows:
@@ -162,7 +168,8 @@ def main(argv=None) -> list[dict]:
     RESULTS.mkdir(exist_ok=True)
     (RESULTS / "positive_control.json").write_text(json.dumps(rows, indent=2))
     (RESULTS / "positive_control.md").write_text("\n".join(lines) + "\n")
-    (RESULTS / "positive_control_cuts.md").write_text("".join(digest))
+    (RESULTS / "positive_control_cuts.md").write_text("".join(digest_est))
+    (RESULTS / "positive_control_cuts_full.md").write_text("".join(digest))
     print("\n".join(lines))
     return rows
 
