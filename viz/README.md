@@ -14,9 +14,21 @@ its embedded copy as well. When opened directly (`file://`), it checks the
 embedded JSON generated from the same file. A missing, stale or mismatching HTTP
 fixture gives a red banner; it does not silently fall back to embedded fixtures.
 
-## Guided mode
+## Learning story
 
-The page opens in a five-step guide. Every step has **Skip to sandbox**; the
+Act 1 has eight interactive coffee-shop scenes, a collected glossary drawer and
+AI/script persona cards. Cup quantities and profit use the unchanged engine.
+The price-war toy has an explicit competitive-price floor; it does not claim to
+learn Nash. The grudge comparison shows how forgiveness stops echoes.
+
+Story authoring sources are `story.js` and `story.css`; run `python3
+viz/sync_story.py` after editing them. This embeds them into `index.html` so
+opening the committed page still needs no build step or external script.
+
+## Original guided mode
+
+The page opens in Act 1 of the learning story. The original five-step guide is
+available after the coffee-shop scenes or directly with `#practice`. Every step has **Skip to sandbox**; the
 mode buttons also let you switch without losing either view's state. Open with
 `#sandbox` to go straight to the original sandbox. Restarting the guide resets
 only its five lessons; it does not reset the sandbox or a loaded CSV.

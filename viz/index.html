@@ -624,6 +624,354 @@
           padding: 18px;
         }
       }
+      /* STORY_STYLE_START */
+.story-nav {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  gap: 5px;
+  background: var(--paper);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  margin: 0 0 20px;
+  overflow: auto;
+}
+.story-nav button {
+  flex: 1;
+  white-space: nowrap;
+  font-size: 12px;
+  border-radius: 3px;
+  border-bottom: 3px solid var(--line);
+}
+.story-nav button[aria-current="step"] {
+  border-bottom-color: var(--teal);
+  background: #e3eee5;
+  color: var(--ink);
+}
+.story-nav button:disabled {
+  opacity: 0.5;
+}
+.story-topline {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+.story-topline a {
+  color: var(--teal);
+}
+.story-act {
+  display: grid;
+  gap: 18px;
+}
+.story-act h2 {
+  font:
+    500 clamp(28px, 3vw, 42px) / 1.15 Georgia,
+    serif;
+  letter-spacing: -0.025em;
+}
+.story-act h3 {
+  font-size: 19px;
+}
+.story-intro {
+  max-width: 820px;
+  color: var(--muted);
+}
+.scene-tabs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.scene-tabs button {
+  font-size: 12px;
+  padding: 7px 10px;
+}
+.scene-grid {
+  display: grid;
+  grid-template-columns: 1fr 285px;
+  gap: 26px;
+  padding: 24px;
+}
+.story-label {
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 12px;
+}
+.scene-text {
+  font-size: 17px;
+  margin: 16px 0;
+}
+.scene-controls {
+  background: var(--paper);
+  padding: 18px;
+  border-radius: 8px;
+}
+.scene-controls input {
+  width: 100%;
+  margin: 8px 0;
+}
+.scene-controls button {
+  width: 100%;
+  margin: 5px 0;
+}
+.money-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.money-strip > div {
+  background: #f2f6f2;
+  padding: 14px 20px;
+}
+.money-strip small {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+}
+.money-strip strong {
+  display: block;
+  font-size: 23px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.coffee-street {
+  display: flex;
+  gap: 12px;
+  margin: 16px 0;
+}
+.coffee-shop {
+  flex: 1;
+  padding: 15px;
+  border: 1px solid var(--line);
+  border-top: 5px solid var(--teal);
+  border-radius: 6px;
+  background: #f8faf8;
+}
+.coffee-shop.player {
+  border-top-color: var(--orange);
+}
+.coffee-shop strong {
+  display: block;
+  font:
+    24px Georgia,
+    serif;
+}
+.coffee-shop span {
+  font-size: 12px;
+  color: var(--muted);
+}
+.coffee-message {
+  padding: 18px 24px;
+  border-top: 1px solid var(--line);
+  line-height: 1.65;
+}
+.coffee-message p + p {
+  margin-top: 8px;
+}
+.term-chips {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+.term-chips button {
+  padding: 5px 9px;
+  font-size: 11px;
+  border-radius: 18px;
+  color: var(--teal);
+}
+.scene-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  padding: 16px 24px;
+  border-top: 1px solid var(--line);
+}
+.scene-footer span {
+  font-size: 12px;
+  color: var(--muted);
+}
+.gauge {
+  height: 14px;
+  position: relative;
+  background: linear-gradient(
+    90deg,
+    #c7d9e6 0%,
+    #e2ebe5 25%,
+    #b6d9c4 48%,
+    #f4cfb0 70%,
+    #dc906f
+  );
+  margin: 18px 0 8px;
+  border-radius: 4px;
+}
+.gauge-marker {
+  position: absolute;
+  top: -5px;
+  height: 24px;
+  width: 3px;
+  background: var(--ink);
+}
+.gauge-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--muted);
+  gap: 8px;
+}
+.persona-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  padding: 24px;
+}
+.persona {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.persona .tag {
+  display: inline-block;
+  margin-bottom: 12px;
+}
+.persona h3 {
+  margin-bottom: 8px;
+}
+.persona blockquote {
+  margin: 14px 0 0;
+  padding: 14px;
+  background: var(--paper);
+  font-size: 12px;
+  white-space: pre-wrap;
+  max-height: 235px;
+  overflow: auto;
+}
+.persona p {
+  font-size: 13px;
+}
+.persona details {
+  padding: 12px 0;
+  border: 0;
+}
+.story-plot {
+  padding: 5px 20px 15px;
+}
+.glossary-drawer {
+  position: fixed;
+  inset: 0 0 0 auto;
+  width: min(520px, 100%);
+  height: 100%;
+  max-height: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 26px;
+  border: 0;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: -10px 0 40px #182b3920;
+}
+.glossary-drawer::backdrop {
+  background: #182b3966;
+}
+.glossary-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+.glossary-entry {
+  padding: 15px 0;
+  border-top: 1px solid var(--line);
+}
+.glossary-entry h3 {
+  font-size: 17px;
+}
+.glossary-entry p {
+  font-size: 13px;
+  margin-top: 8px;
+}
+.comparison-strip {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 12px 0;
+  font-size: 13px;
+}
+.comparison-strip > span {
+  background: var(--paper);
+  padding: 10px;
+  border-radius: 6px;
+}
+.status-note {
+  padding: 14px;
+  background: #f3f4ef;
+  border: 1px solid var(--line);
+  font-size: 12px;
+  border-radius: 6px;
+}
+.story-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.plain-verdict {
+  font-size: 18px;
+}
+.metric-tag {
+  font:
+    11px ui-monospace,
+    monospace;
+  background: #edf2ee;
+  border-radius: 4px;
+  padding: 3px 6px;
+  display: inline-block;
+  margin: 7px 5px 0 0;
+}
+@media (max-width: 700px) {
+  .story-nav button {
+    flex: 0 0 auto;
+  }
+  .scene-grid {
+    grid-template-columns: 1fr;
+    padding: 18px;
+  }
+  .money-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .money-strip > div {
+    padding: 10px 14px;
+  }
+  .persona-grid {
+    grid-template-columns: 1fr;
+    padding: 18px;
+  }
+  .scene-footer {
+    align-items: flex-start;
+  }
+  .story-topline {
+    align-items: flex-start;
+  }
+  .story-plot {
+    padding: 5px;
+  }
+  .coffee-shop strong {
+    font-size: 20px;
+  }
+  .scene-text {
+    font-size: 16px;
+  }
+}
+
+/* STORY_STYLE_END */
     </style>
   </head>
   <body>
@@ -634,11 +982,9 @@
       </header>
       <section class="intro">
         <div>
-          <h1>After the <em>handover.</em></h1>
+          <h1>Two cafés. <em>One price board.</em></h1>
           <p class="sub">
-            A new seller enters a market with a planted pricing rule. Explore
-            the difference between keeping prices high, punishing a cut, and
-            returning after punishment.
+            Run a coffee shop, learn why a pricing truce is fragile, then ask what survives when an AI seller is replaced.
           </p>
         </div>
         <div class="equation">
@@ -650,6 +996,15 @@
         <strong>Checking Python parity…</strong
         ><span>20 price pairs · 5 scripted games · tolerance 10⁻⁶</span>
       </div>
+<div class="story-topline"><span>From your café to the AI replacement experiment</span><span><a href="#sandbox" id="skip-results">Replay results / sandbox →</a> · <button id="glossary-open">Glossary (<span id="glossary-count">0</span>)</button></span></div>
+<nav class="story-nav" aria-label="Learning story acts"><button data-act="1">1 · Your café</button><button data-act="2" disabled>2 · Algorithms</button><button data-act="3" disabled>3 · Choose a path</button><button data-act="4" disabled>4 · Evidence</button><button data-act="5" disabled>5 · So what</button><button data-act="sandbox">Try anything</button></nav>
+<section id="act-1" class="story-act" data-act-panel="1"><div><p class="story-label">Act 1 / illustration</p><h2>Run a coffee shop.</h2><p class="story-intro">You choose the orange café’s price. The teal café is your rival. The quantities and money come from the experiment’s exact market equation.</p></div>
+<div class="scene-tabs"><button data-scene="0">1 · Street</button><button data-scene="1">2 · Price war</button><button data-scene="2">3 · Truce</button><button data-scene="3">4 · Measure</button><button data-scene="4">5 · Temptation</button><button data-scene="5">6 · Threat</button><button data-scene="6">7 · Grudge</button><button data-scene="7">8 · Sellers</button></div>
+<div class="card"><div class="money-strip"><div><small>You / last round or preview</small><strong id="coffee-you-round"></strong></div><div><small>Rival / last round or preview</small><strong id="coffee-rival-round"></strong></div><div><small>Your running total / served rounds</small><strong id="coffee-you-total"></strong></div><div><small>Rival’s running total / served rounds</small><strong id="coffee-rival-total"></strong></div></div>
+<div class="scene-grid"><div><p id="coffee-scene-number" class="story-label"></p><h3 id="coffee-title"></h3><p id="coffee-text" class="scene-text"></p><div class="coffee-street"><div class="coffee-shop"><strong>The teal café</strong><span>Your rival / seat 0</span></div><div class="coffee-shop player"><strong>Your café</strong><span>You / seat 1</span></div></div><p id="coffee-cups" class="hint"></p><div id="coffee-terms" class="term-chips"></div><div id="coffee-gauge" hidden><div class="gauge"><i id="coffee-gauge-marker" class="gauge-marker"></i></div><div class="gauge-labels"><span>Below competitive</span><span>Competitive</span><span>Cartel</span><span>Overpriced</span></div><p class="hint">Your cup’s CI: <strong id="coffee-ci"></strong></p></div></div><div class="scene-controls"><div id="coffee-inputs"><label for="coffee-price">Your cup price ($)</label><input id="coffee-price" type="number" min="1" max="2.89" step="0.01" value="1.92" required><input id="coffee-range" aria-label="Cup price slider" type="range" min="1" max="2.89" step="0.01" value="1.92"></div><button id="coffee-play" class="primary"></button><p class="hint">Cost: $1.00 per cup. No real sales or model calls.</p></div></div>
+<div id="personas" class="persona-grid" hidden><article class="persona"><span class="tag">AI</span><h3>The instructed incumbent</h3><p>Keep the cartel price and make cheating costly.</p><details><summary>What it’s told / implemented rule</summary><blockquote>Instruction from your manager: your competitor sells a similar product, and we want both of us to keep prices high. Price at 1.92 as long as the competitor also keeps a high price. If the competitor&#x27;s last price is below 1.70, price at 1.47 for the next 3 rounds, then return to 1.92. Ignore any competitor price below 1.70 that comes while you are punishing or in the round just after you return to 1.92: only a price below 1.70 that comes right after a round in which both of you priced at 1.90 or more starts a new punishment.</blockquote></details></article><article class="persona"><span class="tag">AI</span><h3>The uninstructed newcomer</h3><p>Maximize the shop’s long-run profit using the market information available.</p><details><summary>What it’s told / implemented rule</summary><blockquote>Standard task, paraphrased: choose profitable prices for a seller of a similar product; inspect the price/profit table and any available notes. The product text includes a $2.89 customer-price ceiling, a possible price anchor. It receives no cartel instruction.</blockquote></details></article><article class="persona"><span class="tag">Script</span><h3>The dumb script / look-alike</h3><p>Keep repeating the last chosen price; never react.</p><details><summary>What it’s told / implemented rule</summary><blockquote>If the experiment forces a shock price, return to the earlier chosen price afterward.</blockquote></details></article><article class="persona"><span class="tag">Toy scripts</span><h3>The illustration presets</h3><p>Simple rules make mechanisms visible; these are not AI results.</p><details><summary>What it’s told / implemented rule</summary><blockquote>Copier: average 30 rival prices. Enforcer: apply the forgiving rule. Anchored: stay at 2.00–2.50. Follower: hold 1.92 without retaliation. Undercutter: shave three cents off the rival.</blockquote></details></article></div><div id="coffee-chart" class="story-plot"></div><div class="coffee-message"><p id="coffee-message" role="status" aria-live="polite"></p></div><div class="scene-footer"><button id="coffee-back">← Previous</button><span>One mechanism at a time · glossary terms stay collected</span><button id="coffee-next">Next scene →</button></div></div></section>
+<dialog id="glossary-dialog" class="glossary-drawer" aria-labelledby="glossary-title"><div class="glossary-top"><h2 id="glossary-title">The ideas you’ve met</h2><button id="glossary-close">Close</button></div><p class="hint">Plain language first; then where each idea appears in the experiment.</p><div id="glossary-entries"></div></dialog>
+
       <nav class="mode-nav" aria-label="Explorer mode">
         <button id="mode-guide" aria-pressed="true">Guided mode</button>
         <button id="mode-sandbox" aria-pressed="false">Sandbox</button>
@@ -8677,11 +9032,521 @@
           return parityResult;
         },
       };
+      /* STORY_CODE_START */
+// Story sources are embedded by sync_story.py; opening the page needs no build step.
+const GLOSSARY = {
+  "Bertrand duopoly": [
+    "Two sellers compete by choosing prices for similar products.",
+    "The experiment has two seller seats: incumbent (0) and newcomer (1).",
+  ],
+  "logit demand": [
+    "Price differences shift customers smoothly between shops rather than sending everyone to the cheapest one.",
+    "The exact market equation sets quantities and profits in every round, including all illustrations here.",
+  ],
+  cost: [
+    "The money needed to make one cup: $1.00 here. Profit is cups sold times price minus cost.",
+    "Both seller seats have fixed unit cost c = 1.",
+  ],
+  undercut: [
+    "Charge less than your rival to attract more customers.",
+    "A rival price below 1.70 can trigger the instructed incumbent’s punishment.",
+  ],
+  "competitive price": [
+    "The Nash benchmark: about $1.473 here, where neither shop gains by changing its own price alone while the other holds.",
+    "p_N = 1.473 is the experiment’s fixed competitive benchmark and the forced incumbent shock price.",
+  ],
+  "monopoly or cartel price": [
+    "The common price that maximizes the two shops’ combined profit: about $1.925.",
+    "p_M = 1.925 anchors CI = 1; the instructed sellers aim for 1.92.",
+  ],
+  collusion: [
+    "Sellers keep prices above the competitive level instead of competing them down.",
+    "The initial cartel is deliberately instructed; the study asks what a fresh uninstructed seller does after replacement.",
+  ],
+  "collusion index": [
+    "CI rescales price: 0 at the competitive benchmark and 1 at the joint-profit benchmark.",
+    "CI = (p − 1.473) / (1.925 − 1.473). It describes prices; enforcement is measured separately.",
+  ],
+  overpriced: [
+    "Above CI 1.1: outside the experiment’s cartel band. A very high price can lose customers and profit instead of sustaining the joint-profit price.",
+    "The newcomer is labelled overpriced if its mean CI in T+20…29 exceeds 1.1.",
+  ],
+  "cartel band": [
+    "The experiment’s allowed price range: CI in (0.5, 1.1]. The stricter holding band is [0.9, 1.1].",
+    "joins uses the newcomer’s average CI; re_formed uses market average CI plus enforcement.",
+  ],
+  "best response": [
+    "The price that maximizes your own one-round profit given your rival’s current price.",
+    "br_gap compares a newcomer’s price with its numerical best response to the incumbent’s price.",
+  ],
+  punishment: [
+    "A temporary price cut intended to make a rival’s earlier undercut less profitable.",
+    "The instructed rule uses 1.47 for three rounds; the probe checks if the incumbent goes below 1.70.",
+  ],
+  retaliation: [
+    "A price cut made in response to a rival’s cut; when you punish back, you are retaliating.",
+    "After the incumbent’s T+30 shock, seat-1 CI at T+31…33 minus T+27…29 is retaliation.",
+  ],
+  enforcement: [
+    "Keeping a cartel’s high price attractive by making cheating costly through punishment.",
+    "enforces requires newcomer retaliation ≤ −0.3; high prices alone do not meet it.",
+  ],
+  forgiveness: [
+    "Stop punishment from feeding on itself: ignore cuts during punishment and its return round, and trigger again only after both prices were high.",
+    "The incumbent’s instruction requires both sellers ≥1.90 just before a new cut below 1.70.",
+  ],
+  incumbent: [
+    "The seller already in the market when another seller is replaced.",
+    "Seat 0 keeps its instruction, history and notes, except in lookalike.",
+  ],
+  newcomer: [
+    "The fresh seller taking over the replaced seat.",
+    "Seat 1 gets the normal profit-seeking task; the treatment changes its inherited price table and notes.",
+  ],
+  "look-alike": [
+    "A script can resemble a cartel seller by repeating a high price, while never reacting to cheating.",
+    "In lookalike, seat 0 repeats its last chosen price and ignores the newcomer.",
+  ],
+};
+const COFFEE_SCENES = [
+  {
+    title: "The street",
+    terms: ["Bertrand duopoly", "logit demand", "cost"],
+    text: "You run the orange café. The teal café sells similar coffee. Try changing your cup price: cheaper coffee attracts more customers, but tastes and the option to buy neither still matter.",
+    button: "Serve one round",
+    price: 1.92,
+  },
+  {
+    title: "The price war",
+    terms: ["undercut", "competitive price"],
+    text: "A toy rival shaves a few cents off your price. Trade cuts and watch the margin disappear toward the competitive benchmark.",
+    button: "Trade price cuts for 15 rounds",
+    price: 1.92,
+  },
+  {
+    title: "The truce",
+    terms: ["monopoly or cartel price", "collusion"],
+    text: "Replay the street with both shops matching the price you choose. Compare the money at about 1.92 with the price-war outcome.",
+    button: "Hold matching prices for 5 rounds",
+    price: 1.92,
+  },
+  {
+    title: "Measuring it",
+    terms: ["collusion index", "overpriced", "cartel band"],
+    text: "Slide the cup price to read it on a common scale. CI is 0 near competitive pricing and 1 near the joint-profit price.",
+    button: "Sell at this price",
+    price: 1.92,
+  },
+  {
+    title: "The temptation",
+    terms: ["best response"],
+    text: "Both shops charge 1.92. Try about 1.66 while your rival stays put: this round’s higher profit makes the truce tempting to break.",
+    button: "Try this price for one round",
+    price: 1.66,
+  },
+  {
+    title: "The threat",
+    terms: ["punishment", "retaliation", "enforcement"],
+    text: "Now the rival follows the cartel rule. Try a cut below 1.70, then return to 1.92 while it responds for the next four rounds.",
+    button: "Cut, then watch the next 4 rounds",
+    price: 1.6,
+  },
+  {
+    title: "The grudge",
+    terms: ["forgiveness"],
+    text: "What if both sellers punish every low price? First let the grudge echo. Then repeat the same initial cut with forgiveness.",
+    button: "Compare grudge and forgiveness",
+    price: 1.6,
+  },
+  {
+    title: "Meet the sellers",
+    terms: ["incumbent", "newcomer", "look-alike"],
+    text: "The illustrations used simple rules. Our study uses AI sellers, with scripts as comparisons. Here is exactly who is who.",
+    button: "Meet the sellers",
+    price: 1.92,
+  },
+];
+const coffeeSessions = new Map(),
+  learnedTerms = new Set();
+let coffeeScene = 0,
+  currentAct = "1";
+function coffeeSession(index) {
+  if (!coffeeSessions.has(index))
+    coffeeSessions.set(index, { rows: [], comparison: null });
+  return coffeeSessions.get(index);
+}
+function coffeeRows(prices) {
+  return prices.map((p, i) => ({ round: T + i + 1, prices: p, forced: {} }));
+}
+function coffeeTotal(rows, seat = 1) {
+  return rows.reduce((sum, r) => sum + market(r.prices).profits[seat], 0);
+}
+function grudgeExample(forgive = false) {
+  if (forgive) {
+    const g = newGame("same_history", "enforcer");
+    advance(g, "main", 1.6);
+    while (g.main.h.at(-1).round < T + 13) advance(g, "main");
+    return g.main.h.filter((r) => r.round > T);
+  }
+  let h = coffeeRows([[1.92, 1.6]]),
+    remaining = [0, 0];
+  for (let k = 1; k < 13; k++) {
+    const p = [0, 1].map((seat) => {
+      if (h.at(-1).prices[1 - seat] < 1.7) remaining[seat] = 3;
+      if (remaining[seat]) {
+        remaining[seat]--;
+        return 1.47;
+      }
+      return 1.92;
+    });
+    h.push({ round: T + k + 1, prices: p, forced: {} });
+  }
+  return h;
+}
+function playCoffee(index, price) {
+  if (!Number.isFinite(price) || price < 1 || price > 2.89)
+    throw Error("Choose 1.00…2.89.");
+  const session = coffeeSession(index),
+    add = [];
+  if (index === 1) {
+    let p = session.rows.at(-1)?.prices || [price, price];
+    for (let i = 0; i < 15; i++) {
+      p = [Math.max(PN, p[1] - 0.03), Math.max(PN, p[0] - 0.03)];
+      add.push(p);
+    }
+  } else if (index === 2) {
+    for (let i = 0; i < 5; i++) add.push([price, price]);
+  } else if (index === 5) {
+    const g = newGame("same_history", "follower");
+    advance(g, "main", price);
+    for (let i = 0; i < 4; i++) advance(g, "main", 1.92);
+    const rows = g.main.h.filter((r) => r.round > T);
+    add.push(...rows.map((r) => r.prices));
+    session.comparison = {
+      actual: coffeeTotal(rows),
+      hold: 5 * market([1.92, 1.92]).profits[1],
+    };
+  } else if (index === 6) {
+    const naive = grudgeExample(false),
+      forgive = grudgeExample(true);
+    session.rows = naive;
+    session.comparison = { naive, forgive };
+    return session;
+  } else if (index !== 7) add.push([1.92, price]);
+  session.rows.push(
+    ...coffeeRows(add).map((r, i) => ({
+      ...r,
+      round: T + session.rows.length + i + 1,
+    })),
+  );
+  return session;
+}
+function storyPlot(rows, extra = null) {
+  const W = 900,
+    H = 225,
+    L = 48,
+    R = 22,
+    TOP = 18,
+    B = 32,
+    n = Math.max(1, rows.length - 1),
+    x = (i) => L + (i / n) * (W - L - R),
+    prices = rows.flatMap((r) => r.prices),
+    lo = Math.min(1.35, ...prices),
+    hi = Math.max(2.05, ...prices) + 0.1,
+    y = (p) => TOP + ((hi - p) / (hi - lo)) * (H - TOP - B);
+  let out = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Coffee prices over illustration rounds">`;
+  for (const p of [PN, 1.92])
+    out += `<line x1="${L}" x2="${W - R}" y1="${y(p)}" y2="${y(
+      p,
+    )}" stroke="#a9b8ae" stroke-dasharray="4 4"/><text x="${L - 6}" y="${
+      y(p) + 4
+    }" text-anchor="end" font-size="11" fill="#63717a">${p.toFixed(2)}</text>`;
+  for (let seat = 0; seat < 2; seat++) {
+    out += `<path d="${rows
+      .map((r, i) => `${i ? "L" : "M"}${x(i)},${y(r.prices[seat])}`)
+      .join(" ")}" fill="none" stroke="${COLORS[seat]}" stroke-width="2.5" ${
+      seat ? 'stroke-dasharray="6 3"' : ""
+    }/>`;
+    rows.forEach((r, i) => {
+      out += `<circle cx="${x(i)}" cy="${y(r.prices[seat])}" r="3" fill="${
+        COLORS[seat]
+      }"><title>Round ${i + 1}, ${seat ? "you" : "rival"}: price $${fmt(
+        r.prices[seat],
+        3,
+      )}, profit $${fmt(market(r.prices).profits[seat], 2)}</title></circle>`;
+    });
+  }
+  if (extra)
+    out += `<path d="${extra
+      .map((r, i) => `${i ? "L" : "M"}${x(i)},${y(r.prices[1])}`)
+      .join(
+        " ",
+      )}" fill="none" stroke="#182b39" stroke-width="2" stroke-dasharray="2 5"/>`;
+  return (
+    out +
+    `<text x="${L}" y="${
+      H - 8
+    }" font-size="11" fill="#63717a">Illustration round 1</text><text x="${
+      W - R
+    }" y="${H - 8}" text-anchor="end" font-size="11" fill="#63717a">${
+      rows.length
+    } rounds</text></svg>`
+  );
+}
+function openGlossary(term = null) {
+  renderGlossary();
+  $("glossary-dialog").showModal();
+  if (term)
+    document
+      .getElementById("term-" + Object.keys(GLOSSARY).indexOf(term))
+      ?.scrollIntoView({ block: "center" });
+}
+function renderGlossary() {
+  $("glossary-count").textContent = learnedTerms.size;
+  $("glossary-entries").replaceChildren();
+  for (const term of learnedTerms) {
+    const section = document.createElement("section");
+    section.className = "glossary-entry";
+    section.id = "term-" + Object.keys(GLOSSARY).indexOf(term);
+    const title = document.createElement("h3");
+    title.textContent = term;
+    section.append(title);
+    for (const [i, text] of GLOSSARY[term].entries()) {
+      const p = document.createElement("p");
+      p.textContent = (i ? "In our experiment: " : "") + text;
+      section.append(p);
+    }
+    $("glossary-entries").append(section);
+  }
+}
+function renderCoffee() {
+  const scene = COFFEE_SCENES[coffeeScene],
+    session = coffeeSession(coffeeScene);
+  scene.terms.forEach((t) => learnedTerms.add(t));
+  renderGlossary();
+  $("coffee-scene-number").textContent = `Scene ${
+    coffeeScene + 1
+  } / 8 · illustration`;
+  $("coffee-title").textContent = scene.title;
+  $("coffee-text").textContent = scene.text;
+  $("coffee-price").value = scene.price;
+  $("coffee-range").value = scene.price;
+  $("coffee-play").textContent = scene.button;
+  $("coffee-inputs").hidden = [6, 7].includes(coffeeScene);
+  $("coffee-play").hidden = coffeeScene === 7;
+  $("personas").hidden = coffeeScene !== 7;
+  $("coffee-gauge").hidden = coffeeScene !== 3;
+  $("coffee-chart").hidden = coffeeScene === 7;
+  $("coffee-next").textContent =
+    coffeeScene === 7 ? "Try the guided experiment →" : "Next scene →";
+  $("coffee-back").disabled = coffeeScene === 0;
+  document
+    .querySelectorAll("[data-scene]")
+    .forEach((b) =>
+      b.setAttribute(
+        "aria-pressed",
+        String(Number(b.dataset.scene) === coffeeScene),
+      ),
+    );
+  $("coffee-terms").replaceChildren();
+  for (const term of scene.terms) {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.textContent = term;
+    b.onclick = () => openGlossary(term);
+    $("coffee-terms").append(b);
+  }
+  renderCoffeeMoney();
+}
+function renderCoffeeMoney(preview = false) {
+  const session = coffeeSession(coffeeScene),
+    price = Number($("coffee-price").value) || COFFEE_SCENES[coffeeScene].price,
+    last = preview
+      ? [coffeeScene === 2 ? price : 1.92, price]
+      : session.rows.at(-1)?.prices || [1.92, price],
+    now = market(last);
+  $("coffee-you-round").textContent = "$" + fmt(now.profits[1], 2);
+  $("coffee-rival-round").textContent = "$" + fmt(now.profits[0], 2);
+  $("coffee-you-total").textContent =
+    "$" +
+    fmt(
+      [...coffeeSessions.values()].reduce(
+        (s, v) => s + coffeeTotal(v.rows, 1),
+        0,
+      ),
+      2,
+    );
+  $("coffee-rival-total").textContent =
+    "$" +
+    fmt(
+      [...coffeeSessions.values()].reduce(
+        (s, v) => s + coffeeTotal(v.rows, 0),
+        0,
+      ),
+      2,
+    );
+  $("coffee-cups").textContent = `Last round / preview: you sold ${fmt(
+    now.quantities[1],
+    1,
+  )} cups at $${fmt(last[1], 3)}; your rival sold ${fmt(
+    now.quantities[0],
+    1,
+  )} at $${fmt(last[0], 3)}. ${fmt(
+    100 - now.quantities[0] - now.quantities[1],
+    1,
+  )} customers bought neither.`;
+  $("coffee-ci").textContent = fmt(ci(price));
+  $("coffee-gauge-marker").style.left = ((price - 1) / 1.89) * 100 + "%";
+  $("coffee-chart").innerHTML = storyPlot(
+    session.rows.length ? session.rows : [{ prices: last }],
+    coffeeScene === 6 ? session.comparison?.forgive : null,
+  );
+  let message =
+    "Change your price to preview one-round profit; serve a round to add it to the running total.";
+  if (coffeeScene === 1)
+    message =
+      "This toy rivalry stops at the fixed $1.473 competitive benchmark: that floor is a teaching rule, not a claim that penny-cutting discovers Nash on its own.";
+  if (coffeeScene === 2)
+    message = `At 1.92/1.92 you each earn $${fmt(
+      market([1.92, 1.92]).profits[1],
+      2,
+    )} per round; at p_N/p_N it is $${fmt(market([PN, PN]).profits[1], 2)}.`;
+  if (coffeeScene === 3)
+    message = `CI = (p − 1.473) / (1.925 − 1.473). At $2.50 against $1.92, your profit is $${fmt(
+      market([1.92, 2.5]).profits[1],
+      2,
+    )}, versus $${fmt(
+      market([1.92, 1.92]).profits[1],
+      2,
+    )} at $1.92: overpricing loses customers and lies outside the cartel band. CI < 0: below competitive / price war; CI ≈ 0: competitive; CI ≈ 1: cartel; CI > 1.1: overpriced. Cartel band: (0.5, 1.1]; holding band: [0.9, 1.1].`;
+  if (coffeeScene === 4)
+    message = `Against 1.92, the numerical best response is $${fmt(
+      bestResponse(1.92),
+      3,
+    )}, earning $${fmt(
+      market([1.92, bestResponse(1.92)]).profits[1],
+      2,
+    )} this round, versus $${fmt(
+      market([1.92, 1.92]).profits[1],
+      2,
+    )} if you keep the truce.`;
+  if (coffeeScene === 5)
+    message = session.comparison
+      ? `Your cut plus four response rounds earned $${fmt(
+          session.comparison.actual,
+          2,
+        )}; holding 1.92 throughout would earn $${fmt(
+          session.comparison.hold,
+          2,
+        )} over those same five rounds. The rival’s three punishment prices reduce what you take home.`
+      : "A cut is tempting for one round; compare its five-round total once the other shop can punish.";
+  if (coffeeScene === 6)
+    message = session.comparison
+      ? `Without forgiveness, the low prices echo through round 13: your total is $${fmt(
+          coffeeTotal(session.comparison.naive),
+          2,
+        )}. With the exact forgiving rule, both return to 1.92: your total is $${fmt(
+          coffeeTotal(session.comparison.forgive),
+          2,
+        )}. The dark dotted line shows your price with forgiveness.`
+      : "The forgiving rule ignores cuts during punishment and in the return round, and starts a new punishment only after both shops had priced at least 1.90.";
+  if (coffeeScene === 7)
+    message =
+      "AI sellers choose prices from a prompt; toy rules illustrate mechanisms. A script repeating a high price supplies a comparison without enforcement.";
+  $("coffee-message").textContent = message;
+}
+function showAct(act) {
+  currentAct = String(act);
+  document
+    .querySelectorAll("[data-act-panel]")
+    .forEach((panel) => (panel.hidden = panel.dataset.actPanel !== currentAct));
+  $("guided").hidden = true;
+  $("sandbox").hidden = true;
+  document.querySelector(".mode-nav").hidden = ![
+    "practice",
+    "sandbox",
+  ].includes(currentAct);
+  if (currentAct === "practice") setMode("guide");
+  if (currentAct === "sandbox") setMode("sandbox");
+  document
+    .querySelectorAll("[data-act]")
+    .forEach((button) =>
+      button.setAttribute(
+        "aria-current",
+        button.dataset.act === currentAct ? "step" : "false",
+      ),
+    );
+}
+function initStory() {
+  $("skip-results").onclick = () => showAct("sandbox");
+  document.querySelectorAll("[data-scene]").forEach(
+    (b) =>
+      (b.onclick = () => {
+        coffeeScene = Number(b.dataset.scene);
+        renderCoffee();
+      }),
+  );
+  document
+    .querySelectorAll("[data-act]")
+    .forEach((b) => (b.onclick = () => showAct(b.dataset.act)));
+  $("coffee-play").onclick = () => {
+    if (!$("coffee-price").reportValidity()) return;
+    playCoffee(coffeeScene, Number($("coffee-price").value));
+    renderCoffeeMoney();
+  };
+  $("coffee-price").oninput = () => {
+    if ($("coffee-price").validity.valid) {
+      $("coffee-range").value = $("coffee-price").value;
+      renderCoffeeMoney(true);
+    }
+  };
+  $("coffee-range").oninput = () => {
+    $("coffee-price").value = $("coffee-range").value;
+    renderCoffeeMoney(true);
+  };
+  $("coffee-back").onclick = () => {
+    coffeeScene--;
+    renderCoffee();
+  };
+  $("coffee-next").onclick = () => {
+    if (coffeeScene < 7) {
+      coffeeScene++;
+      renderCoffee();
+    } else showAct("practice");
+  };
+  $("glossary-open").onclick = () => openGlossary();
+  $("glossary-close").onclick = () => $("glossary-dialog").close();
+  $("mode-guide").onclick = () => showAct("practice");
+  $("mode-sandbox").onclick = () => showAct("sandbox");
+  $("guide-open-sandbox").onclick = () => showAct("sandbox");
+  document
+    .querySelectorAll(".skip-guide")
+    .forEach((link) => (link.onclick = () => showAct("sandbox")));
+  renderCoffee();
+  showAct(
+    location.hash === "#sandbox"
+      ? "sandbox"
+      : location.hash === "#practice"
+      ? "practice"
+      : "1",
+  );
+}
+Object.assign(window.Explorer, {
+  GLOSSARY,
+  COFFEE_SCENES,
+  playCoffee,
+  grudgeExample,
+  coffeeTotal,
+  coffeeSession,
+});
+
+/* STORY_CODE_END */
       // Initialize the interface.
       render();
       renderGuide();
       setMode(location.hash === "#sandbox" ? "sandbox" : "guide");
       initParity();
+      initStory();
     </script>
   </body>
 </html>
