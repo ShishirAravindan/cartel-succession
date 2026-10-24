@@ -59,6 +59,20 @@ def make_env(seed: int, notes_on: bool = True, window: int = WINDOW) -> NotesOli
     return env
 
 
+def restore_env(snapshot: dict, seed: int, notes_on: bool) -> NotesOligopoly:
+    """Rebuild the env exactly as it was at a snapshot: every round, every seat's notes."""
+    env = make_env(seed, notes_on=notes_on, window=snapshot["window"])
+    assert env.prior_steps == snapshot["prior_steps"]
+    env.history = {row["round"] + env.prior_steps: (list(row["prices"]), list(row["quantities"]), list(row["profits"]))
+                   for row in snapshot["history"]}
+    env.round = snapshot["env_round"]
+    assert max(env.history) == env.round and env.display_round(env.round) == snapshot["round"]
+    env.prior_actions = snapshot["prior_actions"]
+    env.notes = [dict(n) for n in snapshot["notes"]]
+    env.visible_from = list(snapshot.get("visible_from", [1] * env.nagents))
+    return env
+
+
 def template_hash() -> str:
     parts = [prompts.NOTES_FILES_INTRO, prompts.OUTPUT_INSTRUCTIONS_NOTES, prompts.OUTPUT_INSTRUCTIONS_PLAIN,
              prompts.P0_FILES_CLAUSE, prompts.SYSTEM_FORMAT_PLAIN, prompts.FILE_FENCE]
@@ -116,15 +130,25 @@ class Game:
             "git": git_state(), "created": now(), **extra,
         }
 
-    def history_rows(self) -> list[dict]:
-        return [{"round": self.env.display_round(r), "prices": p, "quantities": d, "profits": pr}
-                for r, (p, d, pr) in sorted(self.env.history.items())]
+    def history_rows(self, seat: Optional[int] = None) -> list[dict]:
+        """All rounds, or only those `seat` can see (a newcomer without history sees none before T).
+        `forced` lists the seats whose price was forced that round (shocks in this game only)."""
+        start = 1 if seat is None else self.env.visible_from[seat]
+        rows = []
+        for r, (p, d, pr) in sorted(self.env.history.items()):
+            if r < start:
+                continue
+            t = self.env.display_round(r)
+            rows.append({"round": t, "prices": p, "quantities": d, "profits": pr,
+                         "forced": {str(k): v for k, v in self.shocks.get(t, {}).items()}})
+        return rows
 
     def snapshot(self, t: int) -> None:
         self.log.snapshot(t, {
             "round": t, "env_round": self.env.round, "prior_steps": self.env.prior_steps,
             "prior_actions": self.env.prior_actions, "window": self.env.window_size,
             "history": self.history_rows(), "notes": [dict(n) for n in self.env.notes],
+            "visible_from": list(self.env.visible_from),
         })
 
     # ---- one seat -------------------------------------------------------------------------------
@@ -162,7 +186,7 @@ class Game:
 
     def ask(self, rnd: int, seat_idx: int, messages: list[dict], rendered: str):
         seat = self.seats[seat_idx]
-        ctx = {"seat": seat_idx, "round": rnd, "history": self.history_rows()}
+        ctx = {"seat": seat_idx, "round": rnd, "history": self.history_rows(seat_idx)}
         parse_tries = transport_tries = 0
         attempt = 0
         while True:
