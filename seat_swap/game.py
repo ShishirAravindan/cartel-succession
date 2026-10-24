@@ -144,7 +144,9 @@ class Game:
             "instructions": list(env.instructions),
             "seats": [{"seat": i, "provider": s.provider.name, "model": s.provider.model,
                        "model_revision": s.provider.model_revision, "prompt_mode": s.provider.prompt_mode,
-                       "thinking": s.thinking} for i, s in enumerate(self.seats)],
+                       "thinking": s.thinking, "sampling_override": getattr(s.provider, "sampling_override", None),
+                       "template_kwargs": getattr(getattr(s.provider, "spec", None), "template_kwargs", None) or None}
+                      for i, s in enumerate(self.seats)],
             "temperature": self.temperature, "max_tokens": self.max_tokens, "max_calls": self.max_calls,
             "top_p": self.top_p, "top_k": self.top_k,
             "tokenizer_model": TOKENIZER_MODEL, "tokenizer_revision": TOKENIZER_REVISION,
@@ -189,7 +191,8 @@ class Game:
             "served_provider": comp.served_provider if comp else None,
             "prompt_mode": p.prompt_mode,
             "rendered_prompt": rendered if p.prompt_mode == "string" else None,
-            "rendered_prompt_local": rendered, "tokenizer_revision": TOKENIZER_REVISION,
+            "rendered_prompt_local": rendered,
+            "tokenizer_revision": getattr(p, "tokenizer_revision", None) or TOKENIZER_REVISION,
             "messages": messages_json(messages),
             "sampling_params": sampling,
             "raw_completion": comp.text if comp else None,
@@ -216,6 +219,7 @@ class Game:
             sampling = {"temperature": self.temperature, "top_p": self.top_p, "top_k": self.top_k,
                         "max_tokens": self.max_tokens, "thinking": seat.thinking,
                         "seed": call_seed(self.seed, self.arm, rnd, seat_idx, attempt),
+                        **(getattr(seat.provider, "sampling_override", None) or {}),  # a newcomer model's own
                         **getattr(seat.provider, "fixed_sampling", {})}
             comp = parsed = None
             try:
@@ -234,7 +238,7 @@ class Game:
                 attempt += 1
                 continue
             try:
-                parsed = parse_response(comp.text, self.env.notes_on)
+                parsed = parse_response(comp.text if comp.answer is None else comp.answer, self.env.notes_on)
             except Exception as e:  # noqa: BLE001  never let parsing lose the raw line
                 parsed = prompts.Parsed(ok=False, price=None, error=f"parser raised {e!r}")
             self._record(rnd, seat_idx, attempt, messages, rendered, sampling, comp, parsed, None)
@@ -254,7 +258,9 @@ class Game:
         if self.max_calls is not None and self.calls_made + len(called) > self.max_calls:
             raise StopRun("stopped_max_calls", f"{self.max_calls - self.calls_made} calls left, round {rnd} needs {len(called)}")
         msgs = {i: self.env.generate_prompt(i) for i in called}
-        rendered = {i: render(msgs[i], enable_thinking=self.seats[i].thinking) for i in called}
+        rendered = {i: self.seats[i].provider.render(msgs[i], self.seats[i].thinking)
+                    if hasattr(self.seats[i].provider, "render") else render(msgs[i], enable_thinking=self.seats[i].thinking)
+                    for i in called}
         if self.parallel and len(called) > 1:
             with ThreadPoolExecutor(max_workers=len(called)) as ex:
                 futs = {i: ex.submit(self.ask, rnd, i, msgs[i], rendered[i]) for i in called}
