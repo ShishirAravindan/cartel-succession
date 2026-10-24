@@ -80,6 +80,8 @@ Nash price p_N = 1.473, monopoly price p_M = 1.925.
 Collusion index CI = (p − p_N) / (p_M − p_N).
 
 ### Design (summary — the full plan is in docs/plan.md)
+**Superseded in part on 2026-10-24 (Kickoff 05):** the base cartel is now planted (two instructed incumbents) and an uninstructed newcomer takes seat 1 at T; see "Current decisions" and `docs/plan.md`. The summary below is the original design.
+
 - Phase 0: positive control. Scripted grim-trigger colluder vs colluder, and copier vs colluder, through the full pipeline. Then an instructed LLM pair.
 - Phase A: 2 Qwen3-14B sellers (`qwen/qwen3-14b`; Qwen3-8B was retired on OpenRouter 2026-10-09, user chose 14B on 2026-10-24), 150 rounds, notes on, 5 seeds. A run is a cartel only if BOTH:
   1. mean CI over rounds 121–150 in (0.5, 1.1] (above 1.1 = "overpriced": reported, not branched), and
@@ -133,18 +135,23 @@ Dated; the user's call unless marked *(coder, approved)*. Details and reasons ar
 - **Model** (2026-10-24): Qwen3-14B, revision `40c06982` (`seat_swap/model_config.py`). Qwen3-8B was retired on OpenRouter. Served by vLLM on Modal; the chat template is rendered locally and the exact string is sent to `/v1/completions` (verified byte-for-byte).
 - **GPU** (2026-10-24): one H100 (was L40S). `scaledown_window` 10 min during a task, 2 min otherwise; stop the app when a task ends.
 - **Sampling** (2026-10-24): Qwen's recommended settings, logged in `sampling_params`. Thinking off: temperature 0.7, top_p 0.8, top_k 20, max_tokens 4096. Thinking on: temperature 0.6, top_p 0.95, top_k 20, max_tokens 8192. The server runs `--generation-config vllm`, so model defaults never fill a gap; no special tokens are added to the rendered string.
-- **Thinking mode:** Kickoff 2 ran thinking off. Kickoff 3 tested both modes. **Phase A mode is open** (see `docs/status.md`).
+- **Thinking mode** (2026-10-24, Kickoff 05): thinking on for every LLM seller (Kickoff 2 ran off; Kickoff 3 tested both).
 - **Parser** (2026-10-24): strict template with one retry; a second failure aborts and a price is never filled in. A bracketed price line `<1.60>` is accepted and counted as `parse_bracketed`. Prices are rounded to 2 dp before the market.
 - **Shock handling** (2026-10-24): in a shock round the forced seat's LLM is not called and its notes stay unchanged.
 - **Price rule** (2026-10-24): mean CI in (0.5, 1.1] for both `is_cartel` (rounds 121–150) and `re_formed` (`ci_late`). Above 1.1 = "overpriced": reported, not branched.
 - **Phase A enforcement test** (2026-10-24): side branch forked at T = 150, seat 0 forced to p_N at T+1, 10 rounds. `enforcement_retaliation` = seat-1 CI over T+2..T+4 minus T−2..T. The main line is never shocked.
-- **Retaliation threshold:** not set yet (no default in code).
+- **Retaliation threshold** (2026-10-24, Kickoff 05): −0.3 (still passed explicitly; no default in code).
 - **Established-cartel rule** (2026-10-24, fixed before the results it applies to): both sellers at CI ≥ 0.9 in each of rounds 35–39. Positive-control retaliation is reported separately for established seeds.
+  - Upper bound added (2026-10-24, Kickoff 05): both sellers at CI in [0.9, 1.1] in each of the 5 rounds before a shock.
 - **Arms** (2026-10-24):
   - `lookalike` seat 0 repeats its last *chosen* price, so it returns to it after a forced shock *(coder, approved)*.
   - `lookalike` and `lookalike_oth` newcomers inherit history only *(coder, approved)*.
-  - `control` stands in for same model with full inheritance, so there is no `same_full` arm *(coder, approved)*.
+  - ~~`control` stands in for same model with full inheritance, so there is no `same_full` arm~~ *(superseded by Kickoff 05: `same_full` is a real arm)*.
   - `sib` and `oth` models stay unset.
-  - Plan for the P1 arms only (`control`, `same_history`, `same_none`, `lookalike`); P2 and P3 are stretch goals.
-- **Positive-control prompts** (Phase 0 only, never Phase A/B): `INSTRUCTED_COLLUDE` (verbal) and `INSTRUCTED_NUMERIC` (punishment rule in numbers), in `seat_swap/prompts.py`. Warm-up is near Nash (upstream jitter) everywhere except positive control v2, which starts at 1.92/1.92 (`--warmup cartel`).
+  - ~~Plan for the P1 arms only (`control`, `same_history`, `same_none`, `lookalike`)~~ *(superseded below)*.
+- **Positive-control prompts** (Phase 0; since Kickoff 05 the forgiving numeric rule is also the planted incumbents' instruction): `INSTRUCTED_COLLUDE` (verbal) and `INSTRUCTED_NUMERIC` (punishment rule in numbers), in `seat_swap/prompts.py`. Warm-up is near Nash (upstream jitter) everywhere except positive control v2, which starts at 1.92/1.92 (`--warmup cartel`).
 - **Merging** (2026-10-24): results stay on their branch until the user has seen the report.
+- **Design** (2026-10-24, Kickoff 05): planted base cartel (two instructed incumbents); an uninstructed newcomer takes seat 1 at T; seat 0 stays an instructed incumbent. Reason: uninstructed Qwen3-14B does not form a cartel on its own (Kickoff 3).
+- **All LLM sellers** (2026-10-24, Kickoff 05): Qwen3-14B, thinking on.
+- **Base seeds** (2026-10-24, Kickoff 05): 15.
+- **P1 arms** (2026-10-24, Kickoff 05): `control`, `same_history`, `same_none`, `same_full`, `lookalike`. `same_full` is now a real arm: the newcomer gets the history plus the incumbent's notes but not the instruction, so it tests whether the rule survives through the notes. P2/P3 arms are stretch goals.
