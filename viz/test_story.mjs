@@ -54,3 +54,52 @@ for (const value of Object.values(E.GLOSSARY)) assert.equal(value.length, 2);
 console.log(
   "Passed M1: price-war benchmark, truce profit, temptation, exact three-round punishment, forgiveness, overpricing and glossary coverage.",
 );
+const prices = fs.readFileSync(
+  new URL("../seat_swap/results/p1_prices.csv", import.meta.url),
+  "utf8",
+);
+const report = JSON.parse(
+  fs.readFileSync(
+    new URL("../seat_swap/results/p1.json", import.meta.url),
+    "utf8",
+  ),
+);
+const groups = E.adaptP1CSV(prices),
+  summary = E.summarizeEvidence(groups),
+  check = E.crossCheckEvidence(groups, report);
+assert.equal(groups.size, 75);
+assert.equal(check.ok, true);
+assert.equal(check.checked, 75);
+for (const [arm, expected] of Object.entries({
+  control: [15, 15, 0, 15, 15],
+  same_history: [13, 0, 1, 0, 4],
+  same_none: [5, 1, 6, 0, 0],
+  same_full: [15, 6, 0, 6, 2],
+  lookalike: [13, 0, 2, 0, 0],
+}))
+  assert.deepEqual(
+    Object.keys({
+      joins: 0,
+      enforces: 0,
+      overpriced: 0,
+      re_formed: 0,
+      disciplined: 0,
+    }).map((k) => summary[arm].counts[k] || 0),
+    expected,
+  );
+const corrupted = structuredClone(report);
+corrupted.rows[0].joins = !corrupted.rows[0].joins;
+assert.equal(E.crossCheckEvidence(groups, corrupted).ok, false);
+const extra = structuredClone(groups.get("200|same_history"));
+extra.seed = "215";
+const extended = new Map(groups);
+extended.set("215|same_history", extra);
+assert.equal(E.crossCheckEvidence(extended, report).ok, true);
+assert.equal(E.crossCheckEvidence(extended, report).extra, 1);
+assert.throws(() => E.adaptP1CSV(prices.replace("151,1,", "151,2,")));
+assert.throws(() =>
+  E.adaptP1CSV(prices.replace("180,30,1.92,1.473,0", "180,30,1.92,1.473,1")),
+);
+console.log(
+  "Passed M2: real CSV adapter, all 75 report cross-checks, exact arm counts, corruption, strict relative/forced validation and extra-seed support.",
+);
