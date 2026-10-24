@@ -47,7 +47,7 @@ its notes stay unchanged. (The pilot used T+20 in a 30-round branch; see Open de
 | `retaliation` | newcomer CI T+31..T+33 minus T+27..T+29 |
 | `re_formed` | `ci_late` in (0.5, 1.1] **and** `retaliation` ≤ −0.3 |
 | incumbent punishment count | spells of seat-0 prices < 1.70 (the rule's trigger) starting in T+1..T+29, forced rounds excluded (`punishment_starts`); also T+31..T+60. n/a for `lookalike` |
-| first hold | rounds until the newcomer first prices ≥ 1.90 for 5 consecutive rounds (`first_hold`, as k in T+k; censored at T+56) |
+| first hold | rounds until the newcomer first prices ≥ 1.90 for 5 consecutive rounds (`first_hold`, as k in T+k; censored at T+56). No upper bound yet: an overpriced newcomer counts (see §10.4) |
 | established at shock | see §6 |
 
 Primary comparison: `re_formed` rate per arm (count over branched seeds), with `retaliation` and
@@ -72,7 +72,7 @@ established ones.
 | newcomer never holds; incumbent punishments repeat | the cartel breaks on replacement |
 
 ## 8. Seeds and budget
-15 base seeds, every game in parallel on one H100 (second container allowed under load).
+15 base seeds, **200–214** (0–5 would repeat the forgiveness control's per-call sampling seeds), every game in parallel on one H100 (second container allowed under load).
 Estimate from Kickoff 05 timings (incumbents 10–15 s/call, newcomer 19 s/call, ~920 reasoning
 tokens/call, at 12–18 streams): base 150 rounds ≈ 30–40 min wall, enforcement branches ≈ 3 min,
 5 arms × up to 15 seeds × 60 rounds ≈ 40–60 min (150 streams; slower per call, second container
@@ -90,13 +90,10 @@ only after the PI's review.
 - Uninstructed Qwen3-14B does not collude on its own (Kickoff 3), which is why the base is planted.
 
 ## 10. Open decisions (for the PI)
-1. Shock at T+30 in 60 rounds (working model) or T+20 in 30 rounds (pilot, cheaper)?
+1. Shock at T+30 in 60 rounds (working model) or T+20 in 30 rounds (pilot, cheaper)? T+20 also moves the
+   windows (a metric change): suggested `ci_late` / `newcomer_ci` / `br_gap` T+10..19, `retaliation`
+   T+21..23 minus T+17..19, established T+15..19.
 2. T = 150 for an instructed base, or shorter (cost scales with base length)?
-3. **Pilot read (Kickoff 05, 2 seeds × 3 arms, not a result):** the newcomer never retaliated to the
-   shock (+0.00 to +0.04) and the incumbent never punished it (it never priced below 1.70).
-   `same_history` copied 1.92; `same_none` froze overpriced (2.00, 2.50); `lookalike` s101 sat at
-   1.80. If that holds, `re_formed` is false in every newcomer arm, and incumbent punishment
-   count and first hold carry little signal. Report "joins" (`newcomer_ci` in band) and
-   "enforces" (`retaliation` ≤ −0.3) as separate pre-registered outcomes? (The definitions above
-   are unchanged; this is only a reporting question.)
-
+3. Report "joins" (`newcomer_ci` in band) and "enforces" (`retaliation` ≤ −0.3) as separate outcomes?
+   The pilot newcomer joined but never retaliated (`docs/status.md`, decision 3).
+4. Bound `first_hold` at CI 1.1 (about [1.90, 1.97]), like the price and established rules?

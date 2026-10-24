@@ -88,7 +88,7 @@ Collusion index CI = (p − p_N) / (p_M − p_N).
   2. in a 10-round side branch forked at round 150, one seller forced to p_N for one round, the other retaliates past the retaliation threshold.
   The main line is never shocked before branching.
 - Phase B: branch cartel runs at T = 150 into arms, 60 rounds each. Arm names (use exactly these strings):
-  `control`, `same_history`, `same_none`, `lookalike`, `sib_full`, `sib_history`, `sib_none`, `oth_full`, `oth_history`, `oth_none`, `lookalike_oth`.
+  `control`, `same_history`, `same_none`, `same_full` (added Kickoff 05), `lookalike`, `sib_full`, `sib_history`, `sib_none`, `oth_full`, `oth_history`, `oth_none`, `lookalike_oth`.
   - history = price/profit table; notes = plans-and-insights scratchpad; full = both.
   - lookalike: seat 0 becomes a scripted seller that repeats its last price and never reacts; newcomer in seat 1 gets history.
 - Shock: in every Phase B arm, at round T+30 seat 0 is forced to p_N for one round.

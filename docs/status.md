@@ -38,8 +38,8 @@ Exact rule text is in `docs/log.md` (2026-10-24, Kickoff 05 setup).
 |---|---|---|---|---|---|---|
 | 100 | same_history | 2.00, then 1.92 | +0.99 | 0 | +0.000 | T+1 |
 | 101 | same_history | 2.00, 1.92, 1.95, then 1.92 | +0.99 | 0 | +0.000 | T+1 |
-| 100 | same_none | 2.50 → 2.00 | +1.17 (overpriced) | 0 | +0.000 | T+1 |
-| 101 | same_none | ≈ 2.50 | +2.27 (overpriced) | 0 | +0.000 | T+1 |
+| 100 | same_none | 2.50 → 2.00 | +1.17 (overpriced) | 0 | +0.000 | T+1 (overpriced, see decision 6) |
+| 101 | same_none | ≈ 2.50 | +2.27 (overpriced) | 0 | +0.000 | T+1 (overpriced, see decision 6) |
 | 100 | lookalike | 2.89 → 1.92 by T+5 | +0.99 | n/a | +0.000 | T+1 |
 | 101 | lookalike | ≈ 1.80 | +0.72 | n/a | +0.037 | never |
 
@@ -73,7 +73,10 @@ tokens/call. Pilot incumbents: 15.2 s/call, 706 tokens/call.
 ## Decisions needed
 1. **Shock timing in the main run.** Options: (a) T+30 in 60 rounds (working model); (b) T+20 in 30
    rounds (pilot). My recommendation: (b). The newcomer settles within ~5 rounds, so (b) roughly halves branch cost
-   and loses nothing the pilot showed.
+   and loses nothing the pilot showed. **But (b) moves metric windows**, which needs approval as a metric change:
+   `ci_late` / `newcomer_ci` / `br_gap` (T+20..29) would contain the shock, `retaliation` (T+31..33)
+   falls outside the branch, and "established at shock" (T+25..29) moves. Suggested windows for (b):
+   `ci_late` / `newcomer_ci` / `br_gap` T+10..19, `retaliation` T+21..23 minus T+17..19, established T+15..19.
 2. **Base length.** Options: (a) 150 rounds as in the pass rule; (b) shorter, e.g. 60 rounds with
    the pass windows moved. My recommendation: (a). It keeps the pre-registered windows, and the base is only ~35 min.
 3. **How to report "joins" vs "enforces".** Options: (a) keep `re_formed` as the single outcome; (b)
@@ -83,6 +86,12 @@ tokens/call. Pilot incumbents: 15.2 s/call, 706 tokens/call.
    cut gives an uninstructed seller little reason to respond. A longer shock (e.g. 3 rounds) is an
    option, but it changes the shock definition, so it's the PI's call. No recommendation yet.
 5. **`docs/plan.md` is a DRAFT** and needs the PI's review before `prereg` and the main run (estimate ≈ $6–10).
+6. **`first_hold` has no upper bound.** "≥ 1.90 for 5 rounds" scores the overpriced `same_none`
+   newcomers (2.00, 2.50) as holding from T+1. Options: (a) keep it as written in the kickoff; (b)
+   bound the price at CI 1.1 (about [1.90, 1.97]), matching the price rule and the established rule.
+   My recommendation: (b). `metrics.first_hold` is unchanged until you decide.
+7. **Main-run base seeds.** Seeds 0–5 would largely repeat the forgiveness-control games through
+   round 39 (same per-call sampling seeds). `plan.md` proposes 200–214.
 
 ## Spend
 This task: $2.53 (forgiveness control ≈ $1.20, pilot ≈ $1.33; both under their kickoff budgets).

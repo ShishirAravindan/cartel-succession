@@ -389,3 +389,8 @@ and "enforces" separately given the pilot.
 $0.80 + $1.73). Split by time: forgiveness control ≈ $1.20 (incl. cold start), pilot ≈ $1.33.
 Sprint total metered: **$10.05** (billed $0, credits). Redeployed with `scaledown_window` 2 min,
 then `modal app stop -y seat-swap-vllm`.
+- Note on `first_hold`: it scores the overpriced `same_none` newcomers as holding from T+1, because
+  "≥ 1.90" has no upper bound. Left unchanged and raised as a decision; read those T+1s as overpriced, not joined.
+- Doc fixes after review: `same_full` added to the working model's exact arm list; plan proposes
+  main-run base seeds 200–214; a T+20 shock would move the metric windows (raised in status).
+
