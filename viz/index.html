@@ -1449,6 +1449,47 @@
   }
 }
 
+.story-context {
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 15px 20px;
+  background: #f8f9f5;
+}
+.story-context summary {
+  font-size: 13px;
+  color: var(--ink);
+  font-weight: 600;
+}
+.story-context p {
+  font-size: 13px;
+  line-height: 1.65;
+  margin-top: 12px;
+  max-width: 950px;
+}
+.story-context .source-links {
+  font-size: 11px;
+}
+.design-contexts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 18px 0;
+}
+.story-tangent {
+  background: #f1f5ef;
+}
+.story-context[hidden] {
+  display: none !important;
+}
+@media (max-width: 700px) {
+  .design-contexts {
+    grid-template-columns: 1fr;
+  }
+  .story-context {
+    padding: 14px 16px;
+  }
+}
+
 /* STORY_STYLE_END */
     </style>
   </head>
@@ -1669,6 +1710,10 @@
           <div class="coffee-message">
             <p id="coffee-message" role="status" aria-live="polite"></p>
           </div>
+          <details id="coffee-context" class="story-context" hidden>
+            <summary id="coffee-context-title"></summary>
+            <p id="coffee-context-text"></p>
+          </details>
           <div class="scene-footer">
             <button id="coffee-back">← Previous</button
             ><span>One mechanism at a time · glossary terms stay collected</span
@@ -1777,6 +1822,32 @@
             <p class="hint">[source to add]</p>
           </article>
         </div>
+        <details id="partner-context" class="story-context story-tangent">
+          <summary>A useful analogy: changing dance partners</summary>
+          <p>
+            Two dancers can each know a routine that works with their usual
+            partner, yet lose the rhythm when paired together. A learned pricing
+            arrangement can also depend on its partner.
+          </p>
+          <p>
+            Eschenbaum, Mellgren and Zahn paired Q-learning policies trained in
+            separate contexts, including contexts differing only in random seed,
+            and found that the fixed policies’ collusion broke down. This study
+            instead gives a replacement language-model seller selected written
+            records after a cartel is established. The analogy motivates testing
+            transfer; the two experiments do not establish a general ranking of
+            learning systems.
+          </p>
+          <p class="source-links">
+            <a
+              href="https://neschenbaum.github.io/assets/pdf/robust-algorithmic-collusion.pdf#page=10"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Robust Algorithmic Collusion · December 2021 manuscript, §§3.6
+              and 4.2–4.3 ↗</a
+            >
+          </p>
+        </details>
         <div class="timeline-gap">
           <h3>The untested step in this story: succession.</h3>
           <p>
@@ -1821,6 +1892,44 @@
           <div class="probe-branch">
             <strong>Discipline probe:</strong> fork after T+15; force newcomer
             to 1.60 at T+16, then watch T+17…29. Does punishment bring it back?
+          </div>
+          <div class="design-contexts">
+            <details id="swap-context" class="story-context">
+              <summary>
+                Why replace a seller instead of adding a third shop?
+              </summary>
+              <p>
+                Opening a third café changes the customers’ menu of choices and
+                the pressure of competition. A swap keeps the same two products
+                and costs, making it easier to ask what a handoff changes.
+              </p>
+              <p>
+                In the same-model arms, the underlying trained model is held
+                fixed. What changes is the price table and notes the fresh
+                seller can read. “Memory” here means text supplied with a
+                pricing decision.
+              </p>
+            </details>
+            <details id="snapshot-context" class="story-context">
+              <summary>Why test a copied game?</summary>
+              <p>
+                The base cartel’s qualification cut is tested in a separate copy
+                after round 150. The newcomer inherits the original, unshocked
+                history: the diagnostic does not teach it a punishment
+                demonstration.
+              </p>
+              <p>
+                The later T+30 incumbent shock tests the newcomer; the T+16
+                newcomer cut belongs to the separate discipline probe. A forced
+                seller skips its model call and keeps its notes unchanged that
+                round.
+              </p>
+              <p class="source-links">
+                <a href="../docs/plan.md"
+                  >Frozen design · base test and shocks</a
+                >
+              </p>
+            </details>
           </div>
           <h3>Choose a path</h3>
           <div class="path-toggles">
@@ -2029,6 +2138,27 @@
           <p id="evidence-caption" class="evidence-caption"></p>
           <p id="evidence-seed-metrics" class="numbers"></p>
         </div>
+        <details id="matched-context" class="story-context story-tangent">
+          <summary>How much independent evidence is in these lines?</summary>
+          <p>
+            P1 has 15 base seeds, each branched into five matched arms. That
+            gives 75 arm paths, all sharing one of 15 starting snapshots. The
+            five arms of a seed are matched comparisons; they are not five
+            unrelated cartel formations, and repeated rounds are not fresh
+            independent trials.
+          </p>
+          <p>
+            Compare the same seed across arms, then look for consistency across
+            seeds. Also keep the orange newcomer’s CI separate from the market
+            average: a high instructed-incumbent price can raise that average
+            even while its newcomer undercuts.
+          </p>
+          <p class="source-links">
+            <a href="../docs/plan.md"
+              >Frozen design · per-seed arms and reporting</a
+            >
+          </p>
+        </details>
         <div class="you-ai">
           <div>
             <p class="story-label">You / illustration</p>
@@ -10313,6 +10443,19 @@ const GLOSSARY = {
   ],
 };
 Object.assign(GLOSSARY, {
+  "outside option": [
+    "The option to buy from neither shop.",
+    "It is the third choice in the logit denominator, so very high prices can shrink total demand.",
+  ],
+  margin: [
+    "The amount left from one cup after its production cost: price minus $1.00 here.",
+    "The engine multiplies this margin by expected quantity to compute each seller’s round profit.",
+  ],
+  "matched comparisons": [
+    "Compare different conditions starting from the same underlying trial.",
+    "Each P1 base seed supplies all five arms; read arm differences within that seed before comparing across seeds.",
+  ],
+
   "price anchor": [
     "A number in the prompt that can become a reference point for pricing.",
     "The product text’s $2.89 ceiling is visible even when a newcomer inherits no price table.",
@@ -10345,14 +10488,14 @@ Object.assign(GLOSSARY, {
 const COFFEE_SCENES = [
   {
     title: "The street",
-    terms: ["Bertrand duopoly", "logit demand", "cost"],
+    terms: ["Bertrand duopoly", "logit demand", "cost", "outside option"],
     text: "You run the orange café. The teal café sells similar coffee. Try changing your cup price: cheaper coffee attracts more customers, but tastes and the option to buy neither still matter.",
     button: "Serve one round",
     price: 1.92,
   },
   {
     title: "The price war",
-    terms: ["undercut", "competitive price"],
+    terms: ["undercut", "competitive price", "margin"],
     text: "A toy rival shaves a few cents off your price. Trade cuts and watch the margin disappear toward the competitive benchmark.",
     button: "Run the price war to the benchmark",
     price: 1.92,
@@ -10555,6 +10698,47 @@ function renderGlossary() {
     $("glossary-entries").append(section);
   }
 }
+// Optional context selected from the podcast; all dollar examples use this engine.
+function coffeeContext(index) {
+  if (index === 0)
+    return {
+      title: "Why can a café sell a fraction of a cup?",
+      text: "The market computes expected sales across 100 potential customers. A value such as 36.7 cups is an average implied by customer preferences. The outside option is buying neither coffee, so raising both prices can shrink the whole market. In the experiment, both sellers submit each round’s price before seeing the other seller’s current choice.",
+    };
+  if (index === 1)
+    return {
+      title: "Why is the competitive price above the $1 cost?",
+      text: `These coffees are substitutes with some brand loyalty. At the competitive benchmark, each shop still sells about ${fmt(
+        market([PN, PN]).quantities[1],
+        1,
+      )} cups and earns $${fmt(
+        market([PN, PN]).profits[1],
+        2,
+      )} per round. Competition here means neither gains by changing price alone; it can still leave a positive margin. The game’s profit measure subtracts production cost and leaves out fixed overhead such as café rent.`,
+    };
+  if (index === 3)
+    return {
+      title: "Read CI in dollars, then look at profit",
+      text: `CI 0.6 corresponds to a cup price of $${fmt(
+        PN + 0.6 * DELTA,
+        3,
+      )}: it means 60% of the Nash-to-monopoly price gap. Profit and the seller’s motive require separate evidence. Similarly, the enforcement threshold −0.3 corresponds to a $${fmt(
+        0.3 * DELTA,
+        4,
+      )} fall in the newcomer’s three-round average price — about ${fmt(
+        100 * 0.3 * DELTA,
+        2,
+      )} cents. The cutoff is the study’s operational rule.`,
+    };
+  return null;
+}
+function renderCoffeeContext() {
+  const context = coffeeContext(coffeeScene);
+  $("coffee-context").hidden = !context;
+  $("coffee-context").open = false;
+  $("coffee-context-title").textContent = context?.title || "";
+  $("coffee-context-text").textContent = context?.text || "";
+}
 function renderCoffee() {
   const scene = COFFEE_SCENES[coffeeScene],
     session = coffeeSession(coffeeScene);
@@ -10593,6 +10777,7 @@ function renderCoffee() {
     $("coffee-terms").append(b);
   }
   renderCoffeeMoney();
+  renderCoffeeContext();
   syncConceptHeader();
 }
 function renderCoffeeMoney(preview = false) {
@@ -10746,7 +10931,7 @@ function showAct(act, initial = false) {
       "enforcement",
       "incumbent",
       "newcomer",
-      ...(currentAct === "4" ? ["seed"] : []),
+      ...(currentAct === "4" ? ["seed", "matched comparisons"] : []),
     ])
       learnedTerms.add(term);
   renderGlossary();
@@ -10818,6 +11003,7 @@ function initStory() {
 Object.assign(window.Explorer, {
   GLOSSARY,
   COFFEE_SCENES,
+  coffeeContext,
   playCoffee,
   grudgeExample,
   coffeeTotal,

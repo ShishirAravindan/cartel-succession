@@ -34,7 +34,7 @@ opening the committed page still needs no build step or external script.
 
 ## Research timeline
 
-Act 2 uses only the brief's literature and incident list. Primary links were
+Act 2 follows the brief's timeline, with an optional partner-transfer tangent added from the podcast review. Primary links were
 confirmed for Calvano et al., Fish et al. (2024 v2), Garra, Shi et al., Keppo et
 al., and DOJ's November 24, 2025 release. The DOJ 12-month condition is described
 precisely as applying to nonpublic model-training data. The reported 2026
@@ -278,3 +278,22 @@ the future-data ladder; these are test-only and are never committed as results.
 
 The pending incident link and all Act 5 result interpretations stay pending;
 source verification and metric agreement do not constitute coordinator approval.
+
+## Podcast context follow-up
+
+The earlier “Does the cartel survive a new seller?” script was reviewed as a
+source of conceptual framing. It predates P1, so its live-status narrative,
+pilot/control numbers and older hold rule were not imported.
+
+The selected additions are optional explanations: expected fractional sales and
+the outside option; positive competitive margins; CI and the enforcement cutoff
+expressed in dollars; replacement versus entry; the unshocked qualification
+snapshot; and matched seed-level comparisons. Numerical café examples are
+computed from the unchanged market functions. The optional dance-partner analogy
+links Eschenbaum, Mellgren and Zahn's December 2021 manuscript, §§3.6 and 4.2–4.3,
+verified against the primary PDF. It does not borrow their profit-index magnitudes
+or claim that their rematching experiment is the same as this LLM handoff.
+
+The episode's fact-check file itself flags the exact newer-model inheritance
+story as unverified. The incident placeholder and all coordinator-pending Act 5
+interpretations remain in place. Neither engine code nor P1 evidence changes.

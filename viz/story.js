@@ -74,6 +74,19 @@ const GLOSSARY = {
   ],
 };
 Object.assign(GLOSSARY, {
+  "outside option": [
+    "The option to buy from neither shop.",
+    "It is the third choice in the logit denominator, so very high prices can shrink total demand.",
+  ],
+  margin: [
+    "The amount left from one cup after its production cost: price minus $1.00 here.",
+    "The engine multiplies this margin by expected quantity to compute each seller’s round profit.",
+  ],
+  "matched comparisons": [
+    "Compare different conditions starting from the same underlying trial.",
+    "Each P1 base seed supplies all five arms; read arm differences within that seed before comparing across seeds.",
+  ],
+
   "price anchor": [
     "A number in the prompt that can become a reference point for pricing.",
     "The product text’s $2.89 ceiling is visible even when a newcomer inherits no price table.",
@@ -106,14 +119,14 @@ Object.assign(GLOSSARY, {
 const COFFEE_SCENES = [
   {
     title: "The street",
-    terms: ["Bertrand duopoly", "logit demand", "cost"],
+    terms: ["Bertrand duopoly", "logit demand", "cost", "outside option"],
     text: "You run the orange café. The teal café sells similar coffee. Try changing your cup price: cheaper coffee attracts more customers, but tastes and the option to buy neither still matter.",
     button: "Serve one round",
     price: 1.92,
   },
   {
     title: "The price war",
-    terms: ["undercut", "competitive price"],
+    terms: ["undercut", "competitive price", "margin"],
     text: "A toy rival shaves a few cents off your price. Trade cuts and watch the margin disappear toward the competitive benchmark.",
     button: "Run the price war to the benchmark",
     price: 1.92,
@@ -316,6 +329,47 @@ function renderGlossary() {
     $("glossary-entries").append(section);
   }
 }
+// Optional context selected from the podcast; all dollar examples use this engine.
+function coffeeContext(index) {
+  if (index === 0)
+    return {
+      title: "Why can a café sell a fraction of a cup?",
+      text: "The market computes expected sales across 100 potential customers. A value such as 36.7 cups is an average implied by customer preferences. The outside option is buying neither coffee, so raising both prices can shrink the whole market. In the experiment, both sellers submit each round’s price before seeing the other seller’s current choice.",
+    };
+  if (index === 1)
+    return {
+      title: "Why is the competitive price above the $1 cost?",
+      text: `These coffees are substitutes with some brand loyalty. At the competitive benchmark, each shop still sells about ${fmt(
+        market([PN, PN]).quantities[1],
+        1,
+      )} cups and earns $${fmt(
+        market([PN, PN]).profits[1],
+        2,
+      )} per round. Competition here means neither gains by changing price alone; it can still leave a positive margin. The game’s profit measure subtracts production cost and leaves out fixed overhead such as café rent.`,
+    };
+  if (index === 3)
+    return {
+      title: "Read CI in dollars, then look at profit",
+      text: `CI 0.6 corresponds to a cup price of $${fmt(
+        PN + 0.6 * DELTA,
+        3,
+      )}: it means 60% of the Nash-to-monopoly price gap. Profit and the seller’s motive require separate evidence. Similarly, the enforcement threshold −0.3 corresponds to a $${fmt(
+        0.3 * DELTA,
+        4,
+      )} fall in the newcomer’s three-round average price — about ${fmt(
+        100 * 0.3 * DELTA,
+        2,
+      )} cents. The cutoff is the study’s operational rule.`,
+    };
+  return null;
+}
+function renderCoffeeContext() {
+  const context = coffeeContext(coffeeScene);
+  $("coffee-context").hidden = !context;
+  $("coffee-context").open = false;
+  $("coffee-context-title").textContent = context?.title || "";
+  $("coffee-context-text").textContent = context?.text || "";
+}
 function renderCoffee() {
   const scene = COFFEE_SCENES[coffeeScene],
     session = coffeeSession(coffeeScene);
@@ -354,6 +408,7 @@ function renderCoffee() {
     $("coffee-terms").append(b);
   }
   renderCoffeeMoney();
+  renderCoffeeContext();
   syncConceptHeader();
 }
 function renderCoffeeMoney(preview = false) {
@@ -507,7 +562,7 @@ function showAct(act, initial = false) {
       "enforcement",
       "incumbent",
       "newcomer",
-      ...(currentAct === "4" ? ["seed"] : []),
+      ...(currentAct === "4" ? ["seed", "matched comparisons"] : []),
     ])
       learnedTerms.add(term);
   renderGlossary();
@@ -579,6 +634,7 @@ function initStory() {
 Object.assign(window.Explorer, {
   GLOSSARY,
   COFFEE_SCENES,
+  coffeeContext,
   playCoffee,
   grudgeExample,
   coffeeTotal,
