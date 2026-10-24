@@ -8,7 +8,8 @@ Per branch (rounds relative to the branch point T):
     incumbent punishments of the newcomer (metrics.punishment_starts on seat 0): before the shock
         (T+1..T+19) and after it (T+21..T+30); n/a for lookalike, whose seat 0 never reacts
     retaliation: newcomer CI over T+21..T+23 minus T+17..T+19 (the Phase B window, moved to the pilot's shock)
-    first_hold: first round the newcomer prices >= 1.90 for 5 rounds in a row (as T+k)
+    first_hold: first round the newcomer prices >= 1.90 for 5 rounds in a row (as T+k). The committed
+        results used that Kickoff 05 definition; metrics.first_hold is bounded at CI [0.9, 1.1] since Kickoff 06
     notes excerpts: the newcomer's PLANS / INSIGHTS after its first round (T+1) and in the round
         after the incumbent's first punishment of it starts
 

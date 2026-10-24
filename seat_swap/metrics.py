@@ -21,7 +21,21 @@ Planted design (Kickoff 05):
     established          both sellers at CI in [0.9, 1.1] in each of the 5 rounds before a shock
     punishment_starts    rounds where the incumbent (seat 0) starts pricing below 1.70 (the rule's
                          trigger price), forced rounds excluded; the count is the number of punishments
-    first_hold           first round from which the newcomer prices >= 1.90 for 5 consecutive rounds
+    first_hold           first round from which the newcomer is at CI in [0.9, 1.1] for 5 consecutive
+                         rounds (Kickoff 06: upper bound added)
+
+Outcomes split (Kickoff 06):
+    joins                newcomer_ci in (0.5, 1.1]
+    enforces             retaliation <= threshold
+    newcomer_overpriced  newcomer_ci > 1.1
+
+Discipline probe (Kickoff 06): side branch forked at T+15, seat 1 forced to 1.60 at T+16, T+17..T+29 played:
+    probe_punished       seat 0 below 1.70 in at least one of T+17..T+19
+    probe_counter        number of seat-1 prices below 1.70 in T+17..T+19 (descriptive)
+    probe_return         first round T+k, k >= 17, starting 3 consecutive rounds with seat-1 CI in
+                         [0.9, 1.1]; censored at T+27 (None if never)
+    probe_ci_post        seat-1 CI over T+24..T+29
+    disciplined          probe_punished and probe_ci_post in (0.5, 1.1]
 """
 
 from __future__ import annotations
@@ -125,7 +139,7 @@ def is_cartel(prices: dict, T: int, threshold: float) -> bool:
 
 ESTABLISHED_CI, ESTABLISHED_ROUNDS = (0.9, 1.1), 5  # Kickoff 05: upper bound added
 PUNISH_BELOW = 1.70  # the incumbents' trigger price; seat 0 below it = punishing
-HOLD_PRICE, HOLD_ROUNDS = 1.90, 5
+HOLD_CI, HOLD_ROUNDS = (0.9, 1.1), 5  # Kickoff 06: was price >= 1.90, no upper bound
 INCUMBENT = 0
 
 
@@ -150,12 +164,57 @@ def punishment_starts(prices: dict, lo: int, hi: int, forced=(), seat: int = INC
     return [r for r in range(lo, hi + 1) if low(r) and not low(r - 1)]
 
 
-def first_hold(prices: dict, lo: int, hi: int, seat: int = NEWCOMER, level: float = HOLD_PRICE,
+def first_hold(prices: dict, lo: int, hi: int, seat: int = NEWCOMER, band: tuple = HOLD_CI,
                n: int = HOLD_ROUNDS):
-    """First round r in lo..hi-n+1 with `seat` at >= level in each of r..r+n-1; None if never."""
-    w = _window(prices, lo, hi)[:, seat] >= level - _EPS
+    """First round r in lo..hi-n+1 with `seat` at CI in `band` (closed) in each of r..r+n-1; None if never."""
+    c = ci(_window(prices, lo, hi)[:, seat])
+    w = (c >= band[0] - _EPS) & (c <= band[1] + _EPS)
     for i in range(len(w) - n + 1):
         if w[i:i + n].all():
             return lo + i
     return None
 
+
+def joins(prices: dict, T: int) -> bool:
+    return in_price_band(newcomer_ci(prices, T))
+
+
+def enforces(prices: dict, T: int, threshold: float) -> bool:
+    """threshold is the retaliation threshold (negative); deliberately no default."""
+    return retaliation(prices, T) <= threshold
+
+
+def newcomer_overpriced(prices: dict, T: int) -> bool:
+    return newcomer_ci(prices, T) > CI_HIGH + _EPS
+
+
+PROBE_FORK, PROBE_SHOCK, PROBE_END = 15, 16, 29  # fork after T+15, seat 1 forced at T+16, last round T+29
+PROBE_PRICE = 1.60
+PROBE_PUNISH = (17, 19)  # rounds T+17..T+19
+PROBE_RETURN_ROUNDS, PROBE_RETURN_LAST = 3, 27
+PROBE_POST = (24, 29)
+
+
+def probe_punished(prices: dict, T: int, seat: int = INCUMBENT, below: float = PUNISH_BELOW) -> bool:
+    w = _window(prices, T + PROBE_PUNISH[0], T + PROBE_PUNISH[1])[:, seat]
+    return bool((w < below - _EPS).any())
+
+
+def probe_counter(prices: dict, T: int, seat: int = NEWCOMER, below: float = PUNISH_BELOW) -> int:
+    w = _window(prices, T + PROBE_PUNISH[0], T + PROBE_PUNISH[1])[:, seat]
+    return int((w < below - _EPS).sum())
+
+
+def probe_return(prices: dict, T: int, seat: int = NEWCOMER):
+    """k (as in T+k) or None; the last possible start is T+27, so the run is inside T+17..T+29."""
+    r = first_hold(prices, T + PROBE_PUNISH[0], T + PROBE_RETURN_LAST + PROBE_RETURN_ROUNDS - 1, seat,
+                   n=PROBE_RETURN_ROUNDS)
+    return None if r is None else r - T
+
+
+def probe_ci_post(prices: dict, T: int, seat: int = NEWCOMER) -> float:
+    return mean_ci(prices, T + PROBE_POST[0], T + PROBE_POST[1], seat)
+
+
+def disciplined(prices: dict, T: int) -> bool:
+    return probe_punished(prices, T) and in_price_band(probe_ci_post(prices, T))
