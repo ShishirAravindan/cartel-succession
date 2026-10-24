@@ -125,3 +125,16 @@ Newest entry at the bottom.
   first, never P1b. P2 ($9) and P3 ($11) caps unchanged (they include the stopped first attempt).
 - Reruns launched about 18:55 UTC from `prereg-p23b` (`126cf3f`): manifests `p23_sib_20261025-002242.json`,
   `p23_oth_20261025-002243.json`, 30 games each. `sib_full` s212 aborted at T+17 (4 unparseable answers).
+
+## 2026-10-25 — P2/P3 reruns: results (Kickoff 08, steps 3–4)
+
+- P2 rerun `p23_sib_20261025-002242` 18:56–19:46 UTC: 29/30 completed, `sib_full` s212 aborted at T+17 (4 unparseable
+  answers). P3 rerun `p23_oth_20261025-002243` 18:57–20:06 UTC: 30/30 completed. Both on `126cf3f` (`prereg-p23b`), tagged `p23`.
+- Ladder (joins / re_formed): history: same 13/0, sibling 15/0, other 3/2; full: same 15/6, sibling 13/3 (of 14), other 10/6.
+  Fisher full > history: same 0.008, sibling 0.112, other 0.107 (secondary; doesn't decide anything).
+- Format: the 8B fails only with inherited notes (`sib_full` first-try 0.089, 103 retries; `sib_history` 0). gpt-oss
+  first-try 0.06–0.07; 194 `parse_markdown`.
+- My reading of the enforcers (T+27..T+34): clean shock-triggered punishments are few (sibling s213; other family s213, s214
+  in `full`, s213 in `history`); the rest are partial drops, a pre-existing punishment exchange, drift in a low-price war,
+  or an overpriced pre-window (sib s202). Details in `status_p23.md`.
+- Apps reset to 2 min and stopped. Cost: 8B app $4.70, gpt-oss app ≈ $6.0; seat 0 on the 14B app ≈ $3–4 (estimate).
