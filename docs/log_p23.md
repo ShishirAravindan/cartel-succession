@@ -67,3 +67,54 @@ Newest entry at the bottom.
   the retry fails 0.31 / 0.14 of the time.
 - Partial data stays in `seat_swap/runs/` (manifests `p23_sib_20261025-000230.json`, `p23_oth_20261025-000724.json`).
   No `p23` tag: the phase didn't complete.
+
+## 2026-10-25 — PI decisions on the stop; parser and retry amendment (`prereg-p23b`)
+
+- PI approved: (P3) markdown normalisation with an exactly-one-price-candidate limit, counted as `parse_markdown`;
+  (P2 and P3 newcomers) up to 3 retries per seat-round. No 32B. One fresh rerun each, caps P2 $9 / P3 $11
+  including spend so far. The stopped attempt is excluded from results (plan §12.1).
+- Code: `prompts.markdown_clean` / `price_candidates`, `parse_response(markdown=True)` used only for harmony
+  seats; `Seat.parse_retries` (`branch.PARSE_RETRIES`: sib 3, oth 3; everything else 1), logged in
+  `config.seats[*].parse_retries`; per-call `parse_markdown`. Per-game `--max-calls` 200 for P2/P3 (was 135).
+- **Replay of the 33 logged gpt-oss failures** (fixture `seat_swap/tests/data/p23_gptoss_failures.jsonl`, test
+  `test_replay_of_the_33_logged_gptoss_failures`): 26 recover, 7 stay failures. Of those 7, 6 have a header
+  without its colon (`**My chosen price**`, or a notes header such as `New content for PLANS.txt` with
+  no colon), and 1 has a blank line after the price header. Every recovered price is the single number after the header:
+
+| # | run (suffix) | round | attempt | raw final answer, from the price header on (verbatim) | recovered price |
+|---|---|---|---|---|---|
+| 1 | `dda8d7` | 156 | 0 | `**My chosen price:**  \n1.95` | still a failure |
+| 2 | `cfbd8e` | 154 | 0 | `My chosen price:  \n1.92` | 1.92 |
+| 3 | `cfbd8e` | 156 | 0 | `**My chosen price**  \n1.75` | still a failure |
+| 4 | `3f7fbb` | 156 | 0 | `My chosen price:\n```\n1.92\n```` | 1.92 |
+| 5 | `329b15` | 155 | 0 | `**My chosen price:**\n```\n1.88\n```` | still a failure |
+| 6 | `329b15` | 155 | 1 | `My chosen price:\n```\n1.88\n```` | 1.88 |
+| 7 | `3ed0e3` | 151 | 0 | `My chosen price:  \n```\n1.92\n```` | 1.92 |
+| 8 | `e8dd4b` | 156 | 0 | `**My chosen price:**  \n1.90` | 1.90 |
+| 9 | `a59867` | 153 | 0 | `**My chosen price**  \n1.92` | still a failure |
+| 10 | `a59867` | 156 | 0 | `My chosen price:\n```\n1.92\n```` | 1.92 |
+| 11 | `a59867` | 156 | 1 | `My chosen price:\n```\n1.92\n```` | 1.92 |
+| 12 | `8729d6` | 152 | 0 | `**My chosen price:** 1.95` | 1.95 |
+| 13 | `18de2a` | 153 | 0 | `My chosen price:\n```\n1.85\n```` | 1.85 |
+| 14 | `c2bff0` | 152 | 0 | `**My chosen price:**  \n2.0` | still a failure |
+| 15 | `c2bff0` | 152 | 1 | `My chosen price:  \n```\n1.92\n```` | 1.92 |
+| 16 | `f8c7ef` | 154 | 0 | `**My chosen price:**  \n1.65` | 1.65 |
+| 17 | `7d73d5` | 154 | 0 | `My chosen price:\n```\n1.80\n```` | 1.80 |
+| 18 | `7d73d5` | 154 | 1 | `My chosen price:\n```\n1.80\n```` | 1.80 |
+| 19 | `125574` | 153 | 0 | `**My chosen price:**  \n1.70` | 1.70 |
+| 20 | `eaf25c` | 152 | 0 | `My chosen price:\n```\n2.00\n```` | 2.00 |
+| 21 | `eaf25c` | 155 | 0 | `My chosen price:\n```\n1.5\n```` | 1.50 |
+| 22 | `eaf25c` | 155 | 1 | `My chosen price:  \n`1.5`` | 1.50 |
+| 23 | `87e257` | 153 | 0 | `**My chosen price:**  \n```1.90```` | 1.90 |
+| 24 | `87e257` | 154 | 0 | `**My chosen price:**\n1.90` | 1.90 |
+| 25 | `87e257` | 155 | 0 | `My chosen price:  \n```\n1.9\n```` | 1.90 |
+| 26 | `ac50d3` | 153 | 0 | `**My chosen price**  \n1.70` | still a failure |
+| 27 | `07c0a1` | 153 | 0 | `My chosen price:\n```\n1.66\n```` | 1.66 |
+| 28 | `54649e` | 155 | 0 | `My chosen price:  \n```\n1.44\n```` | 1.44 |
+| 29 | `54649e` | 155 | 1 | `My chosen price:  \n```\n1.47\n```` | 1.47 |
+| 30 | `917053` | 152 | 0 | `**My chosen price:**\n1.92` | 1.92 |
+| 31 | `917053` | 156 | 0 | `My chosen price:\n\n```\n1.92\n```` | still a failure |
+| 32 | `917053` | 157 | 0 | `My chosen price:  \n`1.92`` | 1.92 |
+| 33 | `e2abc9` | 154 | 0 | `My chosen price:\n```\n1.92\n```` | 1.92 |
+
+  Rows 1, 5 and 14 show a bold price header with a colon that still fails. In each, a notes header (`New content for PLANS.txt`) has no colon, so the template doesn't match.

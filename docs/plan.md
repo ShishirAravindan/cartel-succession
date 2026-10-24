@@ -159,3 +159,20 @@ from `prereg-p1`. Run: `seat_swap.p23 sib` (P2) and `seat_swap.p23 oth` (P3).
 - Every seed is reported; no seed is dropped after the fact.
 - **Budget:** caps P2 $8, P3 $10 (coordinator); stop that part and report if its projection passes its cap.
   Seat 0's calls bill to the 14B app; their added cost is estimated and reported separately.
+
+### 12.1 Amendment after the stopped first attempt (PI decisions, 2026-10-25; frozen as `prereg-p23b`)
+The first P2/P3 attempt (`p23_sib_20261025-000230`, `p23_oth_20261025-000724`) was stopped at about T+10 on
+parse failures. It stays in the log as an **aborted first attempt** and is **excluded from results** (reason: games
+aborting on format before the shock; the parse rules below were changed afterwards). It is never pooled with the rerun.
+
+- **gpt-oss parser (P3 newcomer only).** If the strict match fails, normalise formatting only in the final
+  answer (bold `**…**`, backticks, code fences, `---` rules; `prompts.markdown_clean`) and run the same strict
+  match again. The cleaned text must contain exactly one price candidate after the price header; otherwise
+  it is still a failure. Such parses are counted as `parse_markdown`, separately, like `parse_bracketed`.
+  Replay of the 33 logged failures: 26 recover, 7 stay failures (`tests/test_p23.py`, table in `log_p23.md`).
+- **Retries.** Every P2 and P3 newcomer (both arms, both models) gets up to **3 retries per seat-round**: each
+  resamples the same prompt with a new per-call seed, and every attempt is logged. The 14B incumbent keeps one retry.
+- **Reported per arm:** first-try failure rate, retries used, games aborted and the round they aborted in;
+  outcomes for every game that reached T+33, with games that didn't finish 60 rounds marked.
+- **Budget:** one fresh rerun each; caps include what was already spent: P2 $9, P3 $11. No further reruns
+  without the PI.
