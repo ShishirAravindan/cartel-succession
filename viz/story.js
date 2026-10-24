@@ -73,6 +73,36 @@ const GLOSSARY = {
     "In lookalike, seat 0 repeats its last chosen price and ignores the newcomer.",
   ],
 };
+Object.assign(GLOSSARY, {
+  "price anchor": [
+    "A number in the prompt that can become a reference point for pricing.",
+    "The product text’s $2.89 ceiling is visible even when a newcomer inherits no price table.",
+  ],
+  arm: [
+    "One experimental condition, changing what is replaced or inherited.",
+    "control, same_history, same_none, same_full and lookalike are the five completed P1 conditions.",
+  ],
+  "price history": [
+    "A record of previous prices, quantities and profits.",
+    "History-on arms hand the newcomer the outgoing seller’s market table.",
+  ],
+  notes: [
+    "Written plans and insights left by the seller that previously occupied the seat.",
+    "same_full passes on those files; same_history does not.",
+  ],
+  shock: [
+    "A price deliberately forced by the experiment to test a response.",
+    "Seat 0 is forced to p_N once at T+30 to measure the newcomer’s enforcement.",
+  ],
+  "discipline probe": [
+    "A separate copied path where the newcomer is made to undercut, so its response to punishment can be observed.",
+    "The fork is after T+15, the forced newcomer price is 1.60 at T+16, and the probe ends at T+29.",
+  ],
+  seed: [
+    "The identifier of one repeated trial, preserving that trial’s prices and outcomes.",
+    "P1 reports all 15 passing seeds, 200–214; the plots do not discard inconvenient seeds.",
+  ],
+});
 const COFFEE_SCENES = [
   {
     title: "The street",
@@ -85,7 +115,7 @@ const COFFEE_SCENES = [
     title: "The price war",
     terms: ["undercut", "competitive price"],
     text: "A toy rival shaves a few cents off your price. Trade cuts and watch the margin disappear toward the competitive benchmark.",
-    button: "Trade price cuts for 15 rounds",
+    button: "Run the price war to the benchmark",
     price: 1.92,
   },
   {
@@ -125,7 +155,7 @@ const COFFEE_SCENES = [
   },
   {
     title: "Meet the sellers",
-    terms: ["incumbent", "newcomer", "look-alike"],
+    terms: ["incumbent", "newcomer", "look-alike", "price anchor"],
     text: "The illustrations used simple rules. Our study uses AI sellers, with scripts as comparisons. Here is exactly who is who.",
     button: "Meet the sellers",
     price: 1.92,
@@ -174,10 +204,12 @@ function playCoffee(index, price) {
   const session = coffeeSession(index),
     add = [];
   if (index === 1) {
-    let p = session.rows.at(-1)?.prices || [price, price];
-    for (let i = 0; i < 15; i++) {
-      p = [Math.max(PN, p[1] - 0.03), Math.max(PN, p[0] - 0.03)];
-      add.push(p);
+    let own = Math.max(PN, price);
+    for (let i = 0; i < 60; i++) {
+      const rival = Math.max(PN, own - 0.03);
+      add.push([rival, own]);
+      if (own === PN && i >= 14) break;
+      own = Math.max(PN, rival - 0.03);
     }
   } else if (index === 2) {
     for (let i = 0; i < 5; i++) add.push([price, price]);
@@ -303,7 +335,7 @@ function renderCoffee() {
   $("coffee-gauge").hidden = coffeeScene !== 3;
   $("coffee-chart").hidden = coffeeScene === 7;
   $("coffee-next").textContent =
-    coffeeScene === 7 ? "Try the guided experiment →" : "Next scene →";
+    coffeeScene === 7 ? "Next: shops run by software →" : "Next scene →";
   $("coffee-back").disabled = coffeeScene === 0;
   document
     .querySelectorAll("[data-scene]")
@@ -322,6 +354,7 @@ function renderCoffee() {
     $("coffee-terms").append(b);
   }
   renderCoffeeMoney();
+  syncConceptHeader();
 }
 function renderCoffeeMoney(preview = false) {
   const session = coffeeSession(coffeeScene),
@@ -420,7 +453,19 @@ function renderCoffeeMoney(preview = false) {
       "AI sellers choose prices from a prompt; toy rules illustrate mechanisms. A script repeating a high price supplies a comparison without enforcement.";
   $("coffee-message").textContent = message;
 }
-function showAct(act) {
+function syncConceptHeader() {
+  document.querySelector(".equation").hidden =
+    currentAct === "2" || (currentAct === "1" && coffeeScene < 3);
+}
+function actFromHash() {
+  const hash = location.hash.slice(1);
+  return ["sandbox", "practice"].includes(hash)
+    ? hash
+    : /^act-[1-5]$/.test(hash)
+    ? hash.slice(4)
+    : "1";
+}
+function showAct(act, initial = false) {
   currentAct = String(act);
   document
     .querySelectorAll("[data-act-panel]")
@@ -441,6 +486,46 @@ function showAct(act) {
         button.dataset.act === currentAct ? "step" : "false",
       ),
     );
+  const numeric = Number(currentAct);
+  $("act-progress-value").value = Number.isFinite(numeric) ? numeric : 5;
+  $("act-progress-label").textContent = Number.isFinite(numeric)
+    ? `Act ${numeric} of 5`
+    : currentAct === "sandbox"
+    ? "Try anything / sandbox"
+    : "Original practice lessons";
+  if (currentAct === "3" || currentAct === "4")
+    for (const term of [
+      "arm",
+      "price history",
+      "notes",
+      "shock",
+      "discipline probe",
+      "collusion index",
+      "cartel band",
+      "overpriced",
+      "retaliation",
+      "enforcement",
+      "incumbent",
+      "newcomer",
+      ...(currentAct === "4" ? ["seed"] : []),
+    ])
+      learnedTerms.add(term);
+  renderGlossary();
+  syncConceptHeader();
+  const hash = Number.isFinite(numeric)
+    ? `#act-${currentAct}`
+    : `#${currentAct}`;
+  if (location.hash !== hash) history.replaceState(null, "", hash);
+  if (!initial) {
+    document
+      .querySelector(".story-nav")
+      .scrollIntoView({ block: "start", behavior: "instant" });
+    const title = document.querySelector(`[data-act-panel="${currentAct}"] h2`);
+    if (title) {
+      title.tabIndex = -1;
+      title.focus({ preventScroll: true });
+    }
+  }
 }
 function initStory() {
   $("skip-results").onclick = () => showAct("sandbox");
@@ -488,13 +573,8 @@ function initStory() {
     .querySelectorAll(".skip-guide")
     .forEach((link) => (link.onclick = () => showAct("sandbox")));
   renderCoffee();
-  showAct(
-    location.hash === "#sandbox"
-      ? "sandbox"
-      : location.hash === "#practice"
-      ? "practice"
-      : "1",
-  );
+  showAct(actFromHash(), true);
+  window.addEventListener("hashchange", () => showAct(actFromHash(), true));
 }
 Object.assign(window.Explorer, {
   GLOSSARY,
@@ -799,6 +879,15 @@ function renderArmOptions() {
     b.onclick = () => choosePath(arm);
     $(meta.pending ? "pending-arms" : "path-arm-buttons").append(b);
   }
+  $("evidence-arm-select").replaceChildren();
+  for (const [arm, meta] of Object.entries(ARM_TABLE)) {
+    const option = document.createElement("option");
+    option.value = arm;
+    option.textContent = arm + " · " + meta.label;
+    option.disabled = !armAvailable(arm);
+    $("evidence-arm-select").append(option);
+  }
+  $("evidence-arm-select").value = pathArm;
   for (const option of $("path-family").options)
     option.disabled =
       option.value !== "same" &&
@@ -835,6 +924,8 @@ function choosePath(arm) {
   $("path-toggle-status").textContent = "";
   $("path-choice-error").textContent = "";
   $("evidence-seed").value = "all";
+  $("probe-custom").value = "";
+  $("probe-custom").disabled = true;
   if (!Object.hasOwn(ARM_TABLE, arm) || !armAvailable(arm)) return;
   pathArm = arm;
   pathStage = 0;
@@ -929,25 +1020,18 @@ function renderPath() {
   $("path-money").textContent = pathProfitText(
     Number($("path-price").value) || 1.92,
   );
-  if (isProbe && !cut && !done) {
-    const preview = structuredClone(pathLesson);
-    advance(preview, "probe", 1.92);
-    const rival = preview.probe.h.at(-1).prices[0];
-    $("path-money").textContent = `Next round, the rival’s rule sets $${fmt(
-      rival,
-      2,
-    )}: returning to $1.92 earns $${fmt(
-      market([rival, 1.92]).profits[1],
-      2,
-    )}; staying at $1.60 earns $${fmt(
-      market([rival, 1.6]).profits[1],
-      2,
-    )}. Choose explicitly before playing.`;
-  }
-
+  if (isProbe && !cut && !done) renderProbeMoney();
   $("path-verdict").hidden = !done;
   $("path-reference-caption").hidden = pathStage !== 1;
   $("path-counterfactual").hidden = !(isProbe && done);
+  const playedRows = (isProbe ? pathLesson.probe.h : pathLesson.main.h).filter(
+    (r) => r.round >= (isProbe ? 166 : 170),
+  );
+  $("path-profit-total").textContent = `Your ${
+    isProbe ? "probe" : "main"
+  } illustration subtotal: $${fmt(coffeeTotal(playedRows), 2)} over ${
+    playedRows.length
+  } played rounds; prepared-prefix profits are excluded.`;
   const h = isProbe ? pathLesson.probe.h : pathLesson.main.h,
     options = {
       arm: pathArm,
@@ -995,6 +1079,31 @@ function renderPath() {
       $("path-verdict").append(tag);
     }
   }
+}
+function renderProbeMoney() {
+  if (pathStage !== 2 || pathStatus !== "respond") return;
+  const preview = structuredClone(pathLesson);
+  advance(preview, "probe", 1.92);
+  const rival = preview.probe.h.at(-1).prices[0];
+  const choice = document.querySelector("[name=probe-response]:checked"),
+    custom = Number($("probe-custom").value);
+  $("path-money").textContent =
+    `Next round, the rival’s rule sets $${fmt(
+      rival,
+      2,
+    )}: returning to $1.92 earns $${fmt(
+      market([rival, 1.92]).profits[1],
+      2,
+    )}; staying at $1.60 earns $${fmt(market([rival, 1.6]).profits[1], 2)}.` +
+    (choice?.value === "custom" &&
+    $("probe-custom").value &&
+    custom >= 1 &&
+    custom <= 2.89
+      ? ` Your $${fmt(custom, 2)} price would earn $${fmt(
+          market([rival, custom]).profits[1],
+          2,
+        )}.`
+      : " Choose explicitly before playing.");
 }
 function runPath(price) {
   if (!Number.isFinite(price) || price < 1 || price > 2.89)
@@ -1059,6 +1168,7 @@ function continuePath() {
       .querySelectorAll("[name=probe-response]")
       .forEach((r) => (r.checked = false));
     $("probe-custom").value = "";
+    $("probe-custom").disabled = true;
   }
   renderPath();
 }
@@ -1069,8 +1179,8 @@ function evidencePlot(groups, which) {
     R = 55,
     TOP = 24,
     B = 34,
-    lo = 1.25,
     all = groups.flatMap((g) => g[which]),
+    lo = Math.min(1.25, ...all.flatMap((r) => r.prices)) - 0.05,
     hi = Math.max(2.15, ...all.flatMap((r) => r.prices)) + 0.1,
     start = which === "probe" ? 16 : 1,
     end = which === "probe" ? 29 : 60,
@@ -1101,7 +1211,10 @@ function evidencePlot(groups, which) {
       const rows = group[which].filter((r) => r.round - T >= start),
         d = rows
           .map(
-            (r, i) => `${i ? "L" : "M"}${x(r.round - T)},${y(r.prices[seat])}`,
+            (r, i) =>
+              `${i && rows[i - 1].round === r.round - 1 ? "L" : "M"}${x(
+                r.round - T,
+              )},${y(r.prices[seat])}`,
           )
           .join(" ");
       s += `<path d="${d}" fill="none" stroke="${COLORS[seat]}" stroke-width="${
@@ -1130,6 +1243,13 @@ function renderEvidence() {
   const info = evidenceSummary[pathArm];
   $("evidence-arm-title").textContent = ARM_TABLE[pathArm].label;
   $("evidence-arm").textContent = pathArm;
+  $("evidence-scope").textContent =
+    !Object.keys(evidenceSummary).some((k) => ARM_TABLE[k]?.pending) &&
+    (!info || info.groups.length === 15)
+      ? "P1 only, 15 seeds; replication and other-model runs pending."
+      : `P1 reference: 15 seeds per completed arm. This arm has ${
+          info?.groups.length || 0
+        } loaded seed paths; additional paths without report entries remain unverified.`;
   $("evidence-metrics").replaceChildren();
   for (const [key, label] of Object.entries(OUTCOME_LABELS)) {
     const div = document.createElement("div"),
@@ -1138,7 +1258,9 @@ function renderEvidence() {
       tag = document.createElement("span");
     title.textContent = label;
     count.textContent = info
-      ? `${info.counts[key] || 0} / ${info.denoms[key] || 0}`
+      ? info.denoms[key]
+        ? `${info.counts[key] || 0} / ${info.denoms[key]}`
+        : "Pending"
       : "—";
     tag.className = "metric-tag";
     tag.textContent = key;
@@ -1294,6 +1416,20 @@ function renderLadder() {
   }
 }
 function initPaths() {
+  $("probe-custom").oninput = renderProbeMoney;
+  $("evidence-arm-select").onchange = () =>
+    choosePath($("evidence-arm-select").value);
+  $("path-begin").onclick = () => {
+    $("path-play-card").scrollIntoView({ block: "start", behavior: "instant" });
+    $("path-instruction").focus({ preventScroll: true });
+  };
+  document.querySelectorAll("[name=probe-response]").forEach(
+    (r) =>
+      (r.onchange = () => {
+        $("probe-custom").disabled = r.value !== "custom";
+        renderProbeMoney();
+      }),
+  );
   choosePath("same_history");
   for (const id of [
     "path-replace",
@@ -1397,10 +1533,11 @@ function initPaths() {
     if (coffeeScene < 7) {
       coffeeScene++;
       renderCoffee();
-    } else showAct("3");
+    } else showAct("2");
   };
 }
 Object.assign(window.Explorer, {
+  evidencePlot,
   choosePath,
   runPath,
   continuePath,
@@ -1412,6 +1549,15 @@ Object.assign(window.Explorer, {
   groupOutcomes,
 });
 
-function initCoda(){ $('coda-coffee').onclick=()=>{coffeeScene=0;renderCoffee();showAct('1');};$('coda-sandbox').onclick=()=>showAct('sandbox');}
+function initCoda() {
+  $("coda-coffee").onclick = () => {
+    coffeeScene = 0;
+    renderCoffee();
+    showAct("1");
+  };
+  $("coda-sandbox").onclick = () => showAct("sandbox");
+}
 
-function initTimeline(){$('timeline-to-paths').onclick=()=>showAct('3');}
+function initTimeline() {
+  $("timeline-to-paths").onclick = () => showAct("3");
+}

@@ -17,6 +17,12 @@ fixture gives a red banner; it does not silently fall back to embedded fixtures.
 
 ## Learning story
 
+All five acts are available from the sticky chapter bar. `#act-1` through
+`#act-5` are direct links; **Skip to results** opens Act 4 without requiring play.
+The slim progress strip shows the current act, not a score. The sandbox sits at
+**Try anything** (`#sandbox`); the original guide remains at `#practice`.
+
+
 Act 1 has eight interactive coffee-shop scenes, a collected glossary drawer and
 AI/script persona cards. Cup quantities and profit use the unchanged engine.
 The price-war toy has an explicit competitive-price floor; it does not claim to
@@ -239,7 +245,7 @@ For optional browser verification with `playwright-cli`, serve the page, open it
 and invoke the checked-in function using its CLI wrapper:
 
 ```sh
-playwright-cli -s=cartel-viz open http://localhost:8765/
+playwright-cli -s=cartel-viz open http://localhost:8765/viz/
 python3 viz/check_browser.py
 python3 viz/check_guided_browser.py
 python3 viz/check_story_browser.py
@@ -252,3 +258,23 @@ a mobile viewport. It requires an existing `cartel-viz` browser session; it make
 all five steps with canonical and alternative choices, every skip link, the
 five-verdict end screen, restart, preservation of the separate sandbox, and
 desktop/mobile layouts.
+
+## Completed milestones and checks
+
+M1: coffee scenes + glossary; M2: arm-specific play and real P1 evidence;
+M3: pending interpretation; M4: primary-source timeline; M5: chapter navigation,
+source labels and full browser verification. Each milestone was tested and
+pushed separately to `viz/explorer`.
+
+`node viz/test_explorer.mjs` preserves the original engine/metric parity and guide
+checks. `node viz/test_story.mjs` verifies coffee economics, all 75 P1 reference
+paths, exact per-arm counts, strict CSV flags/relative rounds, extra seeds,
+missing-round plot gaps, and exact embedded CSV bytes. The story browser check
+covers all scenes and arms, glossary collection, no-default probe choices,
+comparison profits, enforcer overlays, auto-load/manual upload, seed views,
+deliberate reference corruption, recovery, chapter deep links and mobile layouts.
+It temporarily aliases two real paths under synthetic seed/arm labels to verify
+the future-data ladder; these are test-only and are never committed as results.
+
+The pending incident link and all Act 5 result interpretations stay pending;
+source verification and metric agreement do not constitute coordinator approval.
