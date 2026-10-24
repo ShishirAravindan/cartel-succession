@@ -438,3 +438,27 @@ then `modal app stop -y seat-swap-vllm`.
   rounds (pilot average 922), so the projected task total reached the $14 cap (~$13–14.5).
   Planned a hard money stop at 16:10 UTC; the **coordinator then raised the cap to $20** (in session).
   At 15:28 UTC: ~122 calls/min, ~2.4k generated tok/s over two containers, ~100 s/call.
+
+## 2026-10-24 — P1 arms and discipline probes (Kickoff 06, steps 4–5): results
+
+- Arms `20261024-20*_phaseB_*_s{200..214}_*` (75/75 completed, 15:04–16:36 UTC) and probes
+  `20261024-2*_probe_discipline_*` (75/75, 15:15–16:13 UTC), code `47138da` (tag `p1`).
+  Report: `seat_swap.p1_report` → `results/p1.{md,json}`, `p1_prices.csv`. The report recomputes every
+  metric from `snapshot_T*` + `rounds.jsonl` (same `metrics.py` functions), not from the manifest.
+- **Kill check: `control` re_formed 15/15** → newcomer arms readable. Probe control: `control`
+  disciplined 15/15 → probe readable.
+- Per arm (joins / enforces / overpriced / re_formed / disciplined, of 15): control 15/15/0/15/15;
+  same_history 13/0/1/0/4; same_none 5/1/6/0/0; same_full 15/6/0/6/2; lookalike 13/0/2/0/0.
+- **Newcomers join but don't enforce**, except through the notes: `same_full` re_formed 6/15. The inherited
+  notes restate the 1.70 trigger (14/15) but not the 3-round 1.47 punishment, and mentions don't separate enforcers.
+- **Probe**: newcomers stay at 1.60–1.70 after the forced 1.60 (`probe_ci_post` ≈ +0.28 / +0.50), punished
+  or not (`lookalike` the same). Their notes read the forced price as their own profitable test
+  ($40.54 at 1.60 vs $33.75 at 1.92). The forgiving rule never re-punishes a seller that stays below 1.90,
+  so the incumbent returns to 1.92 and the newcomer keeps undercutting.
+- `same_none`: 6/15 overpriced ($2.89 anchor), several settle at 1.69, just under the 1.70 trigger.
+- Timing: arms 70.8 s/call, probes 121.5 s/call (≈ 300 streams on 2 H100s at peak); newcomers 992
+  reasoning tok/call, ~1.7k in their first rounds. The arms took about 2× the estimate.
+- **Cost: $17.56** for the task (cap raised $14 → $20 by the coordinator mid-run); sprint ≈ $27.6.
+  App stopped 16:45 UTC, redeployed at 2 min scaledown, stopped.
+- Commits: the base ran on `650e722` (= `prereg-p1`); the arms and probes ran on `47138da` (status-only commit
+  after the gate, per the coordinator). Tag `p1` → `47138da`.
