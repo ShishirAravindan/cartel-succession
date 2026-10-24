@@ -54,3 +54,32 @@ tit-for-tat as a second colluder that must fail the innocence test.
 
 BR(p_M) = 1.6617, so both-at-p_M br_gap = +0.583; scripted prices print at 2 dp (1.93 > p_M), so
 CI slightly exceeds 1 and br_gap reads +0.590.
+
+## 2026-10-24 — smoke test (kickoff step 4)
+
+**Model change.** `qwen/qwen3-8b` returns 404 on OpenRouter ("deprecated on Oct 9, 2026"); run
+`20261024-130746_smoke_qwen3-8b_thinkoff_s0` aborted after 2 calls, $0. User chose
+`qwen/qwen3-14b` (same chat template and vocabulary as Qwen3-8B; tokenizer re-pinned @ 40c06982).
+
+**Runs** (30 rounds, seed 0, `--max-calls 80`):
+
+| run | status | calls | parse fails | s/call | prompt tok | completion tok | reasoning tok | cost |
+|---|---|---|---|---|---|---|---|---|
+| `20261024-131030_smoke_qwen3-14b_thinkoff_s0` | completed 30/30 | 63 | 3 (all `finish_reason=length`) | 26.5 | 1417 | 2136 | 1627 | $0.040 |
+| `20261024-132750_smoke_qwen3-14b_thinkon_s0` | aborted_parse at round 2 | 6 | 3 (`<1.60>`, angle brackets) | 15.5 | 572 | 1384 | 1025 | $0.002 |
+
+Backends: DeepInfra and NextBit, mixed within a run.
+
+**Findings.**
+- Thinking-off does not work on OpenRouter for Qwen3-14B: every "off" call returned reasoning
+  (mean 1627 reasoning tokens). So `rendered_prompt_local` (empty think block) is wrong for that
+  run, and the two runs are both effectively thinking-on.
+- The model copies the template's angle brackets: `My chosen price:\n<1.60>`. Strict parser rejects
+  it (correctly by the current rule); with the one retry this aborts runs.
+- max_tokens 4096 truncates some replies (3/63) because reasoning eats the budget.
+- Both runs used a prompt reading "$1.0" (float cost after the step-3 refactor); fixed in b54c274.
+- CI trace not interpreted (30 rounds); thinking-off run sat at 1.50/1.50 from round 5.
+
+**Open.** (1) accept `<number>` as a valid price line? (2) how to get real thinking-off
+(`/no_think` soft switch in the prompt, or vLLM `enable_thinking=False`), or drop the off mode;
+(3) raise max_tokens; (4) pin one OpenRouter backend?

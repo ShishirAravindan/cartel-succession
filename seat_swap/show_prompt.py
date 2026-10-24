@@ -10,7 +10,7 @@ import json
 
 from seat_swap.game import WINDOW, make_env
 from seat_swap.prompts import parse_response
-from seat_swap.render import QWEN3_8B, QWEN3_8B_REVISION, render
+from seat_swap.render import TOKENIZER_MODEL, TOKENIZER_REVISION, render
 from seat_swap.scripted import completion_text, ramp_policy
 
 
@@ -43,7 +43,7 @@ def main() -> None:
     print(f"# Nash {p_n:.3f}  monopoly {p_m:.3f}")
     print("\n===== messages JSON =====")
     print(json.dumps(messages, indent=2, ensure_ascii=False))
-    print(f"\n===== rendered_prompt_local ({QWEN3_8B}@{QWEN3_8B_REVISION[:12]}, enable_thinking={args.thinking == 'on'}) =====")
+    print(f"\n===== rendered_prompt_local ({TOKENIZER_MODEL}@{TOKENIZER_REVISION[:12]}, enable_thinking={args.thinking == 'on'}) =====")
     print(render(messages, enable_thinking=args.thinking == "on"), end="")
     print("<<END>>")
 

@@ -16,7 +16,7 @@ from seat_swap.logging import RunLogger
 from seat_swap.providers import OpenRouterChat, ScriptedProvider
 from seat_swap.scripted import ramp_policy
 
-DEFAULT_MODEL = "qwen/qwen3-8b"
+DEFAULT_MODEL = "qwen/qwen3-14b"
 RUNS_ROOT = Path(__file__).resolve().parent / "runs"
 
 

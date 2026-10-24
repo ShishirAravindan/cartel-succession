@@ -45,6 +45,14 @@ def test_plain_mode():
     assert not parse_response("I pick 1.7", notes_on=False).ok
 
 
+def test_product_information_matches_fish():
+    from seat_swap.game import make_env
+
+    user = make_env(seed=0).generate_prompt(1)[1]["content"]
+    assert "The cost I pay to produce each unit is $1.\n" in user
+    assert "No customer would pay more than $2.89." in user
+
+
 def test_scripted_text_parses():
     p = parse_response(completion_text(1.73, 1, 4))
     assert p.ok and p.price == 1.73 and "[dry-run seat 1 round 4]" in p.plans

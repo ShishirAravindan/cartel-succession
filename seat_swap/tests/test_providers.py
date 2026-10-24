@@ -22,7 +22,7 @@ class FakeCreate:
 
 def openrouter_response(content):
     return ChatCompletion.model_validate({
-        "id": "gen-1", "object": "chat.completion", "created": 0, "model": "qwen/qwen3-8b",
+        "id": "gen-1", "object": "chat.completion", "created": 0, "model": "qwen/qwen3-14b",
         "provider": "SomeBackend",
         "choices": [{"index": 0, "finish_reason": "stop",
                      "message": {"role": "assistant", "content": content, "reasoning": "secret thoughts"}}],
@@ -33,7 +33,7 @@ def openrouter_response(content):
 
 def fake_openrouter(thinking, create):
     p = object.__new__(OpenRouterChat)  # skip __init__: it loads compute.env and fetches the catalog
-    p.provider, p.model, p.thinking = "openrouter", "qwen/qwen3-8b", thinking
+    p.provider, p.model, p.thinking = "openrouter", "qwen/qwen3-14b", thinking
     p._client = SimpleNamespace(chat=SimpleNamespace(completions=SimpleNamespace(create=create)))
     return p
 
@@ -67,13 +67,13 @@ def test_openrouter_game_logs_messages_not_rendered(tmp_path):
 def test_raw_completions_sends_exactly_the_logged_string(tmp_path):
     def respond(kwargs):
         return OAICompletion.model_validate({
-            "id": "c1", "object": "text_completion", "created": 0, "model": "qwen3-8b",
+            "id": "c1", "object": "text_completion", "created": 0, "model": "qwen3-14b",
             "choices": [{"index": 0, "text": completion_text(1.7, 0, 1), "finish_reason": "stop", "logprobs": None}],
             "usage": {"prompt_tokens": 900, "completion_tokens": 50, "total_tokens": 950},
         })
 
     create = FakeCreate(respond)
-    p = RawCompletions("qwen3-8b", "http://fake.invalid/v1", "x", model_revision="abc123")
+    p = RawCompletions("qwen3-14b", "http://fake.invalid/v1", "x", model_revision="abc123")
     p._client = SimpleNamespace(completions=SimpleNamespace(create=create))
     game, logger = make_game(tmp_path, [p, ramp_providers()[1]])
     assert game.run(1)["status"] == "completed"
