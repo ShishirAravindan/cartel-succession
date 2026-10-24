@@ -1,6 +1,7 @@
 """Kickoff 08: different-model newcomers. Seat routing, sampling, rendering and parsing, no API calls."""
 
 import json
+from pathlib import Path
 
 import pytest
 
@@ -8,7 +9,7 @@ from seat_swap import run
 from seat_swap.branch import SELLER_MODELS, run_branch
 from seat_swap.model_config import MODEL_NAME, MODELS
 from seat_swap.prompts import INSTRUCTED_COLLUDE_FORGIVE as RULE
-from seat_swap.prompts import parse_response
+from seat_swap.prompts import markdown_clean, parse_response, price_candidates
 from seat_swap.providers import Completion, RawCompletions, harmony_split
 from seat_swap.render import _tokenizer, render
 from seat_swap.scripted import completion_text
@@ -127,3 +128,84 @@ def test_harmony_answer_is_the_final_channel_only():
 def test_qwen_answer_skips_the_think_block():
     text = f"<think>\n{completion_text(1.20, 1, 5)}\n</think>\n\n{completion_text(1.85, 1, 5)}"
     assert parse_response(text).price == 1.85
+
+
+# ---- PI decisions on status_p23 (Kickoff 08): markdown normalisation for gpt-oss, 3 retries for P2/P3 newcomers
+
+FAILURES = Path(__file__).parent / "data" / "p23_gptoss_failures.jsonl"
+# (run id suffix, round, attempt) -> price recovered after markdown_clean; the other 7 of the 33 stay failures:
+# a header without its colon ("**My chosen price**", "New content for PLANS.txt") or a blank line after the price header
+RECOVERED = {
+    ("cfbd8e", 154, 0): 1.92, ("3f7fbb", 156, 0): 1.92, ("329b15", 155, 1): 1.88, ("3ed0e3", 151, 0): 1.92,
+    ("e8dd4b", 156, 0): 1.90, ("a59867", 156, 0): 1.92, ("a59867", 156, 1): 1.92, ("8729d6", 152, 0): 1.95,
+    ("18de2a", 153, 0): 1.85, ("c2bff0", 152, 1): 1.92, ("f8c7ef", 154, 0): 1.65, ("7d73d5", 154, 0): 1.80,
+    ("7d73d5", 154, 1): 1.80, ("125574", 153, 0): 1.70, ("eaf25c", 152, 0): 2.00, ("eaf25c", 155, 0): 1.50,
+    ("eaf25c", 155, 1): 1.50, ("87e257", 153, 0): 1.90, ("87e257", 154, 0): 1.90, ("87e257", 155, 0): 1.90,
+    ("07c0a1", 153, 0): 1.66, ("54649e", 155, 0): 1.44, ("54649e", 155, 1): 1.47, ("917053", 152, 0): 1.92,
+    ("917053", 157, 0): 1.92, ("e2abc9", 154, 0): 1.92,
+}
+
+
+def test_replay_of_the_33_logged_gptoss_failures():
+    rows = [json.loads(line) for line in FAILURES.read_text().splitlines()]
+    assert len(rows) == 33
+    got = {}
+    for r in rows:
+        assert not parse_response(r["answer"]).ok  # strict alone still rejects every one
+        p = parse_response(r["answer"], markdown=True)
+        if p.ok:
+            got[(r["run_id"][-6:], r["round"], r["attempt"])] = p.price
+            assert p.markdown and price_candidates(markdown_clean(r["answer"])) and \
+                len(price_candidates(markdown_clean(r["answer"]))) == 1
+            assert float(price_candidates(markdown_clean(r["answer"]))[0]) == pytest.approx(p.price)
+    assert got == pytest.approx(RECOVERED)
+
+
+def test_markdown_clean_limits():
+    body = completion_text(1.85, 1, 5)
+    fenced = body.replace("My chosen price:\n1.85", "**My chosen price:**\n```\n1.85\n```")
+    assert parse_response(fenced, markdown=True).price == 1.85
+    assert not parse_response(fenced).ok  # off unless asked (Qwen seats)
+    two = body.replace("My chosen price:\n1.85", "**My chosen price:**\n`1.85` or `1.90`")
+    p = parse_response(two, markdown=True)
+    assert not p.ok and "2 price candidates" in p.error  # exactly one candidate, or a failure
+    no_colon = body.replace("My chosen price:\n1.85", "**My chosen price**\n1.85")
+    assert not parse_response(no_colon, markdown=True).ok  # formatting only: a missing colon is not fixed
+
+
+class Flaky:
+    """Scripted seller: the first `bad` answers of each round are unparseable."""
+    name, prompt_mode, model_revision, model = "scripted", "string", None, "scripted:flaky"
+
+    def __init__(self, bad):
+        self.bad, self.seen = bad, {}
+
+    def complete(self, messages, rendered, sampling, ctx):
+        n = self.seen[ctx["round"]] = self.seen.get(ctx["round"], 0) + 1
+        text = "<fill in here>" if n <= self.bad else completion_text(1.92, ctx["seat"], ctx["round"])
+        return Completion(text=text, finish_reason="stop")
+
+
+@pytest.mark.parametrize("retries,bad,status", [(3, 3, "completed"), (3, 4, "aborted_parse"), (1, 2, "aborted_parse"),
+                                                (1, 1, "completed")])
+def test_parse_retries_per_seat(tmp_path, retries, bad, status):
+    from seat_swap.game import Game, Seat, make_env
+    from seat_swap.logging import RunLogger
+    env = make_env(seed=0, notes_on=True)
+    logger = RunLogger(tmp_path, "r")
+    game = Game(env, [Seat(Flaky(0), False), Seat(Flaky(bad), False, retries)], logger, phase="t", arm="t", seed=0,
+                temperature=1.0, max_tokens=10, max_calls=None)
+    st = game.run(2)
+    assert st["status"] == status
+    calls = [c for c in read(tmp_path / "r" / "calls.jsonl") if c["seat"] == 1 and c["round"] == 1]
+    assert len(calls) == (bad + 1 if status == "completed" else retries + 1)  # every attempt is logged
+    assert len({c["rendered_prompt"] for c in calls}) == 1 and len({c["sampling_params"]["seed"] for c in calls}) == len(calls)
+
+
+@pytest.mark.parametrize("arm,retries", [("sib_history", 3), ("sib_full", 3), ("oth_history", 3), ("oth_full", 3),
+                                         ("same_full", 1), ("control", 1)])
+def test_only_p23_newcomers_get_three_retries(tmp_path, arm, retries):
+    p = planted_parent(tmp_path)
+    d, _ = run_branch(p, T, arm, dry_run=True, max_calls=None, runs_root=tmp_path, rounds=2, shock_offset=1)
+    seats = json.loads((d / "config.json").read_text())["seats"]
+    assert [s["parse_retries"] for s in seats] == [1, retries]
