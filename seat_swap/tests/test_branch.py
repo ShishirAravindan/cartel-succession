@@ -7,7 +7,7 @@ import pytest
 
 from seat_swap import metrics as M
 from seat_swap import run
-from seat_swap.branch import ARMS, ENFORCE, apply_inheritance, run_branch
+from seat_swap.branch import ARMS, ENFORCE, apply_inheritance, run_branch, run_probe
 from seat_swap.game import Game, Seat, restore_env
 from seat_swap.tests.test_logging import read
 
@@ -184,3 +184,31 @@ def test_pilot_rounds_and_shock_offset(tmp_path):
     assert [r["round"] for r in rounds if r["shock"]] == [T + 20]
     assert "metrics_error" in s  # the Phase B retaliation window (T+31..T+33) does not exist here
 
+
+
+@pytest.mark.parametrize("arm,seat0,punished", [("same_history", "grim", True), ("control", "grim", True),
+                                                ("same_history", "lookalike", False), ("lookalike", "grim", False)])
+def test_discipline_probe(tmp_path, arm, seat0, punished):
+    """Kickoff 06 self-test: grim seat 0 vs copier seat 1 punishes the forced 1.60; a non-reacting seat 0 doesn't."""
+    p = parent(tmp_path)
+    forks = []
+    arm_dir, _ = run_branch(p, T, arm, dry_run=True, max_calls=None, runs_root=tmp_path, dry_seat0=seat0,
+                            dry_seat1="copier", on_probe_fork=forks.append)
+    assert forks == [arm_dir] and (arm_dir / f"snapshot_T{T + 15}.json").exists()
+    before = tree_hash(arm_dir)
+    d, s = run_probe(arm_dir, dry_run=True, max_calls=None, runs_root=tmp_path, dry_seat0=seat0, dry_seat1="copier")
+    assert tree_hash(arm_dir) == before and d != arm_dir
+    assert s["status"] == "completed" and s["probe_punished"] is punished and s["T"] == T
+
+    rounds = read(d / "rounds.jsonl")
+    assert [r["round"] for r in rounds] == list(range(T + 16, T + 30))
+    assert [r["round"] for r in rounds if r["shock"]] == [T + 16] and rounds[0]["prices"][1] == M.PROBE_PRICE
+    calls = read(d / "calls.jsonl")
+    assert not any(c["round"] == T + 16 and c["seat"] == 1 for c in calls)  # forced seat not called
+    cfg = json.loads((d / "config.json").read_text())
+    assert cfg["arm"] == f"discipline_{arm}" and cfg["parent_arm"] == arm and cfg["fork_round"] == T + 15
+    snap = json.loads((arm_dir / f"snapshot_T{T + 15}.json").read_text())
+    assert cfg["instructions"] == json.loads((arm_dir / "config.json").read_text())["instructions"]
+    # seat 1's notes are unchanged by the forced round: its T+17 prompt carries its T+15 plans
+    assert snap["notes"][1]["plans"] in json.loads(next(c for c in calls if c["round"] == T + 17 and c["seat"] == 1)
+                                                   ["messages"])[1]["content"]
