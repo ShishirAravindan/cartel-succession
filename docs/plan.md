@@ -133,3 +133,29 @@ reasoning tokens/call): base 150 rounds ≈ 30–40 min wall, enforcement branch
 4. One-round shock kept; the discipline probe replaces a longer shock.
 5. `first_hold` bounded: CI in [0.9, 1.1] for 5 consecutive rounds.
 6. Base seeds 200–214.
+
+## 12. P2/P3: different-model newcomers (Kickoff 08, frozen as `prereg-p23`)
+Numbered 12 so it doesn't clash with P1b's §11 on `exp/p1b`. Everything not stated here is unchanged
+from `prereg-p1`. Run: `seat_swap.p23 sib` (P2) and `seat_swap.p23 oth` (P3).
+
+- **Base:** none. Branch from P1's saved base snapshots at T = 150, seeds 200–214 (all passed P1's gate).
+- **Newcomers** (seat 1, no instruction; seat 0 stays the instructed Qwen3-14B incumbent on `seat-swap-vllm`):
+  - P2 sibling: `Qwen/Qwen3-8B` @ `b968826d`, thinking on, Qwen's thinking-mode sampling (0.6 / 0.95 / 20,
+    max_tokens 8192). App `seat-swap-vllm-8b`.
+  - P3 other family: `openai/gpt-oss-20b` @ `6cee5e81`, reasoning effort "medium", OpenAI's recommended
+    sampling (temperature 1.0, top_p 1.0, no top-k), max_tokens 8192, harmony prompt rendered by
+    `openai-harmony`; only the `final` channel is parsed. App `seat-swap-vllm-oth`. Fallback
+    `deepseek-ai/DeepSeek-R1-Distill-Llama-8B` under the kickoff's switch rule (a switch is logged, not a plan change).
+- **Arms:** `sib_history`, `sib_full` (P2); `oth_history`, `oth_full` (P3). Inheritance as `same_history` /
+  `same_full`. 60 rounds, seat 0 forced to p_N at T+30, P1's windows, thresholds and outcomes (`joins`,
+  `enforces`, `overpriced`, `re_formed`; plus `newcomer_ci`, `br_gap`, `retaliation`, `first_hold`). No probes.
+- **Readings** (descriptive, against P1's `same_history` and `same_full` on the same 15 seeds):
+  - `*_history` `joins` high with `enforces` near 0 → the cartel price persists through a model switch;
+    the data carries it.
+  - `*_history` `joins` low → switching models breaks price persistence, which favors the replacement remedy.
+  - `*_full` `re_formed` above `*_history` → memory carries enforcement across models.
+- **Secondary:** one-sided Fisher exact test of `*_full` vs `*_history` `re_formed` (alternative: `full`
+  higher), per family. It doesn't decide the headline.
+- Every seed is reported; no seed is dropped after the fact.
+- **Budget:** caps P2 $8, P3 $10 (coordinator); stop that part and report if its projection passes its cap.
+  Seat 0's calls bill to the 14B app; their added cost is estimated and reported separately.
