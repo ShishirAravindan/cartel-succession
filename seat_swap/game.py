@@ -23,7 +23,7 @@ from seat_swap import prompts
 from seat_swap.logging import RunLogger, now
 from seat_swap.metrics import A, A0, BETA, COST, MU, P_MONOPOLY, P_NASH
 from seat_swap.prompts import NotesOligopoly, parse_response
-from seat_swap.render import QWEN3_8B_REVISION, messages_json, render
+from seat_swap.render import TOKENIZER_MODEL, TOKENIZER_REVISION, messages_json, render
 
 MARKET = dict(a0=A0, ais=[A, A], costs=[COST, COST], mu=MU, beta=BETA, alpha=1.0)
 WINDOW = 100
@@ -111,7 +111,8 @@ class Game:
                        "model_revision": s.provider.model_revision, "prompt_mode": s.provider.prompt_mode,
                        "thinking": s.thinking} for i, s in enumerate(self.seats)],
             "temperature": self.temperature, "max_tokens": self.max_tokens, "max_calls": self.max_calls,
-            "tokenizer_revision": QWEN3_8B_REVISION, "git": git_state(), "created": now(), **extra,
+            "tokenizer_model": TOKENIZER_MODEL, "tokenizer_revision": TOKENIZER_REVISION,
+            "git": git_state(), "created": now(), **extra,
         }
 
     def history_rows(self) -> list[dict]:
@@ -142,7 +143,7 @@ class Game:
             "served_provider": comp.served_provider if comp else None,
             "prompt_mode": p.prompt_mode,
             "rendered_prompt": rendered if p.prompt_mode == "string" else None,
-            "rendered_prompt_local": rendered, "tokenizer_revision": QWEN3_8B_REVISION,
+            "rendered_prompt_local": rendered, "tokenizer_revision": TOKENIZER_REVISION,
             "messages": messages_json(messages),
             "sampling_params": sampling,
             "raw_completion": comp.text if comp else None,

@@ -21,7 +21,7 @@ Always run from the repo root with `python -m seat_swap.<module>` (the package h
 | file | role |
 |---|---|
 | `prompts.py` | `NotesOligopoly` (Fish et al. PLANS/INSIGHTS prompt) and the strict parser |
-| `render.py` | Qwen3-8B chat template, tokenizer pinned |
+| `render.py` | Qwen3 chat template, tokenizer pinned (Qwen3-14B) |
 | `providers.py` | OpenRouter chat, vLLM `/v1/completions`, scripted sellers |
 | `game.py` | game loop: retries, call budget, shocks, snapshots |
 | `logging.py` | run-directory writer (logging contract) |
