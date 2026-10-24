@@ -101,3 +101,21 @@ from citing an own plan. Three sharpened items are re-coded on all 74 games, bli
 
 The original B3/B6/B7 codes are kept and reported, marked as superseded for the "inherited rule" question.
 Other coder notes (B4 `hold` used for staying at a non-1.92 price; B2 mixed framings) are reported as limitations, not re-coded.
+
+## Amendment 2 (2026-10-25, before any history-arm game is read): comparison group
+Pass B shows *how newcomers with notes* respond to the cut. To see what the notes add, the same decision is coded for
+newcomers **without** inherited notes: `same_history` (P1 + P1b, 30 games), `sib_history` (15) and `oth_history`
+(15) from the P2/P3 reruns, 60 games. Packets as in Pass B, minus the inherited-notes section (there is none), blind to arm
+and model, in 4 batches + 10 games coded twice. Codes, with Pass B's definitions:
+
+| code | from |
+|---|---|
+| `C1_notices_cut` | B1 |
+| `C2_reading` | B2 |
+| `C3_punishment_logic` | yes / no: the T+31 reasoning frames its response as punishment, retaliation or deterrence (any source) |
+| `C4_response` | B4 (for a newcomer already below 1.92 that keeps its price, use `hold`) |
+| `C5_return_plan` | B5 |
+| `C8_own_scheme` | yes / no: its notes or reasoning state a retaliation or matching rule of its own |
+| `C9_quote`, `C10_confidence` | B9, B10 |
+
+Comparison (descriptive): C2–C4 in the history arms vs B2, B3s, B4 in the notes arms, per model.
