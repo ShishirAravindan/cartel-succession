@@ -37,3 +37,16 @@ Newest entry at the bottom.
 - Secrets `seat-swap-vllm-8b`, `seat-swap-vllm-oth` created with new keys (in the worktree's gitignored
   `compute.env`, never printed). Weights Volumes `seat-swap-hf-cache-8b` / `-oth` filled on CPU.
 - Pre-registered in `docs/plan.md` §12 (numbered 12 to avoid P1b's §11) and tagged `prereg-p23`.
+
+## 2026-10-25 — P2/P3 launched (Kickoff 08, step 3)
+
+- Apps deployed from `ff2bb5d` (= `prereg-p23`) with `scaledown_window` 10 min: `seat-swap-vllm-8b`, `seat-swap-vllm-oth`
+  (1 H100 each, up to 2 containers). URLs added to the worktree's `compute.env`.
+- **Live smoke, one 2-round `sib_full` / `oth_full` branch of P1 s200 each** (`seat_swap/runs/smoke/`, throwaway):
+  every call parsed; `verify_prompts --seat 1` 2/2 on tokens, echo and token ids for both models, so the
+  string we log is what each server ran. gpt-oss answered in harmony channels (analysis, then final);
+  the price came from the final channel. 8B 6–14 s/call, gpt-oss 8–11 s/call at no load.
+- **P3 runs gpt-oss-20b** (the primary): its checks all passed about 35 min after I started on it, inside the
+  kickoff's 45 min, so no switch to the fallback.
+- P2 `seat_swap.p23 sib` launched about 18:31 UTC, P3 `seat_swap.p23 oth` about 18:37 UTC, 30 games each, against the
+  14B app that is also running Kickoff 07's base.
