@@ -1,34 +1,743 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>After the handover · Cartel succession explorer</title>
-<link rel="icon" href="data:,">
-<style>
-:root{--paper:#f6f5f0;--ink:#182b39;--muted:#63717a;--teal:#087d78;--orange:#d56235;--line:#dadfd9;--blue:#dfeaf4;--green:#e3eee5;--amber:#f7e6c9;--white:#fff;--red:#ac2e35}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.55 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select{font:inherit}button,select,input[type=number]{border:1px solid #b9c5bf;border-radius:7px;background:white;color:var(--ink);padding:9px 12px}button{cursor:pointer;font-weight:600}button:hover{border-color:var(--teal);background:#f1f8f5}button:disabled{opacity:.42;cursor:default}.primary{background:var(--ink);color:white;border-color:var(--ink)}.primary:hover{background:#304c5c;color:white}button[aria-pressed=true]{background:var(--teal);border-color:var(--teal);color:white}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #45b7a9;outline-offset:3px}main{max-width:1450px;margin:auto;padding:28px 42px 50px}.masthead{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:18px;gap:15px}.eyebrow{font-size:11px;font-weight:750;letter-spacing:.14em;text-transform:uppercase}.tag{font-size:11px;letter-spacing:.04em;border:1px solid var(--line);border-radius:20px;padding:5px 10px}.intro{display:grid;grid-template-columns:1fr 340px;gap:50px;align-items:end;margin:29px 0 26px}h1{font:500 clamp(34px,4vw,53px)/1.05 Georgia,serif;letter-spacing:-.04em;margin:0 0 14px}h1 em{font-weight:400;color:var(--teal)}h2,h3,p{margin:0}h2{font-size:16px}h3{font-size:13px}.sub{max-width:720px;color:var(--muted)}.equation{padding:15px 18px;border-left:2px solid var(--teal);color:var(--muted);font-size:12px}.equation strong{display:block;font:18px Georgia,serif;color:var(--ink);margin-bottom:5px}.banner{padding:10px 14px;border:1px solid #a9ccb6;background:#e9f3ec;color:#276246;border-radius:6px;font-size:12px;margin-bottom:24px;display:flex;justify-content:space-between;gap:15px}.banner.fail{background:#fff0ee;border-color:#d69090;color:var(--red)}.layout{display:grid;grid-template-columns:265px minmax(0,1fr);gap:22px;align-items:start}.card{border:1px solid var(--line);border-radius:10px;background:white;overflow:hidden}.sidebar{padding:20px}.section-label{font-size:10px;font-weight:750;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-bottom:10px}.field{display:block;font-size:12px;font-weight:650;margin:15px 0 6px}.sidebar select{width:100%;font-size:13px}.segmented{display:flex;gap:5px}.segmented button{flex:1;font-size:12px;padding:8px 6px}.hint{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.6}.divider{border:0;border-top:1px solid var(--line);margin:20px 0}.price-control{display:flex;gap:10px;align-items:center;margin-top:12px}.price-control input[type=number]{width:90px;font-size:20px}.price-control span{font-size:12px;color:var(--muted)}input[type=range]{width:100%;accent-color:var(--teal);margin:13px 0}.actions{display:flex;flex-direction:column;gap:8px;margin-top:15px}.actions button{font-size:12px}.content{min-width:0;display:flex;flex-direction:column;gap:16px}.chart-head{display:flex;justify-content:space-between;align-items:center;padding:19px 22px 9px;gap:15px}.legend{display:flex;gap:15px;font-size:11px;color:var(--muted);flex-wrap:wrap}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}.chart-wrap{padding:0 12px 6px}svg{display:block;width:100%;height:auto;overflow:visible}.chart-footer{display:flex;justify-content:space-between;padding:8px 22px 15px;color:var(--muted);font-size:11px;gap:10px}.reading{padding:15px 20px;background:#edf3f0;border:1px solid #d5e3da;border-radius:8px;font-size:13px}.reading strong{color:var(--teal)}.metrics-head{display:flex;justify-content:space-between;align-items:center;padding:18px 20px 10px;font-size:11px;color:var(--muted)}.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border-top:1px solid var(--line)}.metric{background:white;padding:14px 15px;min-height:110px}.metric-name{font:12px ui-monospace,SFMono-Regular,monospace}.metric-value{font-size:22px;font-weight:550;letter-spacing:-.03em;margin:5px 0}.metric-rule{font-size:10px;color:var(--muted);line-height:1.4}.pass{color:var(--teal)}.no{color:var(--orange)}.pending{color:var(--muted);font-size:16px}.numbers{padding:12px 20px;display:flex;flex-wrap:wrap;gap:8px 22px;color:var(--muted);font-size:11px}.profit-chart{padding-bottom:8px}details{border-top:1px solid var(--line);padding:14px 20px}summary{cursor:pointer;font-size:12px;font-weight:600}.table-scroll{max-height:290px;overflow:auto;margin-top:12px}table{border-collapse:collapse;width:100%;font-size:11px;font-variant-numeric:tabular-nums}th,td{text-align:right;padding:7px 9px;border-bottom:1px solid #e9ece7}th{position:sticky;top:0;background:#f6f7f3}th:first-child,td:first-child{text-align:left}.replay{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:16px 20px}.replay p{flex:1;font-size:12px;color:var(--muted)}.replay select{max-width:100%;font-size:12px}.error{color:var(--red);font-size:12px}.foot{display:flex;justify-content:space-between;gap:20px;font-size:11px;color:var(--muted);padding-top:25px}.rule{font-size:11px;color:var(--muted)}[hidden]{display:none!important}@media(max-width:1000px){main{padding:22px}.intro{grid-template-columns:1fr;gap:20px}.equation{display:none}.layout{grid-template-columns:225px minmax(0,1fr)}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.chart-head{align-items:flex-start;flex-direction:column}.chart-footer{flex-direction:column}}@media(max-width:700px){main{padding:16px}.layout{grid-template-columns:1fr}.sidebar{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}.sidebar>div{min-width:0}.sidebar .divider{display:none}.masthead{font-size:10px}.intro{margin:25px 0}.banner{display:block}.banner span{display:block}.foot{flex-direction:column}.chart-wrap{overflow-x:auto}.chart-wrap svg{min-width:650px}.metrics-head{align-items:flex-start;gap:10px}.replay{align-items:flex-start}}
-</style>
-</head>
-<body>
-<main>
-<header class="masthead"><span class="eyebrow">Market dynamics / experiment explorer</span><span class="tag">Scripted illustration · no model calls</span></header>
-<section class="intro"><div><h1>After the <em>handover.</em></h1><p class="sub">A new seller enters a market with a planted pricing rule. Explore the difference between keeping prices high, punishing a cut, and returning after punishment.</p></div><div class="equation"><strong>CI = (p − 1.473) / (1.925 − 1.473)</strong>Logit Bertrand duopoly · a = 2 · c = 1<br>μ = 0.25 · β = 100 · outside option = 0</div></section>
-<div id="parity" class="banner" role="status" aria-live="polite"><strong>Checking Python parity…</strong><span>20 price pairs · 5 scripted games · tolerance 10⁻⁶</span></div>
-<div class="layout">
-<aside class="card sidebar">
-<div><p class="section-label">01 / Set the scene</p><label class="field" for="arm">Experiment arm</label><select id="arm"><option value="same_history">same_history</option><option value="control">control</option><option value="same_none">same_none</option><option value="same_full">same_full</option><option value="lookalike">lookalike</option></select><p id="arm-explanation" class="hint"></p><label class="field">Scenario</label><div class="segmented"><button id="main-track" aria-pressed="true">Main arm</button><button id="probe-track" aria-pressed="false">Discipline probe</button></div><p id="track-explanation" class="hint"></p></div>
-<div><hr class="divider"><p class="section-label">02 / Choose the newcomer</p><div class="segmented"><button id="preset-mode" aria-pressed="true">Presets</button><button id="human-mode" aria-pressed="false">You play</button></div><div id="preset-controls"><label class="field" for="preset">Seat 1 policy</label><select id="preset"><option value="enforcer">Enforcer</option><option value="copier">Copier</option><option value="anchored">Anchored</option><option value="follower">Follower</option><option value="undercutter">Undercutter</option></select><div id="anchor-control" hidden><label class="field" for="anchor">Anchor price</label><input id="anchor" type="range" min="2" max="2.5" step="0.01" value="2.2"><output id="anchor-value">2.20</output></div></div><div id="human-controls" hidden><label class="field" for="price">Your next price</label><div class="price-control"><input id="price" type="number" min="1" max="2.89" step="0.01" value="1.92"><span>cost 1.00<br>max 2.89</span></div><input id="price-slider" aria-label="Your next price slider" type="range" min="1" max="2.89" step="0.01" value="1.92"></div><p id="preset-explanation" class="hint"></p><div class="actions"><button class="primary" id="next">Next round</button><button id="finish">Run preset to end</button><button id="reset">Reset simulation</button></div><p class="hint" id="progress" aria-live="polite"></p></div>
-<div><hr class="divider"><p class="section-label">Seat 0 / The incumbent</p><p class="rule">Price 1.92. A rival cut below 1.70 immediately after both priced ≥ 1.90 triggers 1.47 for the next 3 rounds, then 1.92. Ignore cuts during punishment and in the return round.</p><p class="hint" id="incumbent-note"></p></div>
-</aside>
-<div class="content">
-<section class="card"><div class="chart-head"><div><p class="section-label">The price path</p><h2 id="chart-title">same_history · main arm</h2></div><div class="legend"><span><i class="dot" style="background:var(--teal)"></i>Seat 0 / incumbent</span><span><i class="dot" style="background:var(--orange)"></i>Seat 1 / newcomer</span></div></div><div id="price-chart" class="chart-wrap"></div><div class="chart-footer"><span>Left: price · right: CI of each price · dashed: p_N and p_M</span><span>T = 150 · shaded windows are inclusive</span></div></section>
-<div class="reading"><strong>What this shows / </strong><span id="what-shows"></span></div>
-<section class="card"><div class="metrics-head"><h2>Read the behavior</h2><span id="metric-context">Main line + independent discipline fork</span></div><div id="metrics" class="metrics" aria-live="polite"></div><div id="numbers" class="numbers"></div></section>
-<section class="card profit-chart"><div class="chart-head"><div><p class="section-label">The incentive in each round</p><h2>Per-round profit</h2></div><span class="hint" id="profit-total"></span></div><div id="profit-chart" class="chart-wrap"></div><details><summary>Inspect prices, quantities &amp; profits by round</summary><div class="table-scroll"><table><thead><tr><th>Round</th><th>p₀</th><th>p₁</th><th>q₀</th><th>q₁</th><th>π₀</th><th>π₁</th><th>Event</th></tr></thead><tbody id="round-table"></tbody></table></div></details></section>
-<section class="card"><div class="replay"><div><p class="section-label">Replay / your exported prices</p><h2>Load experiment results</h2></div><p>Local CSV only. Select a seed and arm to replay the same metric windows.</p><button id="load">Load results</button><input id="csv-file" type="file" accept=".csv,text/csv" hidden><select id="replay-group" aria-label="Replay seed and arm" hidden></select><button id="exit-replay" hidden>Back to simulation</button><span id="csv-status" role="status" aria-live="polite"></span></div></section>
-</div></div>
-<footer class="foot"><p>An illustration of the frozen design, not experimental evidence. Toy policies do not model LLM inheritance.</p><p>Pure local JS · no dependencies · <a href="README.md">Opening &amp; CSV schema ↗</a></p></footer>
-</main>
-<script id="fixture-data" type="application/json">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>After the handover · Cartel succession explorer</title>
+    <link rel="icon" href="data:," />
+    <style>
+      :root {
+        --paper: #f6f5f0;
+        --ink: #182b39;
+        --muted: #63717a;
+        --teal: #087d78;
+        --orange: #d56235;
+        --line: #dadfd9;
+        --blue: #dfeaf4;
+        --green: #e3eee5;
+        --amber: #f7e6c9;
+        --white: #fff;
+        --red: #ac2e35;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font:
+          15px/1.55 system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+      }
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+      button,
+      select,
+      input[type="number"] {
+        border: 1px solid #b9c5bf;
+        border-radius: 7px;
+        background: white;
+        color: var(--ink);
+        padding: 9px 12px;
+      }
+      button {
+        cursor: pointer;
+        font-weight: 600;
+      }
+      button:hover {
+        border-color: var(--teal);
+        background: #f1f8f5;
+      }
+      button:disabled {
+        opacity: 0.42;
+        cursor: default;
+      }
+      .primary {
+        background: var(--ink);
+        color: white;
+        border-color: var(--ink);
+      }
+      .primary:hover {
+        background: #304c5c;
+        color: white;
+      }
+      button[aria-pressed="true"] {
+        background: var(--teal);
+        border-color: var(--teal);
+        color: white;
+      }
+      button:focus-visible,
+      input:focus-visible,
+      select:focus-visible {
+        outline: 3px solid #45b7a9;
+        outline-offset: 3px;
+      }
+      main {
+        max-width: 1450px;
+        margin: auto;
+        padding: 28px 42px 50px;
+      }
+      .masthead {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 18px;
+        gap: 15px;
+      }
+      .eyebrow {
+        font-size: 11px;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+      .tag {
+        font-size: 11px;
+        letter-spacing: 0.04em;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 5px 10px;
+      }
+      .intro {
+        display: grid;
+        grid-template-columns: 1fr 340px;
+        gap: 50px;
+        align-items: end;
+        margin: 29px 0 26px;
+      }
+      h1 {
+        font:
+          500 clamp(34px, 4vw, 53px) / 1.05 Georgia,
+          serif;
+        letter-spacing: -0.04em;
+        margin: 0 0 14px;
+      }
+      h1 em {
+        font-weight: 400;
+        color: var(--teal);
+      }
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+      h2 {
+        font-size: 16px;
+      }
+      h3 {
+        font-size: 13px;
+      }
+      .sub {
+        max-width: 720px;
+        color: var(--muted);
+      }
+      .equation {
+        padding: 15px 18px;
+        border-left: 2px solid var(--teal);
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .equation strong {
+        display: block;
+        font:
+          18px Georgia,
+          serif;
+        color: var(--ink);
+        margin-bottom: 5px;
+      }
+      .banner {
+        padding: 10px 14px;
+        border: 1px solid #a9ccb6;
+        background: #e9f3ec;
+        color: #276246;
+        border-radius: 6px;
+        font-size: 12px;
+        margin-bottom: 24px;
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+      }
+      .banner.fail {
+        background: #fff0ee;
+        border-color: #d69090;
+        color: var(--red);
+      }
+      .layout {
+        display: grid;
+        grid-template-columns: 265px minmax(0, 1fr);
+        gap: 22px;
+        align-items: start;
+      }
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: white;
+        overflow: hidden;
+      }
+      .sidebar {
+        padding: 20px;
+      }
+      .section-label {
+        font-size: 10px;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        color: var(--muted);
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+      .field {
+        display: block;
+        font-size: 12px;
+        font-weight: 650;
+        margin: 15px 0 6px;
+      }
+      .sidebar select {
+        width: 100%;
+        font-size: 13px;
+      }
+      .segmented {
+        display: flex;
+        gap: 5px;
+      }
+      .segmented button {
+        flex: 1;
+        font-size: 12px;
+        padding: 8px 6px;
+      }
+      .hint {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 10px;
+        line-height: 1.6;
+      }
+      .divider {
+        border: 0;
+        border-top: 1px solid var(--line);
+        margin: 20px 0;
+      }
+      .price-control {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin-top: 12px;
+      }
+      .price-control input[type="number"] {
+        width: 90px;
+        font-size: 20px;
+      }
+      .price-control span {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      input[type="range"] {
+        width: 100%;
+        accent-color: var(--teal);
+        margin: 13px 0;
+      }
+      .actions {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 15px;
+      }
+      .actions button {
+        font-size: 12px;
+      }
+      .content {
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .chart-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 19px 22px 9px;
+        gap: 15px;
+      }
+      .legend {
+        display: flex;
+        gap: 15px;
+        font-size: 11px;
+        color: var(--muted);
+        flex-wrap: wrap;
+      }
+      .dot {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        margin-right: 5px;
+      }
+      .chart-wrap {
+        padding: 0 12px 6px;
+      }
+      svg {
+        display: block;
+        width: 100%;
+        height: auto;
+        overflow: visible;
+      }
+      .chart-footer {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 22px 15px;
+        color: var(--muted);
+        font-size: 11px;
+        gap: 10px;
+      }
+      .reading {
+        padding: 15px 20px;
+        background: #edf3f0;
+        border: 1px solid #d5e3da;
+        border-radius: 8px;
+        font-size: 13px;
+      }
+      .reading strong {
+        color: var(--teal);
+      }
+      .metrics-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 18px 20px 10px;
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1px;
+        background: var(--line);
+        border-top: 1px solid var(--line);
+      }
+      .metric {
+        background: white;
+        padding: 14px 15px;
+        min-height: 110px;
+      }
+      .metric-name {
+        font:
+          12px ui-monospace,
+          SFMono-Regular,
+          monospace;
+      }
+      .metric-value {
+        font-size: 22px;
+        font-weight: 550;
+        letter-spacing: -0.03em;
+        margin: 5px 0;
+      }
+      .metric-rule {
+        font-size: 10px;
+        color: var(--muted);
+        line-height: 1.4;
+      }
+      .pass {
+        color: var(--teal);
+      }
+      .no {
+        color: var(--orange);
+      }
+      .pending {
+        color: var(--muted);
+        font-size: 16px;
+      }
+      .numbers {
+        padding: 12px 20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 22px;
+        color: var(--muted);
+        font-size: 11px;
+      }
+      .profit-chart {
+        padding-bottom: 8px;
+      }
+      details {
+        border-top: 1px solid var(--line);
+        padding: 14px 20px;
+      }
+      summary {
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .table-scroll {
+        max-height: 290px;
+        overflow: auto;
+        margin-top: 12px;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 11px;
+        font-variant-numeric: tabular-nums;
+      }
+      th,
+      td {
+        text-align: right;
+        padding: 7px 9px;
+        border-bottom: 1px solid #e9ece7;
+      }
+      th {
+        position: sticky;
+        top: 0;
+        background: #f6f7f3;
+      }
+      th:first-child,
+      td:first-child {
+        text-align: left;
+      }
+      .replay {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
+        padding: 16px 20px;
+      }
+      .replay p {
+        flex: 1;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .replay select {
+        max-width: 100%;
+        font-size: 12px;
+      }
+      .error {
+        color: var(--red);
+        font-size: 12px;
+      }
+      .foot {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        font-size: 11px;
+        color: var(--muted);
+        padding-top: 25px;
+      }
+      .rule {
+        font-size: 11px;
+        color: var(--muted);
+      }
+      [hidden] {
+        display: none !important;
+      }
+      @media (max-width: 1000px) {
+        main {
+          padding: 22px;
+        }
+        .intro {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+        .equation {
+          display: none;
+        }
+        .layout {
+          grid-template-columns: 225px minmax(0, 1fr);
+        }
+        .metrics {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .chart-head {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+        .chart-footer {
+          flex-direction: column;
+        }
+      }
+      @media (max-width: 700px) {
+        main {
+          padding: 16px;
+        }
+        .layout {
+          grid-template-columns: 1fr;
+        }
+        .sidebar {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 0 18px;
+        }
+        .sidebar > div {
+          min-width: 0;
+        }
+        .sidebar .divider {
+          display: none;
+        }
+        .masthead {
+          font-size: 10px;
+        }
+        .intro {
+          margin: 25px 0;
+        }
+        .banner {
+          display: block;
+        }
+        .banner span {
+          display: block;
+        }
+        .foot {
+          flex-direction: column;
+        }
+        .chart-wrap {
+          overflow-x: auto;
+        }
+        .chart-wrap svg {
+          min-width: 650px;
+        }
+        .chart-wrap::after {
+          content: "Swipe the chart horizontally to inspect later rounds →";
+          display: block;
+          padding: 8px;
+          color: var(--muted);
+          font-size: 10px;
+        }
+        .metrics-head {
+          align-items: flex-start;
+          gap: 10px;
+        }
+        .replay {
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header class="masthead">
+        <span class="eyebrow">Market dynamics / experiment explorer</span
+        ><span class="tag">Scripted illustration · no model calls</span>
+      </header>
+      <section class="intro">
+        <div>
+          <h1>After the <em>handover.</em></h1>
+          <p class="sub">
+            A new seller enters a market with a planted pricing rule. Explore
+            the difference between keeping prices high, punishing a cut, and
+            returning after punishment.
+          </p>
+        </div>
+        <div class="equation">
+          <strong>CI = (p − 1.473) / (1.925 − 1.473)</strong>Logit Bertrand
+          duopoly · a = 2 · c = 1<br />μ = 0.25 · β = 100 · outside option = 0
+        </div>
+      </section>
+      <div id="parity" class="banner" role="status" aria-live="polite">
+        <strong>Checking Python parity…</strong
+        ><span>20 price pairs · 5 scripted games · tolerance 10⁻⁶</span>
+      </div>
+      <div class="layout">
+        <aside class="card sidebar">
+          <div>
+            <p class="section-label">01 / Set the scene</p>
+            <label class="field" for="arm">Experiment arm</label
+            ><select id="arm">
+              <option value="same_history">same_history</option>
+              <option value="control">control</option>
+              <option value="same_none">same_none</option>
+              <option value="same_full">same_full</option>
+              <option value="lookalike">lookalike</option>
+            </select>
+            <p id="arm-explanation" class="hint"></p>
+            <label class="field">Scenario</label>
+            <div class="segmented">
+              <button id="main-track" aria-pressed="true">Main arm</button
+              ><button id="probe-track" aria-pressed="false">
+                Discipline probe
+              </button>
+            </div>
+            <p id="track-explanation" class="hint"></p>
+          </div>
+          <div>
+            <hr class="divider" />
+            <p class="section-label">02 / Choose the newcomer</p>
+            <div class="segmented">
+              <button id="preset-mode" aria-pressed="true">Presets</button
+              ><button id="human-mode" aria-pressed="false">You play</button>
+            </div>
+            <div id="preset-controls">
+              <label class="field" for="preset">Seat 1 policy</label
+              ><select id="preset">
+                <option value="enforcer">Enforcer</option>
+                <option value="copier">Copier</option>
+                <option value="anchored">Anchored</option>
+                <option value="follower">Follower</option>
+                <option value="undercutter">Undercutter</option>
+              </select>
+              <div id="anchor-control" hidden>
+                <label class="field" for="anchor">Anchor price</label
+                ><input
+                  id="anchor"
+                  type="range"
+                  min="2"
+                  max="2.5"
+                  step="0.01"
+                  value="2.2"
+                /><output id="anchor-value">2.20</output>
+              </div>
+            </div>
+            <div id="human-controls" hidden>
+              <label class="field" for="price">Your next price</label>
+              <div class="price-control">
+                <input
+                  id="price"
+                  type="number"
+                  min="1"
+                  max="2.89"
+                  step="0.01"
+                  value="1.92"
+                /><span>cost 1.00<br />max 2.89</span>
+              </div>
+              <input
+                id="price-slider"
+                aria-label="Your next price slider"
+                type="range"
+                min="1"
+                max="2.89"
+                step="0.01"
+                value="1.92"
+              />
+            </div>
+            <p id="preset-explanation" class="hint"></p>
+            <div class="actions">
+              <button class="primary" id="next">Next round</button
+              ><button id="finish">Run preset to end</button
+              ><button id="reset">Reset simulation</button>
+            </div>
+            <p class="hint" id="progress" aria-live="polite"></p>
+          </div>
+          <div>
+            <hr class="divider" />
+            <p class="section-label">Seat 0 / The incumbent</p>
+            <p class="rule">
+              Price 1.92. A rival cut below 1.70 immediately after both priced ≥
+              1.90 triggers 1.47 for the next 3 rounds, then 1.92. Ignore cuts
+              during punishment and in the return round.
+            </p>
+            <p class="hint" id="incumbent-note"></p>
+          </div>
+        </aside>
+        <div class="content">
+          <section class="card">
+            <div class="chart-head">
+              <div>
+                <p class="section-label">The price path</p>
+                <h2 id="chart-title">same_history · main arm</h2>
+              </div>
+              <div class="legend">
+                <span
+                  ><i class="dot" style="background: var(--teal)"></i>Seat 0 /
+                  incumbent</span
+                ><span
+                  ><i class="dot" style="background: var(--orange)"></i>Seat 1 /
+                  newcomer</span
+                >
+              </div>
+            </div>
+            <div id="price-chart" class="chart-wrap"></div>
+            <div class="chart-footer">
+              <span
+                >Left: price · right: CI of each price · dashed: p_N and
+                p_M</span
+              ><span>T = 150 · shaded windows are inclusive</span>
+            </div>
+          </section>
+          <div class="reading">
+            <strong>What this shows / </strong><span id="what-shows"></span>
+          </div>
+          <section class="card">
+            <div class="metrics-head">
+              <h2>Read the behavior</h2>
+              <span id="metric-context"
+                >Main line + independent discipline fork</span
+              >
+            </div>
+            <div id="metrics" class="metrics" aria-live="polite"></div>
+            <div id="numbers" class="numbers"></div>
+          </section>
+          <section class="card profit-chart">
+            <div class="chart-head">
+              <div>
+                <p class="section-label">The incentive in each round</p>
+                <h2>Per-round profit</h2>
+              </div>
+              <span class="hint" id="profit-total"></span>
+            </div>
+            <div id="profit-chart" class="chart-wrap"></div>
+            <details>
+              <summary>
+                Inspect prices, quantities &amp; profits by round
+              </summary>
+              <div class="table-scroll">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Round</th>
+                      <th>p₀</th>
+                      <th>p₁</th>
+                      <th>q₀</th>
+                      <th>q₁</th>
+                      <th>π₀</th>
+                      <th>π₁</th>
+                      <th>Event</th>
+                    </tr>
+                  </thead>
+                  <tbody id="round-table"></tbody>
+                </table>
+              </div>
+            </details>
+          </section>
+          <section class="card">
+            <div class="replay">
+              <div>
+                <p class="section-label">Replay / your exported prices</p>
+                <h2>Load experiment results</h2>
+              </div>
+              <p>
+                Local CSV only. Select a seed and arm to replay the same metric
+                windows.
+              </p>
+              <button id="load">Load results</button
+              ><input
+                id="csv-file"
+                type="file"
+                accept=".csv,text/csv"
+                hidden
+              /><select
+                id="replay-group"
+                aria-label="Replay seed and arm"
+                hidden
+              ></select
+              ><button id="exit-replay" hidden>Back to simulation</button
+              ><span id="csv-status" role="status" aria-live="polite"></span>
+            </div>
+          </section>
+        </div>
+      </div>
+      <footer class="foot">
+        <p>
+          An illustration of the frozen design, not experimental evidence. Toy
+          policies do not model LLM inheritance.
+        </p>
+        <p>
+          Pure local JS · no dependencies ·
+          <a href="README.md">Opening &amp; CSV schema ↗</a>
+        </p>
+      </footer>
+    </main>
+    <!-- prettier-ignore -->
+    <script id="fixture-data" type="application/json">
 {
   "schema_version": 1,
   "reference_revision": "650e722488daf0831492712d7f883fcecf90f742",
@@ -6454,76 +7163,1019 @@
   ]
 }
 </script>
-<script>
-'use strict';
-const T=150, PN=1.473, PM=1.925, EPS=1e-9, DELTA=PM-PN;
-const ci=p=>(p-PN)/DELTA, band=x=>x>.5&&x<=1.1+EPS;
-const holdBand=p=>ci(p)>=.9-EPS&&ci(p)<=1.1+EPS;
-const mean=a=>a.reduce((s,x)=>s+x,0)/a.length;
-function market(prices){const e=prices.map(p=>Math.exp((2-p)/.25)),den=e[0]+e[1]+Math.exp(0/.25),quantities=e.map(x=>100*x/den);return{quantities,profits:quantities.map((q,i)=>q*(prices[i]-1))};}
-function bestResponse(opp){let a=1,b=2*PM;const g=(Math.sqrt(5)-1)/2;let c=b-g*(b-a),d=a+g*(b-a);for(let i=0;i<90;i++){if(market([c,opp]).profits[0]>market([d,opp]).profits[0]){b=d;d=c;c=b-g*(b-a);}else{a=c;c=d;d=a+g*(b-a);}}return(a+b)/2;}
-function windowRows(h,lo,hi){const map=new Map(h.map(r=>[r.round,r]));let rows=[];for(let r=lo;r<=hi;r++){if(!map.has(r))return null;rows.push(map.get(r));}return rows;}
-function meanCI(h,lo,hi,seat=null){const w=windowRows(h,lo,hi);return w?mean(w.flatMap(r=>seat===null?r.prices.map(ci):[ci(r.prices[seat])])):null;}
-function firstHold(h,lo,hi,n=5){const w=windowRows(h,lo,hi);if(!w)return undefined;for(let i=0;i<=w.length-n;i++)if(w.slice(i,i+n).every(r=>holdBand(r.prices[1])))return lo+i;return null;}
-function punishmentStarts(h,lo,hi){if(!windowRows(h,lo,hi))return null;const map=new Map(h.map(r=>[r.round,r]));const low=r=>map.has(r)&&!Object.hasOwn(map.get(r).forced||{},'0')&&map.get(r).prices[0]<1.70-EPS;return Array.from({length:hi-lo+1},(_,i)=>lo+i).filter(r=>low(r)&&!low(r-1));}
-function mainMetrics(h){const early=meanCI(h,T+1,T+10),late=meanCI(h,T+20,T+29),newci=meanCI(h,T+20,T+29,1),pre=meanCI(h,T+27,T+29,1),post=meanCI(h,T+31,T+33,1);const ret=pre===null||post===null?null:post-pre,w=windowRows(h,T+20,T+29),est=windowRows(h,T+25,T+29);return{ci_early:early,ci_late:late,newcomer_ci:newci,br_gap:w?mean(w.map(r=>(r.prices[1]-bestResponse(Math.round(r.prices[0]*1e6)/1e6))/DELTA)):null,retaliation:ret,joins:newci===null?null:band(newci),enforces:ret===null?null:ret<=-.3,overpriced:newci===null?null:newci>1.1+EPS,re_formed:late===null||ret===null?null:band(late)&&ret<=-.3,established:est?est.every(r=>r.prices.every(holdBand)):null,first_hold:firstHold(h,T+1,T+60),punishment_pre:punishmentStarts(h,T+1,T+29),punishment_post:punishmentStarts(h,T+31,T+60)};}
-function probeMetrics(h){const w=windowRows(h,T+17,T+19),post=meanCI(h,T+24,T+29,1),ret=firstHold(h,T+17,T+29,3),punished=w?w.some(r=>r.prices[0]<1.70-EPS):null;return{probe_punished:punished,probe_counter:w?w.filter(r=>r.prices[1]<1.70-EPS).length:null,probe_return:ret===undefined?undefined:ret===null?null:ret-T,probe_ci_post:post,disciplined:punished===null||post===null?null:punished&&band(post)};}
-const ARMS={control:'In the experiment, both instructed incumbents stay. Here seat 1 uses your selected policy; choose Enforcer for the rule-based control.',same_history:'The newcomer inherits the price/profit table up to T, without notes or the instruction.',same_none:'The newcomer inherits no table or notes and sees only rounds it plays.',same_full:'The newcomer inherits the table and outgoing notes, without the instruction itself.',lookalike:'Seat 0 repeats its last chosen price and never reacts; the newcomer inherits the table.'};
-const PRESETS={copier:'Copier averages the rival’s last 30 prices, so a one-round cut has a diluted effect.',enforcer:'Enforcer follows the same forgiving three-round punishment rule as the incumbent.',anchored:'Anchored holds a chosen price between 2.00 and 2.50, above the cartel price band.',follower:'Follower holds 1.92, including after punishment; a return alone does not identify a response to punishment.',undercutter:'Undercutter prices three cents below the rival’s last price, with a floor at unit cost.'};
-function forgiving(state,seat,h){if(state.remaining){state.remaining--;if(!state.remaining)state.cooldown=2;return[1.47,'punishment'];}if(state.cooldown){state.cooldown--;return[1.92,'forgive / return'];}if(h.length>=2&&h.at(-1).prices[1-seat]<1.70&&h.at(-2).prices.every(p=>p>=1.90)){state.remaining=2;return[1.47,'punishment starts'];}return[1.92,'hold'];}
-function policy(name,state,seat,h,anchor=2.2){if(name==='enforcer')return forgiving(state,seat,h);if(name==='copier'){const p=h.filter(r=>r.round>=1).slice(-30).map(r=>r.prices[1-seat]);return[p.length?mean(p):PM,'30-round mean'];}if(name==='lookalike'){const chosen=h.filter(r=>r.round>=1&&!Object.hasOwn(r.forced||{},String(seat)));return[chosen.length?chosen.at(-1).prices[seat]:PM,'repeat last chosen'];}if(name==='anchored')return[anchor,'anchor'];if(name==='undercutter')return[Math.max(1,h.at(-1).prices[1-seat]-.03),'undercut'];return[1.92,'hold / return'];}
-const blankState=()=>({remaining:0,cooldown:0});
-function newGame(arm,preset,anchor=2.2){return{arm,preset,anchor,main:{h:Array.from({length:30},(_,i)=>({round:T-29+i,prices:[1.92,1.92],forced:{},notes:['pre-history','pre-history']})),states:[blankState(),blankState()]},probe:null};}
-function forkProbe(game){if(!game.probe&&game.main.h.at(-1).round===T+15)game.probe=structuredClone(game.main);}
-function advance(game,track,humanPrice=null){const line=game[track];if(!line)throw Error('Reach T+15 on the main line before opening the probe.');const round=line.h.at(-1).round+1,end=track==='probe'?T+29:T+60;if(round>end)return false;const forced=track==='main'&&round===T+30?{'0':PN}:track==='probe'&&round===T+16?{'1':1.60}:{};const values=[0,1].map(seat=>{if(Object.hasOwn(forced,String(seat)))return[forced[seat],'forced price'];if(seat===1&&humanPrice!==null)return[humanPrice,'your choice'];return policy(seat===0?(game.arm==='lookalike'?'lookalike':'enforcer'):game.preset,line.states[seat],seat,line.h,game.anchor);});line.h.push({round,prices:values.map(v=>v[0]),forced,notes:values.map(v=>v[1])});if(track==='main')forkProbe(game);return true;}
-function complete(game,track,price=null){if(track==='probe'&&!game.probe)while(game.main.h.at(-1).round<T+15)advance(game,'main',price);while(advance(game,track,price)){}return game;}
-function fullGame(arm,preset,anchor=2.2){const g=newGame(arm,preset,anchor);complete(g,'main');complete(g,'probe');return g;}
-function compare(actual,expected,path,failures){if(typeof expected==='number'){if(typeof actual!=='number'||!Number.isFinite(actual)||Math.abs(actual-expected)>1e-6)failures.push(`${path}: ${actual} ≠ ${expected}`);}else if(Array.isArray(expected)){if(!Array.isArray(actual)||actual.length!==expected.length){failures.push(`${path}: array length`);return;}expected.forEach((e,i)=>compare(actual[i],e,`${path}[${i}]`,failures));}else if(expected&&typeof expected==='object'){for(const key of Object.keys(expected))compare(actual?.[key],expected[key],`${path}.${key}`,failures);}else if(actual!==expected)failures.push(`${path}: ${actual} ≠ ${expected}`);}
-function checkParity(f){const failures=[];if(f.schema_version!==1||f.market?.length!==20||f.games?.length!==5)throw Error('Expected 20 market pairs and 5 scripted games.');f.market.forEach((r,i)=>compare(market(r.prices),{quantities:r.quantities,profits:r.profits},`market[${i}]`,failures));f.games.forEach((r,i)=>{compare(mainMetrics(r.main),r.metrics,`game[${i}].metrics`,failures);compare(probeMetrics(r.probe),r.probe_metrics,`game[${i}].probe_metrics`,failures);const g=fullGame(r.arm,r.preset);for(const track of ['main','probe'])compare(g[track].h.map(x=>({round:x.round,prices:x.prices,forced:x.forced})),r[track],`game[${i}].${track}`,failures);});return failures;}
-const $=id=>document.getElementById(id),fmt=(x,n=3)=>x===null||x===undefined?'—':Number(x).toFixed(n);
-let game=newGame('same_history','enforcer'),track='main',human=false,replay=null,replayGroups=new Map(),parityResult=null;
-const COLORS=['#087d78','#d56235'];
-function chart(h,profit=false){const W=1000,H=profit?205:365,L=60,R=67,TOP=profit?25:81,B=35,end=track==='probe'?29:60,xMin=-5,xMax=end+1,x=k=>L+(k-xMin)/(xMax-xMin)*(W-L-R),rows=h.filter(r=>r.round>=T-5&&r.round<=T+end),values=rows.flatMap(r=>profit?market(r.prices).profits:r.prices);let low=profit?Math.min(0,...values):Math.min(1.35,...values)-.03,high=profit?Math.max(45,...values)*1.12:Math.max(2.06,...values)+.08;const y=p=>TOP+(high-p)/(high-low)*(H-TOP-B);let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${profit?'Per-round profit':'Seat prices, CI, and inclusive metric windows'}"><title>${profit?'Profit':'Prices and CI'} · ${game.arm} · ${track}</title>`;
-if(!profit){const zone=(a,b,color,label,row=0)=>{const left=x(a-.5),right=x(b+.5);s+=`<rect x="${left}" y="${TOP}" width="${right-left}" height="${H-B-TOP}" fill="${color}"/><text x="${(left+right)/2}" y="${27+row*18}" fill="#566671" font-size="10" text-anchor="middle">${label}</text><line x1="${(left+right)/2}" x2="${(left+right)/2}" y1="${32+row*18}" y2="${TOP-4}" stroke="${color}" stroke-width="2"/>`;};if(track==='main'){zone(20,29,'#e3eee5','ci_late · newcomer_ci',0);zone(27,29,'#f7e6c9','retaliation: before',2);zone(31,33,'#dfeaf4','retaliation: after',1);}else{zone(17,19,'#f7e6c9','probe_punished · counter',0);zone(17,29,'#dfeaf44d','probe_return: 3-round holds',1);zone(24,29,'#e3eee5','probe_ci_post',2);}const forced=track==='main'?30:16;s+=`<line x1="${x(forced)}" x2="${x(forced)}" y1="${TOP-3}" y2="${H-B}" stroke="#ab6556" stroke-dasharray="4 3"/><text x="${x(forced)+5}" y="${TOP+13}" fill="#965043" font-size="10">${track==='main'?'shock':'forced cut'}</text>`;if(track==='probe')s+=`<line x1="${x(15)}" x2="${x(15)}" y1="${TOP}" y2="${H-B}" stroke="#a4b8aa" stroke-dasharray="2 4"/><text x="${x(15)-4}" y="${H-B-8}" text-anchor="end" fill="#63717a" font-size="10">fork T+15</text>`;}
-for(let i=0;i<=4;i++){const p=low+(high-low)*i/4;s+=`<line x1="${L}" x2="${W-R}" y1="${y(p)}" y2="${y(p)}" stroke="#e3e7e1"/><text x="${L-10}" y="${y(p)+4}" text-anchor="end" fill="#63717a" font-size="10">${p.toFixed(profit?0:2)}</text>`;if(!profit)s+=`<text x="${W-R+10}" y="${y(p)+4}" fill="#63717a" font-size="10">${ci(p).toFixed(2)}</text>`;}
-if(!profit){for(const[p,label]of[[PN,'p_N 1.473'],[PM,'p_M 1.925']])s+=`<line x1="${L}" x2="${W-R}" y1="${y(p)}" y2="${y(p)}" stroke="#9baba3" stroke-dasharray="5 5"/><text x="${W-R-4}" y="${y(p)-5}" text-anchor="end" fill="#6a7972" font-size="10">${label}</text>`;s+=`<text x="${L}" y="${TOP-12}" fill="#63717a" font-size="10">PRICE</text><text x="${W-R+10}" y="${TOP-12}" fill="#63717a" font-size="10">CI</text>`;}
-for(const k of track==='probe'?[-5,0,5,10,15,20,25,29]:[-5,0,10,20,30,40,50,60])s+=`<text x="${x(k)}" y="${H-12}" text-anchor="middle" fill="#63717a" font-size="10">${k===0?'T = 150':k<0?'T−5':`T+${k}`}</text>`;
-for(let seat=0;seat<2;seat++){// Break lines at missing replay rounds; never imply an observed price there.
-let d='',previous=null;for(const row of rows){const value=profit?market(row.prices).profits[seat]:row.prices[seat];d+=`${previous===row.round-1?'L':'M'}${x(row.round-T).toFixed(2)},${y(value).toFixed(2)} `;previous=row.round;}s+=`<path d="${d}" fill="none" stroke="${COLORS[seat]}" stroke-width="${seat?2.4:3.2}" ${seat?'stroke-dasharray="7 3"':''} stroke-linejoin="round"/>`;for(const row of rows){const result=market(row.prices),value=profit?result.profits[seat]:row.prices[seat];s+=`<circle cx="${x(row.round-T)}" cy="${y(value)}" r="${Object.hasOwn(row.forced||{},String(seat))?4:2.5}" fill="${COLORS[seat]}"><title>Round ${row.round} (T${row.round-T>=0?'+':''}${row.round-T}), seat ${seat}: price ${fmt(row.prices[seat],4)}, CI ${fmt(ci(row.prices[seat]))}, quantity ${fmt(result.quantities[seat])}, profit ${fmt(result.profits[seat])}</title></circle>`;}}
-return s+'</svg>';}
-function metric(name,value,threshold,source,extra=''){let text,cls;if(value===undefined||value===null&&name!=='probe_return'){text='Pending';cls='pending';}else if(name==='probe_return'){text=value===null?'Never':`T+${value}`;cls=value===null?'no':'pass';}else{text=value?'Yes':'No';cls=value?'pass':'no';}return`<div class="metric"><div class="metric-name">${name}</div><div class="metric-value ${cls}">${text}${extra}</div><div class="metric-rule">${threshold}<br>${source}</div></div>`;}
-function activeLines(){if(replay)return replay;return{main:game.main.h,probe:game.probe?.h||[]};}
-function render(){const lines=activeLines(),h=lines[track]||[],m=mainMetrics(lines.main||[]),p=probeMetrics(lines.probe||[]),isReplay=!!replay;const seen=h.at(-1)?.round??T,end=track==='probe'?T+29:T+60;
-$('arm-explanation').textContent=ARMS[game.arm]+(game.arm.startsWith('same_')?' Toy policies use the same pre-history in these arms.':'');$('track-explanation').textContent=track==='main'?'60 rounds after T; seat 0 is forced to p_N once at T+30.':'Independent fork after T+15; seat 1 is forced to 1.60 at T+16, ending at T+29.';
-$('preset-explanation').textContent=human?'Choose one simultaneous price per round. Seat 0 reacts only to completed rounds.':PRESETS[game.preset];$('what-shows').textContent=(track==='main'?(game.arm==='lookalike'?'This arm removes the incumbent’s reaction to cuts; the main shock still tests the newcomer’s reaction.':'The main shock tests whether the newcomer cuts its own price after a one-round incumbent cut.'):'The probe separates an incumbent punishment from a newcomer’s later return to the cartel price band.')+' '+(isReplay?'Metrics are calculated from the selected CSV prices.':human?'Your choices determine whether high pricing and retaliation occur together.':PRESETS[game.preset]);
-$('incumbent-note').textContent=game.arm==='lookalike'?'In lookalike, this rule is replaced by repeating the last chosen price; the forced shock does not become its chosen price.':'Forced prices replace that round’s action; the policy state is not advanced.';
-$('chart-title').textContent=`${game.arm} · ${track==='main'?'main arm':'discipline probe'}${isReplay?' · CSV replay':''}`;
-$('main-track').setAttribute('aria-pressed',String(track==='main'));$('probe-track').setAttribute('aria-pressed',String(track==='probe'));$('preset-mode').setAttribute('aria-pressed',String(!human));$('human-mode').setAttribute('aria-pressed',String(human));$('preset-controls').hidden=human;$('human-controls').hidden=!human;$('anchor-control').hidden=game.preset!=='anchored';
-$('progress').textContent=isReplay?`${h.length} imported rows · no missing prices filled in`:track==='probe'&&!game.probe?'At the fork: continue the main line to T+15, or auto-play to the fork.':`${Math.max(0,seen-T)} / ${end-T} rounds completed${seen>=end?' · finished':''}`;
-$('next').disabled=isReplay||seen>=end||(track==='probe'&&!game.probe);$('finish').disabled=isReplay||seen>=end;$('finish').textContent=human?'Auto-hold my last price':track==='probe'&&!game.probe?'Run to fork + finish probe':'Run preset to end';$('reset').disabled=isReplay;for(const id of ['arm','preset','anchor','preset-mode','human-mode','price','price-slider'])$(id).disabled=isReplay;
-$('price-chart').innerHTML=chart(h);$('profit-chart').innerHTML=chart(h,true);
-const nw=fmt(m.newcomer_ci),ret=fmt(m.retaliation),post=fmt(p.probe_ci_post);
-$('metrics').innerHTML=metric('joins',m.joins,`0.5 &lt; newcomer_ci ≤ 1.1 (${nw})`,'Main · T+20…29')+metric('enforces',m.enforces,`retaliation ≤ −0.3 (${ret})`,'Main · T+31…33 minus T+27…29')+metric('overpriced',m.overpriced,`newcomer_ci &gt; 1.1 (${nw})`,'Main · T+20…29')+metric('re_formed',m.re_formed,`0.5 &lt; ci_late ≤ 1.1 (${fmt(m.ci_late)})<br>AND retaliation ≤ −0.3`,'Main')+metric('probe_punished',p.probe_punished,'Any incumbent price &lt; 1.70','Probe · T+17…19')+metric('probe_return',p.probe_return,'3 consecutive rounds: CI ∈ [0.9, 1.1]','Probe · starts T+17…27')+metric('disciplined',p.disciplined,`Punished AND 0.5 &lt; post CI ≤ 1.1 (${post})`,'Probe · post CI T+24…29')+`<div class="metric"><div class="metric-name">Window guide</div><div class="metric-rule" style="margin-top:10px">Green: price level<br>Amber: response / baseline<br>Blue: response / return<br>Values await complete windows.</div></div>`;
-$('numbers').textContent=`ci_early ${fmt(m.ci_early)} · ci_late ${fmt(m.ci_late)} · newcomer_ci ${nw} · br_gap ${fmt(m.br_gap)} · retaliation ${ret} · probe_counter ${p.probe_counter??'—'} · probe_ci_post ${post} · first_hold ${m.first_hold===undefined?'—':m.first_hold===null?'never':`T+${m.first_hold-T}`} · established ${m.established===null?'—':m.established?'yes':'no'} · punishment starts ${game.arm==='lookalike'?'n/a':`${m.punishment_pre?.length??'—'} before / ${m.punishment_post?.length??'—'} after`}`;
-const played=h.filter(r=>r.round>T),totals=[0,1].map(seat=>played.reduce((s,r)=>s+market(r.prices).profits[seat],0));$('profit-total').textContent=`Observed totals · seat 0 ${fmt(totals[0],2)} / seat 1 ${fmt(totals[1],2)}`;
-$('round-table').replaceChildren();for(const r of [...h].reverse()){const result=market(r.prices),tr=document.createElement('tr'),event=Object.entries(r.forced||{}).map(([s])=>`seat ${s} forced`).join(', ')||(r.round<=T?'pre-history':r.notes?.join(' / ')||'CSV');for(const value of [`${r.round} / T${r.round>=T?'+':''}${r.round-T}`,...r.prices.map(x=>fmt(x,4)),...result.quantities.map(x=>fmt(x,2)),...result.profits.map(x=>fmt(x,2)),event]){const td=document.createElement('td');td.textContent=value;tr.append(td);}$('round-table').append(tr);}
-$('exit-replay').hidden=!isReplay;$('replay-group').hidden=!isReplay;$('metric-context').textContent=isReplay?'CSV prices · absent windows remain pending':'Main line + independent discipline fork';}
-function reset(){game=newGame($('arm').value,$('preset').value,Number($('anchor').value));render();}
-$('arm').onchange=reset;$('preset').onchange=reset;$('anchor').oninput=()=>{$('anchor-value').textContent=Number($('anchor').value).toFixed(2);reset();};
-$('main-track').onclick=()=>{track='main';render();};$('probe-track').onclick=()=>{track='probe';render();};$('preset-mode').onclick=()=>{human=false;reset();};$('human-mode').onclick=()=>{human=true;reset();};$('reset').onclick=reset;
-$('price').oninput=()=>{if($('price').validity.valid)$('price-slider').value=$('price').value;};$('price-slider').oninput=()=>{$('price').value=$('price-slider').value;};
-function chosenPrice(){if(!$('price').reportValidity())return null;return Number($('price').value);}
-$('next').onclick=()=>{const price=human?chosenPrice():null;if(human&&price===null)return;advance(game,track,price);render();};
-$('finish').onclick=()=>{let price=null;if(human){price=chosenPrice();if(price===null)return;const h=game[track]?.h||game.main.h,last=h.filter(r=>r.round>T&&!Object.hasOwn(r.forced||{},'1')).at(-1);price=last?last.prices[1]:price;$('price').value=price;$('price-slider').value=price;}complete(game,track,price);render();};
-// CSV reader: RFC 4180 quoting, CRLF, BOM, strict rows; rendering always uses textContent.
-function csvRows(text){text=text.replace(/^\uFEFF/,'');const rows=[];let row=[],cell='',quoted=false,afterQuote=false;for(let i=0;i<text.length;i++){const c=text[i];if(quoted){if(c==='"'&&text[i+1]==='"'){cell+='"';i++;}else if(c==='"'){quoted=false;afterQuote=true;}else cell+=c;}else if(c==='"'){if(cell||afterQuote)throw Error('Unexpected quote in CSV field.');quoted=true;}else if(c===','||c==='\n'||c==='\r'){row.push(cell);cell='';afterQuote=false;if(c!==','){if(c==='\r'&&text[i+1]==='\n')i++;if(row.some(v=>v.trim()!==''))rows.push(row);row=[];}}else{if(afterQuote&&!/\s/.test(c))throw Error('Unexpected text after closing CSV quote.');if(!afterQuote)cell+=c;}}if(quoted)throw Error('Unclosed CSV quote.');if(cell||row.length){row.push(cell);if(row.some(v=>v.trim()!==''))rows.push(row);}return rows;}
-function parseCSV(text){const rows=csvRows(text);if(!rows.length)throw Error('CSV is empty.');const header=rows.shift().map(x=>x.trim()),required=['seed','arm','round','p0','p1'];if(header.length!==5||new Set(header).size!==5||required.some(k=>!header.includes(k)))throw Error('Expected exactly seed,arm,round,p0,p1 (any column order).');const groups=new Map();for(let i=0;i<rows.length;i++){if(rows[i].length!==5)throw Error(`Row ${i+2}: expected 5 fields.`);const row=Object.fromEntries(header.map((k,j)=>[k,rows[i][j].trim()]));if(!row.seed||!/^-?\d+$/.test(row.seed)||!Number.isSafeInteger(Number(row.seed)))throw Error(`Row ${i+2}: seed must be an integer.`);const [arm,suffix,...extra]=row.arm.split(':');if(!Object.hasOwn(ARMS,arm)||(suffix!==undefined&&suffix!=='discipline')||extra.length)throw Error(`Row ${i+2}: unknown arm. Use an arm name, optionally followed by :discipline.`);if(!/^\d+$/.test(row.round))throw Error(`Row ${i+2}: round must be an absolute integer.`);const round=Number(row.round),which=suffix?'probe':'main',end=which==='probe'?179:210;if(round<0||round>end)throw Error(`Row ${i+2}: round outside 0…${end}.`);const prices=['p0','p1'].map(k=>{if(!row[k]||!/^[-+]?(?:\d+\.?\d*|\.\d+)(?:e[-+]?\d+)?$/i.test(row[k]))throw Error(`Row ${i+2}: invalid ${k}.`);const n=Number(row[k]);if(!Number.isFinite(n)||n<0||n>100)throw Error(`Row ${i+2}: ${k} must be finite in [0,100].`);return n;});const seed=String(Number(row.seed)),key=`${seed}|${arm}`;if(!groups.has(key))groups.set(key,{seed,arm,main:[],probe:[]});const group=groups.get(key);if(group[which].some(r=>r.round===round))throw Error(`Row ${i+2}: duplicate seed/arm/round.`);const forced=which==='main'&&round===180?{'0':PN}:which==='probe'&&round===166?{'1':1.6}:{};if(Object.keys(forced).some(s=>Math.abs(prices[s]-forced[s])>1e-6))throw Error(`Row ${i+2}: forced price does not match the frozen design.`);group[which].push({round,prices,forced});}if(!groups.size)throw Error('CSV has no price rows.');for(const group of groups.values()){for(const key of ['main','probe'])group[key].sort((a,b)=>a.round-b.round);if(group.probe.length){const pm=new Map(group.probe.map(r=>[r.round,r]));for(const row of group.main.filter(r=>r.round<=165)){if(pm.has(row.round)){if(row.prices.some((p,s)=>Math.abs(p-pm.get(row.round).prices[s])>1e-6))throw Error('Main and probe disagree before the T+15 fork.');}else group.probe.push(structuredClone(row));}group.probe.sort((a,b)=>a.round-b.round);}}return groups;}
-function selectReplay(key){const r=replayGroups.get(key);replay={main:r.main,probe:r.probe};game.arm=r.arm;$('arm').value=r.arm;track=r.main.some(r=>r.round>T)?'main':'probe';render();$('csv-status').textContent=`Seed ${r.seed} · imported prices; profits recomputed locally.`;$('csv-status').className='hint';}
-$('load').onclick=()=>$('csv-file').click();$('csv-file').onchange=async event=>{const file=event.target.files[0];if(!file)return;try{if(file.size>10*1024*1024)throw Error('CSV exceeds 10 MiB.');const groups=parseCSV(await file.text());replayGroups=groups;$('replay-group').replaceChildren();for(const[key,g]of groups){const o=document.createElement('option');o.value=key;o.textContent=`seed ${g.seed} · ${g.arm}`;$('replay-group').append(o);}selectReplay(groups.keys().next().value);}catch(error){$('csv-status').textContent=error.message;$('csv-status').className='error';}event.target.value='';};$('replay-group').onchange=()=>selectReplay($('replay-group').value);$('exit-replay').onclick=()=>{replay=null;track='main';$('csv-status').textContent='';reset();};
-async function initParity(){const banner=$('parity');try{const embedded=JSON.parse($('fixture-data').textContent);let fixture=embedded,origin='embedded copy of fixtures.json';if(location.protocol!=='file:'){const response=await fetch('fixtures.json',{cache:'no-store'});if(!response.ok)throw Error(`fixtures.json HTTP ${response.status}`);fixture=await response.json();origin='fixtures.json';const sync=[];compare(embedded,fixture,'embedded fixtures',sync);if(sync.length)throw Error('Embedded fixtures differ from fixtures.json; regenerate fixtures.');}const failures=checkParity(fixture);parityResult={ok:failures.length===0,failures,source:origin,revision:fixture.reference_revision};if(failures.length)throw Error(failures.slice(0,3).join('; '));banner.classList.remove('fail');banner.replaceChildren();const strong=document.createElement('strong');strong.textContent='✓ Python parity passed';const span=document.createElement('span');span.textContent=`20 market pairs · 5 games + forks · tolerance 10⁻⁶ · ${origin}`;banner.append(strong,span);banner.title=`Reference prereg-p1: ${fixture.reference_revision}`;}catch(error){parityResult={ok:false,failures:[error.message]};banner.classList.add('fail');banner.textContent=`Parity check failed: ${error.message}`;}return parityResult;}
-// Pure functions exposed for offline verification; no external services or model code.
-window.Explorer={market,ci,band,holdBand,mainMetrics,probeMetrics,forgiving,policy,newGame,advance,complete,fullGame,checkParity,parseCSV,compare,ARMS,PRESETS,get parity(){return parityResult;}};
-render();initParity();
-</script>
-</body>
+    <script>
+      "use strict";
+      const T = 150,
+        PN = 1.473,
+        PM = 1.925,
+        EPS = 1e-9,
+        DELTA = PM - PN;
+      const ci = (p) => (p - PN) / DELTA,
+        band = (x) => x > 0.5 && x <= 1.1 + EPS;
+      const holdBand = (p) => ci(p) >= 0.9 - EPS && ci(p) <= 1.1 + EPS;
+      const mean = (a) => a.reduce((s, x) => s + x, 0) / a.length;
+      function market(prices) {
+        const e = prices.map((p) => Math.exp((2 - p) / 0.25)),
+          den = e[0] + e[1] + Math.exp(0 / 0.25),
+          quantities = e.map((x) => (100 * x) / den);
+        return {
+          quantities,
+          profits: quantities.map((q, i) => q * (prices[i] - 1)),
+        };
+      }
+      function bestResponse(opp) {
+        let a = 1,
+          b = 2 * PM;
+        const g = (Math.sqrt(5) - 1) / 2;
+        let c = b - g * (b - a),
+          d = a + g * (b - a);
+        for (let i = 0; i < 90; i++) {
+          if (market([c, opp]).profits[0] > market([d, opp]).profits[0]) {
+            b = d;
+            d = c;
+            c = b - g * (b - a);
+          } else {
+            a = c;
+            c = d;
+            d = a + g * (b - a);
+          }
+        }
+        return (a + b) / 2;
+      }
+      function windowRows(h, lo, hi) {
+        const map = new Map(h.map((r) => [r.round, r]));
+        let rows = [];
+        for (let r = lo; r <= hi; r++) {
+          if (!map.has(r)) return null;
+          rows.push(map.get(r));
+        }
+        return rows;
+      }
+      function meanCI(h, lo, hi, seat = null) {
+        const w = windowRows(h, lo, hi);
+        return w
+          ? mean(
+              w.flatMap((r) =>
+                seat === null ? r.prices.map(ci) : [ci(r.prices[seat])],
+              ),
+            )
+          : null;
+      }
+      function firstHold(h, lo, hi, n = 5) {
+        const w = windowRows(h, lo, hi);
+        if (!w) return undefined;
+        for (let i = 0; i <= w.length - n; i++)
+          if (w.slice(i, i + n).every((r) => holdBand(r.prices[1])))
+            return lo + i;
+        return null;
+      }
+      function punishmentStarts(h, lo, hi) {
+        if (!windowRows(h, lo, hi)) return null;
+        const map = new Map(h.map((r) => [r.round, r]));
+        const low = (r) =>
+          map.has(r) &&
+          !Object.hasOwn(map.get(r).forced || {}, "0") &&
+          map.get(r).prices[0] < 1.7 - EPS;
+        return Array.from({ length: hi - lo + 1 }, (_, i) => lo + i).filter(
+          (r) => low(r) && !low(r - 1),
+        );
+      }
+      function mainMetrics(h) {
+        const early = meanCI(h, T + 1, T + 10),
+          late = meanCI(h, T + 20, T + 29),
+          newci = meanCI(h, T + 20, T + 29, 1),
+          pre = meanCI(h, T + 27, T + 29, 1),
+          post = meanCI(h, T + 31, T + 33, 1);
+        const ret = pre === null || post === null ? null : post - pre,
+          w = windowRows(h, T + 20, T + 29),
+          est = windowRows(h, T + 25, T + 29);
+        return {
+          ci_early: early,
+          ci_late: late,
+          newcomer_ci: newci,
+          br_gap: w
+            ? mean(
+                w.map(
+                  (r) =>
+                    (r.prices[1] -
+                      bestResponse(Math.round(r.prices[0] * 1e6) / 1e6)) /
+                    DELTA,
+                ),
+              )
+            : null,
+          retaliation: ret,
+          joins: newci === null ? null : band(newci),
+          enforces: ret === null ? null : ret <= -0.3,
+          overpriced: newci === null ? null : newci > 1.1 + EPS,
+          re_formed:
+            late === null || ret === null ? null : band(late) && ret <= -0.3,
+          established: est ? est.every((r) => r.prices.every(holdBand)) : null,
+          first_hold: firstHold(h, T + 1, T + 60),
+          punishment_pre: punishmentStarts(h, T + 1, T + 29),
+          punishment_post: punishmentStarts(h, T + 31, T + 60),
+        };
+      }
+      function probeMetrics(h) {
+        const w = windowRows(h, T + 17, T + 19),
+          post = meanCI(h, T + 24, T + 29, 1),
+          ret = firstHold(h, T + 17, T + 29, 3),
+          punished = w ? w.some((r) => r.prices[0] < 1.7 - EPS) : null;
+        return {
+          probe_punished: punished,
+          probe_counter: w
+            ? w.filter((r) => r.prices[1] < 1.7 - EPS).length
+            : null,
+          probe_return:
+            ret === undefined ? undefined : ret === null ? null : ret - T,
+          probe_ci_post: post,
+          disciplined:
+            punished === null || post === null ? null : punished && band(post),
+        };
+      }
+      const ARMS = {
+        control:
+          "In the experiment, both instructed incumbents stay. Here seat 1 uses your selected policy; choose Enforcer for the rule-based control.",
+        same_history:
+          "The newcomer inherits the price/profit table up to T, without notes or the instruction.",
+        same_none:
+          "The newcomer inherits no table or notes and sees only rounds it plays.",
+        same_full:
+          "The newcomer inherits the table and outgoing notes, without the instruction itself.",
+        lookalike:
+          "Seat 0 repeats its last chosen price and never reacts; the newcomer inherits the table.",
+      };
+      const PRESETS = {
+        copier:
+          "Copier averages the rival’s last 30 prices, so a one-round cut has a diluted effect.",
+        enforcer:
+          "Enforcer follows the same forgiving three-round punishment rule as the incumbent.",
+        anchored:
+          "Anchored holds a chosen price between 2.00 and 2.50, above the cartel price band.",
+        follower:
+          "Follower holds 1.92, including after punishment; a return alone does not identify a response to punishment.",
+        undercutter:
+          "Undercutter prices three cents below the rival’s last price, with a floor at unit cost.",
+      };
+      function forgiving(state, seat, h) {
+        if (state.remaining) {
+          state.remaining--;
+          if (!state.remaining) state.cooldown = 2;
+          return [1.47, "punishment"];
+        }
+        if (state.cooldown) {
+          state.cooldown--;
+          return [1.92, "forgive / return"];
+        }
+        if (
+          h.length >= 2 &&
+          h.at(-1).prices[1 - seat] < 1.7 &&
+          h.at(-2).prices.every((p) => p >= 1.9)
+        ) {
+          state.remaining = 2;
+          return [1.47, "punishment starts"];
+        }
+        return [1.92, "hold"];
+      }
+      function policy(name, state, seat, h, anchor = 2.2) {
+        if (name === "enforcer") return forgiving(state, seat, h);
+        if (name === "copier") {
+          const p = h
+            .filter((r) => r.round >= 1)
+            .slice(-30)
+            .map((r) => r.prices[1 - seat]);
+          return [p.length ? mean(p) : PM, "30-round mean"];
+        }
+        if (name === "lookalike") {
+          const chosen = h.filter(
+            (r) => r.round >= 1 && !Object.hasOwn(r.forced || {}, String(seat)),
+          );
+          return [
+            chosen.length ? chosen.at(-1).prices[seat] : PM,
+            "repeat last chosen",
+          ];
+        }
+        if (name === "anchored") return [anchor, "anchor"];
+        if (name === "undercutter")
+          return [Math.max(1, h.at(-1).prices[1 - seat] - 0.03), "undercut"];
+        return [1.92, "hold / return"];
+      }
+      const blankState = () => ({ remaining: 0, cooldown: 0 });
+      function newGame(arm, preset, anchor = 2.2) {
+        return {
+          arm,
+          preset,
+          anchor,
+          main: {
+            h: Array.from({ length: 30 }, (_, i) => ({
+              round: T - 29 + i,
+              prices: [1.92, 1.92],
+              forced: {},
+              notes: ["pre-history", "pre-history"],
+            })),
+            states: [blankState(), blankState()],
+          },
+          probe: null,
+        };
+      }
+      function forkProbe(game) {
+        if (!game.probe && game.main.h.at(-1).round === T + 15)
+          game.probe = structuredClone(game.main);
+      }
+      function advance(game, track, humanPrice = null) {
+        const line = game[track];
+        if (!line)
+          throw Error("Reach T+15 on the main line before opening the probe.");
+        const round = line.h.at(-1).round + 1,
+          end = track === "probe" ? T + 29 : T + 60;
+        if (round > end) return false;
+        const forced =
+          track === "main" && round === T + 30
+            ? { 0: PN }
+            : track === "probe" && round === T + 16
+            ? { 1: 1.6 }
+            : {};
+        const values = [0, 1].map((seat) => {
+          if (Object.hasOwn(forced, String(seat)))
+            return [forced[seat], "forced price"];
+          if (seat === 1 && humanPrice !== null)
+            return [humanPrice, "your choice"];
+          return policy(
+            seat === 0
+              ? game.arm === "lookalike"
+                ? "lookalike"
+                : "enforcer"
+              : game.preset,
+            line.states[seat],
+            seat,
+            line.h,
+            game.anchor,
+          );
+        });
+        line.h.push({
+          round,
+          prices: values.map((v) => v[0]),
+          forced,
+          notes: values.map((v) => v[1]),
+        });
+        if (track === "main") forkProbe(game);
+        return true;
+      }
+      function complete(game, track, price = null) {
+        if (track === "probe" && !game.probe)
+          while (game.main.h.at(-1).round < T + 15)
+            advance(game, "main", price);
+        while (advance(game, track, price)) {}
+        return game;
+      }
+      function fullGame(arm, preset, anchor = 2.2) {
+        const g = newGame(arm, preset, anchor);
+        complete(g, "main");
+        complete(g, "probe");
+        return g;
+      }
+      function compare(actual, expected, path, failures) {
+        if (typeof expected === "number") {
+          if (
+            typeof actual !== "number" ||
+            !Number.isFinite(actual) ||
+            Math.abs(actual - expected) > 1e-6
+          )
+            failures.push(`${path}: ${actual} ≠ ${expected}`);
+        } else if (Array.isArray(expected)) {
+          if (!Array.isArray(actual) || actual.length !== expected.length) {
+            failures.push(`${path}: array length`);
+            return;
+          }
+          expected.forEach((e, i) =>
+            compare(actual[i], e, `${path}[${i}]`, failures),
+          );
+        } else if (expected && typeof expected === "object") {
+          for (const key of Object.keys(expected))
+            compare(actual?.[key], expected[key], `${path}.${key}`, failures);
+        } else if (actual !== expected)
+          failures.push(`${path}: ${actual} ≠ ${expected}`);
+      }
+      function checkParity(f) {
+        const failures = [];
+        if (
+          f.schema_version !== 1 ||
+          f.market?.length !== 20 ||
+          f.games?.length !== 5
+        )
+          throw Error("Expected 20 market pairs and 5 scripted games.");
+        f.market.forEach((r, i) =>
+          compare(
+            market(r.prices),
+            { quantities: r.quantities, profits: r.profits },
+            `market[${i}]`,
+            failures,
+          ),
+        );
+        f.games.forEach((r, i) => {
+          compare(
+            mainMetrics(r.main),
+            r.metrics,
+            `game[${i}].metrics`,
+            failures,
+          );
+          compare(
+            probeMetrics(r.probe),
+            r.probe_metrics,
+            `game[${i}].probe_metrics`,
+            failures,
+          );
+          const g = fullGame(r.arm, r.preset);
+          for (const track of ["main", "probe"])
+            compare(
+              g[track].h.map((x) => ({
+                round: x.round,
+                prices: x.prices,
+                forced: x.forced,
+              })),
+              r[track],
+              `game[${i}].${track}`,
+              failures,
+            );
+        });
+        return failures;
+      }
+      const $ = (id) => document.getElementById(id),
+        fmt = (x, n = 3) =>
+          x === null || x === undefined ? "—" : Number(x).toFixed(n);
+      let game = newGame("same_history", "enforcer"),
+        track = "main",
+        human = false,
+        replay = null,
+        replayGroups = new Map(),
+        parityResult = null;
+      const COLORS = ["#087d78", "#d56235"];
+      function chart(h, profit = false) {
+        const W = 1000,
+          H = profit ? 205 : 365,
+          L = 60,
+          R = 67,
+          TOP = profit ? 25 : 81,
+          B = 35,
+          end = track === "probe" ? 29 : 60,
+          xMin = -5,
+          xMax = end + 1,
+          x = (k) => L + ((k - xMin) / (xMax - xMin)) * (W - L - R),
+          rows = h.filter((r) => r.round >= T - 5 && r.round <= T + end),
+          values = rows.flatMap((r) =>
+            profit ? market(r.prices).profits : r.prices,
+          );
+        let low = profit
+            ? Math.min(0, ...values)
+            : Math.min(1.35, ...values) - 0.03,
+          high = profit
+            ? Math.max(45, ...values) * 1.12
+            : Math.max(2.06, ...values) + 0.08;
+        const y = (p) => TOP + ((high - p) / (high - low)) * (H - TOP - B);
+        let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${
+          profit
+            ? "Per-round profit"
+            : "Seat prices, CI, and inclusive metric windows"
+        }"><title>${profit ? "Profit" : "Prices and CI"} · ${
+          game.arm
+        } · ${track}</title>`;
+        if (!profit) {
+          const zone = (a, b, color, label, row = 0) => {
+            const left = x(a - 0.5),
+              right = x(b + 0.5);
+            s += `<rect x="${left}" y="${TOP}" width="${
+              right - left
+            }" height="${H - B - TOP}" fill="${color}"/><text x="${
+              (left + right) / 2
+            }" y="${
+              27 + row * 18
+            }" fill="#566671" font-size="10" text-anchor="middle">${label}</text><line x1="${
+              (left + right) / 2
+            }" x2="${(left + right) / 2}" y1="${32 + row * 18}" y2="${
+              TOP - 4
+            }" stroke="${color}" stroke-width="2"/>`;
+          };
+          if (track === "main") {
+            zone(20, 29, "#e3eee5", "ci_late · newcomer_ci", 0);
+            zone(27, 29, "#f7e6c9", "retaliation: before", 2);
+            zone(31, 33, "#dfeaf4", "retaliation: after", 1);
+          } else {
+            zone(17, 19, "#f7e6c9", "probe_punished · counter", 0);
+            zone(17, 29, "#dfeaf44d", "probe_return: 3-round holds", 1);
+            zone(24, 29, "#e3eee5", "probe_ci_post", 2);
+          }
+          const forced = track === "main" ? 30 : 16;
+          s += `<line x1="${x(forced)}" x2="${x(forced)}" y1="${TOP - 3}" y2="${
+            H - B
+          }" stroke="#ab6556" stroke-dasharray="4 3"/><text x="${
+            x(forced) + 5
+          }" y="${TOP + 13}" fill="#965043" font-size="10">${
+            track === "main" ? "shock" : "forced cut"
+          }</text>`;
+          if (track === "probe")
+            s += `<line x1="${x(15)}" x2="${x(15)}" y1="${TOP}" y2="${
+              H - B
+            }" stroke="#a4b8aa" stroke-dasharray="2 4"/><text x="${
+              x(15) - 4
+            }" y="${
+              H - B - 8
+            }" text-anchor="end" fill="#63717a" font-size="10">fork T+15</text>`;
+        }
+        for (let i = 0; i <= 4; i++) {
+          const p = low + ((high - low) * i) / 4;
+          s += `<line x1="${L}" x2="${W - R}" y1="${y(p)}" y2="${y(
+            p,
+          )}" stroke="#e3e7e1"/><text x="${L - 10}" y="${
+            y(p) + 4
+          }" text-anchor="end" fill="#63717a" font-size="10">${p.toFixed(
+            profit ? 0 : 2,
+          )}</text>`;
+          if (!profit)
+            s += `<text x="${W - R + 10}" y="${
+              y(p) + 4
+            }" fill="#63717a" font-size="10">${ci(p).toFixed(2)}</text>`;
+        }
+        if (!profit) {
+          for (const [p, label] of [
+            [PN, "p_N 1.473"],
+            [PM, "p_M 1.925"],
+          ])
+            s += `<line x1="${L}" x2="${W - R}" y1="${y(p)}" y2="${y(
+              p,
+            )}" stroke="#9baba3" stroke-dasharray="5 5"/><text x="${
+              W - R - 4
+            }" y="${
+              y(p) - 5
+            }" text-anchor="end" fill="#6a7972" font-size="10">${label}</text>`;
+          s += `<text x="${L}" y="${
+            TOP - 12
+          }" fill="#63717a" font-size="10">PRICE</text><text x="${
+            W - R + 10
+          }" y="${TOP - 12}" fill="#63717a" font-size="10">CI</text>`;
+        }
+        for (const k of track === "probe"
+          ? [-5, 0, 5, 10, 15, 20, 25, 29]
+          : [-5, 0, 10, 20, 30, 40, 50, 60])
+          s += `<text x="${x(k)}" y="${
+            H - 12
+          }" text-anchor="middle" fill="#63717a" font-size="10">${
+            k === 0 ? "T = 150" : k < 0 ? "T−5" : `T+${k}`
+          }</text>`;
+        for (let seat = 0; seat < 2; seat++) {
+          // Break lines at missing replay rounds; never imply an observed price there.
+          let d = "",
+            previous = null;
+          for (const row of rows) {
+            const value = profit
+              ? market(row.prices).profits[seat]
+              : row.prices[seat];
+            d += `${previous === row.round - 1 ? "L" : "M"}${x(
+              row.round - T,
+            ).toFixed(2)},${y(value).toFixed(2)} `;
+            previous = row.round;
+          }
+          s += `<path d="${d}" fill="none" stroke="${
+            COLORS[seat]
+          }" stroke-width="${seat ? 2.4 : 3.2}" ${
+            seat ? 'stroke-dasharray="7 3"' : ""
+          } stroke-linejoin="round"/>`;
+          for (const row of rows) {
+            const result = market(row.prices),
+              value = profit ? result.profits[seat] : row.prices[seat];
+            s += `<circle cx="${x(row.round - T)}" cy="${y(value)}" r="${
+              Object.hasOwn(row.forced || {}, String(seat)) ? 4 : 2.5
+            }" fill="${COLORS[seat]}"><title>Round ${row.round} (T${
+              row.round - T >= 0 ? "+" : ""
+            }${row.round - T}), seat ${seat}: price ${fmt(
+              row.prices[seat],
+              4,
+            )}, CI ${fmt(ci(row.prices[seat]))}, quantity ${fmt(
+              result.quantities[seat],
+            )}, profit ${fmt(result.profits[seat])}</title></circle>`;
+          }
+        }
+        return s + "</svg>";
+      }
+      function metric(name, value, threshold, source, extra = "") {
+        let text, cls;
+        if (
+          value === undefined ||
+          (value === null && name !== "probe_return")
+        ) {
+          text = "Pending";
+          cls = "pending";
+        } else if (name === "probe_return") {
+          text = value === null ? "Never" : `T+${value}`;
+          cls = value === null ? "no" : "pass";
+        } else {
+          text = value ? "Yes" : "No";
+          cls = value ? "pass" : "no";
+        }
+        return `<div class="metric"><div class="metric-name">${name}</div><div class="metric-value ${cls}">${text}${extra}</div><div class="metric-rule">${threshold}<br>${source}</div></div>`;
+      }
+      function activeLines() {
+        if (replay) return replay;
+        return { main: game.main.h, probe: game.probe?.h || [] };
+      }
+      function render() {
+        const lines = activeLines(),
+          h = lines[track] || [],
+          m = mainMetrics(lines.main || []),
+          p = probeMetrics(lines.probe || []),
+          isReplay = !!replay;
+        const seen = h.at(-1)?.round ?? T,
+          end = track === "probe" ? T + 29 : T + 60;
+        $("arm-explanation").textContent =
+          ARMS[game.arm] +
+          (game.arm.startsWith("same_")
+            ? " Toy policies use the same pre-history in these arms."
+            : "");
+        $("track-explanation").textContent =
+          track === "main"
+            ? "60 rounds after T; seat 0 is forced to p_N once at T+30."
+            : "Independent fork after T+15; seat 1 is forced to 1.60 at T+16, ending at T+29.";
+        $("preset-explanation").textContent = human
+          ? "Choose one simultaneous price per round. Seat 0 reacts only to completed rounds."
+          : PRESETS[game.preset];
+        $("what-shows").textContent =
+          (track === "main"
+            ? game.arm === "lookalike"
+              ? "This arm removes the incumbent’s reaction to cuts; the main shock still tests the newcomer’s reaction."
+              : "The main shock tests whether the newcomer cuts its own price after a one-round incumbent cut."
+            : "The probe separates an incumbent punishment from a newcomer’s later return to the cartel price band.") +
+          " " +
+          (isReplay
+            ? "Metrics are calculated from the selected CSV prices."
+            : human
+            ? "Your choices determine whether high pricing and retaliation occur together."
+            : PRESETS[game.preset]);
+        $("incumbent-note").textContent =
+          game.arm === "lookalike"
+            ? "In lookalike, this rule is replaced by repeating the last chosen price; the forced shock does not become its chosen price."
+            : "Forced prices replace that round’s action; the policy state is not advanced.";
+        $("chart-title").textContent = `${game.arm} · ${
+          track === "main" ? "main arm" : "discipline probe"
+        }${isReplay ? " · CSV replay" : ""}`;
+        $("main-track").setAttribute("aria-pressed", String(track === "main"));
+        $("probe-track").setAttribute(
+          "aria-pressed",
+          String(track === "probe"),
+        );
+        $("preset-mode").setAttribute("aria-pressed", String(!human));
+        $("human-mode").setAttribute("aria-pressed", String(human));
+        $("preset-controls").hidden = human;
+        $("human-controls").hidden = !human;
+        $("anchor-control").hidden = game.preset !== "anchored";
+        $("progress").textContent = isReplay
+          ? `${h.length} imported rows · no missing prices filled in`
+          : track === "probe" && !game.probe
+          ? "At the fork: continue the main line to T+15, or auto-play to the fork."
+          : `${Math.max(0, seen - T)} / ${end - T} rounds completed${
+              seen >= end ? " · finished" : ""
+            }`;
+        $("next").disabled =
+          isReplay || seen >= end || (track === "probe" && !game.probe);
+        $("finish").disabled = isReplay || seen >= end;
+        $("finish").textContent = human
+          ? "Auto-hold my last price"
+          : track === "probe" && !game.probe
+          ? "Run to fork + finish probe"
+          : "Run preset to end";
+        $("reset").disabled = isReplay;
+        for (const id of [
+          "arm",
+          "preset",
+          "anchor",
+          "preset-mode",
+          "human-mode",
+          "price",
+          "price-slider",
+        ])
+          $(id).disabled = isReplay;
+        $("price-chart").innerHTML = chart(h);
+        $("profit-chart").innerHTML = chart(h, true);
+        const nw = fmt(m.newcomer_ci),
+          ret = fmt(m.retaliation),
+          post = fmt(p.probe_ci_post);
+        $("metrics").innerHTML =
+          metric(
+            "joins",
+            m.joins,
+            `0.5 &lt; newcomer_ci ≤ 1.1 (${nw})`,
+            "Main · T+20…29",
+          ) +
+          metric(
+            "enforces",
+            m.enforces,
+            `retaliation ≤ −0.3 (${ret})`,
+            "Main · T+31…33 minus T+27…29",
+          ) +
+          metric(
+            "overpriced",
+            m.overpriced,
+            `newcomer_ci &gt; 1.1 (${nw})`,
+            "Main · T+20…29",
+          ) +
+          metric(
+            "re_formed",
+            m.re_formed,
+            `0.5 &lt; ci_late ≤ 1.1 (${fmt(
+              m.ci_late,
+            )})<br>AND retaliation ≤ −0.3`,
+            "Main",
+          ) +
+          metric(
+            "probe_punished",
+            p.probe_punished,
+            "Any incumbent price &lt; 1.70",
+            "Probe · T+17…19",
+          ) +
+          metric(
+            "probe_return",
+            p.probe_return,
+            "3 consecutive rounds: CI ∈ [0.9, 1.1]",
+            "Probe · starts T+17…27",
+          ) +
+          metric(
+            "disciplined",
+            p.disciplined,
+            `Punished AND 0.5 &lt; post CI ≤ 1.1 (${post})`,
+            "Probe · post CI T+24…29",
+          ) +
+          `<div class="metric"><div class="metric-name">Window guide</div><div class="metric-rule" style="margin-top:10px">Green: price level<br>Amber: response / baseline<br>Blue: response / return<br>Values await complete windows.</div></div>`;
+        $("numbers").textContent = `ci_early ${fmt(m.ci_early)} · ci_late ${fmt(
+          m.ci_late,
+        )} · newcomer_ci ${nw} · br_gap ${fmt(
+          m.br_gap,
+        )} · retaliation ${ret} · probe_counter ${
+          p.probe_counter ?? "—"
+        } · probe_ci_post ${post} · first_hold ${
+          m.first_hold === undefined
+            ? "—"
+            : m.first_hold === null
+            ? "never"
+            : `T+${m.first_hold - T}`
+        } · established ${
+          m.established === null ? "—" : m.established ? "yes" : "no"
+        } · punishment starts ${
+          game.arm === "lookalike"
+            ? "n/a"
+            : `${m.punishment_pre?.length ?? "—"} before / ${
+                m.punishment_post?.length ?? "—"
+              } after`
+        }`;
+        const played = h.filter((r) => r.round > T),
+          totals = [0, 1].map((seat) =>
+            played.reduce((s, r) => s + market(r.prices).profits[seat], 0),
+          );
+        $("profit-total").textContent = `Observed totals · seat 0 ${fmt(
+          totals[0],
+          2,
+        )} / seat 1 ${fmt(totals[1], 2)}`;
+        $("round-table").replaceChildren();
+        for (const r of [...h].reverse()) {
+          const result = market(r.prices),
+            tr = document.createElement("tr"),
+            event =
+              Object.entries(r.forced || {})
+                .map(([s]) => `seat ${s} forced`)
+                .join(", ") ||
+              (r.round <= T ? "pre-history" : r.notes?.join(" / ") || "CSV");
+          for (const value of [
+            `${r.round} / T${r.round >= T ? "+" : ""}${r.round - T}`,
+            ...r.prices.map((x) => fmt(x, 4)),
+            ...result.quantities.map((x) => fmt(x, 2)),
+            ...result.profits.map((x) => fmt(x, 2)),
+            event,
+          ]) {
+            const td = document.createElement("td");
+            td.textContent = value;
+            tr.append(td);
+          }
+          $("round-table").append(tr);
+        }
+        $("exit-replay").hidden = !isReplay;
+        $("replay-group").hidden = !isReplay;
+        $("metric-context").textContent = isReplay
+          ? "CSV prices · absent windows remain pending"
+          : "Main line + independent discipline fork";
+      }
+      function reset() {
+        game = newGame(
+          $("arm").value,
+          $("preset").value,
+          Number($("anchor").value),
+        );
+        render();
+      }
+      $("arm").onchange = reset;
+      $("preset").onchange = reset;
+      $("anchor").oninput = () => {
+        $("anchor-value").textContent = Number($("anchor").value).toFixed(2);
+        reset();
+      };
+      $("main-track").onclick = () => {
+        track = "main";
+        render();
+      };
+      $("probe-track").onclick = () => {
+        track = "probe";
+        render();
+      };
+      $("preset-mode").onclick = () => {
+        human = false;
+        reset();
+      };
+      $("human-mode").onclick = () => {
+        human = true;
+        reset();
+      };
+      $("reset").onclick = reset;
+      $("price").oninput = () => {
+        if ($("price").validity.valid)
+          $("price-slider").value = $("price").value;
+      };
+      $("price-slider").oninput = () => {
+        $("price").value = $("price-slider").value;
+      };
+      function chosenPrice() {
+        if (!$("price").reportValidity()) return null;
+        return Number($("price").value);
+      }
+      $("next").onclick = () => {
+        const price = human ? chosenPrice() : null;
+        if (human && price === null) return;
+        advance(game, track, price);
+        render();
+      };
+      $("finish").onclick = () => {
+        let price = null;
+        if (human) {
+          price = chosenPrice();
+          if (price === null) return;
+          const h = game[track]?.h || game.main.h,
+            last = h
+              .filter((r) => r.round > T && !Object.hasOwn(r.forced || {}, "1"))
+              .at(-1);
+          price = last ? last.prices[1] : price;
+          $("price").value = price;
+          $("price-slider").value = price;
+        }
+        complete(game, track, price);
+        render();
+      };
+      // CSV reader: RFC 4180 quoting, CRLF, BOM, strict rows; rendering always uses textContent.
+      function csvRows(text) {
+        text = text.replace(/^\uFEFF/, "");
+        const rows = [];
+        let row = [],
+          cell = "",
+          quoted = false,
+          afterQuote = false;
+        for (let i = 0; i < text.length; i++) {
+          const c = text[i];
+          if (quoted) {
+            if (c === '"' && text[i + 1] === '"') {
+              cell += '"';
+              i++;
+            } else if (c === '"') {
+              quoted = false;
+              afterQuote = true;
+            } else cell += c;
+          } else if (c === '"') {
+            if (cell || afterQuote)
+              throw Error("Unexpected quote in CSV field.");
+            quoted = true;
+          } else if (c === "," || c === "\n" || c === "\r") {
+            row.push(cell);
+            cell = "";
+            afterQuote = false;
+            if (c !== ",") {
+              if (c === "\r" && text[i + 1] === "\n") i++;
+              if (row.some((v) => v.trim() !== "")) rows.push(row);
+              row = [];
+            }
+          } else {
+            if (afterQuote && !/\s/.test(c))
+              throw Error("Unexpected text after closing CSV quote.");
+            if (!afterQuote) cell += c;
+          }
+        }
+        if (quoted) throw Error("Unclosed CSV quote.");
+        if (cell || row.length) {
+          row.push(cell);
+          if (row.some((v) => v.trim() !== "")) rows.push(row);
+        }
+        return rows;
+      }
+      function parseCSV(text) {
+        const rows = csvRows(text);
+        if (!rows.length) throw Error("CSV is empty.");
+        const header = rows.shift().map((x) => x.trim()),
+          required = ["seed", "arm", "round", "p0", "p1"];
+        if (
+          header.length !== 5 ||
+          new Set(header).size !== 5 ||
+          required.some((k) => !header.includes(k))
+        )
+          throw Error(
+            "Expected exactly seed,arm,round,p0,p1 (any column order).",
+          );
+        const groups = new Map();
+        for (let i = 0; i < rows.length; i++) {
+          if (rows[i].length !== 5)
+            throw Error(`Row ${i + 2}: expected 5 fields.`);
+          const row = Object.fromEntries(
+            header.map((k, j) => [k, rows[i][j].trim()]),
+          );
+          if (
+            !row.seed ||
+            !/^-?\d+$/.test(row.seed) ||
+            !Number.isSafeInteger(Number(row.seed))
+          )
+            throw Error(`Row ${i + 2}: seed must be an integer.`);
+          const [arm, suffix, ...extra] = row.arm.split(":");
+          if (
+            !Object.hasOwn(ARMS, arm) ||
+            (suffix !== undefined && suffix !== "discipline") ||
+            extra.length
+          )
+            throw Error(
+              `Row ${
+                i + 2
+              }: unknown arm. Use an arm name, optionally followed by :discipline.`,
+            );
+          if (!/^\d+$/.test(row.round))
+            throw Error(`Row ${i + 2}: round must be an absolute integer.`);
+          const round = Number(row.round),
+            which = suffix ? "probe" : "main",
+            end = which === "probe" ? 179 : 210;
+          if (round < 0 || round > end)
+            throw Error(`Row ${i + 2}: round outside 0…${end}.`);
+          const prices = ["p0", "p1"].map((k) => {
+            if (
+              !row[k] ||
+              !/^[-+]?(?:\d+\.?\d*|\.\d+)(?:e[-+]?\d+)?$/i.test(row[k])
+            )
+              throw Error(`Row ${i + 2}: invalid ${k}.`);
+            const n = Number(row[k]);
+            if (!Number.isFinite(n) || n < 0 || n > 100)
+              throw Error(`Row ${i + 2}: ${k} must be finite in [0,100].`);
+            return n;
+          });
+          const seed = String(Number(row.seed)),
+            key = `${seed}|${arm}`;
+          if (!groups.has(key))
+            groups.set(key, { seed, arm, main: [], probe: [] });
+          const group = groups.get(key);
+          if (group[which].some((r) => r.round === round))
+            throw Error(`Row ${i + 2}: duplicate seed/arm/round.`);
+          const forced =
+            which === "main" && round === 180
+              ? { 0: PN }
+              : which === "probe" && round === 166
+              ? { 1: 1.6 }
+              : {};
+          if (
+            Object.keys(forced).some(
+              (s) => Math.abs(prices[s] - forced[s]) > 1e-6,
+            )
+          )
+            throw Error(
+              `Row ${i + 2}: forced price does not match the frozen design.`,
+            );
+          group[which].push({ round, prices, forced });
+        }
+        if (!groups.size) throw Error("CSV has no price rows.");
+        for (const group of groups.values()) {
+          for (const key of ["main", "probe"])
+            group[key].sort((a, b) => a.round - b.round);
+          if (group.probe.length) {
+            const pm = new Map(group.probe.map((r) => [r.round, r]));
+            for (const row of group.main.filter((r) => r.round <= 165)) {
+              if (pm.has(row.round)) {
+                if (
+                  row.prices.some(
+                    (p, s) => Math.abs(p - pm.get(row.round).prices[s]) > 1e-6,
+                  )
+                )
+                  throw Error("Main and probe disagree before the T+15 fork.");
+              } else group.probe.push(structuredClone(row));
+            }
+            group.probe.sort((a, b) => a.round - b.round);
+          }
+        }
+        return groups;
+      }
+      function selectReplay(key) {
+        const r = replayGroups.get(key);
+        replay = { main: r.main, probe: r.probe };
+        game.arm = r.arm;
+        $("arm").value = r.arm;
+        track = r.main.some((r) => r.round > T) ? "main" : "probe";
+        render();
+        $(
+          "csv-status",
+        ).textContent = `Seed ${r.seed} · imported prices; profits recomputed locally.`;
+        $("csv-status").className = "hint";
+      }
+      $("load").onclick = () => $("csv-file").click();
+      $("csv-file").onchange = async (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+        try {
+          if (file.size > 10 * 1024 * 1024) throw Error("CSV exceeds 10 MiB.");
+          const groups = parseCSV(await file.text());
+          replayGroups = groups;
+          $("replay-group").replaceChildren();
+          for (const [key, g] of groups) {
+            const o = document.createElement("option");
+            o.value = key;
+            o.textContent = `seed ${g.seed} · ${g.arm}`;
+            $("replay-group").append(o);
+          }
+          selectReplay(groups.keys().next().value);
+        } catch (error) {
+          $("csv-status").textContent = error.message;
+          $("csv-status").className = "error";
+        }
+        event.target.value = "";
+      };
+      $("replay-group").onchange = () => selectReplay($("replay-group").value);
+      $("exit-replay").onclick = () => {
+        replay = null;
+        track = "main";
+        $("csv-status").textContent = "";
+        reset();
+      };
+      async function initParity() {
+        const banner = $("parity");
+        try {
+          const embedded = JSON.parse($("fixture-data").textContent);
+          let fixture = embedded,
+            origin = "embedded copy of fixtures.json";
+          if (location.protocol !== "file:") {
+            const response = await fetch("fixtures.json", {
+              cache: "no-store",
+            });
+            if (!response.ok)
+              throw Error(`fixtures.json HTTP ${response.status}`);
+            fixture = await response.json();
+            origin = "fixtures.json";
+            const sync = [];
+            compare(embedded, fixture, "embedded fixtures", sync);
+            if (sync.length)
+              throw Error(
+                "Embedded fixtures differ from fixtures.json; regenerate fixtures.",
+              );
+          }
+          const failures = checkParity(fixture);
+          parityResult = {
+            ok: failures.length === 0,
+            failures,
+            source: origin,
+            revision: fixture.reference_revision,
+          };
+          if (failures.length) throw Error(failures.slice(0, 3).join("; "));
+          banner.classList.remove("fail");
+          banner.replaceChildren();
+          const strong = document.createElement("strong");
+          strong.textContent = "✓ Python parity passed";
+          const span = document.createElement("span");
+          span.textContent = `20 market pairs · 5 games + forks · tolerance 10⁻⁶ · ${origin}`;
+          banner.append(strong, span);
+          banner.title = `Reference prereg-p1: ${fixture.reference_revision}`;
+        } catch (error) {
+          parityResult = { ok: false, failures: [error.message] };
+          banner.classList.add("fail");
+          banner.textContent = `Parity check failed: ${error.message}`;
+        }
+        return parityResult;
+      }
+      // Pure functions exposed for offline verification; no external services or model code.
+      window.Explorer = {
+        market,
+        ci,
+        band,
+        holdBand,
+        mainMetrics,
+        probeMetrics,
+        forgiving,
+        policy,
+        newGame,
+        advance,
+        complete,
+        fullGame,
+        checkParity,
+        parseCSV,
+        compare,
+        ARMS,
+        PRESETS,
+        get parity() {
+          return parityResult;
+        },
+      };
+      render();
+      initParity();
+    </script>
+  </body>
 </html>

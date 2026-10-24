@@ -142,7 +142,7 @@ outcomes are computed by the repo's frozen metrics functions. Page parity also
 checks that JS-generated main/probe trajectories match Python, including forced
 rounds. The standalone Node verification covers all 25 arm/preset combinations,
 main/probe isolation, forgiveness boundaries, metric boundaries, CSV validation
-and deliberate parity corruption.
+deliberate parity corruption and the direct-file embedded fixture path.
 
 For optional browser verification with `playwright-cli`, serve the page, open it,
 and invoke the checked-in function using its CLI wrapper:
@@ -153,6 +153,5 @@ python3 viz/check_browser.py
 ```
 
 This exercises all 50 arm/preset/track views, manual choices, the actual file
-input, multiple replay groups, absent windows, red parity failure, offline file
-behavior and a mobile viewport. It requires an existing `cartel-viz` browser
+input, multiple replay groups, absent windows, red parity failure/recovery and a mobile viewport. It requires an existing `cartel-viz` browser
 session; it makes no experiment or model calls.
