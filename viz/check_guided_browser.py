@@ -6,7 +6,7 @@ import subprocess
 CODE = r'''async page => {
   const assert=(condition,message)=>{if(!condition)throw Error(message);};
   const errors=[];page.on('pageerror',error=>errors.push(error.message));
-  await page.goto('http://127.0.0.1:8765/index.html');
+  await page.goto('http://127.0.0.1:8765/viz/index.html#practice');
   await page.waitForFunction(()=>window.Explorer?.parity?.ok);
   await page.setViewportSize({width:1440,height:1100});
   assert(await page.locator('#guided').isVisible(),'guide opens by default');

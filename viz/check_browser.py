@@ -7,7 +7,7 @@ import json
 CODE = r'''async page => {
   const assert=(x,message)=>{if(!x)throw Error(message);};
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
-  await page.reload();
+  await page.goto('http://127.0.0.1:8765/viz/index.html#sandbox');
   await page.waitForFunction(()=>window.Explorer?.parity!==null);
   assert(await page.evaluate(()=>Explorer.parity.ok),'green HTTP parity');
   await page.locator('#mode-sandbox').click();
