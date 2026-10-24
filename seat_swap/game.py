@@ -50,11 +50,24 @@ class Seat:
     thinking: bool
 
 
-def make_env(seed: int, notes_on: bool = True, window: int = WINDOW, instruction: Optional[str] = None) -> NotesOligopoly:
+# warm-up round 0: near Nash with upstream jitter (default, Phase A/B), or exactly at the cartel
+# price (positive control v2 only: the numeric rule then starts out of punishment)
+WARMUP_CARTEL_PRICE = 1.92
+
+
+def make_env(seed: int, notes_on: bool = True, window: int = WINDOW, instruction: Optional[str] = None,
+             warmup: str = "nash") -> NotesOligopoly:
     random.seed(seed)  # upstream warm-up jitter uses the global RNG
     env = NotesOligopoly(**MARKET, prefix="P0", window_size=window, notes_on=notes_on, prior_steps=PRIOR_STEPS,
                          instruction=instruction)
-    env.generate_history(PRIOR_STEPS)
+    if warmup == "nash":
+        env.generate_history(PRIOR_STEPS)
+    elif warmup == "cartel":
+        env.prior_actions = [[WARMUP_CARTEL_PRICE] * env.nagents for _ in range(PRIOR_STEPS)]
+        for actions in env.prior_actions:
+            env.step(list(actions))
+    else:
+        raise ValueError(f"unknown warmup {warmup!r}")
     for got, want in ((env.lower_prices, P_NASH), (env.upper_prices, P_MONOPOLY)):
         assert all(abs(p - want) < 5e-4 for p in got), (got, want)
     return env
