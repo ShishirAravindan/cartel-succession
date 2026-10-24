@@ -12,11 +12,27 @@ from pathlib import Path
 
 import numpy as np
 
+from seat_swap import metrics as M
 from seat_swap.metrics import ci
 
 
 def read_jsonl(path: Path) -> list[dict]:
     return [json.loads(line) for line in path.read_text().splitlines() if line.strip()] if path.exists() else []
+
+
+def shock_metrics(run_dir: Path, rounds: list[dict]) -> dict:
+    """Main-line shock (run.py --shock-round s): retaliation per seat = CI over s+1..s+3 minus
+    s-3..s-1, the Phase B windows with T = s - 30."""
+    cfg = json.loads((run_dir / "config.json").read_text()) if (run_dir / "config.json").exists() else {}
+    s = cfg.get("shock_round")
+    if not s:
+        return {}
+    prices = M.prices_by_round(rounds)
+    try:
+        return {"shock_round": s, "retaliation_seat1": M.retaliation(prices, s - 30, seat=1),
+                "retaliation_seat0": M.retaliation(prices, s - 30, seat=0)}
+    except KeyError as e:
+        return {"shock_round": s, "retaliation_error": str(e)}
 
 
 def summarise(run_dir: Path) -> dict:
@@ -40,6 +56,7 @@ def summarise(run_dir: Path) -> dict:
         "mean_reasoning_tokens": float(np.mean(reasoning)) if reasoning else None,
         "calls_with_reasoning_text": sum(bool(c.get("reasoning_text")) for c in done),
         "total_cost_usd": float(sum(u.get("cost") or 0 for u in usage)),
+        **shock_metrics(run_dir, rounds),
         "ci_trace": [[round(float(x), 2) for x in ci(r["prices"])] for r in rounds],
         "price_trace": [r["prices"] for r in rounds],
     }
