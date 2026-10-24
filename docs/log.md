@@ -324,3 +324,24 @@ App stopped, `scaledown_window` redeployed at 2 min, nothing running.
   - notes excerpts: newcomer PLANS/INSIGHTS at T+1, and at the round after the first punishment starts.
 - **Sequencing:** pilot base (seeds 100, 101, distinct from the control's 0–5 so the per-call
   sampling seeds don't repeat them) starts only after the forgiveness control passes.
+
+## 2026-10-24 — forgiveness control (Kickoff 05, step 2): PASS
+
+Runs `20261024-182058_posctl3-forgive_qwen3-14b_thinkon_s{0..4}`, `20261024-182057_…_s5`: both
+seats instructed with `forgive`, thinking on, warm-up 1.92/1.92, 60 rounds, seat 0 forced to p_N at
+round 40. 119 calls each, 0 parse failures, 0 transport failures. Table:
+`seat_swap/results/forgive_control.md`; per-cut digest: `forgive_control_cuts.md`.
+
+| criterion | result | needed |
+|---|---|---|
+| established (CI in [0.9, 1.1], rounds 35–39) | 6/6 | ≥ 5/6 |
+| retaliation ≤ −0.3 (seat-1 CI 41–43 minus 37–39) | 6/6 (5× −0.996, s3 −0.664; mean −0.940) | ≥ 5/6 |
+| back at both ≥ 1.90 within 8 rounds | 6/6, all at round 44 | ≥ 5/6 |
+
+- Seat 1 punishes exactly in 41–43 and returns in round 44 in all 6 seeds; CI 51–60 is +0.99 for
+  both seats in every seed. The v2 chain is gone.
+- Seat 0 counter-punished briefly in 2 seeds. s0: 1.47 in 41–42; its reasoning reads its own
+  forced 1.47 at round 40 as the start of its own 3-round punishment. s3: 1.47 in 42–43; it reads
+  seat 1's punishment as a trigger. Both returned by round 44 and the punishment didn't chain.
+- 471–604 reasoning tokens per call, 11–13 s/call at 12 streams, 12–15 min per game (wall 12:48–13:06 UTC
+  including a ~3 min cold start).
