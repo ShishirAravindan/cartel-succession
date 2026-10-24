@@ -30,6 +30,16 @@ assert(
     .rows.at(-1)
     .prices.every((p) => Math.abs(p - 1.473) < 0.001),
 );
+assert(
+  E.coffeeSession(1).rows[0].prices[0] < E.coffeeSession(1).rows[0].prices[1],
+);
+assert(E.coffeeSession(1).rows.every((r) => r.prices[0] <= r.prices[1]));
+E.playCoffee(1, 2.89);
+assert(
+  E.coffeeSession(1)
+    .rows.at(-1)
+    .prices.every((p) => p === 1.473),
+);
 E.playCoffee(2, 1.92);
 assert(
   E.coffeeTotal(E.coffeeSession(2).rows) / 5 >
@@ -46,10 +56,7 @@ assert(naive.slice(-5).every((r) => r.prices.every((p) => p < 1.7)));
 assert(forgiven.slice(-5).every((r) => r.prices.every((p) => p === 1.92)));
 assert(E.coffeeTotal(forgiven) > E.coffeeTotal(naive));
 assert(E.market([1.92, 2.5]).profits[1] < E.market([1.92, 1.92]).profits[1]);
-assert.equal(
-  new Set(E.COFFEE_SCENES.flatMap((s) => s.terms)).size,
-  Object.keys(E.GLOSSARY).length,
-);
+assert.equal(new Set(E.COFFEE_SCENES.flatMap((s) => s.terms)).size, 19);
 for (const value of Object.values(E.GLOSSARY)) assert.equal(value.length, 2);
 console.log(
   "Passed M1: price-war benchmark, truce profit, temptation, exact three-round punishment, forgiveness, overpricing and glossary coverage.",
@@ -102,4 +109,29 @@ assert.throws(() =>
 );
 console.log(
   "Passed M2: real CSV adapter, all 75 report cross-checks, exact arm counts, corruption, strict relative/forced validation and extra-seed support.",
+);
+
+const gaps = E.evidencePlot(
+  [
+    {
+      seed: "test",
+      main: [
+        { round: 151, prices: [1.92, 1.92] },
+        { round: 153, prices: [1.92, 1.8] },
+      ],
+    },
+  ],
+  "main",
+);
+for (const match of gaps.matchAll(/<path d="([^"]*)"/g))
+  assert(!match[1].includes("L"), "missing evidence rounds break lines");
+const embedded = JSON.parse(
+  html.match(
+    /<script id="p1-data" type="application\/json">([\s\S]*?)<\/script>/,
+  )[1],
+);
+assert.equal(embedded.csv, prices);
+assert(E.crossCheckEvidence(E.adaptP1CSV(embedded.csv), embedded.report).ok);
+console.log(
+  "Passed M5: evidence gaps remain gaps and the standalone embedded CSV/report match the committed sources.",
 );
