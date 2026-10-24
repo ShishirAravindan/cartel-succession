@@ -271,3 +271,19 @@ v2 `20261024-164813_posctl2-numeric_qwen3-14b_thinkon_s{0..5}` (warm-up 1.92/1.9
 original task, the extra seeds, the pilots and v2 overlapped, so they can't be priced separately;
 v2 extended the session by roughly 10 min (≈ $0.7). **Sprint total metered: $7.52** (billed $0).
 App stopped, `scaledown_window` redeployed at 2 min, nothing running.
+
+## 2026-10-24 — repo sync for the PI (kickoff 04, no GPU)
+
+- `docs/working_model.md`: "How we work" (PI / coordinator / coder), the project rules moved out
+  of CLAUDE.md, the run policy, and a dated "Current decisions" list. Two old git rules
+  conflicted with the new workflow ("commit after the user has seen it", "never push without
+  being asked"); they now read: commit and push to origin after every task, merge only after review.
+- `CLAUDE.md` is now a short pointer to the working model and is tracked (removed from `.gitignore`).
+- Derived data (scripts: `seat_swap.export_results`, `seat_swap.positive_control`):
+  `results/prices_all.csv` (26 games × 60 rounds: 22 positive-control games + 4 pilots),
+  `results/pilot_excerpts.md`, and `results/positive_control_cuts.md` trimmed to established seeds
+  (full digest kept locally, gitignored).
+- `docs/status.md` from the template.
+- Secret check: every value in `compute.env` and the Modal token, plus key patterns, searched
+  literally in all tracked and new files and in the full git history of all branches: no hits.
+- Pushed `main`, `infra/h100-sampling`, `exp/positive-control` and `docs/sync` to origin; nothing merged.
