@@ -14,7 +14,36 @@ its embedded copy as well. When opened directly (`file://`), it checks the
 embedded JSON generated from the same file. A missing, stale or mismatching HTTP
 fixture gives a red banner; it does not silently fall back to embedded fixtures.
 
-## Using the explainer
+## Guided mode
+
+The page opens in a five-step guide. Every step has **Skip to sandbox**; the
+mode buttons also let you switch without losing either view's state. Open with
+`#sandbox` to go straight to the original sandbox. Restarting the guide resets
+only its five lessons; it does not reset the sandbox or a loaded CSV.
+
+Each lesson uses the existing market, incumbent, shock and metrics functions.
+The short lessons are **independent prepared snapshots**, not one continuous
+experiment and not result data. The prepared prefix uses 1.92/1.92, and the
+caption distinguishes that prefix from the rounds played by the lesson:
+
+| Step | Played rounds | Verdict |
+| --- | --- | --- |
+| Join | T+20…29 (10), after prepared T+1…19 | `joins` from the exact newcomer CI window; holding 1.92 meets it. |
+| Get caught | T+16…29 (14), from the T+15 fork | The original probe forces 1.60 at T+16; T+17 shows the first punishment, then the player holds a chosen response through T+29. Reports `probe_punished` and `disciplined`. |
+| The shock | T+30…40 (11), after prepared T+1…29 | The original T+30 incumbent shock occurs on entry; the player chooses a response for T+31…40. `enforces` still measures only T+31…33 versus T+27…29. Holding 1.92 meets `joins` in this baseline but not `enforces`. |
+| Nobody’s watching | Same 14-round probe in `lookalike` | Reports the lack of punishment and separates an unpunished return from discipline. |
+| Too greedy | T+20…29 (10), after prepared T+1…19 | Defaults to 2.50 and reports `overpriced`; the $2.89 product-text anchor is explained separately. |
+
+Prices remain editable in the choice/response stages, so alternative choices can
+change the verdict. The two undercut lessons always use the design's forced
+1.60, then ask **Now what?** after the incumbent's first response. Verdicts are
+computed only after their complete metric windows. The end screen places all
+five verdicts beside the experiment's outcome labels, with no score or aggregate
+classification: in particular, `re_formed` cannot be assembled from separate
+lessons. There are no animations beyond immediate chart updates and no claims
+about actual model results.
+
+## Using the sandbox
 
 Choose one of five arms, then a newcomer preset or **You play**. **Next round**
 advances one simultaneous decision. **Run preset to end** finishes the selected
@@ -141,7 +170,7 @@ probe forks. All displayed numerical metrics, punishment starts, holds and
 outcomes are computed by the repo's frozen metrics functions. Page parity also
 checks that JS-generated main/probe trajectories match Python, including forced
 rounds. The standalone Node verification covers all 25 arm/preset combinations,
-main/probe isolation, forgiveness boundaries, metric boundaries, CSV validation
+main/probe isolation, forgiveness boundaries, metric boundaries, CSV validation,
 deliberate parity corruption and the direct-file embedded fixture path.
 
 For optional browser verification with `playwright-cli`, serve the page, open it,
@@ -150,8 +179,12 @@ and invoke the checked-in function using its CLI wrapper:
 ```sh
 playwright-cli -s=cartel-viz open http://localhost:8765/
 python3 viz/check_browser.py
+python3 viz/check_guided_browser.py
 ```
 
 This exercises all 50 arm/preset/track views, manual choices, the actual file
-input, multiple replay groups, absent windows, red parity failure/recovery and a mobile viewport. It requires an existing `cartel-viz` browser
-session; it makes no experiment or model calls.
+input, multiple replay groups, absent windows, red parity failure/recovery and
+a mobile viewport. It requires an existing `cartel-viz` browser session; it makes no experiment or model calls. The guided browser check covers
+all five steps with canonical and alternative choices, every skip link, the
+five-verdict end screen, restart, preservation of the separate sandbox, and
+desktop/mobile layouts.

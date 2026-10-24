@@ -511,6 +511,119 @@
           align-items: flex-start;
         }
       }
+      .mode-nav {
+        display: flex;
+        gap: 8px;
+        margin: 0 0 18px;
+      }
+      .guide {
+        display: grid;
+        gap: 16px;
+      }
+      .guide-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: center;
+        padding: 20px 24px;
+        border-bottom: 1px solid var(--line);
+      }
+      .guide-top a,
+      .mode-nav a {
+        color: var(--teal);
+        font-size: 12px;
+      }
+      .guide-body {
+        padding: 24px;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 270px;
+        gap: 28px;
+        align-items: start;
+      }
+      .guide h2 {
+        font:
+          500 32px/1.15 Georgia,
+          serif;
+        margin: 7px 0 14px;
+      }
+      .guide-instruction {
+        font-size: 20px;
+        max-width: 650px;
+      }
+      .guide-controls {
+        padding: 18px;
+        background: var(--paper);
+        border-radius: 8px;
+      }
+      .guide-controls input {
+        width: 100%;
+        margin: 6px 0 12px;
+      }
+      .guide-controls button {
+        width: 100%;
+        margin-top: 8px;
+      }
+      .guide-verdict {
+        margin: 0 24px 24px;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+      .guide-verdict code,
+      .guide-outcome code {
+        display: block;
+        margin: 5px 0;
+        font-size: 13px;
+      }
+      .guide-summary {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        list-style: none;
+        padding: 0;
+        margin: 24px 0;
+        gap: 12px;
+      }
+      .guide-outcome {
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+      .guide-outcome h3 {
+        font-size: 16px;
+        margin-bottom: 12px;
+      }
+      .guide-summary-wrap {
+        padding: 24px;
+      }
+      .guide-context {
+        margin-top: 12px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .guide-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      @media (max-width: 700px) {
+        .guide-body {
+          grid-template-columns: 1fr;
+          gap: 18px;
+          padding: 18px;
+        }
+        .guide-top {
+          padding: 18px;
+        }
+        .guide-summary {
+          grid-template-columns: 1fr;
+        }
+        .guide-verdict {
+          margin: 0 18px 18px;
+        }
+        .guide-summary-wrap {
+          padding: 18px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -537,7 +650,102 @@
         <strong>Checking Python parity…</strong
         ><span>20 price pairs · 5 scripted games · tolerance 10⁻⁶</span>
       </div>
-      <div class="layout">
+      <nav class="mode-nav" aria-label="Explorer mode">
+        <button id="mode-guide" aria-pressed="true">Guided mode</button>
+        <button id="mode-sandbox" aria-pressed="false">Sandbox</button>
+      </nav>
+      <section id="guided" class="guide" aria-label="Five-step guided mode">
+        <div class="card" id="guide-lesson">
+          <div class="guide-top">
+            <p id="guide-position" class="eyebrow"></p>
+            <a class="skip-guide" href="#sandbox">Skip to sandbox →</a>
+          </div>
+          <div class="guide-body">
+            <div>
+              <p class="section-label">
+                A prepared illustration / your price, the same market
+              </p>
+              <h2 id="guide-title" tabindex="-1"></h2>
+              <p id="guide-instruction" class="guide-instruction"></p>
+              <p id="guide-context" class="guide-context"></p>
+              <p id="guide-anchor" class="hint" hidden>
+                The product text’s $2.89 ceiling is the price anchor; the
+                overpriced threshold remains CI &gt; 1.1.
+              </p>
+            </div>
+            <form id="guide-form" class="guide-controls">
+              <div id="guide-price-field">
+                <label class="field" for="guide-price">Your price</label
+                ><input
+                  id="guide-price"
+                  type="number"
+                  min="1"
+                  max="2.89"
+                  step="0.01"
+                  value="1.92"
+                  required
+                />
+              </div>
+              <p id="guide-action-hint" class="hint"></p>
+              <button id="guide-run" class="primary" type="submit"></button
+              ><button id="guide-continue" type="button" hidden>
+                Next step →
+              </button>
+            </form>
+          </div>
+          <div
+            id="guide-verdict"
+            class="guide-verdict"
+            role="status"
+            aria-live="polite"
+            hidden
+          ></div>
+          <div class="chart-head">
+            <h3>Price path</h3>
+            <div class="legend">
+              <span
+                ><i class="dot" style="background: var(--teal)"></i>Seat 0</span
+              ><span
+                ><i class="dot" style="background: var(--orange)"></i>Seat 1 /
+                you</span
+              >
+            </div>
+          </div>
+          <div id="guide-chart" class="chart-wrap"></div>
+          <div class="chart-footer">
+            <span>Left: price · right: CI · exact metric windows</span
+            ><span id="guide-rounds" aria-live="polite"></span>
+          </div>
+        </div>
+        <section id="guide-end" class="card" hidden>
+          <div class="guide-top">
+            <p class="eyebrow">Five illustrations / five verdicts</p>
+            <a class="skip-guide" href="#sandbox">Skip to sandbox →</a>
+          </div>
+          <div class="guide-summary-wrap">
+            <h2 id="guide-end-title" tabindex="-1">
+              The outcome labels, side by side.
+            </h2>
+            <p>
+              These are your five separate toy price paths, using the outcome
+              labels in the experiment.
+            </p>
+            <ol id="guide-summary" class="guide-summary"></ol>
+            <p class="hint">
+              re_formed requires the market price band and enforcement on the
+              same main line; these independent lessons cannot be combined into
+              that verdict.
+            </p>
+            <div class="guide-actions">
+              <button id="guide-restart">Restart the guide</button
+              ><button id="guide-open-sandbox" class="primary">
+                Explore the sandbox →
+              </button>
+            </div>
+          </div>
+        </section>
+      </section>
+      <div id="sandbox" class="layout" hidden>
         <aside class="card sidebar">
           <div>
             <p class="section-label">01 / Set the scene</p>
@@ -7509,18 +7717,20 @@
         replayGroups = new Map(),
         parityResult = null;
       const COLORS = ["#087d78", "#d56235"];
-      function chart(h, profit = false) {
+      function chart(h, profit = false, options = {}) {
+        const chartTrack = options.track ?? track,
+          chartArm = options.arm ?? game.arm;
         const W = 1000,
           H = profit ? 205 : 365,
           L = 60,
           R = 67,
           TOP = profit ? 25 : 81,
           B = 35,
-          end = track === "probe" ? 29 : 60,
-          xMin = -5,
-          xMax = end + 1,
+          end = chartTrack === "probe" ? 29 : 60,
+          xMin = options.start ?? -5,
+          xMax = options.end ?? end + 1,
           x = (k) => L + ((k - xMin) / (xMax - xMin)) * (W - L - R),
-          rows = h.filter((r) => r.round >= T - 5 && r.round <= T + end),
+          rows = h.filter((r) => r.round >= T + xMin && r.round <= T + xMax),
           values = rows.flatMap((r) =>
             profit ? market(r.prices).profits : r.prices,
           );
@@ -7535,13 +7745,14 @@
           profit
             ? "Per-round profit"
             : "Seat prices, CI, and inclusive metric windows"
-        }"><title>${profit ? "Profit" : "Prices and CI"} · ${
-          game.arm
-        } · ${track}</title>`;
+        }"><title>${
+          profit ? "Profit" : "Prices and CI"
+        } · ${chartArm} · ${chartTrack}</title>`;
         if (!profit) {
           const zone = (a, b, color, label, row = 0) => {
-            const left = x(a - 0.5),
-              right = x(b + 0.5);
+            if (b + 0.5 <= xMin || a - 0.5 >= xMax) return;
+            const left = x(Math.max(a - 0.5, xMin)),
+              right = x(Math.min(b + 0.5, xMax));
             s += `<rect x="${left}" y="${TOP}" width="${
               right - left
             }" height="${H - B - TOP}" fill="${color}"/><text x="${
@@ -7554,7 +7765,7 @@
               TOP - 4
             }" stroke="${color}" stroke-width="2"/>`;
           };
-          if (track === "main") {
+          if (chartTrack === "main") {
             zone(20, 29, "#e3eee5", "ci_late · newcomer_ci", 0);
             zone(27, 29, "#f7e6c9", "retaliation: before", 2);
             zone(31, 33, "#dfeaf4", "retaliation: after", 1);
@@ -7563,15 +7774,18 @@
             zone(17, 29, "#dfeaf44d", "probe_return: 3-round holds", 1);
             zone(24, 29, "#e3eee5", "probe_ci_post", 2);
           }
-          const forced = track === "main" ? 30 : 16;
-          s += `<line x1="${x(forced)}" x2="${x(forced)}" y1="${TOP - 3}" y2="${
-            H - B
-          }" stroke="#ab6556" stroke-dasharray="4 3"/><text x="${
-            x(forced) + 5
-          }" y="${TOP + 13}" fill="#965043" font-size="10">${
-            track === "main" ? "shock" : "forced cut"
-          }</text>`;
-          if (track === "probe")
+          const forced = chartTrack === "main" ? 30 : 16;
+          if (forced >= xMin && forced <= xMax)
+            s += `<line x1="${x(forced)}" x2="${x(forced)}" y1="${
+              TOP - 3
+            }" y2="${
+              H - B
+            }" stroke="#ab6556" stroke-dasharray="4 3"/><text x="${
+              x(forced) + 5
+            }" y="${TOP + 13}" fill="#965043" font-size="10">${
+              chartTrack === "main" ? "shock" : "forced cut"
+            }</text>`;
+          if (chartTrack === "probe")
             s += `<line x1="${x(15)}" x2="${x(15)}" y1="${TOP}" y2="${
               H - B
             }" stroke="#a4b8aa" stroke-dasharray="2 4"/><text x="${
@@ -7612,9 +7826,12 @@
             W - R + 10
           }" y="${TOP - 12}" fill="#63717a" font-size="10">CI</text>`;
         }
-        for (const k of track === "probe"
-          ? [-5, 0, 5, 10, 15, 20, 25, 29]
-          : [-5, 0, 10, 20, 30, 40, 50, 60])
+        for (const k of (
+          options.ticks ??
+          (chartTrack === "probe"
+            ? [-5, 0, 5, 10, 15, 20, 25, 29]
+            : [-5, 0, 10, 20, 30, 40, 50, 60])
+        ).filter((k) => k >= xMin && k <= xMax))
           s += `<text x="${x(k)}" y="${
             H - 12
           }" text-anchor="middle" fill="#63717a" font-size="10">${
@@ -7923,6 +8140,288 @@
         complete(game, track, price);
         render();
       };
+      const GUIDE_STEPS = [
+        {
+          title: "Join",
+          instruction: "You’ve just bought this seat. Set your price.",
+          track: "main",
+          arm: "same_history",
+          prepared: 19,
+          end: 29,
+          price: 1.92,
+          view: { start: 18.5, end: 29.5, ticks: [19, 20, 23, 26, 29] },
+        },
+        {
+          title: "Get caught",
+          instruction: "Try undercutting to 1.60.",
+          track: "probe",
+          arm: "same_history",
+          prepared: 15,
+          end: 29,
+          price: 1.6,
+          view: { start: 14.5, end: 29.5, ticks: [15, 16, 19, 24, 29] },
+        },
+        {
+          title: "The shock",
+          instruction: "The incumbent just cut at T+30. Do you respond?",
+          track: "main",
+          arm: "same_history",
+          prepared: 29,
+          end: 40,
+          price: 1.92,
+          view: { start: 24, end: 40.5, ticks: [25, 27, 30, 33, 40] },
+        },
+        {
+          title: "Nobody’s watching",
+          instruction: "Try undercutting to 1.60.",
+          track: "probe",
+          arm: "lookalike",
+          prepared: 15,
+          end: 29,
+          price: 1.6,
+          view: { start: 14.5, end: 29.5, ticks: [15, 16, 19, 24, 29] },
+        },
+        {
+          title: "Too greedy",
+          instruction: "Try 2.50.",
+          track: "main",
+          arm: "same_history",
+          prepared: 19,
+          end: 29,
+          price: 2.5,
+          view: { start: 18.5, end: 29.5, ticks: [19, 20, 23, 26, 29] },
+        },
+      ];
+      function makeLesson(index) {
+        const config = GUIDE_STEPS[index];
+        if (!config) throw Error("Unknown guided step.");
+        const g = newGame(config.arm, "follower");
+        while (g.main.h.at(-1).round < T + config.prepared)
+          advance(g, "main", 1.92);
+        const lesson = {
+          index,
+          game: g,
+          stage: config.track === "probe" ? "cut" : "choose",
+        };
+        if (index === 2) advance(g, "main", 1.92); // The actual scheduled T+30 shock.
+        return lesson;
+      }
+      function runLesson(lesson, price = 1.92) {
+        if (lesson.stage === "done") return lesson;
+        if (!Number.isFinite(price) || price < 1 || price > 2.89)
+          throw Error("Choose a price from 1.00 to 2.89.");
+        const config = GUIDE_STEPS[lesson.index];
+        if (lesson.stage === "cut") {
+          // T+16 is forced by the existing probe engine; observe its first response at T+17.
+          advance(lesson.game, "probe", 1.6);
+          advance(lesson.game, "probe", 1.6);
+          lesson.stage = "respond";
+          return lesson;
+        }
+        while (lesson.game[config.track].h.at(-1).round < T + config.end)
+          advance(lesson.game, config.track, price);
+        lesson.stage = "done";
+        return lesson;
+      }
+      function lessonVerdict(lesson) {
+        if (lesson.stage !== "done") return null;
+        const m = mainMetrics(lesson.game.main.h),
+          p = probeMetrics(lesson.game.probe?.h || []);
+        switch (lesson.index) {
+          case 0:
+            return {
+              values: { joins: m.joins },
+              sentence: m.joins
+                ? "Your newcomer CI is inside (0.5, 1.1], so this price path meets joins."
+                : "Your newcomer CI is outside (0.5, 1.1], so this price path does not meet joins.",
+              rule: `newcomer_ci = ${fmt(
+                m.newcomer_ci,
+              )} · T+20…29 · joins: 0.5 < CI ≤ 1.1`,
+            };
+          case 1:
+            return {
+              values: {
+                probe_punished: p.probe_punished,
+                disciplined: p.disciplined,
+              },
+              sentence: p.disciplined
+                ? "The incumbent punished the cut and your later prices returned to the required band, so this probe meets disciplined."
+                : "The incumbent punished the cut, but your later prices stayed outside the required band, so this probe does not meet disciplined.",
+              rule: `probe_ci_post = ${fmt(
+                p.probe_ci_post,
+              )} · T+24…29 · disciplined: punished AND 0.5 < post CI ≤ 1.1`,
+            };
+          case 2:
+            return {
+              values: { enforces: m.enforces },
+              sentence: m.enforces
+                ? "Your price response lowers newcomer CI by at least 0.3, so this joined baseline also meets enforces."
+                : "This prepared baseline meets joins, but your response does not lower newcomer CI enough to meet enforces.",
+              rule: `retaliation = ${fmt(
+                m.retaliation,
+              )} · T+31…33 minus T+27…29 · enforces: retaliation ≤ −0.3`,
+            };
+          case 3:
+            return {
+              values: {
+                probe_punished: p.probe_punished,
+                disciplined: p.disciplined,
+              },
+              sentence:
+                "The cut went unpunished, so this arm separates copying or price stickiness from a return in response to discipline.",
+              rule: `probe_return = ${
+                p.probe_return === null ? "never" : `T+${p.probe_return}`
+              } · disciplined requires punishment, even when prices return`,
+            };
+          case 4:
+            return {
+              values: { overpriced: m.overpriced },
+              sentence: m.overpriced
+                ? "Your newcomer CI exceeds 1.1, so this price path is labelled overpriced rather than joined."
+                : "Your newcomer CI does not exceed 1.1, so this price path is not labelled overpriced.",
+              rule: `newcomer_ci = ${fmt(
+                m.newcomer_ci,
+              )} · T+20…29 · overpriced: CI > 1.1`,
+            };
+        }
+      }
+      let guidedLesson = makeLesson(0),
+        guidedVerdicts = [],
+        guidedEnd = false;
+      function setMode(mode) {
+        const guide = mode === "guide";
+        $("guided").hidden = !guide;
+        $("sandbox").hidden = guide;
+        $("mode-guide").setAttribute("aria-pressed", String(guide));
+        $("mode-sandbox").setAttribute("aria-pressed", String(!guide));
+      }
+      function renderGuide(focus = false) {
+        $("guide-lesson").hidden = guidedEnd;
+        $("guide-end").hidden = !guidedEnd;
+        if (guidedEnd) {
+          $("guide-summary").replaceChildren();
+          guidedVerdicts.forEach((verdict, index) => {
+            const item = document.createElement("li");
+            item.className = "guide-outcome";
+            const title = document.createElement("h3");
+            title.textContent = `${index + 1}. ${GUIDE_STEPS[index].title}`;
+            item.append(title);
+            for (const [key, value] of Object.entries(verdict.values)) {
+              const code = document.createElement("code");
+              code.textContent = `${key} = ${value}`;
+              item.append(code);
+            }
+            const explanation = document.createElement("p");
+            explanation.className = "hint";
+            explanation.textContent = verdict.sentence;
+            item.append(explanation);
+            $("guide-summary").append(item);
+          });
+          if (focus) $("guide-end-title").focus({ preventScroll: true });
+          return;
+        }
+        const lesson = guidedLesson,
+          config = GUIDE_STEPS[lesson.index],
+          done = lesson.stage === "done",
+          cut = lesson.stage === "cut",
+          respond = lesson.stage === "respond";
+        $("guide-position").textContent = `Step ${lesson.index + 1} of 5`;
+        $("guide-title").textContent = config.title;
+        $("guide-instruction").textContent = respond
+          ? config.arm === "lookalike"
+            ? "The incumbent stayed at 1.92. Now what?"
+            : "The incumbent cut to 1.47 to punish you. Now what?"
+          : config.instruction;
+        $(
+          "guide-context",
+        ).textContent = `Separate prepared snapshot: both seats held 1.92 through T+${
+          config.prepared
+        }; ${
+          config.track === "probe"
+            ? "fork at T+15, then T+16…29 (14 rounds)"
+            : lesson.index === 2
+            ? "T+30…40 (11 rounds, including the forced shock)"
+            : "your price is held for T+20…29 (10 rounds)"
+        }.`;
+        $("guide-anchor").hidden = lesson.index !== 4;
+        $("guide-price-field").hidden = cut || done;
+        $("guide-run").hidden = done;
+        $("guide-continue").hidden = !done;
+        $("guide-run").textContent = cut
+          ? "Undercut at 1.60 →"
+          : respond
+          ? "Hold this response for 12 rounds"
+          : "Hold this price for 10 rounds";
+        $("guide-continue").textContent =
+          lesson.index === 4 ? "See the five verdicts →" : "Next step →";
+        $("guide-action-hint").textContent = done
+          ? "Verdict from this lesson’s complete metric windows."
+          : cut
+          ? "The probe forces your price at T+16; the chart then shows the incumbent’s next decision."
+          : lesson.index === 2
+          ? "Your response is measured in the first 3 rounds; hold it through T+40 to inspect the path."
+          : "Choose a price from 1.00 to 2.89; the incumbent follows the same sandbox rule.";
+        const verdict = lessonVerdict(lesson);
+        $("guide-verdict").hidden = !done;
+        $("guide-verdict").replaceChildren();
+        if (verdict) {
+          for (const [key, value] of Object.entries(verdict.values)) {
+            const code = document.createElement("code");
+            code.textContent = `${key} = ${value}`;
+            $("guide-verdict").append(code);
+          }
+          const sentence = document.createElement("p");
+          sentence.textContent = verdict.sentence;
+          $("guide-verdict").append(sentence);
+          const rule = document.createElement("p");
+          rule.className = "hint";
+          rule.textContent = verdict.rule;
+          $("guide-verdict").append(rule);
+        }
+        const h = lesson.game[config.track].h;
+        $("guide-chart").innerHTML = chart(h, false, {
+          ...config.view,
+          track: config.track,
+          arm: config.arm,
+        });
+        $("guide-rounds").textContent = `${
+          h.at(-1).round - T - config.prepared
+        } / ${config.end - config.prepared} lesson rounds played · ${
+          config.arm
+        }`;
+        if (focus) $("guide-title").focus({ preventScroll: true });
+      }
+      $("guide-form").onsubmit = (event) => {
+        event.preventDefault();
+        const input = $("guide-price");
+        if (guidedLesson.stage !== "cut" && !input.reportValidity()) return;
+        runLesson(guidedLesson, Number(input.value));
+        if (guidedLesson.stage === "respond") input.value = "1.92";
+        renderGuide();
+      };
+      $("guide-continue").onclick = () => {
+        guidedVerdicts[guidedLesson.index] = lessonVerdict(guidedLesson);
+        if (guidedLesson.index === 4) guidedEnd = true;
+        else {
+          guidedLesson = makeLesson(guidedLesson.index + 1);
+          $("guide-price").value = GUIDE_STEPS[guidedLesson.index].price;
+        }
+        renderGuide(true);
+      };
+      $("guide-restart").onclick = () => {
+        guidedLesson = makeLesson(0);
+        guidedVerdicts = [];
+        guidedEnd = false;
+        $("guide-price").value = "1.92";
+        renderGuide(true);
+      };
+      $("mode-guide").onclick = () => setMode("guide");
+      $("mode-sandbox").onclick = () => setMode("sandbox");
+      $("guide-open-sandbox").onclick = () => setMode("sandbox");
+      // Two links cover the lesson panel (every step) and the end screen.
+      document
+        .querySelectorAll(".skip-guide")
+        .forEach((link) => (link.onclick = () => setMode("sandbox")));
       // CSV reader: RFC 4180 quoting, CRLF, BOM, strict rows; rendering always uses textContent.
       function csvRows(text) {
         text = text.replace(/^\uFEFF/, "");
@@ -8170,11 +8669,18 @@
         compare,
         ARMS,
         PRESETS,
+        GUIDE_STEPS,
+        makeLesson,
+        runLesson,
+        lessonVerdict,
         get parity() {
           return parityResult;
         },
       };
+      // Initialize the interface.
       render();
+      renderGuide();
+      setMode(location.hash === "#sandbox" ? "sandbox" : "guide");
       initParity();
     </script>
   </body>
