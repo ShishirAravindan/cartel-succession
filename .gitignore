@@ -20,3 +20,6 @@ literature/pdfs/
 
 # local model artifacts
 /checkpoints/
+
+.agents/
+KICKOFF.md
