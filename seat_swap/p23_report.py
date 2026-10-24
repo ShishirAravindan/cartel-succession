@@ -120,8 +120,10 @@ def main(argv=None) -> dict:
     out["ladder"] = {}
     for f, d in ladder.items():
         h, fu = d["history"], d["full"]
-        a, b = sum(bool(r.get("re_formed")) for r in fu), sum(bool(r.get("re_formed")) for r in h)
-        p = fisher_exact([[a, len(fu) - a], [b, len(h) - b]], alternative="greater")[1] if h and fu else None
+        # over games that reached T+33 (re_formed not None), like the counts
+        fu_n, h_n = [r for r in fu if r.get("re_formed") is not None], [r for r in h if r.get("re_formed") is not None]
+        a, b = sum(bool(r["re_formed"]) for r in fu_n), sum(bool(r["re_formed"]) for r in h_n)
+        p = fisher_exact([[a, len(fu_n) - a], [b, len(h_n) - b]], alternative="greater")[1] if h_n and fu_n else None
         out["ladder"][f] = {"history_joins": c(h, "joins"), "history_re_formed": c(h, "re_formed"),
                             "full_joins": c(fu, "joins"), "full_re_formed": c(fu, "re_formed"), "fisher_p": p}
         L.append(f"| {LABEL[f]} | {c(h, 'joins')} | {c(h, 're_formed')} | {c(fu, 'joins')} | {c(fu, 're_formed')} | "

@@ -21,12 +21,17 @@ Code: the reruns ran on `126cf3f` (= `prereg-p23b`, tag `p23`). Full tables and 
 | – | nothing in P2/P3 | – |
 
 ## Key results
+**P3 model:** gpt-oss-20b, the primary. Its checks all passed about 35 minutes after I started on it, inside the
+kickoff's 45-minute window, so there was no switch to the fallback (R1-Distill-Llama-8B).
+
+**Failures:** 0 transport errors in the 60 rerun games; parse failures as in the format table below (all retried; one abort).
+
 **Replacement ladder** (same 15 seeds; P1's same-model row from `results/p1.json`):
 
 | newcomer | history: joins | history: re_formed | full: joins | full: re_formed | Fisher full > history, one-sided p |
 |---|---|---|---|---|---|
 | same (Qwen3-14B, P1) | 13/15 | 0/15 | 15/15 | 6/15 | 0.008 |
-| sibling (Qwen3-8B, P2) | 15/15 | 0/15 | 13/14 | 3/14 | 0.112 |
+| sibling (Qwen3-8B, P2) | 15/15 | 0/15 | 13/14 | 3/14 | 0.100 |
 | other family (gpt-oss-20b, P3) | 3/15 | 2/15 | 10/15 | 6/15 | 0.107 |
 
 **Per arm** (counts over games that reached each window):
