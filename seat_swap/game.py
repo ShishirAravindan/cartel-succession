@@ -48,6 +48,7 @@ class StopRun(Exception):
 class Seat:
     provider: object
     thinking: bool
+    parse_retries: int = 1  # resamples of the same prompt after an unparseable answer (P2/P3 newcomers: 3)
 
 
 # warm-up round 0: near Nash with upstream jitter (default, Phase A/B), or exactly at the cartel
@@ -144,7 +145,7 @@ class Game:
             "instructions": list(env.instructions),
             "seats": [{"seat": i, "provider": s.provider.name, "model": s.provider.model,
                        "model_revision": s.provider.model_revision, "prompt_mode": s.provider.prompt_mode,
-                       "thinking": s.thinking, "sampling_override": getattr(s.provider, "sampling_override", None),
+                       "thinking": s.thinking, "parse_retries": s.parse_retries, "sampling_override": getattr(s.provider, "sampling_override", None),
                        "template_kwargs": getattr(getattr(s.provider, "spec", None), "template_kwargs", None) or None}
                       for i, s in enumerate(self.seats)],
             "temperature": self.temperature, "max_tokens": self.max_tokens, "max_calls": self.max_calls,
@@ -204,6 +205,7 @@ class Game:
             "parse_ok": bool(parsed and parsed.ok),
             "parse_error": parsed.error if parsed and not parsed.ok else None,
             "parse_bracketed": bool(parsed and parsed.ok and parsed.bracketed),
+            "parse_markdown": bool(parsed and parsed.ok and parsed.markdown),
             "notes_text": {"plans": parsed.plans, "insights": parsed.insights}
             if parsed and parsed.ok and self.env.notes_on else None,
             "error": error, "timestamp": now(),
@@ -238,7 +240,8 @@ class Game:
                 attempt += 1
                 continue
             try:
-                parsed = parse_response(comp.text if comp.answer is None else comp.answer, self.env.notes_on)
+                parsed = parse_response(comp.text if comp.answer is None else comp.answer, self.env.notes_on,
+                                        markdown=getattr(seat.provider, "fmt", None) == "harmony")
             except Exception as e:  # noqa: BLE001  never let parsing lose the raw line
                 parsed = prompts.Parsed(ok=False, price=None, error=f"parser raised {e!r}")
             self._record(rnd, seat_idx, attempt, messages, rendered, sampling, comp, parsed, None)
@@ -247,8 +250,8 @@ class Game:
             with self._lock:
                 self.parse_failures += 1
             parse_tries += 1
-            if parse_tries > 1:
-                raise StopRun("aborted_parse", f"round {rnd} seat {seat_idx}: two unparseable responses")
+            if parse_tries > seat.parse_retries:
+                raise StopRun("aborted_parse", f"round {rnd} seat {seat_idx}: {parse_tries} unparseable responses")
             attempt += 1
 
     # ---- rounds ---------------------------------------------------------------------------------

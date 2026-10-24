@@ -61,6 +61,9 @@ INHERITANCE = {"full": (True, True), "history": (True, False), "notes": (False, 
 # newcomer model per family (Kickoff 08): sibling Qwen3-8B (P2), other family gpt-oss-20b (P3).
 # Each is served by its own Modal app (model_config.MODELS); seat 0 stays the 14B on seat-swap-vllm.
 SELLER_MODELS = {"same": MODEL_NAME, "sib": "Qwen/Qwen3-8B", "oth": "openai/gpt-oss-20b"}
+# P2/P3 newcomers get up to 3 resamples of the same prompt after an unparseable answer (PI, Kickoff 08);
+# every other seat keeps the one retry
+PARSE_RETRIES = {"sib": 3, "oth": 3}
 
 
 @dataclass(frozen=True)
@@ -176,8 +179,9 @@ def run_branch(parent_dir: Path, T: int, arm: str, *, dry_run: bool, max_calls: 
     phase = "phaseA_enforce" if arm == ENFORCE else "phaseB"
     run_id = f"{time.strftime('%Y%m%d-%H%M%S')}_{phase}_{arm}_s{seed}_{uuid.uuid4().hex[:6]}"
     logger = RunLogger(runs_root, run_id)
-    game = Game(env, [Seat(p, t) for p, t in zip(providers, thinking)], logger, phase=phase, arm=arm, seed=seed,
-                temperature=cfg["temperature"], max_tokens=cfg["max_tokens"], max_calls=max_calls,
+    retries = [1, PARSE_RETRIES.get(spec.newcomer, 1)]
+    game = Game(env, [Seat(p, t, r) for p, t, r in zip(providers, thinking, retries)], logger, phase=phase, arm=arm,
+                seed=seed, temperature=cfg["temperature"], max_tokens=cfg["max_tokens"], max_calls=max_calls,
                 top_p=cfg.get("top_p"), top_k=cfg.get("top_k"),
                 shocks=shocks, shock_calls_llm=False, parallel=parallel)
     logger.config(game.config({

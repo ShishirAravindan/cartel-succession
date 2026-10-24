@@ -21,11 +21,13 @@ from threading import Lock
 
 from seat_swap.branch import RUNS_ROOT, SELLER_MODELS, run_branch
 from seat_swap.model_config import MODEL_NAME
-from seat_swap.p1 import MAX_CALLS, T, THRESHOLD
+from seat_swap.p1 import T, THRESHOLD
 from seat_swap.providers import RawCompletions
 
 P1_RUNS = Path("/Users/shishiraravindan/Documents/coding/cartel-succession/seat_swap/runs")
 P1_MANIFEST = P1_RUNS / "p1_20261024-192633.json"
+# 60 rounds x 2 seats = 119 calls; headroom for up to 3 newcomer retries per round (prereg-p23b)
+MAX_CALLS_ARM = 200
 FAMILIES = {"sib": ["sib_history", "sib_full"], "oth": ["oth_history", "oth_full"]}
 
 
@@ -41,7 +43,7 @@ def main(argv=None) -> dict:
     path = args.runs_root / f"p23_{args.family}_{stamp}.json"
     args.runs_root.mkdir(parents=True, exist_ok=True)
     m = {"created": stamp, "family": args.family, "newcomer_model": SELLER_MODELS[args.family], "dry_run": args.dry_run,
-         "T": T, "threshold": THRESHOLD, "p1_manifest": str(P1_MANIFEST), "seeds": seeds,
+         "T": T, "threshold": THRESHOLD, "prereg": "prereg-p23b", "p1_manifest": str(P1_MANIFEST), "seeds": seeds,
          "base": {str(s): p1["base"][str(s)] for s in seeds}, "arm_names": FAMILIES[args.family], "arms": {}}
     lock = Lock()
 
@@ -58,7 +60,7 @@ def main(argv=None) -> dict:
         base_dir = P1_RUNS / p1["base"][str(seed)]["run_id"]
         try:
             d, s = run_branch(base_dir, T, arm, dry_run=args.dry_run, threshold=THRESHOLD,
-                              max_calls=None if args.dry_run else MAX_CALLS["arm"], dry_seat0="grim",
+                              max_calls=None if args.dry_run else MAX_CALLS_ARM, dry_seat0="grim",
                               dry_seat1="copier", runs_root=args.runs_root)
             m["arms"][f"{seed}/{arm}"] = {"dir": str(d), **s}
         except BaseException as e:  # noqa: BLE001  record and keep the other games going
