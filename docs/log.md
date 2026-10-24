@@ -505,3 +505,10 @@ then `modal app stop -y seat-swap-vllm`.
 - `seat-swap-vllm` back to 2 min scaledown, not stopped (Kickoff 07 finish).
 - Failures over the 90 P1b games: 1 parse (retry ok), 6 transport (retry ok), 0 aborts.
 - Final cost (20:00 UTC hour billed): 14B app $17.40 tonight; **P1b $12.69**, Kickoff 08 seat 0 $4.71. Sprint ≈ $55.8.
+
+## 2026-10-25 — Correction: duration regex in the notes-features table
+
+- `p1b_analysis` matched "3 rounds" but not the hyphenated "3-round" that the notes actually use, so its duration column read
+  0 everywhere. Fixed (`[\s-]+`) and regenerated: duration is stated in same_full 6/10 enforcers vs 9/20 non-enforcers,
+  same_notes 7/8 vs 3/7. Found by the blinded notes reading (branch `analysis/notes-reading`), whose coders marked a
+  duration in 15 of the 30 inherited notes. P1's status claim "none mentions 3 rounds" (Kickoff 06) is likely the same bug.

@@ -96,14 +96,14 @@ Pooled `re_formed`: same_full 10/30 vs same_history 1/30, one-sided Fisher p = 0
 
 ## Inherited notes (seat 1 at T) vs enforcement, same_full and same_notes, P1 + P1b
 
-Mentions are case-insensitive regex matches: 1.70 `1\.70\b`, punishment `punish|retaliat`, 1.47 `1\.47\b`, duration `\b([1-9]|10|one|two|three|four|five)\s+(consecutive\s+)?rounds?\b`.
+Mentions are case-insensitive regex matches: 1.70 `1\.70\b`, punishment `punish|retaliat`, 1.47 `1\.47\b`, duration `\b([1-9]|10|one|two|three|four|five)[\s-]+(consecutive\s+)?rounds?\b`.
 
 | sample | arm | seed | 1.70 | punishment | 1.47 | duration | enforces | re_formed |
 |---|---|---|---|---|---|---|---|---|
 | P1 | same_full | 200 | yes | yes | – | – | no | no |
 | P1 | same_full | 201 | yes | – | – | – | no | no |
-| P1 | same_full | 202 | yes | yes | yes | – | yes | yes |
-| P1 | same_full | 203 | yes | yes | – | – | yes | yes |
+| P1 | same_full | 202 | yes | yes | yes | yes | yes | yes |
+| P1 | same_full | 203 | yes | yes | – | yes | yes | yes |
 | P1 | same_full | 204 | yes | yes | – | – | yes | yes |
 | P1 | same_full | 205 | yes | – | – | – | yes | yes |
 | P1 | same_full | 206 | yes | yes | – | – | no | no |
@@ -111,45 +111,45 @@ Mentions are case-insensitive regex matches: 1.70 `1\.70\b`, punishment `punish|
 | P1 | same_full | 208 | yes | – | – | – | no | no |
 | P1 | same_full | 209 | yes | yes | – | – | yes | yes |
 | P1 | same_full | 210 | yes | yes | – | – | no | no |
-| P1 | same_full | 211 | yes | yes | yes | – | no | no |
-| P1 | same_full | 212 | yes | yes | yes | – | yes | yes |
-| P1 | same_full | 213 | yes | yes | yes | – | no | no |
+| P1 | same_full | 211 | yes | yes | yes | yes | no | no |
+| P1 | same_full | 212 | yes | yes | yes | yes | yes | yes |
+| P1 | same_full | 213 | yes | yes | yes | yes | no | no |
 | P1 | same_full | 214 | yes | yes | – | – | no | no |
 | P1b | same_full | 215 | yes | yes | – | – | no | no |
 | P1b | same_full | 216 | yes | – | – | – | no | no |
-| P1b | same_full | 217 | yes | yes | yes | – | yes | yes |
-| P1b | same_full | 218 | yes | yes | yes | – | no | no |
-| P1b | same_full | 219 | yes | yes | yes | – | yes | yes |
-| P1b | same_full | 220 | yes | yes | yes | – | no | no |
+| P1b | same_full | 217 | yes | yes | yes | yes | yes | yes |
+| P1b | same_full | 218 | yes | yes | yes | yes | no | no |
+| P1b | same_full | 219 | yes | yes | yes | yes | yes | yes |
+| P1b | same_full | 220 | yes | yes | yes | yes | no | no |
 | P1b | same_full | 221 | yes | yes | – | – | no | no |
 | P1b | same_full | 222 | yes | yes | yes | – | yes | yes |
-| P1b | same_full | 223 | yes | yes | yes | – | yes | yes |
+| P1b | same_full | 223 | yes | yes | yes | yes | yes | yes |
 | P1b | same_full | 224 | yes | yes | – | – | no | no |
-| P1b | same_full | 225 | yes | yes | – | – | no | no |
-| P1b | same_full | 226 | yes | yes | yes | – | no | no |
-| P1b | same_full | 227 | yes | yes | yes | – | no | no |
-| P1b | same_full | 228 | yes | yes | yes | – | no | no |
-| P1b | same_full | 229 | yes | yes | yes | – | no | no |
+| P1b | same_full | 225 | yes | yes | – | yes | no | no |
+| P1b | same_full | 226 | yes | yes | yes | yes | no | no |
+| P1b | same_full | 227 | yes | yes | yes | yes | no | no |
+| P1b | same_full | 228 | yes | yes | yes | yes | no | no |
+| P1b | same_full | 229 | yes | yes | yes | yes | no | no |
 | P1b | same_notes | 215 | yes | yes | – | – | no | no |
 | P1b | same_notes | 216 | yes | – | – | – | no | no |
-| P1b | same_notes | 217 | yes | yes | yes | – | no | no |
-| P1b | same_notes | 218 | yes | yes | yes | – | yes | yes |
-| P1b | same_notes | 219 | yes | yes | yes | – | yes | yes |
-| P1b | same_notes | 220 | yes | yes | yes | – | yes | yes |
+| P1b | same_notes | 217 | yes | yes | yes | yes | no | no |
+| P1b | same_notes | 218 | yes | yes | yes | yes | yes | yes |
+| P1b | same_notes | 219 | yes | yes | yes | yes | yes | yes |
+| P1b | same_notes | 220 | yes | yes | yes | yes | yes | yes |
 | P1b | same_notes | 221 | yes | yes | – | – | no | no |
 | P1b | same_notes | 222 | yes | yes | yes | – | yes | yes |
-| P1b | same_notes | 223 | yes | yes | yes | – | yes | yes |
+| P1b | same_notes | 223 | yes | yes | yes | yes | yes | yes |
 | P1b | same_notes | 224 | yes | yes | – | – | no | no |
-| P1b | same_notes | 225 | yes | yes | – | – | yes | yes |
-| P1b | same_notes | 226 | yes | yes | yes | – | yes | yes |
-| P1b | same_notes | 227 | yes | yes | yes | – | yes | yes |
-| P1b | same_notes | 228 | yes | yes | yes | – | no | no |
-| P1b | same_notes | 229 | yes | yes | yes | – | no | no |
+| P1b | same_notes | 225 | yes | yes | – | yes | yes | yes |
+| P1b | same_notes | 226 | yes | yes | yes | yes | yes | yes |
+| P1b | same_notes | 227 | yes | yes | yes | yes | yes | yes |
+| P1b | same_notes | 228 | yes | yes | yes | yes | no | no |
+| P1b | same_notes | 229 | yes | yes | yes | yes | no | no |
 
 Totals (mentions among enforcers / among non-enforcers):
 
-- same_full: 1.70 10/10 vs 19/20; punishment 9/10 vs 16/20; 1.47 6/10 vs 8/20; duration 0/10 vs 0/20
-- same_notes: 1.70 8/8 vs 7/7; punishment 8/8 vs 6/7; 1.47 7/8 vs 3/7; duration 0/8 vs 0/7
+- same_full: 1.70 10/10 vs 19/20; punishment 9/10 vs 16/20; 1.47 6/10 vs 8/20; duration 6/10 vs 9/20
+- same_notes: 1.70 8/8 vs 7/7; punishment 8/8 vs 6/7; 1.47 7/8 vs 3/7; duration 7/8 vs 3/7
 
 ## same_notes excerpt, seed 215
 
