@@ -12,7 +12,7 @@ from seat_swap.game import Game, Seat, restore_env
 from seat_swap.tests.test_logging import read
 
 T = 40
-CLAUDE_MD_ARMS = ["control", "same_history", "same_none", "same_full", "lookalike", "sib_full", "sib_history", "sib_none",
+CLAUDE_MD_ARMS = ["control", "same_history", "same_none", "same_full", "same_notes", "lookalike", "sib_full", "sib_history", "sib_none",
                   "oth_full", "oth_history", "oth_none", "lookalike_oth"]
 
 
@@ -71,7 +71,7 @@ def test_restore_is_exact(tmp_path):
 
 @pytest.mark.parametrize("arm,history,notes", [
     ("control", True, True), ("same_history", True, False), ("same_none", False, False), ("same_full", True, True),
-    ("sib_full", True, True), ("oth_none", False, False), ("lookalike", True, False),
+    ("same_notes", False, True), ("sib_full", True, True), ("oth_none", False, False), ("lookalike", True, False),
 ])
 def test_newcomer_sees_only_what_it_inherits(tmp_path, arm, history, notes):
     p = parent(tmp_path)
@@ -163,7 +163,7 @@ def system_prompt(branch_dir, seat, rnd=T + 1):
     return json.loads(c["messages"])[0]["content"]
 
 
-@pytest.mark.parametrize("arm", ["control", "same_history", "same_none", "same_full", "lookalike"])
+@pytest.mark.parametrize("arm", ["control", "same_history", "same_none", "same_full", "same_notes", "lookalike"])
 def test_newcomer_is_never_instructed_incumbent_keeps_it(tmp_path, arm):
     from seat_swap.prompts import INSTRUCTED_COLLUDE_FORGIVE as RULE
     p = parent(tmp_path, extra=["--instruction", "forgive", "--warmup", "cartel"])
@@ -174,6 +174,24 @@ def test_newcomer_is_never_instructed_incumbent_keeps_it(tmp_path, arm):
     assert cfg["instructions"][1] == (RULE if arm == "control" else None)
     if arm != "lookalike":  # lookalike seat 0 is scripted (its prompt is still built, but nobody reads it)
         assert RULE in system_prompt(d, 0) and cfg["instructions"][0] == RULE
+
+
+def test_same_notes_newcomer_gets_notes_no_table_no_instruction(tmp_path):
+    """Kickoff 07: the inherited PLANS/INSIGHTS, no round before T+1, no instruction text anywhere."""
+    from seat_swap.prompts import INSTRUCTED_COLLUDE_FORGIVE as RULE
+    p = parent(tmp_path, extra=["--instruction", "forgive", "--warmup", "cartel"])
+    notes = json.loads((p / f"snapshot_T{T}.json").read_text())["notes"][1]
+    assert notes["plans"] and notes["insights"]
+    d, _ = run_branch(p, T, "same_notes", dry_run=True, max_calls=None, runs_root=tmp_path)
+    c = next(c for c in read(d / "calls.jsonl") if c["round"] == T + 1 and c["seat"] == 1)
+    system, user = (m["content"] for m in json.loads(c["messages"]))
+    assert notes["plans"] in user and notes["insights"] in user
+    assert "Round " not in user  # empty market table: no round before T+1
+    assert RULE not in system and RULE not in user and RULE not in c["rendered_prompt"]
+    assert json.loads((d / "config.json").read_text())["instructions"][1] is None
+    later = next(c for c in read(d / "calls.jsonl") if c["round"] == T + 3 and c["seat"] == 1)
+    later_user = json.loads(later["messages"])[1]["content"]
+    assert f"Round {T + 1}:" in later_user and f"Round {T}:" not in later_user and "Round 0:" not in later_user
 
 
 def test_pilot_rounds_and_shock_offset(tmp_path):

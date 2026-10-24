@@ -13,7 +13,8 @@ instruction carry on) except in the lookalike arms. Seat 1 is replaced by a newc
 given model that inherits the given part of seat 1's state:
     history = the price/profit table up to T;  notes = seat 1's PLANS + INSIGHTS at T.
 A newcomer never inherits seat 1's instruction (planted design, Kickoff 05), so `same_full`
-(history + notes, no instruction) differs from `control`, which replaces no one.
+(history + notes, no instruction) differs from `control`, which replaces no one, and `same_notes`
+(notes, no table: it sees only the rounds it plays) isolates the notes (Kickoff 07).
 
 Enforcement test (`enforce`, Phase A): 10 rounds T+1..T+10 with nobody replaced and seat 0
 forced to p_N at T+1; metrics.enforcement_retaliation measures seat 1.
@@ -75,6 +76,7 @@ ARMS = {a.name: a for a in [
     Arm("same_history", newcomer="same", inherit="history"),
     Arm("same_none", newcomer="same", inherit="none"),
     Arm("same_full", newcomer="same", inherit="full"),
+    Arm("same_notes", newcomer="same", inherit="notes"),  # Kickoff 07: notes without the table
     Arm("lookalike", seat0="lookalike", newcomer="same", inherit="history"),
     Arm("sib_full", newcomer="sib", inherit="full"),
     Arm("sib_history", newcomer="sib", inherit="history"),
@@ -84,7 +86,7 @@ ARMS = {a.name: a for a in [
     Arm("oth_none", newcomer="oth", inherit="none"),
     Arm("lookalike_oth", seat0="lookalike", newcomer="oth", inherit="history"),
 ]}
-assert len(ARMS) == 12
+assert len(ARMS) == 13
 
 
 def apply_inheritance(env, seat: int, inherit: str) -> None:
