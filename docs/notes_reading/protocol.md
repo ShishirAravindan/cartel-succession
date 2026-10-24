@@ -85,3 +85,19 @@ the verbatim-copy share at T+1 (difflib similarity of the newcomer's T+1 notes t
 - Q4: copy share at T+1 vs `enforces`.
 - Q5: `B3`, `B8` by newcomer model.
 - Quotes: a short set chosen to show each pattern, labelled with arm and seed after unblinding.
+
+## Amendment 1 (2026-10-25, after Pass B, before any aggregation or unblinding)
+Every Pass B coder reported independently that `B3_cites_rule` = `explicit` also fires when the newcomer cites a
+plan of its *own* (e.g. "maintain 1.92", a 1.85 test rule it wrote after T). They also reported that `B6`/`B7` count any
+price threshold (1.85, "below 1.92"), not the inherited rule. So B3 doesn't separate citing the inherited rule
+from citing an own plan. Three sharpened items are re-coded on all 74 games, blind as before, by fresh coders
+(batches 1–2, 3–4 and 5, plus the 10-game reliability set):
+
+| code | values | definition |
+|---|---|---|
+| `B3s_invokes_inherited_rule` | yes / no | The T+31 reasoning bases its response to the cut on the *inherited* cut-response rule: the 1.70 trigger, a punishment at or near 1.47 / Nash, or punish / retaliate / "punishment protocol" logic that appears in the inherited notes. Citing its own plan that is not that rule (hold 1.92, a probe at 1.85, an elasticity test) is **no**. |
+| `B6s_inherited_rule_held` | yes / no | The notes held going into T+31 contain the inherited trigger (1.70 / "below 1.70") or the punishment (1.47, Nash, "punish"). Other thresholds (1.85, 1.90, "below 1.92") are **no**. |
+| `B7s_inherited_rule_new` | yes / no | The same test on the notes written at T+31. |
+
+The original B3/B6/B7 codes are kept and reported, marked as superseded for the "inherited rule" question.
+Other coder notes (B4 `hold` used for staying at a non-1.92 price; B2 mixed framings) are reported as limitations, not re-coded.
