@@ -19,6 +19,7 @@ A_CODES = ["A1_rule_form", "A2_trigger", "A3_action_price", "A4_duration", "A5_r
            "A8_state"]
 B_CODES = ["B1_notices_cut", "B2_reading", "B3_cites_rule", "B4_response", "B5_return_plan", "B6_rule_in_held_notes",
            "B7_rule_in_new_notes", "B8_own_scheme"]
+S_CODES = ["B3s_invokes_inherited_rule", "B6s_inherited_rule_held", "B7s_inherited_rule_new"]  # amendment 1
 GROUPS = {"Qwen3-14B (same_full + same_notes)": ("Qwen3-14B",), "Qwen3-8B (sib_full)": ("Qwen3-8B",),
           "gpt-oss-20b (oth_full)": ("gpt-oss-20b",), "all": ("Qwen3-14B", "Qwen3-8B", "gpt-oss-20b")}
 
@@ -60,10 +61,14 @@ def main() -> dict:
     for k in range(1, 6):
         b.update(load(f"B_batch{k}.json"))
     rel = load("B_rel.json")
+    sharp = {}
+    for name in ("S_batch12.json", "S_batch34.json", "S_batch5.json"):
+        sharp.update(load(name))
+    s_rel = load("S_rel.json")
     seed_to_a = {key["A"][i]["seed"]: a1[i] for i in a1}
     items = []
     for gid, k in key["B"].items():
-        items.append({"id": gid, **k, **seed_to_a.get(k["seed"], {}), **b.get(gid, {})})
+        items.append({"id": gid, **k, **seed_to_a.get(k["seed"], {}), **b.get(gid, {}), **sharp.get(gid, {})})
     missing = [g for g in key["B"] if g not in b]
 
     L = ["# Notes reading: results (exploratory)", "",
@@ -74,6 +79,8 @@ def main() -> dict:
     L += agreement(a1, a2, A_CODES)
     L += ["", "### Pass B (reliability coder vs batch coder, 10 games)", ""]
     L += agreement(b, rel, B_CODES)
+    L += ["", "### Amendment 1 codes (fresh coder vs reliability coder, 10 games)", ""]
+    L += agreement(sharp, s_rel, S_CODES)
 
     L += ["", "## Q1. Form of the inherited rule vs enforcement", "",
           "Pass A codes (coder 1) attached to every game whose newcomer inherited that note.", ""]
@@ -86,8 +93,11 @@ def main() -> dict:
     L += ["", "## Q2. How the newcomer reads the cut, and whether it cites the rule", ""]
     for c in ["B1_notices_cut", "B2_reading", "B3_cites_rule", "B4_response", "B5_return_plan"]:
         L += crosstab(items, c) + [""]
-    L += ["## Q3. Is the rule still in the newcomer's notes at the shock?", ""]
-    for c in ["B6_rule_in_held_notes", "B7_rule_in_new_notes"]:
+    L += ["### Amendment 1: does the reasoning invoke the *inherited* rule?", ""]
+    L += crosstab(items, "B3s_invokes_inherited_rule") + [""]
+    L += ["## Q3. Is the rule still in the newcomer's notes at the shock?", "",
+          "Amendment 1 codes (inherited trigger or punishment only), then the original, looser codes.", ""]
+    for c in ["B6s_inherited_rule_held", "B7s_inherited_rule_new", "B6_rule_in_held_notes", "B7_rule_in_new_notes"]:
         L += crosstab(items, c) + [""]
 
     L += ["## Q4. Copying the inherited notes at T+1", "",
@@ -109,14 +119,15 @@ def main() -> dict:
                  f"{sum(x.get('B4_response') == v and not x['enforces'] for x in items)} |")
 
     L += ["", "## Per game", "",
-          "| id | arm | seed | sample | enforces | T+31..33 | copy | A1 | A3 | A4 | A7 | B2 | B3 | B4 | B6 | B8 | conf | quote |",
-          "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+          "| id | arm | seed | sample | enforces | T+31..33 | copy | A1 | A3 | A4 | A7 | B2 | B3 | B3s | B4 | B6s | B8 | conf | quote |",
+          "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for x in sorted(items, key=lambda x: (x["model"], x["arm"], x["seed"])):
         q = (x.get("B9_quote") or "").replace("|", "/").replace("\n", " ")[:160]
         L.append(f"| {x['id']} | {x['arm']} | {x['seed']} | {x['sample']} | {'yes' if x['enforces'] else 'no'} | "
                  f"{' '.join(f'{p:.2f}' for p in x['price_T31_33'])} | {x['copy_share_T1']:.2f} | {x.get('A1_rule_form')} | "
                  f"{x.get('A3_action_price')} | {x.get('A4_duration')} | {x.get('A7_framing')} | {x.get('B2_reading')} | "
-                 f"{x.get('B3_cites_rule')} | {x.get('B4_response')} | {x.get('B6_rule_in_held_notes')} | "
+                 f"{x.get('B3_cites_rule')} | {x.get('B3s_invokes_inherited_rule')} | {x.get('B4_response')} | "
+                 f"{x.get('B6s_inherited_rule_held')} | "
                  f"{x.get('B8_own_scheme')} | {x.get('B10_confidence')} | {q} |")
     (DIR / "report.md").write_text("\n".join(L) + "\n")
     (DIR / "merged.json").write_text(json.dumps(items, indent=2))
