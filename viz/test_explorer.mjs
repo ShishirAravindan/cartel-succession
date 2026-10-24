@@ -6,13 +6,16 @@ const html = fs.readFileSync(new URL("./index.html", import.meta.url), "utf8");
 const script = html
   .split("<script>")[1]
   .split("</script>")[0]
-  .replace(/render\(\);\s*initParity\(\);\s*$/, "");
+  .split("// Initialize the interface.")[0];
 const nodes = new Map();
 const context = {
   structuredClone,
   console,
   window: {},
   document: {
+    querySelectorAll() {
+      return [];
+    },
     getElementById(id) {
       if (!nodes.has(id)) nodes.set(id, {});
       return nodes.get(id);
@@ -171,6 +174,74 @@ for (const data of [
   'seed,arm,round,p0,p1\n1,"control,151,1.92,1.92',
 ])
   assert.throws(() => E.parseCSV(data));
+// Short guided lessons must preserve the exact engine windows and separate paths.
+const expectedGuide = [
+  { joins: true },
+  { probe_punished: true, disciplined: true },
+  { enforces: false },
+  { probe_punished: false, disciplined: false },
+  { overpriced: true },
+];
+for (let i = 0; i < 5; i++) {
+  const lesson = E.makeLesson(i),
+    config = E.GUIDE_STEPS[i];
+  assert.equal(E.lessonVerdict(lesson), null);
+  const mainBefore = JSON.stringify(lesson.game.main);
+  if (config.track === "probe") {
+    E.runLesson(lesson, 1.6);
+    assert.equal(lesson.stage, "respond");
+    assert.equal(lesson.game.probe.h.at(-1).round, 167);
+    assert.equal(lesson.game.probe.h.at(-1).prices[0], i === 1 ? 1.47 : 1.92);
+    assert.equal(E.lessonVerdict(lesson), null);
+  }
+  E.runLesson(lesson, i === 4 ? 2.5 : 1.92);
+  const verdict = E.lessonVerdict(lesson);
+  assert.deepEqual(plain(verdict.values), expectedGuide[i]);
+  const line = lesson.game[config.track];
+  assert.equal(line.h.at(-1).round, 150 + config.end);
+  assert.equal(
+    line.h.at(-1).round - 150 - config.prepared,
+    [10, 14, 11, 14, 10][i],
+  );
+  assert(
+    lesson.game.main.h
+      .filter((r) => r.round <= 150 + config.prepared)
+      .every((r) => r.prices.every((p) => p === 1.92)),
+  );
+  if (config.track === "probe")
+    assert.equal(JSON.stringify(lesson.game.main), mainBefore);
+  if (i === 2) {
+    assert.equal(line.h.find((r) => r.round === 180).prices[0], 1.473);
+    assert.equal(E.mainMetrics(line.h).joins, true);
+  }
+  const final = JSON.stringify(lesson);
+  E.runLesson(lesson, 2.5);
+  assert.equal(JSON.stringify(lesson), final);
+}
+const noJoin = E.makeLesson(0);
+E.runLesson(noJoin, 1.47);
+assert.equal(E.lessonVerdict(noJoin).values.joins, false);
+const noReturn = E.makeLesson(1);
+E.runLesson(noReturn, 1.6);
+E.runLesson(noReturn, 1.6);
+assert.deepEqual(plain(E.lessonVerdict(noReturn).values), {
+  probe_punished: true,
+  disciplined: false,
+});
+const enforce = E.makeLesson(2);
+E.runLesson(enforce, 1.47);
+assert.equal(E.lessonVerdict(enforce).values.enforces, true);
+const lowPrice = E.makeLesson(4);
+E.runLesson(lowPrice, 1.92);
+assert.equal(E.lessonVerdict(lowPrice).values.overpriced, false);
+const independent = E.makeLesson(0);
+E.runLesson(independent, 2.5);
+assert.equal(E.makeLesson(1).game.probe.h.at(-1).prices[1], 1.92);
+assert.throws(() => E.runLesson(E.makeLesson(0), NaN));
+assert.throws(() => E.runLesson(E.makeLesson(0), 2.9));
+console.log(
+  "Passed: five independent guided lessons, canonical and alternative verdicts, exact short windows, and unchanged sandbox parity.",
+);
 // Exercise the direct-file embedded-fixture path, where fetch must never be attempted.
 context.location = { protocol: "file:" };
 context.fetch = () => {

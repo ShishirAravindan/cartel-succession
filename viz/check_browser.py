@@ -10,6 +10,7 @@ CODE = r'''async page => {
   await page.reload();
   await page.waitForFunction(()=>window.Explorer?.parity!==null);
   assert(await page.evaluate(()=>Explorer.parity.ok),'green HTTP parity');
+  await page.locator('#mode-sandbox').click();
   let views=0;
   for(const arm of ['control','same_history','same_none','same_full','lookalike']){
     for(const preset of ['copier','enforcer','anchored','follower','undercutter']){
@@ -66,7 +67,7 @@ CODE = r'''async page => {
   await page.unroute('**/fixtures.json');
   await page.route('**/fixtures.json',route=>route.fulfill({status:404,body:'missing'}));
   await page.reload();await page.waitForFunction(()=>document.getElementById('parity').classList.contains('fail'));
-  await page.unroute('**/fixtures.json');await page.reload();await page.waitForFunction(()=>window.Explorer?.parity?.ok);
+  await page.unroute('**/fixtures.json');await page.reload();await page.waitForFunction(()=>window.Explorer?.parity?.ok);await page.locator('#mode-sandbox').click();
   // Desktop and mobile visual/overflow checks.
   await page.setViewportSize({width:1440,height:1100});await page.locator('#finish').click();
   await page.screenshot({path:'preview-desktop.png',fullPage:true});
