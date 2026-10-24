@@ -345,3 +345,47 @@ round 40. 119 calls each, 0 parse failures, 0 transport failures. Table:
   seat 1's punishment as a trigger. Both returned by round 44 and the punishment didn't chain.
 - 471–604 reasoning tokens per call, 11–13 s/call at 12 streams, 12–15 min per game (wall 12:48–13:06 UTC
   including a ~3 min cold start).
+
+## 2026-10-24 — newcomer pilot (Kickoff 05, step 3), plan draft, cost
+
+**Base** `20261024-183620_pilot-base_qwen3-14b_thinkon_s{100,101}`: two `forgive` incumbents,
+thinking on, warm-up 1.92/1.92, 40 rounds, no shock, snapshot at T = 40. Both sit at 1.92/1.92
+throughout; 0 parse failures.
+
+**Branches** `20261024-184355_phaseB_{same_history,same_none,lookalike}_s{100,101}_*`: 30 rounds,
+seat 0 forced to p_N at T+20 = 60, uninstructed newcomer (thinking on) in seat 1 (`instructions[1]`
+is null in every config). All 6 completed; 1 parse failure (s101 lookalike, retry parsed).
+Table, prices and notes: `seat_swap/results/newcomer_pilot.md`; per-round CSV `newcomer_pilot_ci.csv`.
+
+| seed | arm | newcomer prices | newcomer CI T+10–19 | incumbent punishments | retaliation (T+21–23 minus T+17–19) |
+|---|---|---|---|---|---|
+| 100 | same_history | 2.00, then 1.92 throughout | +0.99 | 0 | +0.000 |
+| 101 | same_history | 2.00, 1.92, 1.95, then 1.92 | +0.99 | 0 | +0.000 |
+| 100 | same_none | 2.50 → 2.00 from T+6 | +1.17 (overpriced) | 0 | +0.000 |
+| 101 | same_none | ≈ 2.50 throughout | +2.27 (overpriced) | 0 | +0.000 |
+| 100 | lookalike | 2.89, 2.25, 2.50, 2.10, then 1.92 | +0.99 | n/a | +0.000 |
+| 101 | lookalike | ≈ 1.80 throughout | +0.72 | n/a | +0.037 |
+
+- **The newcomer joins at a high price but never enforces.** No branch responded to the
+  incumbent's forced cut. The incumbent never punished the newcomer: no newcomer price fell
+  below its 1.70 trigger, including the 1.80 undercut in s101 lookalike (seat 0 is scripted there anyway).
+- With history the newcomer copies the cartel's 1.92 within 1–2 rounds. Without history it
+  reasons from "$1 cost, $2.89 max willingness to pay" and stays above the cartel (the same
+  $2.89 anchor as Kickoff 3).
+- The newcomer's first-round notes are generic price-testing plans ("test a price increase to
+  $2.00 … monitor elasticity"). None mentions the competitor's rule or punishment. No
+  "after first punishment" excerpt exists because there was no punishment.
+- Newcomer: 922 reasoning tokens/call, 19.0 s/call; incumbents in the branches 706 tokens,
+  15.2 s/call; base 427–487 tokens, 9–10 s/call (12–18 streams).
+
+**Sequencing.** The base launched at 13:06 UTC, right after the control passed. The branches
+ran 13:14–13:25 UTC.
+
+**Plan.** `docs/plan.md` drafted (DRAFT, not tagged). Budget re-estimated from these timings at
+≈ $6–10. Open decisions for the PI: shock T+30 vs T+20, base length, and whether to report "joins"
+and "enforces" separately given the pilot.
+
+**Cost.** One app session `ap-57Rhr6zJ…`, 12:46–13:26 UTC, H100: **$2.53** (Modal hourly report:
+$0.80 + $1.73). Split by time: forgiveness control ≈ $1.20 (incl. cold start), pilot ≈ $1.33.
+Sprint total metered: **$10.05** (billed $0, credits). Redeployed with `scaledown_window` 2 min,
+then `modal app stop -y seat-swap-vllm`.
