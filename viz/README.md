@@ -26,6 +26,16 @@ Story authoring sources are `story.js` and `story.css`; run `python3
 viz/sync_story.py` after editing them. This embeds them into `index.html` so
 opening the committed page still needs no build step or external script.
 
+## Research timeline
+
+Act 2 uses only the brief's literature and incident list. Primary links were
+confirmed for Calvano et al., Fish et al. (2024 v2), Garra, Shi et al., Keppo et
+al., and DOJ's November 24, 2025 release. The DOJ 12-month condition is described
+precisely as applying to nonpublic model-training data. The reported 2026
+message-board inheritance incident remains `[source to add]` until the
+coordinator supplies a confirmed link. The ending frames succession as the gap
+this experiment tests, rather than claiming an exhaustive literature search.
+
 ## Interpreting the study
 
 Act 5 separates visible price persistence from enforcement, maps the three remedy

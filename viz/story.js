@@ -1413,3 +1413,5 @@ Object.assign(window.Explorer, {
 });
 
 function initCoda(){ $('coda-coffee').onclick=()=>{coffeeScene=0;renderCoffee();showAct('1');};$('coda-sandbox').onclick=()=>showAct('sandbox');}
+
+function initTimeline(){$('timeline-to-paths').onclick=()=>showAct('3');}
