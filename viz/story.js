@@ -1411,3 +1411,5 @@ Object.assign(window.Explorer, {
   crossCheckEvidence,
   groupOutcomes,
 });
+
+function initCoda(){ $('coda-coffee').onclick=()=>{coffeeScene=0;renderCoffee();showAct('1');};$('coda-sandbox').onclick=()=>showAct('sandbox');}

@@ -26,6 +26,14 @@ Story authoring sources are `story.js` and `story.css`; run `python3
 viz/sync_story.py` after editing them. This embeds them into `index.html` so
 opening the committed page still needs no build step or external script.
 
+## Interpreting the study
+
+Act 5 separates visible price persistence from enforcement, maps the three remedy
+targets to provisional readings, and closes the coffee-shop analogy. Every
+result interpretation and remedy chip is explicitly marked `[pending morning
+results]`; none is presented as coordinator-confirmed. The limits strip records
+the planted design, one model, flat inherited history and 15 P1 seeds.
+
 ## Paths and P1 evidence
 
 Acts 3 and 4 connect inheritance toggles to a prompt preview, three short toy
