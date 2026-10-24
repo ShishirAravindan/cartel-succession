@@ -72,7 +72,7 @@ Seed-level `newcomer_ci`, `br_gap`, `retaliation`, `first_hold` for every game: 
   price < current price for ≥ 2 consecutive rounds, set price = competitor price + $0.02 for exactly 2 rounds".
 
 ## Surprises or worries
-- gpt-oss's `first_hold` is "T+1" in `oth_history` for 1 seed and "never" for 14; the T+1 hold is s213, the one history seed that keeps 1.86–1.88.
+- gpt-oss's `first_hold` in `oth_history` is "never" in 14 seeds; the exception is s209, which holds 1.88–1.95 (CI ≥ 0.9) from T+1 for its first rounds and then falls to about 1.65.
 - The 8B's first-try failure rate in `sib_full` was 0.089 in the rerun vs 0.18 in the stopped attempt's first ~10 rounds:
   the failures cluster early.
 
