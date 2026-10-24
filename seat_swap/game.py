@@ -55,8 +55,8 @@ class Seat:
 WARMUP_CARTEL_PRICE = 1.92
 
 
-def make_env(seed: int, notes_on: bool = True, window: int = WINDOW, instruction: Optional[str] = None,
-             warmup: str = "nash") -> NotesOligopoly:
+def make_env(seed: int, notes_on: bool = True, window: int = WINDOW,
+             instruction: Optional[str] | list[Optional[str]] = None, warmup: str = "nash") -> NotesOligopoly:
     random.seed(seed)  # upstream warm-up jitter uses the global RNG
     env = NotesOligopoly(**MARKET, prefix="P0", window_size=window, notes_on=notes_on, prior_steps=PRIOR_STEPS,
                          instruction=instruction)
@@ -73,7 +73,8 @@ def make_env(seed: int, notes_on: bool = True, window: int = WINDOW, instruction
     return env
 
 
-def restore_env(snapshot: dict, seed: int, notes_on: bool, instruction: Optional[str] = None) -> NotesOligopoly:
+def restore_env(snapshot: dict, seed: int, notes_on: bool,
+                instruction: Optional[str] | list[Optional[str]] = None) -> NotesOligopoly:
     """Rebuild the env exactly as it was at a snapshot: every round, every seat's notes."""
     env = make_env(seed, notes_on=notes_on, window=snapshot["window"], instruction=instruction)
     assert env.prior_steps == snapshot["prior_steps"]
@@ -138,7 +139,9 @@ class Game:
             "prior_steps": env.prior_steps, "prior_actions": env.prior_actions, "notes_on": env.notes_on,
             "price_decimals": prompts.PRICE_DECIMALS,
             "prompt_prefix": env.prefixes, "prompt_template_sha": template_hash(), "prompt_source": FISH_CITATION,
-            "instruction": env.instruction,
+            # per seat; "instruction" kept for configs where every seat has the same one (None otherwise)
+            "instruction": env.instructions[0] if len(set(env.instructions)) == 1 else None,
+            "instructions": list(env.instructions),
             "seats": [{"seat": i, "provider": s.provider.name, "model": s.provider.model,
                        "model_revision": s.provider.model_revision, "prompt_mode": s.provider.prompt_mode,
                        "thinking": s.thinking} for i, s in enumerate(self.seats)],
