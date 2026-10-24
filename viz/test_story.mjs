@@ -56,7 +56,7 @@ assert(naive.slice(-5).every((r) => r.prices.every((p) => p < 1.7)));
 assert(forgiven.slice(-5).every((r) => r.prices.every((p) => p === 1.92)));
 assert(E.coffeeTotal(forgiven) > E.coffeeTotal(naive));
 assert(E.market([1.92, 2.5]).profits[1] < E.market([1.92, 1.92]).profits[1]);
-assert.equal(new Set(E.COFFEE_SCENES.flatMap((s) => s.terms)).size, 19);
+assert.equal(new Set(E.COFFEE_SCENES.flatMap((s) => s.terms)).size, 21);
 for (const value of Object.values(E.GLOSSARY)) assert.equal(value.length, 2);
 console.log(
   "Passed M1: price-war benchmark, truce profit, temptation, exact three-round punishment, forgiveness, overpricing and glossary coverage.",
@@ -134,4 +134,17 @@ assert.equal(embedded.csv, prices);
 assert(E.crossCheckEvidence(E.adaptP1CSV(embedded.csv), embedded.report).ok);
 console.log(
   "Passed M5: evidence gaps remain gaps and the standalone embedded CSV/report match the committed sources.",
+);
+
+assert(E.coffeeContext(3).text.includes("0.1356"));
+assert(E.coffeeContext(3).text.includes("13.56 cents"));
+assert(E.coffeeContext(3).text.includes("1.744"));
+assert(
+  E.coffeeContext(1).text.includes(
+    E.market([1.473, 1.473]).profits[1].toFixed(2),
+  ),
+);
+assert.equal(E.coffeeContext(2), null);
+console.log(
+  "Passed: podcast-context dollar examples use the current price and profit engine.",
 );
