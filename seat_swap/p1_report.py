@@ -2,7 +2,8 @@
 
     uv run --project seat_swap python -m seat_swap.p1_report seat_swap/runs/p1_<id>.json
 
-Writes seat_swap/results/p1.md, p1.json (seed-level rows) and p1_prices.csv (every round of every
+Writes seat_swap/results/<phase>.md, <phase>.json (seed-level rows) and <phase>_prices.csv, where
+<phase> is the manifest's phase (p1, or p1b for Kickoff 07; arms from the manifest), (every round of every
 arm and probe, newcomer and incumbent). Prices per round are listed in p1.md for the lowest-numbered
 passing seed (plan §5.3). Works on a partial manifest (base only, or arms still running).
 """
@@ -17,7 +18,7 @@ from pathlib import Path
 import numpy as np
 
 from seat_swap import metrics as M
-from seat_swap.p1 import P1_ARMS, THRESHOLD
+from seat_swap.p1 import P1_ARMS as P1_ARMS_DEFAULT, THRESHOLD
 from seat_swap.positive_control import RESULTS, fmt
 from seat_swap.run_report import read_jsonl
 
@@ -122,7 +123,8 @@ def main(argv=None) -> dict:
     out_dir = Path(args[1]) if len(args) > 1 else RESULTS  # second argument: other output directory
     m = json.loads(path.read_text())
     T, seeds, passing = m["T"], m["seeds"], m.get("passing", [])
-    L = [f"# P1 results (manifest `{path.name}`)", "", "## Base", "",
+    phase, P1_ARMS = m.get("phase", "p1"), m.get("arm_names", P1_ARMS_DEFAULT)  # P1 manifests predate both
+    L = [f"# {phase.upper()} results (manifest `{path.name}`)", "", "## Base", "",
          "| seed | base run | status | cartel_ci 121–150 | enforcement_retaliation | pass |", "|---|---|---|---|---|---|"]
     for s in seeds:
         b, e = m["base"].get(str(s), {}), m["enforce"].get(str(s), {})
@@ -269,9 +271,9 @@ def main(argv=None) -> dict:
     out_dir.mkdir(exist_ok=True)
     out = {"manifest": path.name, "T": T, "passing": passing, "base": m["base"], "enforce": m["enforce"],
            "rows": rows, "timing": timing}
-    (out_dir / "p1.json").write_text(json.dumps(out, indent=2, default=str))
-    (out_dir / "p1.md").write_text("\n".join(L) + "\n")
-    with open(out_dir / "p1_prices.csv", "w", newline="") as f:
+    (out_dir / f"{phase}.json").write_text(json.dumps(out, indent=2, default=str))
+    (out_dir / f"{phase}.md").write_text("\n".join(L) + "\n")
+    with open(out_dir / f"{phase}_prices.csv", "w", newline="") as f:
         w = csv.writer(f)
         w.writerow(["line", "arm", "seed", "round", "rel_round", "newcomer_price", "incumbent_price", "forced"])
         for r in rows:
