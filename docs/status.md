@@ -46,7 +46,7 @@ Gate: 15/15 pass (need 8). Same pattern as P1 (−0.996 in 7 seeds, −0.664 in 
 None.
 
 ## Spend
-Base ≈ 1 h 37 min on the 14B app (shared with P2/P3 seat-0 calls since about 18:30 UTC). The split by calls comes in the final report. Cap $16.
+Base ≈ 1 h 37 min on the 14B app (shared with P2/P3 seat-0 calls since about 18:30 UTC). The split by calls comes in the final report. Cap $20 (raised from $16 by the coordinator; P1b has priority over P2/P3).
 
 ## Modal state
 `seat-swap-vllm` deployed with `scaledown_window` 10 min.

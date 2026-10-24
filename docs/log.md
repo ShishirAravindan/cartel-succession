@@ -481,3 +481,10 @@ then `modal app stop -y seat-swap-vllm`.
   all, enforcement retaliation −0.996 (7), −0.664 (7), −0.332 (s225). **Gate 15/15 → arms.** 18:13–19:22 UTC,
   slower from 18:30 UTC while P2/P3 also called the 14B app.
 - Status with the base table committed and pushed before the arms (as the kickoff says). The arms run on that commit.
+
+## 2026-10-25 — P1b budget cap raised to $20 (coordinator)
+
+- Coordinator's decision during the run (about 19:35 UTC): **P1b cap $20** (was $16). P1b has priority: if total spend would
+  pass the caps, the P2/P3 games are stopped first, never P1b. P2 ($9) and P3 ($11) caps are unchanged.
+- Projection at that time: P1b ≈ $14–15 (base ≈ $5 on the shared 14B app, arms ≈ 1.6 h at two containers, split by calls with
+  the P2/P3 seat-0 load).

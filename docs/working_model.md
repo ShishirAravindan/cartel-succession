@@ -170,4 +170,4 @@ Dated; the user's call unless marked *(coder, approved)*. Details and reasons ar
   and gate as P1), arms `control`, `same_history`, `same_full`, `same_notes`, 60 rounds, shock T+30, no probes.
   `same_notes` = seat 1's PLANS/INSIGHTS at T, no price table (sees only its own rounds), no instruction. Decision
   rule fixed before the runs (`docs/plan.md` §11): pooled P1 + P1b one-sided Fisher on `re_formed`, `same_full` >
-  `same_history`, p < 0.05 **and** `same_full` higher in P1b alone → "notes carry enforcement" supported. Budget cap $16.
+  `same_history`, p < 0.05 **and** `same_full` higher in P1b alone → "notes carry enforcement" supported. Budget cap ~~$16~~ **$20** (coordinator, 2026-10-25; P1b has priority: if spend would pass the caps, P2/P3 games stop first, never P1b).

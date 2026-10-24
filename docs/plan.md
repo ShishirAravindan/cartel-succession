@@ -158,5 +158,5 @@ unchanged from `prereg-p1`. Run: `seat_swap.p1 --phase p1b`.
 - **Reported:** per arm, for P1b alone and pooled with P1, counts of `joins`, `enforces`, `overpriced`,
   `re_formed`; seed-level `newcomer_ci`, `retaliation`, `first_hold`. Every seed is reported; no seed is
   dropped after the fact.
-- **Budget:** cap $16; stop and report if the projection passes it.
+- **Budget:** cap $16, raised to **$20** by the coordinator during the run (2026-10-25); P1b has priority over P2/P3.
 
