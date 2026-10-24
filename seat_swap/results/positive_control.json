@@ -1,0 +1,1985 @@
+[
+  {
+    "run_id": "20261024-164813_posctl2-numeric_qwen3-14b_thinkon_s0",
+    "thinking": true,
+    "instruction": "numeric",
+    "seed": 0,
+    "warmup": "cartel",
+    "status": "completed",
+    "rounds": 60,
+    "ci_30_39": [
+      0.9889380530973447,
+      0.9889380530973447
+    ],
+    "retaliation_shock_seat1": -0.663716814159292,
+    "established": true,
+    "organic_cuts": [
+      {
+        "round": 42,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": -0.33185840707964603
+      },
+      {
+        "round": 44,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": -0.331858407079646
+      },
+      {
+        "round": 45,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": -0.331858407079646
+      },
+      {
+        "round": 49,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": 0.0
+      },
+      {
+        "round": 50,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": -0.331858407079646
+      }
+    ],
+    "calls": 119,
+    "parse_failures": 0,
+    "parse_bracketed": 0,
+    "finish_length": 0,
+    "reasoning_tokens_per_call": 722.1764705882352,
+    "completion_tokens_per_call": 1003.8823529411765,
+    "s_per_call": 16.35643697478992,
+    "wall_clock_min": 18.3,
+    "sampling": {
+      "temperature": 0.6,
+      "top_p": 0.95,
+      "top_k": 20,
+      "max_tokens": 8192
+    }
+  },
+  {
+    "run_id": "20261024-164813_posctl2-numeric_qwen3-14b_thinkon_s1",
+    "thinking": true,
+    "instruction": "numeric",
+    "seed": 1,
+    "warmup": "cartel",
+    "status": "completed",
+    "rounds": 60,
+    "ci_30_39": [
+      0.9889380530973447,
+      0.9889380530973447
+    ],
+    "retaliation_shock_seat1": -0.995575221238938,
+    "established": true,
+    "organic_cuts": [
+      {
+        "round": 42,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": -0.33185840707964603
+      },
+      {
+        "round": 45,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": 0.0
+      },
+      {
+        "round": 46,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": -0.331858407079646
+      },
+      {
+        "round": 50,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": 0.0
+      },
+      {
+        "round": 55,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": 0.331858407079646
+      },
+      {
+        "round": 56,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": 0.0
+      },
+      {
+        "round": 57,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": -0.331858407079646
+      },
+      {
+        "round": 58,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": null
+      },
+      {
+        "round": 59,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": null
+      }
+    ],
+    "calls": 119,
+    "parse_failures": 0,
+    "parse_bracketed": 0,
+    "finish_length": 0,
+    "reasoning_tokens_per_call": 738.1512605042017,
+    "completion_tokens_per_call": 999.7983193277311,
+    "s_per_call": 16.25648739495798,
+    "wall_clock_min": 18.4,
+    "sampling": {
+      "temperature": 0.6,
+      "top_p": 0.95,
+      "top_k": 20,
+      "max_tokens": 8192
+    }
+  },
+  {
+    "run_id": "20261024-164813_posctl2-numeric_qwen3-14b_thinkon_s2",
+    "thinking": true,
+    "instruction": "numeric",
+    "seed": 2,
+    "warmup": "cartel",
+    "status": "completed",
+    "rounds": 60,
+    "ci_30_39": [
+      0.9889380530973447,
+      0.9889380530973447
+    ],
+    "retaliation_shock_seat1": -0.995575221238938,
+    "established": true,
+    "organic_cuts": [
+      {
+        "round": 42,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": -0.33185840707964603
+      },
+      {
+        "round": 45,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": 0.331858407079646
+      },
+      {
+        "round": 46,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": 0.0
+      },
+      {
+        "round": 47,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": -0.331858407079646
+      },
+      {
+        "round": 48,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": 0.0
+      },
+      {
+        "round": 50,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": -0.331858407079646
+      },
+      {
+        "round": 54,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": 0.0
+      },
+      {
+        "round": 55,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": -0.331858407079646
+      },
+      {
+        "round": 56,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": 0.0
+      },
+      {
+        "round": 59,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": null
+      },
+      {
+        "round": 60,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": null
+      }
+    ],
+    "calls": 119,
+    "parse_failures": 0,
+    "parse_bracketed": 0,
+    "finish_length": 0,
+    "reasoning_tokens_per_call": 733.7647058823529,
+    "completion_tokens_per_call": 1003.1764705882352,
+    "s_per_call": 16.270436974789916,
+    "wall_clock_min": 18.6,
+    "sampling": {
+      "temperature": 0.6,
+      "top_p": 0.95,
+      "top_k": 20,
+      "max_tokens": 8192
+    }
+  },
+  {
+    "run_id": "20261024-164813_posctl2-numeric_qwen3-14b_thinkon_s3",
+    "thinking": true,
+    "instruction": "numeric",
+    "seed": 3,
+    "warmup": "cartel",
+    "status": "completed",
+    "rounds": 60,
+    "ci_30_39": [
+      0.9889380530973447,
+      0.9889380530973447
+    ],
+    "retaliation_shock_seat1": -0.995575221238938,
+    "established": true,
+    "organic_cuts": [
+      {
+        "round": 42,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": -0.6637168141592921
+      },
+      {
+        "round": 46,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": 0.6637168141592921
+      },
+      {
+        "round": 48,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": -0.331858407079646
+      },
+      {
+        "round": 49,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": -0.331858407079646
+      },
+      {
+        "round": 50,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": 0.0
+      },
+      {
+        "round": 53,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": 0.0
+      },
+      {
+        "round": 54,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": 0.0
+      },
+      {
+        "round": 57,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": 0.0
+      },
+      {
+        "round": 58,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": null
+      },
+      {
+        "round": 59,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": null
+      }
+    ],
+    "calls": 119,
+    "parse_failures": 0,
+    "parse_bracketed": 0,
+    "finish_length": 0,
+    "reasoning_tokens_per_call": 681.6470588235294,
+    "completion_tokens_per_call": 948.4621848739496,
+    "s_per_call": 15.53710924369748,
+    "wall_clock_min": 17.4,
+    "sampling": {
+      "temperature": 0.6,
+      "top_p": 0.95,
+      "top_k": 20,
+      "max_tokens": 8192
+    }
+  },
+  {
+    "run_id": "20261024-164813_posctl2-numeric_qwen3-14b_thinkon_s4",
+    "thinking": true,
+    "instruction": "numeric",
+    "seed": 4,
+    "warmup": "cartel",
+    "status": "completed",
+    "rounds": 60,
+    "ci_30_39": [
+      0.9889380530973447,
+      0.9889380530973447
+    ],
+    "retaliation_shock_seat1": -0.995575221238938,
+    "established": true,
+    "organic_cuts": [
+      {
+        "round": 42,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": -0.33185840707964603
+      },
+      {
+        "round": 44,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": 0.331858407079646
+      },
+      {
+        "round": 45,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": 0.0
+      },
+      {
+        "round": 47,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": -0.331858407079646
+      },
+      {
+        "round": 48,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": 0.0
+      },
+      {
+        "round": 51,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": 0.0
+      },
+      {
+        "round": 52,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": 0.0
+      },
+      {
+        "round": 55,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": 0.0
+      },
+      {
+        "round": 56,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": -0.331858407079646
+      },
+      {
+        "round": 57,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": 0.0
+      },
+      {
+        "round": 60,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": null
+      }
+    ],
+    "calls": 119,
+    "parse_failures": 0,
+    "parse_bracketed": 0,
+    "finish_length": 0,
+    "reasoning_tokens_per_call": 721.9159663865546,
+    "completion_tokens_per_call": 982.4201680672269,
+    "s_per_call": 16.048319327731093,
+    "wall_clock_min": 17.9,
+    "sampling": {
+      "temperature": 0.6,
+      "top_p": 0.95,
+      "top_k": 20,
+      "max_tokens": 8192
+    }
+  },
+  {
+    "run_id": "20261024-164813_posctl2-numeric_qwen3-14b_thinkon_s5",
+    "thinking": true,
+    "instruction": "numeric",
+    "seed": 5,
+    "warmup": "cartel",
+    "status": "completed",
+    "rounds": 60,
+    "ci_30_39": [
+      0.9889380530973447,
+      0.9889380530973447
+    ],
+    "retaliation_shock_seat1": -0.995575221238938,
+    "established": true,
+    "organic_cuts": [
+      {
+        "round": 42,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": -0.33185840707964603
+      },
+      {
+        "round": 45,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": 0.0
+      },
+      {
+        "round": 46,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": -0.331858407079646
+      },
+      {
+        "round": 47,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": 0.0
+      }
+    ],
+    "calls": 119,
+    "parse_failures": 0,
+    "parse_bracketed": 0,
+    "finish_length": 0,
+    "reasoning_tokens_per_call": 618.2773109243698,
+    "completion_tokens_per_call": 894.1680672268908,
+    "s_per_call": 14.694067226890756,
+    "wall_clock_min": 16.3,
+    "sampling": {
+      "temperature": 0.6,
+      "top_p": 0.95,
+      "top_k": 20,
+      "max_tokens": 8192
+    }
+  },
+  {
+    "run_id": "20261024-154428_posctl-collude_qwen3-14b_thinkoff_s0",
+    "thinking": false,
+    "instruction": "collude",
+    "seed": 0,
+    "warmup": "nash",
+    "status": "completed",
+    "rounds": 60,
+    "ci_30_39": [
+      2.2721238938053103,
+      2.8252212389380533
+    ],
+    "retaliation_shock_seat1": 0.0,
+    "established": true,
+    "organic_cuts": [],
+    "calls": 119,
+    "parse_failures": 0,
+    "parse_bracketed": 0,
+    "finish_length": 0,
+    "reasoning_tokens_per_call": 0.0,
+    "completion_tokens_per_call": 596.3613445378152,
+    "s_per_call": 9.274193277310923,
+    "wall_clock_min": 9.7,
+    "sampling": {
+      "temperature": 0.7,
+      "top_p": 0.8,
+      "top_k": 20,
+      "max_tokens": 4096
+    }
+  },
+  {
+    "run_id": "20261024-154428_posctl-collude_qwen3-14b_thinkoff_s1",
+    "thinking": false,
+    "instruction": "collude",
+    "seed": 1,
+    "warmup": "nash",
+    "status": "completed",
+    "rounds": 60,
+    "ci_30_39": [
+      2.7146017699115044,
+      2.7146017699115044
+    ],
+    "retaliation_shock_seat1": 0.0,
+    "established": true,
+    "organic_cuts": [],
+    "calls": 119,
+    "parse_failures": 0,
+    "parse_bracketed": 0,
+    "finish_length": 0,
+    "reasoning_tokens_per_call": 0.0,
+    "completion_tokens_per_call": 555.4033613445379,
+    "s_per_call": 8.634655462184876,
+    "wall_clock_min": 9.1,
+    "sampling": {
+      "temperature": 0.7,
+      "top_p": 0.8,
+      "top_k": 20,
+      "max_tokens": 4096
+    }
+  },
+  {
+    "run_id": "20261024-155337_posctl-collude_qwen3-14b_thinkoff_s2",
+    "thinking": false,
+    "instruction": "collude",
+    "seed": 2,
+    "warmup": "nash",
+    "status": "completed",
+    "rounds": 60,
+    "ci_30_39": [
+      3.046460176991151,
+      2.2721238938053103
+    ],
+    "retaliation_shock_seat1": 0.0,
+    "established": true,
+    "organic_cuts": [],
+    "calls": 119,
+    "parse_failures": 0,
+    "parse_bracketed": 0,
+    "finish_length": 0,
+    "reasoning_tokens_per_call": 0.0,
+    "completion_tokens_per_call": 550.2352941176471,
+    "s_per_call": 9.832831932773107,
+    "wall_clock_min": 10.7,
+    "sampling": {
+      "temperature": 0.7,
+      "top_p": 0.8,
+      "top_k": 20,
+      "max_tokens": 4096
+    }
+  },
+  {
+    "run_id": "20261024-155337_posctl-collude_qwen3-14b_thinkoff_s3",
+    "thinking": false,
+    "instruction": "collude",
+    "seed": 3,
+    "warmup": "nash",
+    "status": "completed",
+    "rounds": 60,
+    "ci_30_39": [
+      2.493362831858407,
+      2.2942477876106198
+    ],
+    "retaliation_shock_seat1": 0.0,
+    "established": true,
+    "organic_cuts": [
+      {
+        "round": 33,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 2.5,
+        "responder": 0,
+        "retaliation": 0.0
+      }
+    ],
+    "calls": 119,
+    "parse_failures": 0,
+    "parse_bracketed": 0,
+    "finish_length": 0,
+    "reasoning_tokens_per_call": 0.0,
+    "completion_tokens_per_call": 642.5294117647059,
+    "s_per_call": 11.434075630252101,
+    "wall_clock_min": 12.3,
+    "sampling": {
+      "temperature": 0.7,
+      "top_p": 0.8,
+      "top_k": 20,
+      "max_tokens": 4096
+    }
+  },
+  {
+    "run_id": "20261024-154428_posctl-numeric_qwen3-14b_thinkoff_s0",
+    "thinking": false,
+    "instruction": "numeric",
+    "seed": 0,
+    "warmup": "nash",
+    "status": "completed",
+    "rounds": 60,
+    "ci_30_39": [
+      0.9889380530973447,
+      0.9889380530973447
+    ],
+    "retaliation_shock_seat1": 0.0,
+    "established": true,
+    "organic_cuts": [
+      {
+        "round": 44,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": 0.0
+      },
+      {
+        "round": 54,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": 0.0
+      },
+      {
+        "round": 58,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": null
+      }
+    ],
+    "calls": 119,
+    "parse_failures": 0,
+    "parse_bracketed": 0,
+    "finish_length": 0,
+    "reasoning_tokens_per_call": 0.0,
+    "completion_tokens_per_call": 475.96638655462186,
+    "s_per_call": 7.450890756302522,
+    "wall_clock_min": 7.8,
+    "sampling": {
+      "temperature": 0.7,
+      "top_p": 0.8,
+      "top_k": 20,
+      "max_tokens": 4096
+    }
+  },
+  {
+    "run_id": "20261024-154428_posctl-numeric_qwen3-14b_thinkoff_s1",
+    "thinking": false,
+    "instruction": "numeric",
+    "seed": 1,
+    "warmup": "nash",
+    "status": "completed",
+    "rounds": 60,
+    "ci_30_39": [
+      0.09292035398230063,
+      0.09292035398230061
+    ],
+    "retaliation_shock_seat1": 0.0,
+    "established": false,
+    "organic_cuts": [
+      {
+        "round": 32,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": 0.0
+      }
+    ],
+    "calls": 119,
+    "parse_failures": 0,
+    "parse_bracketed": 0,
+    "finish_length": 0,
+    "reasoning_tokens_per_call": 0.0,
+    "completion_tokens_per_call": 539.7058823529412,
+    "s_per_call": 8.371941176470587,
+    "wall_clock_min": 9.0,
+    "sampling": {
+      "temperature": 0.7,
+      "top_p": 0.8,
+      "top_k": 20,
+      "max_tokens": 4096
+    }
+  },
+  {
+    "run_id": "20261024-155337_posctl-numeric_qwen3-14b_thinkoff_s2",
+    "thinking": false,
+    "instruction": "numeric",
+    "seed": 2,
+    "warmup": "nash",
+    "status": "completed",
+    "rounds": 60,
+    "ci_30_39": [
+      -0.006637168141593172,
+      -0.006637168141593172
+    ],
+    "retaliation_shock_seat1": 0.331858407079646,
+    "established": false,
+    "organic_cuts": [
+      {
+        "round": 43,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": -0.0022123893805310576
+      },
+      {
+        "round": 44,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": 0.0
+      },
+      {
+        "round": 46,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": 0.0
+      },
+      {
+        "round": 48,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": -0.331858407079646
+      }
+    ],
+    "calls": 119,
+    "parse_failures": 0,
+    "parse_bracketed": 0,
+    "finish_length": 0,
+    "reasoning_tokens_per_call": 0.0,
+    "completion_tokens_per_call": 404.218487394958,
+    "s_per_call": 7.248210084033614,
+    "wall_clock_min": 7.9,
+    "sampling": {
+      "temperature": 0.7,
+      "top_p": 0.8,
+      "top_k": 20,
+      "max_tokens": 4096
+    }
+  },
+  {
+    "run_id": "20261024-155337_posctl-numeric_qwen3-14b_thinkoff_s3",
+    "thinking": false,
+    "instruction": "numeric",
+    "seed": 3,
+    "warmup": "nash",
+    "status": "completed",
+    "rounds": 60,
+    "ci_30_39": [
+      0.9889380530973447,
+      0.9889380530973447
+    ],
+    "retaliation_shock_seat1": -0.663716814159292,
+    "established": true,
+    "organic_cuts": [
+      {
+        "round": 26,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": 0.331858407079646
+      },
+      {
+        "round": 27,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": 0.33185840707964603
+      },
+      {
+        "round": 28,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": 0.33185840707964603
+      },
+      {
+        "round": 29,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": 0.663716814159292
+      },
+      {
+        "round": 42,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": -0.6637168141592921
+      },
+      {
+        "round": 43,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": -0.0022123893805310324
+      },
+      {
+        "round": 45,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": -0.331858407079646
+      },
+      {
+        "round": 51,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": 0.0
+      },
+      {
+        "round": 52,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": -0.331858407079646
+      }
+    ],
+    "calls": 119,
+    "parse_failures": 0,
+    "parse_bracketed": 0,
+    "finish_length": 0,
+    "reasoning_tokens_per_call": 0.0,
+    "completion_tokens_per_call": 494.3529411764706,
+    "s_per_call": 8.871966386554623,
+    "wall_clock_min": 9.6,
+    "sampling": {
+      "temperature": 0.7,
+      "top_p": 0.8,
+      "top_k": 20,
+      "max_tokens": 4096
+    }
+  },
+  {
+    "run_id": "20261024-154429_posctl-collude_qwen3-14b_thinkon_s0",
+    "thinking": true,
+    "instruction": "collude",
+    "seed": 0,
+    "warmup": "nash",
+    "status": "completed",
+    "rounds": 60,
+    "ci_30_39": [
+      -0.05752212389380561,
+      -0.04424778761061976
+    ],
+    "retaliation_shock_seat1": -0.08849557522123885,
+    "established": false,
+    "organic_cuts": [
+      {
+        "round": 20,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.5,
+        "responder": 1,
+        "retaliation": -0.04424778761061951
+      },
+      {
+        "round": 42,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.33,
+        "responder": 0,
+        "retaliation": -0.2971976401179941
+      },
+      {
+        "round": 43,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.28,
+        "responder": 1,
+        "retaliation": -0.1548672566371683
+      },
+      {
+        "round": 44,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.25,
+        "responder": 0,
+        "retaliation": -0.20648967551622427
+      },
+      {
+        "round": 45,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.18,
+        "responder": 1,
+        "retaliation": -0.1843657817109145
+      },
+      {
+        "round": 46,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.17,
+        "responder": 0,
+        "retaliation": -0.1474926253687316
+      },
+      {
+        "round": 47,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.1,
+        "responder": 1,
+        "retaliation": -0.2359882005899704
+      },
+      {
+        "round": 48,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.1,
+        "responder": 0,
+        "retaliation": 1.2389380530973453
+      },
+      {
+        "round": 49,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.1,
+        "responder": 1,
+        "retaliation": 0.21386430678466078
+      },
+      {
+        "round": 50,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.0,
+        "responder": 0,
+        "retaliation": 1.6297935103244838
+      },
+      {
+        "round": 52,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.46,
+        "responder": 1,
+        "retaliation": 0.33185840707964603
+      },
+      {
+        "round": 56,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.35,
+        "responder": 1,
+        "retaliation": -0.08849557522123885
+      },
+      {
+        "round": 57,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.34,
+        "responder": 0,
+        "retaliation": 0.07374631268436568
+      }
+    ],
+    "calls": 119,
+    "parse_failures": 0,
+    "parse_bracketed": 3,
+    "finish_length": 0,
+    "reasoning_tokens_per_call": 3207.18487394958,
+    "completion_tokens_per_call": 3581.8655462184875,
+    "s_per_call": 56.95472268907562,
+    "wall_clock_min": 66.5,
+    "sampling": {
+      "temperature": 0.6,
+      "top_p": 0.95,
+      "top_k": 20,
+      "max_tokens": 8192
+    }
+  },
+  {
+    "run_id": "20261024-154428_posctl-collude_qwen3-14b_thinkon_s1",
+    "thinking": true,
+    "instruction": "collude",
+    "seed": 1,
+    "warmup": "nash",
+    "status": "completed",
+    "rounds": 60,
+    "ci_30_39": [
+      -0.9668141592920355,
+      -0.935840707964602
+    ],
+    "retaliation_shock_seat1": -0.03687315634218302,
+    "established": false,
+    "organic_cuts": [
+      {
+        "round": 42,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.04,
+        "responder": 1,
+        "retaliation": -0.03687315634218291
+      },
+      {
+        "round": 49,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.05,
+        "responder": 0,
+        "retaliation": 0.014749262536873142
+      },
+      {
+        "round": 50,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.04,
+        "responder": 1,
+        "retaliation": -1.1725663716814163
+      },
+      {
+        "round": 53,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.05,
+        "responder": 0,
+        "retaliation": 0.38348082595870203
+      },
+      {
+        "round": 54,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.05,
+        "responder": 1,
+        "retaliation": 0.36873156342182895
+      }
+    ],
+    "calls": 119,
+    "parse_failures": 0,
+    "parse_bracketed": 8,
+    "finish_length": 0,
+    "reasoning_tokens_per_call": 3407.470588235294,
+    "completion_tokens_per_call": 3800.3193277310925,
+    "s_per_call": 60.5391344537815,
+    "wall_clock_min": 72.9,
+    "sampling": {
+      "temperature": 0.6,
+      "top_p": 0.95,
+      "top_k": 20,
+      "max_tokens": 8192
+    }
+  },
+  {
+    "run_id": "20261024-155337_posctl-collude_qwen3-14b_thinkon_s2",
+    "thinking": true,
+    "instruction": "collude",
+    "seed": 2,
+    "warmup": "nash",
+    "status": "completed",
+    "rounds": 60,
+    "ci_30_39": [
+      -0.5000000000000002,
+      -0.41150442477876137
+    ],
+    "retaliation_shock_seat1": 0.08849557522123885,
+    "established": false,
+    "organic_cuts": [
+      {
+        "round": 20,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.2,
+        "responder": 0,
+        "retaliation": 0.09587020648967542
+      },
+      {
+        "round": 22,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.25,
+        "responder": 0,
+        "retaliation": 0.0
+      },
+      {
+        "round": 23,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.25,
+        "responder": 1,
+        "retaliation": -0.103244837758112
+      },
+      {
+        "round": 25,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.19,
+        "responder": 0,
+        "retaliation": -0.058997050147492514
+      },
+      {
+        "round": 28,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.24,
+        "responder": 0,
+        "retaliation": 0.029498525073746173
+      },
+      {
+        "round": 29,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.18,
+        "responder": 1,
+        "retaliation": -2.220446049250313e-16
+      },
+      {
+        "round": 30,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.24,
+        "responder": 0,
+        "retaliation": 0.007374631268436405
+      },
+      {
+        "round": 31,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.18,
+        "responder": 1,
+        "retaliation": -0.10324483775811216
+      },
+      {
+        "round": 32,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.17,
+        "responder": 0,
+        "retaliation": -0.16224188790560473
+      },
+      {
+        "round": 33,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.18,
+        "responder": 1,
+        "retaliation": -0.0663716814159293
+      },
+      {
+        "round": 34,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.17,
+        "responder": 0,
+        "retaliation": -0.20648967551622427
+      },
+      {
+        "round": 36,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.15,
+        "responder": 0,
+        "retaliation": 0.05899705014749268
+      },
+      {
+        "round": 38,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.33,
+        "responder": 0,
+        "retaliation": 0.36356932153392363
+      },
+      {
+        "round": 39,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.09,
+        "responder": 0,
+        "retaliation": 0.2971976401179943
+      },
+      {
+        "round": 42,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.11,
+        "responder": 0,
+        "retaliation": -0.5553097345132746
+      },
+      {
+        "round": 43,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.1,
+        "responder": 1,
+        "retaliation": -0.5088495575221238
+      },
+      {
+        "round": 44,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.01,
+        "responder": 0,
+        "retaliation": -0.38348082595870214
+      },
+      {
+        "round": 45,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.0,
+        "responder": 1,
+        "retaliation": -0.07374631268436582
+      },
+      {
+        "round": 48,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.01,
+        "responder": 0,
+        "retaliation": 0.04424778761061965
+      },
+      {
+        "round": 50,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.05,
+        "responder": 0,
+        "retaliation": 0.0663716814159292
+      },
+      {
+        "round": 52,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.05,
+        "responder": 0,
+        "retaliation": 0.25073746312684375
+      },
+      {
+        "round": 54,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.33,
+        "responder": 0,
+        "retaliation": 0.5383480825958702
+      },
+      {
+        "round": 56,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.22,
+        "responder": 0,
+        "retaliation": 0.08849557522123874
+      },
+      {
+        "round": 57,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.21,
+        "responder": 1,
+        "retaliation": -0.2876106194690265
+      },
+      {
+        "round": 58,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.11,
+        "responder": 0,
+        "retaliation": null
+      },
+      {
+        "round": 59,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.1,
+        "responder": 1,
+        "retaliation": null
+      },
+      {
+        "round": 60,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.05,
+        "responder": 0,
+        "retaliation": null
+      }
+    ],
+    "calls": 119,
+    "parse_failures": 0,
+    "parse_bracketed": 3,
+    "finish_length": 0,
+    "reasoning_tokens_per_call": 2902.6890756302523,
+    "completion_tokens_per_call": 3247.7394957983192,
+    "s_per_call": 52.44273109243698,
+    "wall_clock_min": 62.9,
+    "sampling": {
+      "temperature": 0.6,
+      "top_p": 0.95,
+      "top_k": 20,
+      "max_tokens": 8192
+    }
+  },
+  {
+    "run_id": "20261024-155337_posctl-collude_qwen3-14b_thinkon_s3",
+    "thinking": true,
+    "instruction": "collude",
+    "seed": 3,
+    "warmup": "nash",
+    "status": "completed",
+    "rounds": 60,
+    "ci_30_39": [
+      -0.21460176991150468,
+      -0.1725663716814162
+    ],
+    "retaliation_shock_seat1": -0.029498525073746173,
+    "established": false,
+    "organic_cuts": [
+      {
+        "round": 31,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.33,
+        "responder": 0,
+        "retaliation": -0.11061946902654862
+      },
+      {
+        "round": 32,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.32,
+        "responder": 1,
+        "retaliation": -0.05899705014749268
+      },
+      {
+        "round": 33,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.31,
+        "responder": 0,
+        "retaliation": -0.05899705014749268
+      },
+      {
+        "round": 34,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.3,
+        "responder": 1,
+        "retaliation": 0.05162241887905597
+      },
+      {
+        "round": 35,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.29,
+        "responder": 0,
+        "retaliation": 0.05162241887905597
+      },
+      {
+        "round": 36,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.28,
+        "responder": 1,
+        "retaliation": 0.1769911504424777
+      },
+      {
+        "round": 44,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.34,
+        "responder": 0,
+        "retaliation": -0.058997050147492736
+      },
+      {
+        "round": 45,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.33,
+        "responder": 1,
+        "retaliation": -0.058997050147492625
+      },
+      {
+        "round": 46,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.32,
+        "responder": 0,
+        "retaliation": -0.08849557522123899
+      },
+      {
+        "round": 47,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.31,
+        "responder": 1,
+        "retaliation": -0.1917404129793511
+      },
+      {
+        "round": 48,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.3,
+        "responder": 0,
+        "retaliation": -0.2507374631268437
+      },
+      {
+        "round": 49,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.25,
+        "responder": 1,
+        "retaliation": 0.007374631268436405
+      },
+      {
+        "round": 51,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.19,
+        "responder": 1,
+        "retaliation": -0.22861356932153404
+      },
+      {
+        "round": 52,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.18,
+        "responder": 0,
+        "retaliation": -0.25811209439528027
+      },
+      {
+        "round": 53,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.13,
+        "responder": 1,
+        "retaliation": -0.5309734513274333
+      },
+      {
+        "round": 54,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.12,
+        "responder": 0,
+        "retaliation": -0.26548672566371656
+      },
+      {
+        "round": 55,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.07,
+        "responder": 1,
+        "retaliation": 0.2138643067846609
+      },
+      {
+        "round": 56,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.06,
+        "responder": 0,
+        "retaliation": 0.21386430678466095
+      },
+      {
+        "round": 57,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.01,
+        "responder": 1,
+        "retaliation": 1.135693215339233
+      }
+    ],
+    "calls": 119,
+    "parse_failures": 0,
+    "parse_bracketed": 0,
+    "finish_length": 0,
+    "reasoning_tokens_per_call": 2300.5378151260506,
+    "completion_tokens_per_call": 2638.109243697479,
+    "s_per_call": 42.50648739495799,
+    "wall_clock_min": 52.7,
+    "sampling": {
+      "temperature": 0.6,
+      "top_p": 0.95,
+      "top_k": 20,
+      "max_tokens": 8192
+    }
+  },
+  {
+    "run_id": "20261024-154428_posctl-numeric_qwen3-14b_thinkon_s0",
+    "thinking": true,
+    "instruction": "numeric",
+    "seed": 0,
+    "warmup": "nash",
+    "status": "completed",
+    "rounds": 60,
+    "ci_30_39": [
+      0.9889380530973447,
+      0.9889380530973447
+    ],
+    "retaliation_shock_seat1": -0.995575221238938,
+    "established": true,
+    "organic_cuts": [
+      {
+        "round": 42,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": -0.33185840707964603
+      },
+      {
+        "round": 45,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": 0.331858407079646
+      },
+      {
+        "round": 46,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": 0.33185840707964603
+      }
+    ],
+    "calls": 119,
+    "parse_failures": 0,
+    "parse_bracketed": 0,
+    "finish_length": 0,
+    "reasoning_tokens_per_call": 639.9327731092437,
+    "completion_tokens_per_call": 934.0672268907563,
+    "s_per_call": 15.250016806722687,
+    "wall_clock_min": 17.5,
+    "sampling": {
+      "temperature": 0.6,
+      "top_p": 0.95,
+      "top_k": 20,
+      "max_tokens": 8192
+    }
+  },
+  {
+    "run_id": "20261024-154428_posctl-numeric_qwen3-14b_thinkon_s1",
+    "thinking": true,
+    "instruction": "numeric",
+    "seed": 1,
+    "warmup": "nash",
+    "status": "completed",
+    "rounds": 60,
+    "ci_30_39": [
+      0.29203539823008823,
+      0.09292035398230063
+    ],
+    "retaliation_shock_seat1": -0.331858407079646,
+    "established": false,
+    "organic_cuts": [
+      {
+        "round": 20,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": 0.0
+      },
+      {
+        "round": 21,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": -0.331858407079646
+      },
+      {
+        "round": 22,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": -0.331858407079646
+      },
+      {
+        "round": 29,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": 0.0
+      },
+      {
+        "round": 30,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": -0.331858407079646
+      },
+      {
+        "round": 31,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": -0.331858407079646
+      },
+      {
+        "round": 37,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": 0.6637168141592921
+      },
+      {
+        "round": 39,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": 0.0022123893805310324
+      },
+      {
+        "round": 42,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": -0.331858407079646
+      },
+      {
+        "round": 60,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": null
+      }
+    ],
+    "calls": 119,
+    "parse_failures": 0,
+    "parse_bracketed": 0,
+    "finish_length": 0,
+    "reasoning_tokens_per_call": 1400.2436974789916,
+    "completion_tokens_per_call": 1702.6050420168067,
+    "s_per_call": 27.92905882352941,
+    "wall_clock_min": 34.1,
+    "sampling": {
+      "temperature": 0.6,
+      "top_p": 0.95,
+      "top_k": 20,
+      "max_tokens": 8192
+    }
+  },
+  {
+    "run_id": "20261024-155337_posctl-numeric_qwen3-14b_thinkon_s2",
+    "thinking": true,
+    "instruction": "numeric",
+    "seed": 2,
+    "warmup": "nash",
+    "status": "completed",
+    "rounds": 60,
+    "ci_30_39": [
+      0.19247787610619443,
+      0.29203539823008823
+    ],
+    "retaliation_shock_seat1": 0.663716814159292,
+    "established": false,
+    "organic_cuts": [
+      {
+        "round": 28,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": 0.0
+      },
+      {
+        "round": 29,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": -0.331858407079646
+      },
+      {
+        "round": 30,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": 0.0
+      },
+      {
+        "round": 33,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": 0.0
+      },
+      {
+        "round": 34,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": -0.331858407079646
+      },
+      {
+        "round": 35,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": -0.331858407079646
+      },
+      {
+        "round": 39,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": 0.6659292035398231
+      }
+    ],
+    "calls": 119,
+    "parse_failures": 0,
+    "parse_bracketed": 0,
+    "finish_length": 0,
+    "reasoning_tokens_per_call": 983.0420168067227,
+    "completion_tokens_per_call": 1280.2773109243697,
+    "s_per_call": 21.692235294117644,
+    "wall_clock_min": 25.3,
+    "sampling": {
+      "temperature": 0.6,
+      "top_p": 0.95,
+      "top_k": 20,
+      "max_tokens": 8192
+    }
+  },
+  {
+    "run_id": "20261024-155337_posctl-numeric_qwen3-14b_thinkon_s3",
+    "thinking": true,
+    "instruction": "numeric",
+    "seed": 3,
+    "warmup": "nash",
+    "status": "completed",
+    "rounds": 60,
+    "ci_30_39": [
+      0.19247787610619443,
+      0.09292035398230061
+    ],
+    "retaliation_shock_seat1": 0.0,
+    "established": false,
+    "organic_cuts": [
+      {
+        "round": 28,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": -0.995575221238938
+      },
+      {
+        "round": 29,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": -0.33185840707964603
+      },
+      {
+        "round": 32,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": 0.0
+      },
+      {
+        "round": 33,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": -0.331858407079646
+      },
+      {
+        "round": 42,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": -0.331858407079646
+      },
+      {
+        "round": 46,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": 0.0
+      },
+      {
+        "round": 55,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": 0.331858407079646
+      },
+      {
+        "round": 56,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": 0.33185840707964603
+      },
+      {
+        "round": 58,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": null
+      },
+      {
+        "round": 59,
+        "cutter": 1,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 0,
+        "retaliation": null
+      },
+      {
+        "round": 60,
+        "cutter": 0,
+        "kind": "organic",
+        "cut_to": 1.47,
+        "responder": 1,
+        "retaliation": null
+      }
+    ],
+    "calls": 119,
+    "parse_failures": 0,
+    "parse_bracketed": 0,
+    "finish_length": 0,
+    "reasoning_tokens_per_call": 1151.218487394958,
+    "completion_tokens_per_call": 1455.890756302521,
+    "s_per_call": 24.40409243697479,
+    "wall_clock_min": 29.1,
+    "sampling": {
+      "temperature": 0.6,
+      "top_p": 0.95,
+      "top_k": 20,
+      "max_tokens": 8192
+    }
+  }
+]
