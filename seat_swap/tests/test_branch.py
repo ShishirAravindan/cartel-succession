@@ -127,10 +127,8 @@ def test_enforcement_side_branch(tmp_path):
     assert abs(s["enforcement_retaliation"]) < 0.1 and s["is_cartel"] is False
 
 
-def test_live_arm_without_chosen_model_refuses(tmp_path):
+def test_live_arm_needs_max_calls(tmp_path):
     p = parent(tmp_path)
-    with pytest.raises(SystemExit, match="not chosen yet"):
-        run_branch(p, T, "sib_full", dry_run=False, max_calls=10, runs_root=tmp_path, allow_dirty=True)
     with pytest.raises(SystemExit, match="max-calls"):
         run_branch(p, T, "control", dry_run=False, max_calls=None, runs_root=tmp_path)
 

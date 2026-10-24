@@ -58,8 +58,9 @@ PROBE_ROUNDS = M.PROBE_END - M.PROBE_SHOCK + 1  # T+16..T+29
 # what a newcomer inherits from the seat it takes over
 INHERITANCE = {"full": (True, True), "history": (True, False), "notes": (False, True), "none": (False, False)}
 
-# newcomer model per family. sib / oth are not chosen yet: live runs of those arms refuse to start.
-SELLER_MODELS = {"same": MODEL_NAME, "sib": None, "oth": None}
+# newcomer model per family (Kickoff 08): sibling Qwen3-8B (P2), other family gpt-oss-20b (P3).
+# Each is served by its own Modal app (model_config.MODELS); seat 0 stays the 14B on seat-swap-vllm.
+SELLER_MODELS = {"same": MODEL_NAME, "sib": "Qwen/Qwen3-8B", "oth": "openai/gpt-oss-20b"}
 
 
 @dataclass(frozen=True)
@@ -98,7 +99,7 @@ def apply_inheritance(env, seat: int, inherit: str) -> None:
 
 def live_provider(seat_cfg: dict, model: str, cfg: dict):
     if seat_cfg["provider"] == "vllm":
-        p = RawCompletions.from_env()
+        p = RawCompletions.from_env(model)  # the endpoint that serves this seat's model
         if p.model != model:
             raise FatalProviderError(f"endpoint serves {p.model!r}, branch needs {model!r}")
         return p
