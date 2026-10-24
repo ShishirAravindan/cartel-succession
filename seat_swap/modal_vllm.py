@@ -1,6 +1,6 @@
 """vLLM on Modal serving the seller model (seat_swap/model_config.py) behind an API key.
 
-    uv run --project seat_swap modal run seat_swap/modal_vllm.py::download   # fill the weights Volume (CPU)
+    uv run --project seat_swap modal run seat_swap/modal_weights.py          # fill the weights Volume (CPU)
     uv run --project seat_swap modal deploy seat_swap/modal_vllm.py          # deploy the server
     uv run --project seat_swap modal app stop seat-swap-vllm                 # stop it
 
@@ -23,10 +23,11 @@ VLLM_PORT = 8000
 MAX_MODEL_LEN = 16384
 MINUTES = 60
 
+VLLM_VERSION = "0.21.0"
 vllm_image = (
     modal.Image.from_registry("nvidia/cuda:12.9.0-devel-ubuntu22.04", add_python="3.12")
     .entrypoint([])
-    .uv_pip_install("vllm==0.21.0", "huggingface_hub[hf_xet]")
+    .uv_pip_install(f"vllm=={VLLM_VERSION}", "huggingface_hub[hf_xet]")
     .env({"HF_XET_HIGH_PERFORMANCE": "1", "HF_HOME": "/root/.cache/huggingface"})
     .add_local_python_source("seat_swap")
 )
@@ -35,16 +36,6 @@ vllm_cache = modal.Volume.from_name("seat-swap-vllm-cache", create_if_missing=Tr
 VOLUMES = {"/root/.cache/huggingface": hf_cache, "/root/.cache/vllm": vllm_cache}
 
 app = modal.App(APP_NAME)
-
-
-@app.function(image=vllm_image, volumes=VOLUMES, cpu=4, timeout=60 * MINUTES)
-def download():
-    """Fetch the pinned weights into the Volume on a CPU container (no GPU time spent)."""
-    from huggingface_hub import snapshot_download
-
-    path = snapshot_download(MODEL_NAME, revision=MODEL_REVISION, ignore_patterns=["*.pt", "*.bin"])
-    hf_cache.commit()
-    print(f"{MODEL_NAME}@{MODEL_REVISION} -> {path}")
 
 
 @app.server(
