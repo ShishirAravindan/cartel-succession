@@ -99,7 +99,7 @@ def analyse(run_dir: Path) -> tuple[dict, list[str]]:
 
     row = {
         "run_id": cfg["run_id"], "thinking": cfg["seats"][0]["thinking"], "instruction": cfg["instruction_id"],
-        "seed": cfg["seed"], "status": status["status"], "rounds": status["rounds_completed"],
+        "seed": cfg["seed"], "warmup": cfg.get("warmup") or "nash", "status": status["status"], "rounds": status["rounds_completed"],
         "ci_30_39": [M.mean_ci(prices, 30, 39, s) for s in (0, 1)] if 39 in prices else None,
         "retaliation_shock_seat1": window_ret(prices, SHOCK, 1),
         "established": established_cartel(prices),
@@ -126,23 +126,26 @@ def main(argv=None) -> list[dict]:
         row, dg = analyse(Path(d))
         rows.append(row)
         digest += dg
-    rows.sort(key=lambda r: (r["thinking"], r["instruction"], r["seed"]))
+    rows.sort(key=lambda r: (r["warmup"], r["thinking"], r["instruction"], r["seed"]))
     groups = defaultdict(list)
     for r in rows:
-        groups[(r["thinking"], r["instruction"])].append(r)
+        groups[(r["thinking"], r["instruction"], r.get("warmup", "nash"))].append(r)
 
-    lines = ["| thinking | instruction | seed | CI 30–39 (s0, s1) | retaliation s1 @40 | organic cuts: round seat→resp ret "
-             "| parse fails | length | reasoning tok/call | s/call | wall min |",
-             "|---|---|---|---|---|---|---|---|---|---|---|"]
-    for (th, ins), rs in groups.items():
+    lines = ["| thinking | instruction | seed | CI 30–39 (s0, s1) | established | retaliation s1 @40 "
+             "| organic cuts: round seat→resp ret | parse fails | length | reasoning tok/call | s/call | wall min |",
+             "|---|---|---|---|---|---|---|---|---|---|---|---|"]
+    for (th, ins, wu), rs in groups.items():
+        ins = ins if wu == "nash" else f"{ins} (cartel warm-up)"
         for r in rs + [None]:
             if r is None:  # condition mean over seeds
                 cis = [x["ci_30_39"] for x in rs if x["ci_30_39"]]
                 rets = [x["retaliation_shock_seat1"] for x in rs if x["retaliation_shock_seat1"] is not None]
+                est = [x["retaliation_shock_seat1"] for x in rs if x["established"]]
                 lines.append(f"| **{'on' if th else 'off'}** | **{ins}** | **mean** | "
                              f"**{fmt(np.mean([c[0] for c in cis]) if cis else None)}, "
-                             f"{fmt(np.mean([c[1] for c in cis]) if cis else None)}** | "
-                             f"**{fmt(np.mean(rets) if rets else None, '+.3f')}** | | "
+                             f"{fmt(np.mean([c[1] for c in cis]) if cis else None)}** | **{len(est)}/{len(rs)}** | "
+                             f"**all {fmt(np.mean(rets) if rets else None, '+.3f')}; established "
+                             f"{fmt(np.mean(est) if est else None, '+.3f')}** | | "
                              f"{sum(x['parse_failures'] for x in rs)} | {sum(x['finish_length'] for x in rs)} | "
                              f"{fmt(np.mean([x['reasoning_tokens_per_call'] for x in rs]), '.0f')} | "
                              f"{fmt(np.mean([x['s_per_call'] for x in rs]), '.1f')} | |")
@@ -152,6 +155,7 @@ def main(argv=None) -> list[dict]:
             ci = r["ci_30_39"]
             lines.append(f"| {'on' if th else 'off'} | {ins} | {r['seed']} | "
                          f"{fmt(ci[0] if ci else None)}, {fmt(ci[1] if ci else None)} | "
+                         f"{'yes' if r['established'] else 'no'} | "
                          f"{fmt(r['retaliation_shock_seat1'], '+.3f')} | {org} | {r['parse_failures']} | "
                          f"{r['finish_length']} | {fmt(r['reasoning_tokens_per_call'], '.0f')} | "
                          f"{fmt(r['s_per_call'], '.1f')} | {r['wall_clock_min']} |")
