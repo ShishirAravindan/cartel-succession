@@ -468,3 +468,16 @@ then `modal app stop -y seat-swap-vllm`.
   App stopped 16:45 UTC, redeployed at 2 min scaledown, stopped.
 - Commits: the base ran on `650e722` (= `prereg-p1`); the arms and probes ran on `47138da` (status-only commit
   after the gate, per the coordinator). Tag `p1` → `47138da`.
+
+## 2026-10-25 — P1b setup, base and gate (Kickoff 07, steps 1–4.1)
+
+- `exp/p1` merged into `main` (`--no-ff`, `d821918`) and pushed; work on `exp/p1b`.
+- New arm `same_notes` (`branch.py`: inherit `notes`, the newcomer sees only its own rounds, no instruction) with a
+  test of its first prompt (notes in, no round before T+1, no instruction text). `p1.py --phase p1b` (seeds 215–229,
+  four arms, no probes); `p1_report` writes `<phase>.*` and reads arms from the manifest (P1 output reproduced
+  byte-identical). Decisions recorded in the working model; plan §11 pre-registers P1b with the headline rule.
+  Tagged `prereg-p1b` (`9e44323`).
+- **Base** `20261024-234550_p1b-base_qwen3-14b_thinkon_s{215..229}` (code `9e44323`): 15/15 completed, cartel_ci +0.989 in
+  all, enforcement retaliation −0.996 (7), −0.664 (7), −0.332 (s225). **Gate 15/15 → arms.** 18:13–19:22 UTC,
+  slower from 18:30 UTC while P2/P3 also called the 14B app.
+- Status with the base table committed and pushed before the arms (as the kickoff says). The arms run on that commit.
