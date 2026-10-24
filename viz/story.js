@@ -741,7 +741,7 @@ const OUTCOME_LABELS = {
   enforces: "Punished the incumbent’s cut",
   overpriced: "Priced above the cartel band",
   re_formed: "Held the price and enforced",
-  disciplined: "Punished, then back in the band",
+  disciplined: "Meets the probe criterion / secondary",
 };
 let evidenceGroups = new Map(),
   evidenceReport = null,
@@ -755,6 +755,23 @@ let evidenceGroups = new Map(),
   probeFork = null,
   pathReference = null,
   evidenceTrack = "main";
+const PROBE_CONFOUND =
+  "The probe is confounded (the forced price looks like the newcomer's own profitable experiment). Treat as secondary.";
+function probeCaution(arm, groups = []) {
+  if (arm !== "same_history" || !groups.length) return PROBE_CONFOUND;
+  const qualifying = groups.filter(
+    (g) => probeMetrics(g.probe).disciplined === true,
+  );
+  if (!qualifying.length) return PROBE_CONFOUND;
+  const early = qualifying.filter(
+    (g) => probeMetrics(g.probe).probe_return === 17,
+  ).length;
+  return `${early} of ${
+    qualifying.length
+  } returned before seeing any punishment; ${
+    PROBE_CONFOUND[0].toLowerCase() + PROBE_CONFOUND.slice(1)
+  }`;
+}
 const exploredPaths = new Map();
 function adaptP1CSV(text) {
   const rows = csvRows(text),
@@ -1321,8 +1338,21 @@ function renderEvidence() {
     tag.className = "metric-tag";
     tag.textContent = key;
     div.append(title, count, tag);
+    div.dataset.outcome = key;
+    if (key === "disciplined") {
+      div.className = "secondary-outcome";
+      const note = document.createElement("p");
+      note.className = "probe-card-note";
+      note.textContent =
+        pathArm === "same_history"
+          ? probeCaution(pathArm, info?.groups)
+          : "Secondary outcome: the probe is confounded; interpret with the caution below.";
+      div.append(note);
+    }
     $("evidence-metrics").append(div);
   }
+  $("evidence-probe-note").hidden = evidenceTrack !== "probe";
+  $("evidence-probe-note").textContent = probeCaution(pathArm, info?.groups);
   const old = $("evidence-seed").value;
   $("evidence-seed").replaceChildren();
   const all = document.createElement("option");
@@ -1384,7 +1414,7 @@ function renderEvidence() {
         info.denoms.enforces || 0
       } enforced, ${info.counts.disciplined || 0}/${
         info.denoms.disciplined || 0
-      } met disciplined.`
+      } met the secondary probe criterion.`
     : "Awaiting loaded evidence.";
   const next = ARM_TABLE[pathArm].next || "same_history";
   $("next-path").textContent = `Try ${next} →`;
@@ -1614,6 +1644,90 @@ function initCoda() {
   $("coda-sandbox").onclick = () => showAct("sandbox");
 }
 
+const TIMELINE_ENTRIES = [
+  {
+    year: "2020",
+    title: "Calvano et al. / American Economic Review",
+    text: "Simple Q-learning algorithms learn prices above competition and punish deviations without being told to collude: they learn the coffee-shop lesson on their own.",
+    sources: [
+      [
+        "Artificial Intelligence, Algorithmic Pricing, and Collusion ↗",
+        "https://www.aeaweb.org/articles?id=10.1257/aer.20190623",
+      ],
+    ],
+  },
+  {
+    year: "2021",
+    title: "Eschenbaum, Mellgren & Zahn / closest precedent",
+    text: "Q-learning cartels largely broke when fixed learned policies were paired with new partners. Our study asks whether LLM sellers reading inherited history and notes behave differently when one seller is replaced.",
+    sources: [
+      [
+        "Robust Algorithmic Collusion · December 2021 manuscript ↗",
+        "https://neschenbaum.github.io/assets/pdf/robust-algorithmic-collusion.pdf#page=10",
+      ],
+    ],
+  },
+  {
+    year: "2024",
+    title: "Fish, Gonczarowski & Shorrer",
+    text: "LLM pricing agents reach supracompetitive prices, and prompt wording matters; our market game and pricing prompts build on this work.",
+    sources: [
+      [
+        "Algorithmic Collusion by Large Language Models · arXiv 2404.00806 ↗",
+        "https://arxiv.org/abs/2404.00806v2",
+      ],
+    ],
+  },
+  {
+    year: "2024–2025",
+    title: "US DOJ v. RealPage / rent-pricing software",
+    text: "The November 2025 proposed settlement limits nonpublic model-training data to history aged at least 12 months: a remedy aimed at the data that software learns from.",
+    sources: [
+      [
+        "DOJ · proposed settlement, November 24, 2025 ↗",
+        "https://www.justice.gov/opa/pr/justice-department-requires-realpage-end-sharing-competitively-sensitive-information-and",
+      ],
+    ],
+  },
+  {
+    year: "2026",
+    title: "Our nearest prior work",
+    text: "Garra; Shi, Zhang & Yang; and Keppo et al. study how LLM collusion forms and what prevents it, including Keppo et al.’s mixture of different models.",
+    sources: [
+      ["Garra · 2609.13037 ↗", "https://arxiv.org/abs/2609.13037"],
+      ["Shi, Zhang & Yang · 2609.24967 ↗", "https://arxiv.org/abs/2609.24967"],
+      ["Keppo et al. · 2603.20281 ↗", "https://arxiv.org/abs/2603.20281"],
+    ],
+  },
+  // Withheld until the coordinator supplies a verified source; never rendered:
+  // {year:'2026',title:'Reported inheritance incident',text:'A newer model reportedly inherited an older agent’s message board.',sources:[]},
+];
 function initTimeline() {
+  const timeline = $("literature-timeline");
+  timeline.replaceChildren();
+  for (const entry of TIMELINE_ENTRIES) {
+    const card = document.createElement("article");
+    card.className = "timeline-card";
+    const year = document.createElement("p");
+    year.className = "year";
+    year.textContent = entry.year;
+    const title = document.createElement("h3");
+    title.textContent = entry.title;
+    const text = document.createElement("p");
+    text.textContent = entry.text;
+    const sources = document.createElement("div");
+    sources.className = "source-links";
+    for (const [label, url] of entry.sources) {
+      const link = document.createElement("a");
+      link.textContent = label;
+      link.href = url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      sources.append(link);
+    }
+    card.append(year, title, text, sources);
+    timeline.append(card);
+  }
   $("timeline-to-paths").onclick = () => showAct("3");
 }
+Object.assign(window.Explorer, { TIMELINE_ENTRIES, probeCaution });
