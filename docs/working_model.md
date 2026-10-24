@@ -163,4 +163,4 @@ Dated; the user's call unless marked *(coder, approved)*. Details and reasons ar
   - First hold: 5 consecutive rounds with newcomer CI in [0.9, 1.1] (was price ≥ 1.90, no upper bound).
   - Base seeds: 200–214.
 - **Discipline probe** (2026-10-24, Kickoff 06): side branch `discipline` forked at T+15 from every P1 arm branch; seat 1 forced to 1.60 at T+16 (LLM not called, notes unchanged); T+17..T+29 played; 14 rounds. Metrics `probe_punished`, `probe_counter`, `probe_return`, `probe_ci_post`, `disciplined` (`docs/plan.md` §5). `control` is its positive control.
-- **P1 budget** (2026-10-24, Kickoff 06): $14 cap for the main run, approved by the coordinator.
+- **P1 budget** (2026-10-24, Kickoff 06): ~~$14 cap~~ raised to **$20** by the coordinator during the run (actual $17.56).

@@ -453,8 +453,14 @@ then `modal app stop -y seat-swap-vllm`.
   notes restate the 1.70 trigger (14/15) but not the 3-round 1.47 punishment, and mentions don't separate enforcers.
 - **Probe**: newcomers stay at 1.60–1.70 after the forced 1.60 (`probe_ci_post` ≈ +0.28 / +0.50), punished
   or not (`lookalike` the same). Their notes read the forced price as their own profitable test
-  ($40.54 at 1.60 vs $33.75 at 1.92). The forgiving rule never re-punishes a seller that stays below 1.90,
-  so the incumbent returns to 1.92 and the newcomer keeps undercutting.
+  ($40.54 at 1.60 vs $33.75 at 1.92). No newcomer returns to the band at k ≥ 18 (after it could see a
+  punishment); the only non-control returns are at T+17, before any punishment was visible (same_history 3,
+  lookalike 2). The incumbent re-punished in the probe (spells starting T+21..T+29) in same_history 7/15,
+  same_none 7/15 and same_full 8/15 seeds, and the newcomer still didn't return.
+- Established-only retaliation (plan §6): control −0.929 (15/15), same_history +0.000 (0/14), same_none
+  −0.015 (0/5), same_full −0.215 (5/14), lookalike +0.012 (0/13).
+- `same_full` notes: 14/15 mention 1.70, 11/15 punishment, 4/15 1.47, 0/15 three rounds.
+- Failures across the 150 arm and probe games: 2 parse (retry ok), 13 transport (retry ok).
 - `same_none`: 6/15 overpriced ($2.89 anchor), several settle at 1.69, just under the 1.70 trigger.
 - Timing: arms 70.8 s/call, probes 121.5 s/call (≈ 300 streams on 2 H100s at peak); newcomers 992
   reasoning tok/call, ~1.7k in their first rounds. The arms took about 2× the estimate.
