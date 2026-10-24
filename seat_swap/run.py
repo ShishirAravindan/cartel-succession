@@ -2,6 +2,7 @@
 
     uv run --project seat_swap python -m seat_swap.run --dry-run --rounds 5
     uv run --project seat_swap python -m seat_swap.run --rounds 30 --max-calls 80 --thinking off
+    uv run --project seat_swap python -m seat_swap.run --provider modal --rounds 10 --max-calls 24
 """
 
 from __future__ import annotations
@@ -13,7 +14,7 @@ from pathlib import Path
 
 from seat_swap.game import Game, Seat, git_state, make_env
 from seat_swap.logging import RunLogger
-from seat_swap.providers import OpenRouterChat, ScriptedProvider
+from seat_swap.providers import OpenRouterChat, RawCompletions, ScriptedProvider
 from seat_swap.scripted import ramp_policy
 
 DEFAULT_MODEL = "qwen/qwen3-14b"
@@ -26,6 +27,8 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--max-calls", type=int, default=None, help="hard stop on model calls (required unless --dry-run)")
     ap.add_argument("--rounds", type=int, default=30)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--provider", choices=["openrouter", "modal"], default="openrouter",
+                    help="modal = our vLLM endpoint serving seat_swap/model_config.py (ignores --model)")
     ap.add_argument("--model", default=DEFAULT_MODEL, help="OpenRouter id for both seats")
     ap.add_argument("--thinking", choices=["on", "off"], default="off")
     ap.add_argument("--notes", choices=["on", "off"], default="on")
@@ -54,10 +57,14 @@ def main(argv=None) -> dict:
     if args.dry_run:
         policy = ramp_policy(env.lower_prices[0], env.upper_prices[0])
         providers = [ScriptedProvider.from_price_policy("ramp", policy, notes_on) for _ in range(2)]
+    elif args.provider == "modal":
+        providers = [RawCompletions.from_env() for _ in range(2)]
+        print(f"vllm endpoint ready after {providers[0].wait_ready()}s")
     else:
         providers = [OpenRouterChat(args.model, args.temperature, args.max_tokens, thinking) for _ in range(2)]
+    model_tag = "dry" if args.dry_run else providers[0].model.split("/")[-1].lower()
     run_id = args.run_id or (
-        f"{time.strftime('%Y%m%d-%H%M%S')}_{args.phase}_{'dry' if args.dry_run else args.model.split('/')[-1]}"
+        f"{time.strftime('%Y%m%d-%H%M%S')}_{args.phase}_{model_tag}"
         f"_think{args.thinking}_s{args.seed}"
     )
     logger = RunLogger(args.runs_root, run_id)
