@@ -488,3 +488,18 @@ then `modal app stop -y seat-swap-vllm`.
   pass the caps, the P2/P3 games are stopped first, never P1b. P2 ($9) and P3 ($11) caps are unchanged.
 - Projection at that time: P1b ≈ $14–15 (base ≈ $5 on the shared 14B app, arms ≈ 1.6 h at two containers, split by calls with
   the P2/P3 seat-0 load).
+
+## 2026-10-25 — P1b arms: results (Kickoff 07, steps 4–6)
+
+- Arms `20261025-0054*_phaseB_{control,same_history,same_full,same_notes}_s{215..229}_*`, 60/60 completed, 19:25–20:33 UTC,
+  code `24f922b` (status-only commit after the gate), tag `p1b`. 0 aborts. Kill check `control` re_formed 15/15.
+- P1b (joins / enforces / overpriced / re_formed): control 15/15/0/15; same_history 15/1/0/1; same_full 15/4/0/4; same_notes 14/8/0/8.
+  Pooled with P1: same_history 28/1/1/1 of 30; same_full 30/10/0/10 of 30.
+- **Headline rule: supported.** Pooled one-sided Fisher p = 0.0028 (same_full 10/30 vs same_history 1/30); P1b alone 4 vs 1.
+- Secondary: same_notes re_formed 8/15 ≥ same_full 4/15, joins 14/15, so the notes alone carry enforcement (and the price).
+- P1b enforcements are nearly all drops to 1.47 right after the shock (unlike P1). P1's six same_full enforcers: 4 real
+  (s202, 203, 209, 212), s204 partial/sticky, s205 a metric artefact (overpriced pre-window).
+- Notes features: 1.70 in nearly all inherited notes; "1.47" more often in enforcers' notes (13/18 vs 11/27); no duration ever.
+- `seat_swap/p1b_analysis.py` (pooled tables, headline rule, §5 tables) → `results/p1b_analysis.{md,json}`.
+- Cost split by generated tokens: P1b ≈ $12 of the 14B app's ≈ $16.6 (20:00 UTC hour estimated); Kickoff 08 seat 0 ≈ $4.7.
+- `seat-swap-vllm` back to 2 min scaledown, not stopped (Kickoff 07 finish).
