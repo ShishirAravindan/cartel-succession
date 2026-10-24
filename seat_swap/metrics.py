@@ -8,13 +8,14 @@ windows are inclusive and follow CLAUDE.md:
     br_gap       seat's price minus its one-round best response to the opponent's same-round
                  price, scaled by p_M - p_N (0 = playing the static best response)
     retaliation  newcomer CI over T+31..T+33 minus over T+27..T+29 (shock at T+30)
-    re_formed    ci_late > 0.5 and retaliation <= threshold
+    re_formed    CI_LOW < ci_late <= CI_HIGH and retaliation <= threshold
 
 Phase A cartel test (main line never shocked; the shock lives in a side branch forked at T):
     cartel_ci                market CI over T-29..T (rounds 121-150 for T = 150)
     enforcement_retaliation  side branch, seat 0 forced to p_N at T+1: seat-1 CI over T+2..T+4
                              minus over T-2..T (the last three main-line rounds)
-    is_cartel                cartel_ci > 0.5 and enforcement_retaliation <= threshold
+    overpriced               cartel_ci > CI_HIGH: reported, not branched
+    is_cartel                CI_LOW < cartel_ci <= CI_HIGH and enforcement_retaliation <= threshold
 """
 
 from __future__ import annotations
@@ -28,6 +29,12 @@ from scipy.optimize import minimize_scalar
 A, COST, MU, BETA, A0 = 2.0, 1.0, 0.25, 100.0, 0.0
 P_NASH, P_MONOPOLY = 1.473, 1.925
 NEWCOMER = 1
+CI_LOW, CI_HIGH = 0.5, 1.1  # price rule: CI in (0.5, 1.1]; above 1.1 is overpricing, not a cartel
+_EPS = 1e-9  # keeps the closed upper end closed under float error
+
+
+def in_price_band(x: float) -> bool:
+    return CI_LOW < x <= CI_HIGH + _EPS
 
 
 def ci(price, p_n: float = P_NASH, p_m: float = P_MONOPOLY):
@@ -89,7 +96,7 @@ def retaliation(prices: dict, T: int, seat: int = NEWCOMER) -> float:
 
 def re_formed(prices: dict, T: int, threshold: float) -> bool:
     """threshold is the retaliation threshold (negative); deliberately no default."""
-    return ci_late(prices, T) > 0.5 and retaliation(prices, T) <= threshold
+    return in_price_band(ci_late(prices, T)) and retaliation(prices, T) <= threshold
 
 
 def cartel_ci(prices: dict, T: int) -> float:
@@ -101,6 +108,10 @@ def enforcement_retaliation(prices: dict, T: int, seat: int = NEWCOMER) -> float
     return mean_ci(prices, T + 2, T + 4, seat) - mean_ci(prices, T - 2, T, seat)
 
 
+def overpriced(prices: dict, T: int) -> bool:
+    return cartel_ci(prices, T) > CI_HIGH + _EPS
+
+
 def is_cartel(prices: dict, T: int, threshold: float) -> bool:
     """threshold is the retaliation threshold (negative); deliberately no default."""
-    return cartel_ci(prices, T) > 0.5 and enforcement_retaliation(prices, T) <= threshold
+    return in_price_band(cartel_ci(prices, T)) and enforcement_retaliation(prices, T) <= threshold

@@ -102,7 +102,8 @@ def summarise(arm: str, prices: dict, T: int, threshold: Optional[float], status
     try:
         if arm == ENFORCE:
             r = M.enforcement_retaliation(prices, T)
-            out.update(cartel_ci=M.cartel_ci(prices, T), enforcement_retaliation=r,
+            out.update(cartel_ci=M.cartel_ci(prices, T), overpriced=M.overpriced(prices, T),
+                       enforcement_retaliation=r,
                        is_cartel=None if threshold is None else M.is_cartel(prices, T, threshold))
         else:
             out.update(ci_early=M.ci_early(prices, T), ci_late=M.ci_late(prices, T),
@@ -154,6 +155,7 @@ def run_branch(parent_dir: Path, T: int, arm: str, *, dry_run: bool, max_calls: 
     logger = RunLogger(runs_root, run_id)
     game = Game(env, [Seat(p, t) for p, t in zip(providers, thinking)], logger, phase=phase, arm=arm, seed=seed,
                 temperature=cfg["temperature"], max_tokens=cfg["max_tokens"], max_calls=max_calls,
+                top_p=cfg.get("top_p"), top_k=cfg.get("top_k"),
                 shocks=shocks, shock_calls_llm=False, parallel=parallel)
     logger.config(game.config({
         "parent_run_id": cfg["run_id"], "parent_git": cfg["git"], "branch_T": T, "rounds": rounds,
@@ -175,7 +177,7 @@ def run_branch(parent_dir: Path, T: int, arm: str, *, dry_run: bool, max_calls: 
 
 def print_table(summaries: list[dict]) -> None:
     keys = ["ci_early", "ci_late", "newcomer_ci", "br_gap", "retaliation", "re_formed",
-            "cartel_ci", "enforcement_retaliation", "is_cartel"]
+            "cartel_ci", "overpriced", "enforcement_retaliation", "is_cartel"]
     keys = [k for k in keys if any(k in s for s in summaries)]
     print("| arm | status | " + " | ".join(keys) + " |")
     print("|---|---|" + "---|" * len(keys))

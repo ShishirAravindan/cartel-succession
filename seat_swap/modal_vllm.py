@@ -1,7 +1,8 @@
 """vLLM on Modal serving the seller model (seat_swap/model_config.py) behind an API key.
 
     uv run --project seat_swap modal run seat_swap/modal_weights.py          # fill the weights Volume (CPU)
-    uv run --project seat_swap modal deploy seat_swap/modal_vllm.py          # deploy the server
+    SEAT_SWAP_SCALEDOWN_MIN=10 uv run --project seat_swap modal deploy seat_swap/modal_vllm.py   # during a task
+    uv run --project seat_swap modal deploy seat_swap/modal_vllm.py          # back to 2 min idle scaledown
     uv run --project seat_swap modal app stop -y seat-swap-vllm              # stop it
 
 The client (providers.RawCompletions) sends the locally rendered chat-template string to
@@ -13,12 +14,18 @@ Modal Secret `seat-swap-vllm` (VLLM_API_KEY).
 (Qwen3: top_p 0.95, top_k 20) to every request: only the sampling params we send and log apply.
 """
 
+import os
+
 import modal
 
 from seat_swap.model_config import MODEL_NAME, MODEL_REVISION
 
 APP_NAME = "seat-swap-vllm"
-GPU = "L40S"  # 48 GB: Qwen3-14B bf16 (~30 GB) plus KV cache for two concurrent sellers
+GPU = "H100"  # run policy: one H100 (bf16 weights unchanged); ~3x the L40S decode speed
+# idle scaledown, read at deploy time: 10 min during an active task, 2 min otherwise (run policy)
+SCALEDOWN_MIN = int(os.environ.get("SEAT_SWAP_SCALEDOWN_MIN", "2"))
+# a second container only if one is loaded past this many concurrent requests (8 games = 16)
+TARGET_CONCURRENCY, MAX_CONTAINERS = 32, 2
 VLLM_PORT = 8000
 MAX_MODEL_LEN = 16384
 MINUTES = 60
@@ -44,7 +51,9 @@ app = modal.App(APP_NAME)
     volumes=VOLUMES,
     secrets=[modal.Secret.from_name("seat-swap-vllm")],
     port=VLLM_PORT,
-    scaledown_window=2 * MINUTES,
+    scaledown_window=SCALEDOWN_MIN * MINUTES,
+    target_concurrency=TARGET_CONCURRENCY,
+    max_containers=MAX_CONTAINERS,
     startup_timeout=15 * MINUTES,
     unauthenticated=True,  # Modal proxy open; vLLM itself checks VLLM_API_KEY on every /v1 request
 )

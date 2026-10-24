@@ -88,3 +88,22 @@ def test_policies_directly():
 def test_window_requires_all_rounds():
     with pytest.raises(KeyError):
         M.ci_late({T + 20: [1.9, 1.9]}, T)
+
+
+def test_price_rule_upper_bound():
+    T0 = 30
+    def flat(p0, p1, n=T0 + 34):
+        return {r: [p0, p1] for r in range(1, n + 1)}
+    at = lambda c: M.P_NASH + c * (M.P_MONOPOLY - M.P_NASH)
+    ok, high = flat(at(1.05), at(1.05)), flat(at(1.2), at(1.2))
+    assert not M.overpriced(ok, T0) and M.overpriced(high, T0)
+    # retaliation strong in both; only the price rule differs
+    for p in (ok, high):
+        for r in range(T0 + 31, T0 + 34):
+            p[r][1] = M.P_NASH
+        for r in range(T0 + 2, T0 + 5):
+            p[r][1] = M.P_NASH
+    assert M.re_formed(ok, T0, threshold=-0.5) and not M.re_formed(high, T0, threshold=-0.5)
+    assert M.is_cartel(ok, T0, threshold=-0.5) and not M.is_cartel(high, T0, threshold=-0.5)
+    edge = flat(at(1.1), at(1.1))
+    assert M.ci_late(edge, T0) == pytest.approx(1.1) and not M.overpriced(edge, T0)
