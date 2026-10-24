@@ -56,3 +56,15 @@ def test_product_information_matches_fish():
 def test_scripted_text_parses():
     p = parse_response(completion_text(1.73, 1, 4))
     assert p.ok and p.price == 1.73 and "[dry-run seat 1 round 4]" in p.plans
+
+
+def test_bracketed_price_is_accepted_and_flagged():
+    from seat_swap.prompts import parse_response
+    from seat_swap.scripted import completion_text
+
+    ok = parse_response(completion_text(1.6, 0, 1).replace("\n1.60", "\n<1.60>"))
+    assert ok.ok and ok.price == 1.6 and ok.bracketed
+    assert not parse_response(completion_text(1.6, 0, 1)).bracketed
+    for bad in ("<1.60", "1.60>", "<<1.60>>", "<1.60> extra"):
+        assert not parse_response(completion_text(1.6, 0, 1).replace("\n1.60", "\n" + bad)).ok, bad
+    assert parse_response("My chosen price: <1.7>", notes_on=False).bracketed

@@ -2,7 +2,7 @@
 
     uv run --project seat_swap modal run seat_swap/modal_weights.py          # fill the weights Volume (CPU)
     uv run --project seat_swap modal deploy seat_swap/modal_vllm.py          # deploy the server
-    uv run --project seat_swap modal app stop seat-swap-vllm                 # stop it
+    uv run --project seat_swap modal app stop -y seat-swap-vllm              # stop it
 
 The client (providers.RawCompletions) sends the locally rendered chat-template string to
 /v1/completions, so the server never applies a template. The URL and key come from

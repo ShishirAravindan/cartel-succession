@@ -83,3 +83,60 @@ Backends: DeepInfra and NextBit, mixed within a run.
 **Open.** (1) accept `<number>` as a valid price line? (2) how to get real thinking-off
 (`/no_think` soft switch in the prompt, or vLLM `enable_thinking=False`), or drop the off mode;
 (3) raise max_tokens; (4) pin one OpenRouter backend?
+
+## 2026-10-24 — branching harness, dry-run (kickoff 2, task 3)
+
+`seat_swap/branch.py`: restores the env exactly from `snapshot_T<T>.json` (no replay), applies the
+newcomer's inheritance to seat 1, runs the arm in a new run directory
+(`<ts>_<phase>_<arm>_s<seed>_<6 hex>`), and writes `summary.json` (per-arm metrics). The 11 arm
+names are exactly those in CLAUDE.md (tested). Inheritance options `full`/`history`/`notes`/`none`;
+"no history" = the seat's market table starts at T+1 (`visible_from`), and scripted sellers get
+the same view as the prompt. 59 offline tests pass.
+
+**Decided (user, 2026-10-24).**
+- Shock rounds: the forced seat's LLM is not called and its notes stay unchanged.
+- Phase A enforcement test: side branch forked at T = 150, seat 0 forced to p_N at T+1, 10 rounds;
+  `enforcement_retaliation` = seat-1 CI over T+2..T+4 minus over T−2..T; `is_cartel` = CI(121–150)
+  > 0.5 and retaliation ≤ threshold. Threshold has no default (set from this kickoff's numbers).
+- Seller model on Modal: Qwen3-14B @ 40c06982 (same as the pinned tokenizer).
+- Thinking off; the parser accepts a bracketed `<n>` price line, flagged `parse_bracketed`.
+
+**Decided (me, flag for review).**
+- `lookalike` seat 0 repeats its last *chosen* price: the forced p_N at T+30 isn't its choice,
+  so it goes back to its pre-shock price. Otherwise it would sit at p_N from T+31 on, and the
+  newcomer's drop would be a best response, not retaliation.
+- `lookalike` / `lookalike_oth`: the newcomer gets history only (no notes); models `same` / `oth`.
+- `control` = no replacement, which is the same as same model + full inheritance (sellers are
+  stateless apart from notes and table). So there's no `same_full` arm.
+- `sib` / `oth` newcomer models are not chosen: `SELLER_MODELS` holds None, and live runs of
+  those arms refuse to start. Dry runs work.
+
+**Not yet there.** `docs/plan.md`, which CLAUDE.md points to, does not exist; `prereg-phase-a`
+needs it.
+
+## 2026-10-24 — Modal vLLM endpoint (kickoff 2, task 1)
+
+`seat_swap/modal_vllm.py` (vLLM 0.21.0 on one L40S, `scaledown_window` 2 min, API key from Modal
+Secret `seat-swap-vllm`, `--generation-config vllm` so Qwen's top_p 0.95/top_k 20 defaults don't
+apply), `seat_swap/modal_weights.py` (fills Volume `seat-swap-hf-cache` from a CPU container),
+model + revision in `seat_swap/model_config.py`, shared with the local renderer. The provider
+sends top_p 1, top_k −1 and add_special_tokens false, and logs them in `sampling_params`.
+
+Every GPU type was refused until a card was added ("Please add a payment method…"); the user
+added one.
+
+**Run** `20261024-144509_endpoint_qwen3-14b_thinkoff_s0`: 10 rounds, 20 calls, 0 parse failures,
+0 bracketed, all `finish_reason=stop`. Cold start 211 s. 20.6 s/call, 945 prompt / 483 completion
+tokens per call (~23 tok/s single stream on L40S).
+
+**Byte-for-byte check** (`seat_swap.verify_prompts`, 20/20 on every check):
+- local token ids = server prompt token ids;
+- the server's ids decode to the logged `rendered_prompt`;
+- echo returns the logged string as its prefix;
+- prompt_tokens matches.
+
+Caveat: vLLM drops the echo when `return_token_ids` is on, so the ids check and the echo check
+are separate requests.
+
+**Cost.** Modal metered this month: $0.45 (deployed apps $0.38), covered by credits.
+App stopped.

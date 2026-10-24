@@ -179,6 +179,7 @@ class Game:
             "parsed_price": parsed.price if parsed and parsed.ok else None,
             "parse_ok": bool(parsed and parsed.ok),
             "parse_error": parsed.error if parsed and not parsed.ok else None,
+            "parse_bracketed": bool(parsed and parsed.ok and parsed.bracketed),
             "notes_text": {"plans": parsed.plans, "insights": parsed.insights}
             if parsed and parsed.ok and self.env.notes_on else None,
             "error": error, "timestamp": now(),

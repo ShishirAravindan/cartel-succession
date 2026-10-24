@@ -115,15 +115,17 @@ class RawCompletions:
 
     def wait_ready(self, timeout_s: float = 900) -> float:
         """Poll /health (not an LLM call) until the server is up; covers the Modal cold start."""
-        import httpx
+        import urllib.error
+        import urllib.request
 
         start = time.time()
         health = self.base_url.removesuffix("/v1") + "/health"
         while time.time() - start < timeout_s:
             try:
-                if httpx.get(health, timeout=30).status_code == 200:
-                    return round(time.time() - start, 1)
-            except httpx.HTTPError:
+                with urllib.request.urlopen(health, timeout=30) as r:
+                    if r.status == 200:
+                        return round(time.time() - start, 1)
+            except (urllib.error.URLError, TimeoutError, ConnectionError):
                 pass
             time.sleep(5)
         raise FatalProviderError(f"{health} not ready after {timeout_s}s")
