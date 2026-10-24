@@ -217,6 +217,8 @@ function playCoffee(index, price) {
   const session = coffeeSession(index),
     add = [];
   if (index === 1) {
+    session.rows = [];
+    session.comparison = null;
     let own = Math.max(PN, price);
     for (let i = 0; i < 60; i++) {
       const rival = Math.max(PN, own - 0.03);
@@ -421,23 +423,9 @@ function renderCoffeeMoney(preview = false) {
   $("coffee-you-round").textContent = "$" + fmt(now.profits[1], 2);
   $("coffee-rival-round").textContent = "$" + fmt(now.profits[0], 2);
   $("coffee-you-total").textContent =
-    "$" +
-    fmt(
-      [...coffeeSessions.values()].reduce(
-        (s, v) => s + coffeeTotal(v.rows, 1),
-        0,
-      ),
-      2,
-    );
+    "$" + fmt(coffeeTotal(session.rows, 1), 2);
   $("coffee-rival-total").textContent =
-    "$" +
-    fmt(
-      [...coffeeSessions.values()].reduce(
-        (s, v) => s + coffeeTotal(v.rows, 0),
-        0,
-      ),
-      2,
-    );
+    "$" + fmt(coffeeTotal(session.rows, 0), 2);
   $("coffee-cups").textContent = `Last round / preview: you sold ${fmt(
     now.quantities[1],
     1,
@@ -567,6 +555,7 @@ function showAct(act, initial = false) {
       learnedTerms.add(term);
   renderGlossary();
   syncConceptHeader();
+  if (currentAct === "4") renderEvidence();
   const hash = Number.isFinite(numeric)
     ? `#act-${currentAct}`
     : `#${currentAct}`;
@@ -1212,6 +1201,7 @@ function runPath(price) {
       2,
     )}. These are illustration profits, not AI results.`;
     exploredPaths.set(pathArm, {
+      mode: "played",
       ...mainMetrics(pathLesson.main.h),
       ...probeMetrics(pathLesson.probe.h),
     });
@@ -1290,11 +1280,21 @@ function evidencePlot(groups, which) {
               )},${y(r.prices[seat])}`,
           )
           .join(" ");
-      s += `<path d="${d}" fill="none" stroke="${COLORS[seat]}" stroke-width="${
-        seat ? 1.3 : 1
-      }" opacity="${seat ? 0.38 : 0.1}"><title>Seed ${group.seed} · ${
+      s += `<g data-evidence-seed="${
+        group.seed
+      }" data-evidence-seat="${seat}" ${
+        seat ? 'tabindex="0" role="button" aria-pressed="false"' : ""
+      } aria-label="Seed ${group.seed}, ${
         seat ? "newcomer" : "incumbent"
-      }</title></path>`;
+      } prices"><path class="evidence-trace" d="${d}" fill="none" stroke="${
+        COLORS[seat]
+      }" stroke-width="${seat ? 1.3 : 1}" opacity="${
+        seat ? 0.38 : 0.1
+      }"><title>Seed ${group.seed} · ${
+        seat ? "newcomer" : "incumbent"
+      }</title></path>${
+        seat ? `<path class="evidence-hit" d="${d}" aria-hidden="true"/>` : ""
+      }</g>`;
     }
   const shock = which === "probe" ? 16 : 30;
   s += `<line x1="${x(shock)}" x2="${x(shock)}" y1="${TOP}" y2="${
@@ -1312,8 +1312,66 @@ function evidencePlot(groups, which) {
     }" text-anchor="middle" font-size="11" fill="#63717a">T+${k}</text>`;
   return s + "</svg>";
 }
+let evidencePinnedSeed = null;
+function highlightEvidence(seed) {
+  const lines = document.querySelectorAll(
+    "#evidence-chart [data-evidence-seed]",
+  );
+  if (!lines.length) return;
+  lines.forEach((line) => {
+    const active = seed !== null && line.dataset.evidenceSeed === seed;
+    line.classList.toggle("seed-active", active);
+    line.classList.toggle("seed-muted", seed !== null && !active);
+    if (line.dataset.evidenceSeat === "1")
+      line.setAttribute(
+        "aria-pressed",
+        String(evidencePinnedSeed === line.dataset.evidenceSeed),
+      );
+  });
+  $("evidence-hover").textContent =
+    seed === null
+      ? "Hover or tap an orange line to highlight its seed; tap again to clear."
+      : `Seed ${seed} highlighted${
+          evidencePinnedSeed ? " · pinned; tap again to clear." : "."
+        }`;
+}
+function bindEvidenceSelection() {
+  const plot = $("evidence-chart"),
+    seedOf = (event) =>
+      event.target.closest('[data-evidence-seat="1"]')?.dataset.evidenceSeed ??
+      null;
+  plot.onpointerover = (event) => {
+    const seed = seedOf(event);
+    if (seed !== null && !evidencePinnedSeed) highlightEvidence(seed);
+  };
+  plot.onpointerleave = () => {
+    if (!evidencePinnedSeed) highlightEvidence(null);
+  };
+  plot.addEventListener("focusin", (event) => {
+    const seed = seedOf(event);
+    if (seed !== null && !evidencePinnedSeed) highlightEvidence(seed);
+  });
+  plot.addEventListener("focusout", () => {
+    if (!evidencePinnedSeed) highlightEvidence(null);
+  });
+  const toggle = (event) => {
+    const seed = seedOf(event);
+    if (seed === null) return;
+    evidencePinnedSeed = evidencePinnedSeed === seed ? null : seed;
+    highlightEvidence(evidencePinnedSeed);
+  };
+  plot.onclick = toggle;
+  plot.onkeydown = (event) => {
+    if (["Enter", " "].includes(event.key)) {
+      event.preventDefault();
+      toggle(event);
+    }
+  };
+}
 function renderEvidence() {
   const info = evidenceSummary[pathArm];
+  if (currentAct === "4" && info && !exploredPaths.has(pathArm))
+    exploredPaths.set(pathArm, { mode: "viewed" });
   $("evidence-arm-title").textContent = ARM_TABLE[pathArm].label;
   $("evidence-arm").textContent = pathArm;
   $("evidence-scope").textContent =
@@ -1343,10 +1401,7 @@ function renderEvidence() {
       div.className = "secondary-outcome";
       const note = document.createElement("p");
       note.className = "probe-card-note";
-      note.textContent =
-        pathArm === "same_history"
-          ? probeCaution(pathArm, info?.groups)
-          : "Secondary outcome: the probe is confounded; interpret with the caution below.";
+      note.textContent = probeCaution(pathArm, info?.groups);
       div.append(note);
     }
     $("evidence-metrics").append(div);
@@ -1377,6 +1432,12 @@ function renderEvidence() {
         arm: pathArm,
       })
     : evidencePlot(info.groups, evidenceTrack);
+  evidencePinnedSeed = null;
+  $("evidence-hover").textContent = selected
+    ? `Seed ${selected.seed} selected; metric windows shown.`
+    : "Hover or tap an orange line to highlight its seed; tap again to clear.";
+  $("evidence-late-note").hidden =
+    pathArm !== "same_history" || evidenceTrack !== "main" || !!selected;
   $("evidence-caption").textContent = info
     ? `${info.counts.joins || 0} of ${info.denoms.joins || 0} ${
         pathArm === "control" ? "continuing sellers" : "newcomers"
@@ -1397,7 +1458,8 @@ function renderEvidence() {
         )
         .join(" · ")
     : "Each orange line is one seed. Incumbent paths are faint teal. No pre-history is invented.";
-  const played = exploredPaths.get(pathArm);
+  const record = exploredPaths.get(pathArm),
+    played = record?.mode === "played" ? record : null;
   $("you-verdict").textContent = played
     ? `You ${played.joins ? "held" : "did not hold"} the cartel band, ${
         played.enforces ? "enforced" : "did not enforce"
@@ -1435,18 +1497,26 @@ function renderEvidence() {
     String(evidenceTrack === "main"),
   );
   renderLadder();
+  renderPathComparison();
 }
 function renderPathComparison() {
-  $("paths-explored").textContent = `${exploredPaths.size} paths explored`;
+  $("paths-explored").textContent = `${exploredPaths.size} path${
+    exploredPaths.size === 1 ? "" : "s"
+  } explored`;
   $("path-comparison").replaceChildren();
   for (const [arm, mine] of exploredPaths) {
     const tr = document.createElement("tr"),
       real = evidenceSummary[arm];
+    tr.dataset.pathArm = arm;
+    tr.dataset.pathStatus = mine.mode;
     for (const value of [
       arm,
-      `${mine.joins ? "held" : "not held"} / ${
-        mine.enforces ? "enforced" : "not enforced"
-      }`,
+      mine.mode,
+      mine.mode === "played"
+        ? `${mine.joins ? "held" : "not held"} / ${
+            mine.enforces ? "enforced" : "not enforced"
+          }`
+        : "Not played",
       real ? `${real.counts.joins || 0}/${real.denoms.joins || 0}` : "—",
       real ? `${real.counts.enforces || 0}/${real.denoms.enforces || 0}` : "—",
       real
@@ -1502,6 +1572,7 @@ function renderLadder() {
   }
 }
 function initPaths() {
+  bindEvidenceSelection();
   $("probe-custom").oninput = renderProbeMoney;
   $("evidence-arm-select").onchange = () =>
     choosePath($("evidence-arm-select").value);
@@ -1588,10 +1659,11 @@ function initPaths() {
   };
   $("evidence-seed").onchange = renderEvidence;
   $("next-path").onclick = () => {
-    choosePath(ARM_TABLE[pathArm].next || "same_history");
+    const next = ARM_TABLE[pathArm].next || "same_history";
+    showAct("3");
+    choosePath(next);
     $("path-run").disabled = false;
     $("path-cut").disabled = false;
-    showAct("3");
   };
   $("evidence-play-path").onclick = () => showAct("3");
   $("story-load").onclick = () => $("story-csv").click();

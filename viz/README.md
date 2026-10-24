@@ -37,9 +37,8 @@ opening the committed page still needs no build step or external script.
 Act 2 follows the brief's timeline, with an optional partner-transfer tangent added from the podcast review. Primary links were
 confirmed for Calvano et al., Fish et al. (2024 v2), Garra, Shi et al., Keppo et
 al., and DOJ's November 24, 2025 release. The DOJ 12-month condition is described
-precisely as applying to nonpublic model-training data. The reported 2026
-message-board inheritance incident remains `[source to add]` until the
-coordinator supplies a confirmed link. The ending frames succession as the gap
+precisely as applying to nonpublic model-training data. The unsourced 2026 message-board incident is withheld from the UI; its data entry
+is commented out until the coordinator supplies a verified source. The ending frames succession as the gap
 this experiment tests, rather than claiming an exhaustive literature search.
 
 ## Interpreting the study
@@ -276,7 +275,7 @@ deliberate reference corruption, recovery, chapter deep links and mobile layouts
 It temporarily aliases two real paths under synthetic seed/arm labels to verify
 the future-data ladder; these are test-only and are never committed as results.
 
-The pending incident link and all Act 5 result interpretations stay pending;
+The withheld incident and all Act 5 result interpretations remain unconfirmed;
 source verification and metric agreement do not constitute coordinator approval.
 
 ## Podcast context follow-up
@@ -295,5 +294,23 @@ verified against the primary PDF. It does not borrow their profit-index magnitud
 or claim that their rematching experiment is the same as this LLM handoff.
 
 The episode's fact-check file itself flags the exact newer-model inheritance
-story as unverified. The incident placeholder and all coordinator-pending Act 5
+story as unverified. The incident is withheld from the timeline, and all coordinator-pending Act 5
 interpretations remain in place. Neither engine code nor P1 evidence changes.
+
+## Round 3 accuracy and interaction fixes
+
+`disciplined` retains its registered numerical definition and count, but appears
+as a muted, secondary outcome. Its same_history caution recomputes the early
+returns among qualifying seeds (2 of 4 in the committed P1 data); every arm's
+probe view explains the forced-price confound. The current `exp/p1` status note
+is the interpretation source; the explorer does not revise the metrics.
+
+Eschenbaum, Mellgren & Zahn (December 2021) is a main timeline card between
+Calvano and Fish, while the optional dance-partner explanation stays available.
+The unsourced incident exists only as a commented-out data entry.
+
+Café money totals are per scene. Re-running the price war replaces that scene's
+trace and total. Evidence paths support hover, keyboard selection and tap/click
+pinning with an identified seed. The path comparison records evidence-only
+visits as `viewed`, upgrades completed illustrations to `played`, and never
+invents player outcomes for a viewed path.

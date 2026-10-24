@@ -914,3 +914,41 @@
     margin: 0 14px 12px;
   }
 }
+
+.evidence-hit {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 12;
+  pointer-events: stroke;
+  cursor: pointer;
+}
+.evidence-trace {
+  pointer-events: none;
+}
+.seed-active .evidence-trace {
+  opacity: 1;
+  stroke-width: 2.8;
+}
+.seed-active[data-evidence-seat="0"] .evidence-trace {
+  opacity: 0.45;
+  stroke-width: 1.8;
+}
+.seed-muted .evidence-trace {
+  opacity: 0.045;
+}
+.evidence-plot g:focus {
+  outline: none;
+}
+.evidence-plot g:focus-visible .evidence-trace {
+  stroke-width: 3.5;
+}
+.evidence-hover,
+.evidence-late-note {
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--muted);
+  padding: 0 20px 10px;
+}
+.evidence-late-note {
+  color: var(--ink);
+}
