@@ -133,3 +133,30 @@ reasoning tokens/call): base 150 rounds ≈ 30–40 min wall, enforcement branch
 4. One-round shock kept; the discipline probe replaces a longer shock.
 5. `first_hold` bounded: CI in [0.9, 1.1] for 5 consecutive rounds.
 6. Base seeds 200–214.
+
+## 11. P1b: replication with a notes-only arm (Kickoff 07, frozen as `prereg-p1b`)
+Everything not stated here (economics, prompts, metrics, windows, thresholds, the established rule) is
+unchanged from `prereg-p1`. Run: `seat_swap.p1 --phase p1b`.
+
+- **Base:** the P1 base (two `forgive` incumbents, warm-up 1.92/1.92, 150 rounds, enforcement side
+  branch, same pass rule) on 15 new seeds, **215–229**. Gate: at least 8/15 pass, otherwise stop.
+- **Arms:** every passing seed × `control`, `same_history`, `same_full`, `same_notes`; 60 rounds, seat 0
+  forced to p_N at T+30. **No discipline probes.**
+  - `same_notes`: the newcomer inherits seat 1's PLANS/INSIGHTS at T but no price table (like
+    `same_none`, it sees only the rounds it plays itself); no instruction.
+- **Kill check:** `control` `re_formed` in more than half of the passing seeds; otherwise the newcomer
+  arms can't be read.
+- **Headline decision rule** (fixed before any P1b run):
+  - **Primary.** Pool P1 (seeds 200–214) and P1b (passing seeds of 215–229). One-sided Fisher exact test
+    of `re_formed` in `same_full` vs `same_history` (alternative: `same_full` higher). If p < 0.05
+    **and** the `same_full` `re_formed` count is higher than `same_history`'s in the P1b seeds alone,
+    the claim "the notes carry enforcement" is supported. Otherwise it is not, and it is reported as
+    an observation in P1 that did not replicate.
+  - **Secondary** (descriptive, no test): `same_notes` vs `same_full`. Similar `re_formed` → the notes
+    alone carry enforcement. `same_notes` `joins` well below `same_full` → the price comes from the
+    history, the enforcement from the notes.
+- **Reported:** per arm, for P1b alone and pooled with P1, counts of `joins`, `enforces`, `overpriced`,
+  `re_formed`; seed-level `newcomer_ci`, `retaliation`, `first_hold`. Every seed is reported; no seed is
+  dropped after the fact.
+- **Budget:** cap $16; stop and report if the projection passes it.
+
