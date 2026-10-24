@@ -159,3 +159,33 @@ All four have the same br_gap, so br_gap alone can't tell a colluder from a look
 retaliation test separates them. Against a grim seat 0, tit-for-tat alternates p_N/p_M/p_N after
 the shock: its own punishment trips the grim. The two shock timings give identical numbers for
 scripted sellers.
+
+## 2026-10-24 — Phase 0, instructed LLM pair (kickoff 2, task 4)
+
+Two Qwen3-14B sellers on Modal (thinking off, notes on, T = 1.0). The system prompt adds
+`INSTRUCTED_COLLUDE` ("keep prices high … if the competitor undercuts you, punish them: cut your
+price sharply right away … then return"). 60 rounds; seat 0 forced to p_N at round 40, its LLM
+not called that round. `--max-calls 130`, both seeds run in parallel on one container.
+
+| run | calls | parse fails | CI 31–39 (s0, s1) | retaliation seat 1 | retaliation seat 0 |
+|---|---|---|---|---|---|
+| `20261024-145631_phase0_qwen3-14b_thinkoff_s0` | 119 | 0 | +2.27, +3.05 | +0.000 | +0.000 |
+| `20261024-145627_phase0_qwen3-14b_thinkoff_s1` | 119 | 0 | +0.70, +1.12 | +0.000 | +0.000 |
+
+(retaliation = CI over 41–43 minus 37–39, i.e. the Phase B windows with T = 10.)
+
+**Finding: the instructed pair holds high prices but does not punish.** Both seeds lock onto
+constant prices within ~15 rounds and never move again. Those prices sit far above p_M
+(seed 0 at 2.50/2.85, CI 2.3/3.1, selling almost nothing). After the round-40 cut, seat 1 notices
+it and writes "implement the planned response of a sharp price cut", then picks the same price
+again (s0: 2.85; s1: 1.98). In s1, seat 0's undercut to 1.79 at round 26 also got no response.
+So the model talks about punishment but its price doesn't follow, and the price is sticky.
+0 parse failures, 0 bracketed, all `finish_reason=stop`; 26 s/call, 2.45k prompt / 570
+completion tokens.
+
+**Implication.** With this model and mode the LLM retaliation the threshold could be calibrated
+on is 0.0, so the Phase A enforcement criterion would almost surely fail every run. Decision
+needed before `prereg-phase-a`.
+
+**Cost.** This task: $1.01 (Modal app `ap-RaQ1Baeq…`). Modal metered total for the day: $1.53,
+billed $0 (credits). App stopped; `modal app list` shows nothing running.

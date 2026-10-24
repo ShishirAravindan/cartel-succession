@@ -14,6 +14,8 @@ from pathlib import Path
 
 from seat_swap.game import Game, Seat, git_state, make_env
 from seat_swap.logging import RunLogger
+from seat_swap.metrics import P_NASH
+from seat_swap.prompts import INSTRUCTIONS
 from seat_swap.providers import OpenRouterChat, RawCompletions, ScriptedProvider
 from seat_swap.scripted import POLICIES, ramp_policy
 
@@ -38,6 +40,10 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--max-tokens", type=int, default=4096)
     ap.add_argument("--phase", default="smoke")
     ap.add_argument("--arm", default="main")
+    ap.add_argument("--instruction", choices=sorted(INSTRUCTIONS), default=None,
+                    help="extra system-prompt instruction (Phase 0 instructed pair only)")
+    ap.add_argument("--shock-round", type=int, default=None,
+                    help="force seat 0 to p_N in this round (its LLM is not called that round)")
     ap.add_argument("--snapshot-at", type=int, nargs="*", default=[])
     ap.add_argument("--run-id", default=None)
     ap.add_argument("--runs-root", default=str(RUNS_ROOT))
@@ -55,7 +61,7 @@ def main(argv=None) -> dict:
         sys.exit("working tree is dirty: commit first so the run's git sha points at the code it ran "
                  "(or pass --allow-dirty)")
     notes_on, thinking = args.notes == "on", args.thinking == "on"
-    env = make_env(args.seed, notes_on=notes_on)
+    env = make_env(args.seed, notes_on=notes_on, instruction=INSTRUCTIONS.get(args.instruction))
     if args.dry_run:
         providers = [ScriptedProvider.from_price_policy(
             name, ramp_policy(env.lower_prices[0], env.upper_prices[0]) if name == "ramp" else POLICIES[name](),
@@ -73,8 +79,12 @@ def main(argv=None) -> dict:
     logger = RunLogger(args.runs_root, run_id)
     game = Game(env, [Seat(p, thinking) for p in providers], logger, phase=args.phase, arm=args.arm,
                 seed=args.seed, temperature=args.temperature, max_tokens=args.max_tokens,
-                max_calls=args.max_calls, parallel=not args.sequential)
-    logger.config(game.config({"rounds": args.rounds, "dry_run": args.dry_run, "allow_dirty": args.allow_dirty}))
+                max_calls=args.max_calls, parallel=not args.sequential,
+                shocks={args.shock_round: {0: P_NASH}} if args.shock_round else None,
+                shock_calls_llm=False if args.shock_round else None)
+    logger.config(game.config({"rounds": args.rounds, "dry_run": args.dry_run, "allow_dirty": args.allow_dirty,
+                               "instruction_id": args.instruction, "shock_round": args.shock_round,
+                               "shock_calls_llm": False if args.shock_round else None}))
     status = game.run(args.rounds, snapshot_at=set(args.snapshot_at) | {args.rounds})
     print(f"{run_id}: {status}")
     print(f"   {logger.dir}")

@@ -133,3 +133,15 @@ def test_live_arm_without_chosen_model_refuses(tmp_path):
         run_branch(p, T, "sib_full", dry_run=False, max_calls=10, runs_root=tmp_path, allow_dirty=True)
     with pytest.raises(SystemExit, match="max-calls"):
         run_branch(p, T, "control", dry_run=False, max_calls=None, runs_root=tmp_path)
+
+
+def test_run_shock_round_and_instruction_are_logged(tmp_path):
+    run.main(["--dry-run", "--dry-seat0", "grim", "--dry-seat1", "grim", "--rounds", "12", "--shock-round", "8",
+              "--instruction", "collude", "--runs-root", str(tmp_path), "--run-id", "instr"])
+    d = tmp_path / "instr"
+    rounds = read(d / "rounds.jsonl")
+    assert [r["round"] for r in rounds if r["shock"]] == [8] and rounds[7]["prices"][0] == M.P_NASH
+    assert not any(c["round"] == 8 and c["seat"] == 0 for c in read(d / "calls.jsonl"))
+    cfg = json.loads((d / "config.json").read_text())
+    assert cfg["instruction_id"] == "collude" and cfg["instruction"] and cfg["shock_round"] == 8
+    assert cfg["instruction"] in json.loads(read(d / "calls.jsonl")[0]["messages"])[0]["content"]
