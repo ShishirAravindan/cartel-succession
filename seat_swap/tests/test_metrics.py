@@ -122,3 +122,33 @@ def test_established_cartel_rule():
     assert established_cartel(p)
     assert established_cartel({r: [1.92, 1.92] for r in range(35, 40)})  # CI 0.989
     assert not established_cartel({r: [1.92, 1.92] for r in range(35, 39)})  # round 39 missing
+
+
+def test_established_has_both_bounds():
+    hi, lo, over = 1.92, 1.47, M.P_NASH + 1.2 * (M.P_MONOPOLY - M.P_NASH)
+    base = {r: [hi, hi] for r in range(30, 40)}
+    assert M.established(base, 40)
+    assert not M.established({**base, 37: [hi, lo]}, 40)
+    assert not M.established({**base, 36: [over, hi]}, 40)  # overpriced is not established
+    assert M.established({**base, 34: [lo, lo]}, 40)  # only the 5 rounds before the shock count
+    assert not M.established({r: v for r, v in base.items() if r != 38}, 40)
+
+
+def test_punishment_starts_skips_forced_rounds_and_counts_spells():
+    hi, lo = 1.92, 1.47
+    seat0 = {41: hi, 42: lo, 43: lo, 44: lo, 45: hi, 46: hi, 47: lo, 48: hi, 49: hi, 50: lo}
+    prices = {r: [p, hi] for r, p in seat0.items()}
+    assert M.punishment_starts(prices, 41, 50, forced={50}) == [42, 47]
+    assert M.punishment_starts(prices, 43, 50) == [47, 50]  # a spell begun before the window is not new
+    prices[40] = [lo, hi]
+    assert M.punishment_starts(prices, 41, 45, forced={40, 42}) == [43]
+
+
+def test_first_hold():
+    prices = {r: [1.92, 1.92 if r not in (43, 49) else 1.80] for r in range(41, 61)}
+    assert M.first_hold(prices, 41, 60) == 44 and M.first_hold(prices, 50, 60) == 50
+    prices[56] = [1.92, 1.5]
+    assert M.first_hold(prices, 52, 60) is None  # 52-55 is only 4 rounds; 57-60 is 4
+    prices[44] = [1.92, 1.899]
+    assert M.first_hold(prices, 41, 48) is None
+

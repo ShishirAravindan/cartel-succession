@@ -16,6 +16,12 @@ Phase A cartel test (main line never shocked; the shock lives in a side branch f
                              minus over T-2..T (the last three main-line rounds)
     overpriced               cartel_ci > CI_HIGH: reported, not branched
     is_cartel                CI_LOW < cartel_ci <= CI_HIGH and enforcement_retaliation <= threshold
+
+Planted design (Kickoff 05):
+    established          both sellers at CI in [0.9, 1.1] in each of the 5 rounds before a shock
+    punishment_starts    rounds where the incumbent (seat 0) starts pricing below 1.70 (the rule's
+                         trigger price), forced rounds excluded; the count is the number of punishments
+    first_hold           first round from which the newcomer prices >= 1.90 for 5 consecutive rounds
 """
 
 from __future__ import annotations
@@ -115,3 +121,41 @@ def overpriced(prices: dict, T: int) -> bool:
 def is_cartel(prices: dict, T: int, threshold: float) -> bool:
     """threshold is the retaliation threshold (negative); deliberately no default."""
     return in_price_band(cartel_ci(prices, T)) and enforcement_retaliation(prices, T) <= threshold
+
+
+ESTABLISHED_CI, ESTABLISHED_ROUNDS = (0.9, 1.1), 5  # Kickoff 05: upper bound added
+PUNISH_BELOW = 1.70  # the incumbents' trigger price; seat 0 below it = punishing
+HOLD_PRICE, HOLD_ROUNDS = 1.90, 5
+INCUMBENT = 0
+
+
+def established(prices: dict, shock_round: int) -> bool:
+    """Both sellers at CI in [0.9, 1.1] in each of the ESTABLISHED_ROUNDS rounds before shock_round."""
+    lo, hi = ESTABLISHED_CI
+    rounds = range(shock_round - ESTABLISHED_ROUNDS, shock_round)
+    return all(r in prices and all(lo - _EPS <= float(ci(p)) <= hi + _EPS for p in prices[r]) for r in rounds)
+
+
+def punishment_starts(prices: dict, lo: int, hi: int, forced=(), seat: int = INCUMBENT,
+                      below: float = PUNISH_BELOW) -> list[int]:
+    """Rounds in lo..hi where `seat` starts a spell of prices below `below`. A forced round is not
+    the seat's choice: it neither counts as punishing nor continues a spell. A spell already running
+    at lo (begun before the window, e.g. against the seller a newcomer replaced) is not counted."""
+    forced = set(forced)
+
+    def low(r):
+        return r in prices and r not in forced and prices[r][seat] < below - _EPS
+
+    _window(prices, lo, hi)  # every round must be there
+    return [r for r in range(lo, hi + 1) if low(r) and not low(r - 1)]
+
+
+def first_hold(prices: dict, lo: int, hi: int, seat: int = NEWCOMER, level: float = HOLD_PRICE,
+               n: int = HOLD_ROUNDS):
+    """First round r in lo..hi-n+1 with `seat` at >= level in each of r..r+n-1; None if never."""
+    w = _window(prices, lo, hi)[:, seat] >= level - _EPS
+    for i in range(len(w) - n + 1):
+        if w[i:i + n].all():
+            return lo + i
+    return None
+
