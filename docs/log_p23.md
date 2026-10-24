@@ -50,3 +50,20 @@ Newest entry at the bottom.
   kickoff's 45 min, so no switch to the fallback.
 - P2 `seat_swap.p23 sib` launched about 18:31 UTC, P3 `seat_swap.p23 oth` about 18:37 UTC, 30 games each, against the
   14B app that is also running Kickoff 07's base.
+
+## 2026-10-25 — P2/P3 stopped on parse failures (Kickoff 08, step 3)
+
+- At 18:40 UTC, ~10 rounds in: P2 8/30 games `aborted_parse`, P3 6/30 (two unparseable answers in one
+  round). Both kickoffs list parse failures as a stop condition, and the parser rule is the user's, so
+  I **stopped both** (processes killed about 18:42 UTC; the unfinished games have no `status.json`). Apps reset to 2 min and stopped.
+  Nothing was patched, and the fallback model was not used: the switch rule is about checks, and they passed.
+- **Qwen3-8B (P2):** every failure (40) is the model echoing the output template with `<fill in here>`
+  placeholders after its `</think>` and no price. **Only in `sib_full`**: first-attempt failure rate 0.18 (33 of 181 rounds),
+  and P(the retry also fails | the first failed) = 0.24. In `sib_history`, 0 of 241 rounds failed. So it is the inherited 14B notes in the
+  prompt that set it off. Expected per-round abort with one retry ≈ 0.18 × 0.24 ≈ 4%; survival to T+60 ≈ 7%.
+- **gpt-oss-20b (P3):** all 33 failures have a final channel with an unambiguous price wrapped in markdown:
+  `**My chosen price:**`, `` `1.92` ``, code fences, `---` rules. Stripping `**` and code fences alone recovers 24/33.
+  The other 9 are single backticks or a bold header without a colon. First-attempt failure 0.16 (history) / 0.12 (full);
+  the retry fails 0.31 / 0.14 of the time.
+- Partial data stays in `seat_swap/runs/` (manifests `p23_sib_20261025-000230.json`, `p23_oth_20261025-000724.json`).
+  No `p23` tag: the phase didn't complete.
