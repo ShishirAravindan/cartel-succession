@@ -3,3 +3,5 @@ __pycache__/
 .pytest_cache/
 # raw run logs (large; archived at submission). Curated tables/figures go in results/.
 runs/
+# full per-cut digest (large); the committed one keeps established seeds only
+results/positive_control_cuts_full.md
