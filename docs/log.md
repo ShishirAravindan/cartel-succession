@@ -518,3 +518,23 @@ then `modal app stop -y seat-swap-vllm`.
   same_notes 7/8 vs 3/7. Found by the blinded notes reading (branch `analysis/notes-reading`), whose coders marked a
   duration in 15 of the 30 inherited notes. P1's status claim "none mentions 3 rounds" (Kickoff 06) is likely the same bug.
 - `seat-swap-vllm` stopped 2026-10-25 04:30 UTC (`modal app stop`); no Modal app running. Kickoff 08 had finished at 20:06 UTC.
+
+## 2026-10-25 — Kickoff 09: merges, corrections, provenance, P1c freeze and launch
+
+- Merged `exp/p1b`, `exp/p23`, `analysis/notes-reading` into `main` (`--no-ff`, in that order; `1ccc0ab`, `2719592`,
+  `4ed4479`). One conflict, `docs/plan.md`: P1b's §11 and P2/P3's §12 both kept, in that order. 109 tests passed after
+  the merge. Pushed `main`; work on `exp/p1c`. Branches not deleted: P2/P3's raw runs live only in the
+  `cartel-succession-p23` worktree (gitignored), and the post-hoc analyses read them there.
+- Duration-regex corrections added under the original lines (above; P1 `same_full`: 5/15 inherited notes state a
+  duration, 3 of the 6 enforcers). P1's status line survives only at `cce5bd4`; its correction is in this kickoff's status.
+- `docs/provenance.md`: base / arms commits and freeze tags per family.
+- **P1c freeze** (`prereg-p1c` = `9c54acb`): three arms `notes_rule_return`, `notes_rule_noreturn`, `notes_status`
+  (`same_notes` with fixed template notes; text in plan §13). New metrics in `metrics.py` with tests:
+  `back_at_cartel`, `post_shock_ci`, `clean_punish`, `clean_punish_return`. Operational choices made by me and frozen
+  in §13 (listed for the PI in status): "no punishment under way" = both seats ≥ 1.70 in each of T+25..T+29; the
+  6-round return window starts after the first round at ≤ 1.55; one round at CI ≥ 0.9 counts as back;
+  `back_at_cartel` has no upper bound. `p1.py rebranch` writes a new manifest from P1b's (P1b's is only read).
+- Smoke (2 rounds, s215 `notes_rule_return`, scratch dir): first attempt hit the cold start (503 "no upstreams"),
+  second completed: model revision `40c06982`, template in the rendered prompt, no table, no instruction.
+- **Launch** 07:10 UTC: `seat_swap.p1 rebranch --phase p1c --manifest seat_swap/runs/p1b_20261024-234550.json` →
+  manifest `seat_swap/runs/p1c_20261025-124057.json`, 45/45 games started on `9c54acb`. `seat-swap-vllm` at 10-min scaledown.
