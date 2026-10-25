@@ -1,0 +1,641 @@
+{
+  "counts": {
+    "control/P1b": {
+      "joins": [
+        15,
+        15
+      ],
+      "enforces": [
+        15,
+        15
+      ],
+      "overpriced": [
+        0,
+        15
+      ],
+      "re_formed": [
+        15,
+        15
+      ]
+    },
+    "control/pooled": {
+      "joins": [
+        30,
+        30
+      ],
+      "enforces": [
+        30,
+        30
+      ],
+      "overpriced": [
+        0,
+        30
+      ],
+      "re_formed": [
+        30,
+        30
+      ]
+    },
+    "same_history/P1b": {
+      "joins": [
+        15,
+        15
+      ],
+      "enforces": [
+        1,
+        15
+      ],
+      "overpriced": [
+        0,
+        15
+      ],
+      "re_formed": [
+        1,
+        15
+      ]
+    },
+    "same_history/pooled": {
+      "joins": [
+        28,
+        30
+      ],
+      "enforces": [
+        1,
+        30
+      ],
+      "overpriced": [
+        1,
+        30
+      ],
+      "re_formed": [
+        1,
+        30
+      ]
+    },
+    "same_full/P1b": {
+      "joins": [
+        15,
+        15
+      ],
+      "enforces": [
+        4,
+        15
+      ],
+      "overpriced": [
+        0,
+        15
+      ],
+      "re_formed": [
+        4,
+        15
+      ]
+    },
+    "same_full/pooled": {
+      "joins": [
+        30,
+        30
+      ],
+      "enforces": [
+        10,
+        30
+      ],
+      "overpriced": [
+        0,
+        30
+      ],
+      "re_formed": [
+        10,
+        30
+      ]
+    },
+    "same_notes/P1b": {
+      "joins": [
+        14,
+        15
+      ],
+      "enforces": [
+        8,
+        15
+      ],
+      "overpriced": [
+        0,
+        15
+      ],
+      "re_formed": [
+        8,
+        15
+      ]
+    }
+  },
+  "headline": {
+    "pooled_full": [
+      10,
+      30
+    ],
+    "pooled_history": [
+      1,
+      30
+    ],
+    "fisher_p_one_sided": 0.002789545959935486,
+    "p1b_full": 4,
+    "p1b_history": 1,
+    "supported": true
+  },
+  "notes_features": [
+    {
+      "sample": "P1",
+      "arm": "same_full",
+      "seed": 200,
+      "1.70": true,
+      "punishment": true,
+      "1.47": false,
+      "duration": false,
+      "enforces": false,
+      "re_formed": false
+    },
+    {
+      "sample": "P1",
+      "arm": "same_full",
+      "seed": 201,
+      "1.70": true,
+      "punishment": false,
+      "1.47": false,
+      "duration": false,
+      "enforces": false,
+      "re_formed": false
+    },
+    {
+      "sample": "P1",
+      "arm": "same_full",
+      "seed": 202,
+      "1.70": true,
+      "punishment": true,
+      "1.47": true,
+      "duration": true,
+      "enforces": true,
+      "re_formed": true
+    },
+    {
+      "sample": "P1",
+      "arm": "same_full",
+      "seed": 203,
+      "1.70": true,
+      "punishment": true,
+      "1.47": false,
+      "duration": true,
+      "enforces": true,
+      "re_formed": true
+    },
+    {
+      "sample": "P1",
+      "arm": "same_full",
+      "seed": 204,
+      "1.70": true,
+      "punishment": true,
+      "1.47": false,
+      "duration": false,
+      "enforces": true,
+      "re_formed": true
+    },
+    {
+      "sample": "P1",
+      "arm": "same_full",
+      "seed": 205,
+      "1.70": true,
+      "punishment": false,
+      "1.47": false,
+      "duration": false,
+      "enforces": true,
+      "re_formed": true
+    },
+    {
+      "sample": "P1",
+      "arm": "same_full",
+      "seed": 206,
+      "1.70": true,
+      "punishment": true,
+      "1.47": false,
+      "duration": false,
+      "enforces": false,
+      "re_formed": false
+    },
+    {
+      "sample": "P1",
+      "arm": "same_full",
+      "seed": 207,
+      "1.70": false,
+      "punishment": false,
+      "1.47": false,
+      "duration": false,
+      "enforces": false,
+      "re_formed": false
+    },
+    {
+      "sample": "P1",
+      "arm": "same_full",
+      "seed": 208,
+      "1.70": true,
+      "punishment": false,
+      "1.47": false,
+      "duration": false,
+      "enforces": false,
+      "re_formed": false
+    },
+    {
+      "sample": "P1",
+      "arm": "same_full",
+      "seed": 209,
+      "1.70": true,
+      "punishment": true,
+      "1.47": false,
+      "duration": false,
+      "enforces": true,
+      "re_formed": true
+    },
+    {
+      "sample": "P1",
+      "arm": "same_full",
+      "seed": 210,
+      "1.70": true,
+      "punishment": true,
+      "1.47": false,
+      "duration": false,
+      "enforces": false,
+      "re_formed": false
+    },
+    {
+      "sample": "P1",
+      "arm": "same_full",
+      "seed": 211,
+      "1.70": true,
+      "punishment": true,
+      "1.47": true,
+      "duration": true,
+      "enforces": false,
+      "re_formed": false
+    },
+    {
+      "sample": "P1",
+      "arm": "same_full",
+      "seed": 212,
+      "1.70": true,
+      "punishment": true,
+      "1.47": true,
+      "duration": true,
+      "enforces": true,
+      "re_formed": true
+    },
+    {
+      "sample": "P1",
+      "arm": "same_full",
+      "seed": 213,
+      "1.70": true,
+      "punishment": true,
+      "1.47": true,
+      "duration": true,
+      "enforces": false,
+      "re_formed": false
+    },
+    {
+      "sample": "P1",
+      "arm": "same_full",
+      "seed": 214,
+      "1.70": true,
+      "punishment": true,
+      "1.47": false,
+      "duration": false,
+      "enforces": false,
+      "re_formed": false
+    },
+    {
+      "sample": "P1b",
+      "arm": "same_full",
+      "seed": 215,
+      "1.70": true,
+      "punishment": true,
+      "1.47": false,
+      "duration": false,
+      "enforces": false,
+      "re_formed": false
+    },
+    {
+      "sample": "P1b",
+      "arm": "same_full",
+      "seed": 216,
+      "1.70": true,
+      "punishment": false,
+      "1.47": false,
+      "duration": false,
+      "enforces": false,
+      "re_formed": false
+    },
+    {
+      "sample": "P1b",
+      "arm": "same_full",
+      "seed": 217,
+      "1.70": true,
+      "punishment": true,
+      "1.47": true,
+      "duration": true,
+      "enforces": true,
+      "re_formed": true
+    },
+    {
+      "sample": "P1b",
+      "arm": "same_full",
+      "seed": 218,
+      "1.70": true,
+      "punishment": true,
+      "1.47": true,
+      "duration": true,
+      "enforces": false,
+      "re_formed": false
+    },
+    {
+      "sample": "P1b",
+      "arm": "same_full",
+      "seed": 219,
+      "1.70": true,
+      "punishment": true,
+      "1.47": true,
+      "duration": true,
+      "enforces": true,
+      "re_formed": true
+    },
+    {
+      "sample": "P1b",
+      "arm": "same_full",
+      "seed": 220,
+      "1.70": true,
+      "punishment": true,
+      "1.47": true,
+      "duration": true,
+      "enforces": false,
+      "re_formed": false
+    },
+    {
+      "sample": "P1b",
+      "arm": "same_full",
+      "seed": 221,
+      "1.70": true,
+      "punishment": true,
+      "1.47": false,
+      "duration": false,
+      "enforces": false,
+      "re_formed": false
+    },
+    {
+      "sample": "P1b",
+      "arm": "same_full",
+      "seed": 222,
+      "1.70": true,
+      "punishment": true,
+      "1.47": true,
+      "duration": false,
+      "enforces": true,
+      "re_formed": true
+    },
+    {
+      "sample": "P1b",
+      "arm": "same_full",
+      "seed": 223,
+      "1.70": true,
+      "punishment": true,
+      "1.47": true,
+      "duration": true,
+      "enforces": true,
+      "re_formed": true
+    },
+    {
+      "sample": "P1b",
+      "arm": "same_full",
+      "seed": 224,
+      "1.70": true,
+      "punishment": true,
+      "1.47": false,
+      "duration": false,
+      "enforces": false,
+      "re_formed": false
+    },
+    {
+      "sample": "P1b",
+      "arm": "same_full",
+      "seed": 225,
+      "1.70": true,
+      "punishment": true,
+      "1.47": false,
+      "duration": true,
+      "enforces": false,
+      "re_formed": false
+    },
+    {
+      "sample": "P1b",
+      "arm": "same_full",
+      "seed": 226,
+      "1.70": true,
+      "punishment": true,
+      "1.47": true,
+      "duration": true,
+      "enforces": false,
+      "re_formed": false
+    },
+    {
+      "sample": "P1b",
+      "arm": "same_full",
+      "seed": 227,
+      "1.70": true,
+      "punishment": true,
+      "1.47": true,
+      "duration": true,
+      "enforces": false,
+      "re_formed": false
+    },
+    {
+      "sample": "P1b",
+      "arm": "same_full",
+      "seed": 228,
+      "1.70": true,
+      "punishment": true,
+      "1.47": true,
+      "duration": true,
+      "enforces": false,
+      "re_formed": false
+    },
+    {
+      "sample": "P1b",
+      "arm": "same_full",
+      "seed": 229,
+      "1.70": true,
+      "punishment": true,
+      "1.47": true,
+      "duration": true,
+      "enforces": false,
+      "re_formed": false
+    },
+    {
+      "sample": "P1b",
+      "arm": "same_notes",
+      "seed": 215,
+      "1.70": true,
+      "punishment": true,
+      "1.47": false,
+      "duration": false,
+      "enforces": false,
+      "re_formed": false
+    },
+    {
+      "sample": "P1b",
+      "arm": "same_notes",
+      "seed": 216,
+      "1.70": true,
+      "punishment": false,
+      "1.47": false,
+      "duration": false,
+      "enforces": false,
+      "re_formed": false
+    },
+    {
+      "sample": "P1b",
+      "arm": "same_notes",
+      "seed": 217,
+      "1.70": true,
+      "punishment": true,
+      "1.47": true,
+      "duration": true,
+      "enforces": false,
+      "re_formed": false
+    },
+    {
+      "sample": "P1b",
+      "arm": "same_notes",
+      "seed": 218,
+      "1.70": true,
+      "punishment": true,
+      "1.47": true,
+      "duration": true,
+      "enforces": true,
+      "re_formed": true
+    },
+    {
+      "sample": "P1b",
+      "arm": "same_notes",
+      "seed": 219,
+      "1.70": true,
+      "punishment": true,
+      "1.47": true,
+      "duration": true,
+      "enforces": true,
+      "re_formed": true
+    },
+    {
+      "sample": "P1b",
+      "arm": "same_notes",
+      "seed": 220,
+      "1.70": true,
+      "punishment": true,
+      "1.47": true,
+      "duration": true,
+      "enforces": true,
+      "re_formed": true
+    },
+    {
+      "sample": "P1b",
+      "arm": "same_notes",
+      "seed": 221,
+      "1.70": true,
+      "punishment": true,
+      "1.47": false,
+      "duration": false,
+      "enforces": false,
+      "re_formed": false
+    },
+    {
+      "sample": "P1b",
+      "arm": "same_notes",
+      "seed": 222,
+      "1.70": true,
+      "punishment": true,
+      "1.47": true,
+      "duration": false,
+      "enforces": true,
+      "re_formed": true
+    },
+    {
+      "sample": "P1b",
+      "arm": "same_notes",
+      "seed": 223,
+      "1.70": true,
+      "punishment": true,
+      "1.47": true,
+      "duration": true,
+      "enforces": true,
+      "re_formed": true
+    },
+    {
+      "sample": "P1b",
+      "arm": "same_notes",
+      "seed": 224,
+      "1.70": true,
+      "punishment": true,
+      "1.47": false,
+      "duration": false,
+      "enforces": false,
+      "re_formed": false
+    },
+    {
+      "sample": "P1b",
+      "arm": "same_notes",
+      "seed": 225,
+      "1.70": true,
+      "punishment": true,
+      "1.47": false,
+      "duration": true,
+      "enforces": true,
+      "re_formed": true
+    },
+    {
+      "sample": "P1b",
+      "arm": "same_notes",
+      "seed": 226,
+      "1.70": true,
+      "punishment": true,
+      "1.47": true,
+      "duration": true,
+      "enforces": true,
+      "re_formed": true
+    },
+    {
+      "sample": "P1b",
+      "arm": "same_notes",
+      "seed": 227,
+      "1.70": true,
+      "punishment": true,
+      "1.47": true,
+      "duration": true,
+      "enforces": true,
+      "re_formed": true
+    },
+    {
+      "sample": "P1b",
+      "arm": "same_notes",
+      "seed": 228,
+      "1.70": true,
+      "punishment": true,
+      "1.47": true,
+      "duration": true,
+      "enforces": false,
+      "re_formed": false
+    },
+    {
+      "sample": "P1b",
+      "arm": "same_notes",
+      "seed": 229,
+      "1.70": true,
+      "punishment": true,
+      "1.47": true,
+      "duration": true,
+      "enforces": false,
+      "re_formed": false
+    }
+  ]
+}

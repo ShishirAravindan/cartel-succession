@@ -3,6 +3,11 @@
     uv run --project seat_swap python -m seat_swap.p1 base --dry-run --runs-root /tmp/x     # zero API calls
     uv run --project seat_swap python -m seat_swap.p1 arms --dry-run --runs-root /tmp/x --manifest /tmp/x/p1_<id>.json
     uv run --project seat_swap python -m seat_swap.p1 selftest                               # both stages, dry, asserts
+    uv run --project seat_swap python -m seat_swap.p1 base --phase p1b ...                   # Kickoff 07 replication
+
+`--phase` picks the seeds, the arms and whether probes run (PHASES): `p1` (Kickoff 06) or `p1b`
+(Kickoff 07: seeds 215-229, control / same_history / same_full / same_notes, no probes). Stage arms
+reads the phase from the manifest.
 
 Stage `base`: 15 base games (seeds 200-214; two `forgive` incumbents, warm-up 1.92/1.92, 150 rounds,
 thinking on) in parallel, then each seed's 10-round enforcement side branch (threshold -0.3). Writes
@@ -36,6 +41,9 @@ T = 150
 THRESHOLD = -0.3
 GATE_MIN = 8
 P1_ARMS = ["control", "same_history", "same_none", "same_full", "lookalike"]
+P1B_ARMS = ["control", "same_history", "same_full", "same_notes"]
+PHASES = {"p1": {"seeds": SEEDS, "arms": P1_ARMS, "probes": True},
+          "p1b": {"seeds": list(range(215, 230)), "arms": P1B_ARMS, "probes": False}}
 MAX_CALLS = {"base": 340, "enforce": 30, "arm": 135, "probe": 32}  # with headroom for retries
 
 
@@ -44,18 +52,21 @@ def write(manifest: dict, path: Path, lock: Lock) -> None:
         path.write_text(json.dumps(manifest, indent=2))
 
 
-def stage_base(runs_root: Path, dry_run: bool, seeds=SEEDS, rounds: int = T, gate_min: int = GATE_MIN) -> Path:
+def stage_base(runs_root: Path, dry_run: bool, seeds=None, rounds: int = T, gate_min: int = GATE_MIN,
+               phase: str = "p1") -> Path:
+    seeds = seeds or PHASES[phase]["seeds"]
     stamp = time.strftime("%Y%m%d-%H%M%S")
-    path = runs_root / f"p1_{stamp}.json"
+    path = runs_root / f"{phase}_{stamp}.json"
     lock = Lock()
-    manifest = {"created": stamp, "dry_run": dry_run, "T": rounds, "threshold": THRESHOLD, "seeds": seeds, "gate_min": gate_min,
-                "base": {}, "enforce": {}, "arms": {}, "probes": {}}
+    manifest = {"created": stamp, "phase": phase, "dry_run": dry_run, "T": rounds, "threshold": THRESHOLD,
+                "seeds": seeds, "gate_min": gate_min, "arm_names": PHASES[phase]["arms"],
+                "run_probes": PHASES[phase]["probes"], "base": {}, "enforce": {}, "arms": {}, "probes": {}}
     tag = "dry-grim-grim" if dry_run else "qwen3-14b"
 
     def base(seed):
-        run_id = f"{stamp}_p1-base_{tag}_thinkon_s{seed}"
+        run_id = f"{stamp}_{phase}-base_{tag}_thinkon_s{seed}"
         argv = ["--rounds", str(rounds), "--seed", str(seed), "--instruction", "forgive", "--warmup", "cartel",
-                "--thinking", "on", "--phase", "p1-base", "--run-id", run_id, "--runs-root", str(runs_root)]
+                "--thinking", "on", "--phase", f"{phase}-base", "--run-id", run_id, "--runs-root", str(runs_root)]
         argv += ["--dry-run", "--dry-seat0", "grim", "--dry-seat1", "grim"] if dry_run else \
             ["--provider", "modal", "--max-calls", str(MAX_CALLS["base"])]
         try:
@@ -104,7 +115,9 @@ def stage_arms(manifest_path: Path, runs_root: Path, dry_run: bool) -> dict:
         raise SystemExit("manifest and --dry-run disagree")
     lock = Lock()
     T_ = m["T"]
-    probes = ThreadPoolExecutor(max_workers=len(m["passing"]) * len(P1_ARMS))
+    arms = m.get("arm_names", P1_ARMS)  # P1 manifests predate the field
+    run_probes = m.get("run_probes", True)
+    probes = ThreadPoolExecutor(max_workers=len(m["passing"]) * len(arms))
     futures = []
 
     def probe(arm_dir: Path, seed: int, arm: str):
@@ -129,13 +142,13 @@ def stage_arms(manifest_path: Path, runs_root: Path, dry_run: bool) -> dict:
         try:
             d, s = run_branch(base_dir, T_, arm, dry_run=dry_run, threshold=THRESHOLD,
                               max_calls=None if dry_run else MAX_CALLS["arm"], dry_seat0="grim", dry_seat1="copier",
-                              runs_root=runs_root, on_probe_fork=fork)
+                              runs_root=runs_root, on_probe_fork=fork if run_probes else None)
             m["arms"][f"{seed}/{arm}"] = {"dir": str(d), **s}
         except BaseException as e:  # noqa: BLE001
             m["arms"][f"{seed}/{arm}"] = {**m["arms"].get(f"{seed}/{arm}", {}), "status": "error", "error": repr(e)}
         write(m, manifest_path, lock)
 
-    jobs = [(s, a) for s in m["passing"] for a in P1_ARMS]
+    jobs = [(s, a) for s in m["passing"] for a in arms]
     with ThreadPoolExecutor(max_workers=len(jobs)) as ex:
         list(ex.map(arm_job, jobs))
     for f in list(futures):
@@ -154,6 +167,11 @@ def stage_arms(manifest_path: Path, runs_root: Path, dry_run: bool) -> dict:
 
 def selftest() -> None:
     root = Path(tempfile.mkdtemp(prefix="p1_selftest_"))
+    path = stage_base(root, dry_run=True, seeds=PHASES["p1b"]["seeds"][:2], rounds=40, gate_min=2, phase="p1b")
+    m = stage_arms(path, root, dry_run=True)
+    assert sorted(k.split("/")[1] for k in m["arms"]) == sorted(P1B_ARMS * 2) and not m["probes"]
+    assert all(a["status"] == "completed" for a in m["arms"].values())
+    print("selftest p1b ok: four arms per seed, no probes")
     path = stage_base(root, dry_run=True, seeds=SEEDS[:2], rounds=40, gate_min=2)
     m = stage_arms(path, root, dry_run=True)
     assert len(m["arms"]) == len(m["probes"]) == 2 * len(P1_ARMS)
@@ -169,12 +187,13 @@ def main(argv=None):
     ap.add_argument("stage", choices=["base", "arms", "selftest"])
     ap.add_argument("--dry-run", action="store_true", help="scripted sellers, zero API calls")
     ap.add_argument("--manifest", type=Path, help="stage arms: the manifest written by stage base")
+    ap.add_argument("--phase", choices=list(PHASES), default="p1", help="stage base: seeds, arms and probes")
     ap.add_argument("--runs-root", type=Path, default=RUNS_ROOT)
     args = ap.parse_args(argv)
     if args.stage == "selftest":
         return selftest()
     if args.stage == "base":
-        return stage_base(args.runs_root, args.dry_run)
+        return stage_base(args.runs_root, args.dry_run, phase=args.phase)
     if not args.manifest:
         sys.exit("stage arms needs --manifest")
     return stage_arms(args.manifest, args.runs_root, args.dry_run)

@@ -468,3 +468,48 @@ then `modal app stop -y seat-swap-vllm`.
   App stopped 16:45 UTC, redeployed at 2 min scaledown, stopped.
 - Commits: the base ran on `650e722` (= `prereg-p1`); the arms and probes ran on `47138da` (status-only commit
   after the gate, per the coordinator). Tag `p1` → `47138da`.
+
+## 2026-10-25 — P1b setup, base and gate (Kickoff 07, steps 1–4.1)
+
+- `exp/p1` merged into `main` (`--no-ff`, `d821918`) and pushed; work on `exp/p1b`.
+- New arm `same_notes` (`branch.py`: inherit `notes`, the newcomer sees only its own rounds, no instruction) with a
+  test of its first prompt (notes in, no round before T+1, no instruction text). `p1.py --phase p1b` (seeds 215–229,
+  four arms, no probes); `p1_report` writes `<phase>.*` and reads arms from the manifest (P1 output reproduced
+  byte-identical). Decisions recorded in the working model; plan §11 pre-registers P1b with the headline rule.
+  Tagged `prereg-p1b` (`9e44323`).
+- **Base** `20261024-234550_p1b-base_qwen3-14b_thinkon_s{215..229}` (code `9e44323`): 15/15 completed, cartel_ci +0.989 in
+  all, enforcement retaliation −0.996 (7), −0.664 (7), −0.332 (s225). **Gate 15/15 → arms.** 18:13–19:22 UTC,
+  slower from 18:30 UTC while P2/P3 also called the 14B app.
+- Status with the base table committed and pushed before the arms (as the kickoff says). The arms run on that commit.
+
+## 2026-10-25 — P1b budget cap raised to $20 (coordinator)
+
+- Coordinator's decision during the run (about 19:35 UTC): **P1b cap $20** (was $16). P1b has priority: if total spend would
+  pass the caps, the P2/P3 games are stopped first, never P1b. P2 ($9) and P3 ($11) caps are unchanged.
+- Projection at that time: P1b ≈ $14–15 (base ≈ $5 on the shared 14B app, arms ≈ 1.6 h at two containers, split by calls with
+  the P2/P3 seat-0 load).
+
+## 2026-10-25 — P1b arms: results (Kickoff 07, steps 4–6)
+
+- Arms `20261025-0054*_phaseB_{control,same_history,same_full,same_notes}_s{215..229}_*`, 60/60 completed, 19:25–20:33 UTC,
+  code `24f922b` (status-only commit after the gate), tag `p1b`. 0 aborts. Kill check `control` re_formed 15/15.
+- P1b (joins / enforces / overpriced / re_formed): control 15/15/0/15; same_history 15/1/0/1; same_full 15/4/0/4; same_notes 14/8/0/8.
+  Pooled with P1: same_history 28/1/1/1 of 30; same_full 30/10/0/10 of 30.
+- **Headline rule: supported.** Pooled one-sided Fisher p = 0.0028 (same_full 10/30 vs same_history 1/30); P1b alone 4 vs 1.
+- Secondary: same_notes re_formed 8/15 ≥ same_full 4/15, joins 14/15, so the notes alone carry enforcement (and the price).
+- P1b enforcements are nearly all drops to 1.47 right after the shock (unlike P1). P1's six same_full enforcers: 4 real
+  (s202, 203, 209, 212), s204 partial/sticky, s205 a metric artefact (overpriced pre-window).
+- Notes features: 1.70 in nearly all inherited notes; "1.47" more often in enforcers' notes (13/18 vs 11/27); no duration ever.
+- `seat_swap/p1b_analysis.py` (pooled tables, headline rule, §5 tables) → `results/p1b_analysis.{md,json}`.
+- Cost split by generated tokens: P1b ≈ $12 of the 14B app's ≈ $16.6 (20:00 UTC hour estimated); Kickoff 08 seat 0 ≈ $4.7.
+- `seat-swap-vllm` back to 2 min scaledown, not stopped (Kickoff 07 finish).
+- Failures over the 90 P1b games: 1 parse (retry ok), 6 transport (retry ok), 0 aborts.
+- Final cost (20:00 UTC hour billed): 14B app $17.40 tonight; **P1b $12.69**, Kickoff 08 seat 0 $4.71. Sprint ≈ $55.8.
+
+## 2026-10-25 — Correction: duration regex in the notes-features table
+
+- `p1b_analysis` matched "3 rounds" but not the hyphenated "3-round" that the notes actually use, so its duration column read
+  0 everywhere. Fixed (`[\s-]+`) and regenerated: duration is stated in same_full 6/10 enforcers vs 9/20 non-enforcers,
+  same_notes 7/8 vs 3/7. Found by the blinded notes reading (branch `analysis/notes-reading`), whose coders marked a
+  duration in 15 of the 30 inherited notes. P1's status claim "none mentions 3 rounds" (Kickoff 06) is likely the same bug.
+- `seat-swap-vllm` stopped 2026-10-25 04:30 UTC (`modal app stop`); no Modal app running. Kickoff 08 had finished at 20:06 UTC.

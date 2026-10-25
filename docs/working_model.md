@@ -88,7 +88,7 @@ Collusion index CI = (p − p_N) / (p_M − p_N).
   2. in a 10-round side branch forked at round 150, one seller forced to p_N for one round, the other retaliates past the retaliation threshold.
   The main line is never shocked before branching.
 - Phase B: branch cartel runs at T = 150 into arms, 60 rounds each. Arm names (use exactly these strings):
-  `control`, `same_history`, `same_none`, `same_full` (added Kickoff 05), `lookalike`, `sib_full`, `sib_history`, `sib_none`, `oth_full`, `oth_history`, `oth_none`, `lookalike_oth`.
+  `control`, `same_history`, `same_none`, `same_full` (added Kickoff 05), `same_notes` (added Kickoff 07), `lookalike`, `sib_full`, `sib_history`, `sib_none`, `oth_full`, `oth_history`, `oth_none`, `lookalike_oth`.
   - history = price/profit table; notes = plans-and-insights scratchpad; full = both.
   - lookalike: seat 0 becomes a scripted seller that repeats its last price and never reacts; newcomer in seat 1 gets history.
 - Shock: in every Phase B arm, at round T+30 seat 0 is forced to p_N for one round.
@@ -164,3 +164,10 @@ Dated; the user's call unless marked *(coder, approved)*. Details and reasons ar
   - Base seeds: 200–214.
 - **Discipline probe** (2026-10-24, Kickoff 06): side branch `discipline` forked at T+15 from every P1 arm branch; seat 1 forced to 1.60 at T+16 (LLM not called, notes unchanged); T+17..T+29 played; 14 rounds. Metrics `probe_punished`, `probe_counter`, `probe_return`, `probe_ci_post`, `disciplined` (`docs/plan.md` §5). `control` is its positive control.
 - **P1 budget** (2026-10-24, Kickoff 06): ~~$14 cap~~ raised to **$20** by the coordinator during the run (actual $17.56).
+- **Discipline probe, final** (2026-10-24, Kickoff 07): P1's probe is reported as is, with the remaining confound
+  stated: the forced price looks like the newcomer's own profitable experiment. No follow-up probe.
+- **P1b** (2026-10-24, Kickoff 07): replication of `same_full` vs `same_history` on new base seeds 215–229 (same base
+  and gate as P1), arms `control`, `same_history`, `same_full`, `same_notes`, 60 rounds, shock T+30, no probes.
+  `same_notes` = seat 1's PLANS/INSIGHTS at T, no price table (sees only its own rounds), no instruction. Decision
+  rule fixed before the runs (`docs/plan.md` §11): pooled P1 + P1b one-sided Fisher on `re_formed`, `same_full` >
+  `same_history`, p < 0.05 **and** `same_full` higher in P1b alone → "notes carry enforcement" supported. Budget cap ~~$16~~ **$20** (coordinator, 2026-10-25; P1b has priority: if spend would pass the caps, P2/P3 games stop first, never P1b).
