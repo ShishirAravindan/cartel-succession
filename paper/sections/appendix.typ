@@ -60,7 +60,7 @@ Before any newcomer arrives, each base had to pass a pre-registered gate:
 + *Holds:* the market's mean CI over rounds 121–150 is in $(0.5, 1.1]$.
 + *Enforces:* in a side branch from round 150, seat 0 is shocked at round 151, and seat 1 punishes: its mean CI over rounds 152–154 is at least 0.3 below its mean over rounds 148–150. The main line, from which the arms branch, is never shocked.
 
-All 30 bases passed both checks. The positive control described in @sec:succession passed on both sets of bases: Control is scored `re_formed` in 15/15 games on Set A and in 15/15 on Set B.
+All 30 bases passed both checks. The positive control described in @sec:arms passed on both sets of bases: Control is scored `re_formed` in 15/15 games on Set A and in 15/15 on Set B.
 
 == Implementation and tools <app:tools>
 
@@ -114,7 +114,7 @@ Does the newcomer's behaviour depend on an incumbent that reacts? In Look-alike,
 
 == Fixed note templates <app:templates>
 
-This experiment (pre-registered, on Set B) asks whether the wording of the rule matters, by replacing the inherited notes with fixed templates. Both pre-registered predictions failed (@fig:p1c). The rule with its return clause re-formed the cartel in 3/15 games, against 0/15 for a status line ($p = .112$). The return clause did not raise `back_at_cartel`: 8/15 with it, 10/15 without ($p = .868$). The status template behaved like history alone, as predicted. Descriptively, the template transferred less enforcement than the real notes on the same bases: 3/15 vs 8/15 for Notes ($p = .064$). None of the 7 template games scored `re_formed` is at the cartel price at the end (0/7 `back_at_cartel`). We do not claim to know why a cleaner statement of the same rule did not help. Changing the text an LLM pricing agent reads often has only partial effects. Elsewhere, a prompt-only antitrust warning reduced supracompetitive pricing without eliminating it @garra2026.
+This experiment (pre-registered, on Set B) asks whether the wording of the rule matters, by replacing the inherited notes with fixed templates. Both pre-registered predictions failed (@fig:p1c). The rule with its return clause was scored `re_formed` in 3/15 games, against 0/15 for a status line ($p = .112$). The return clause did not raise `back_at_cartel`: 8/15 with it, 10/15 without ($p = .868$). The status template behaved like history alone, as predicted. Descriptively, the template transferred less enforcement than the real notes on the same bases: 3/15 vs 8/15 for Notes ($p = .064$†). None of the 7 template games scored `re_formed` is at the cartel price at the end (0/7 `back_at_cartel`). We do not claim to know why a cleaner statement of the same rule did not help. Changing the text an LLM pricing agent reads often has only partial effects. Elsewhere, a prompt-only antitrust warning reduced supracompetitive pricing without eliminating it @garra2026.
 
 #fig("fig6_p1c") <fig:p1c>
 
@@ -122,7 +122,7 @@ This experiment (pre-registered, on Set B) asks whether the wording of the rule 
 
 On Set A we also replaced seat 1 with a smaller model from the same family (Qwen3-8B) and a model from another family (gpt-oss-20b), each inheriting the history, or the history and notes (@fig:models). We report these descriptively: the history + notes vs history tests give $p approx .10$ at this sample size. Qwen3-8B with history and notes has 14 games, because one base (seed 212) aborted on unparseable output in both attempts, so it is not missing at random. These runs also used a more permissive parser (3 retries vs 1), and gpt-oss ran with Qwen's sampling settings.
 
-The Qwen3-8B sibling joins from history alone (`joins` 15/15) and never enforces from it (0/15). With history and notes it re-forms in 3/14 games.
+The Qwen3-8B sibling joins from history alone (`joins` 15/15) and never enforces from it (0/15). With history and notes it is scored `re_formed` in 3/14 games.
 
 #fig("fig4_models") <fig:models>
 
