@@ -512,3 +512,4 @@ then `modal app stop -y seat-swap-vllm`.
   0 everywhere. Fixed (`[\s-]+`) and regenerated: duration is stated in same_full 6/10 enforcers vs 9/20 non-enforcers,
   same_notes 7/8 vs 3/7. Found by the blinded notes reading (branch `analysis/notes-reading`), whose coders marked a
   duration in 15 of the 30 inherited notes. P1's status claim "none mentions 3 rounds" (Kickoff 06) is likely the same bug.
+- `seat-swap-vllm` stopped 2026-10-25 04:30 UTC (`modal app stop`); no Modal app running. Kickoff 08 had finished at 20:06 UTC.

@@ -178,5 +178,6 @@ Sprint total ≈ $27.6 + tonight $28.17 (14B app $17.40, 8B app $4.72, gpt-oss a
 checkpoint, inside the caps the coordinator set.
 
 ## Modal state
-`seat-swap-vllm` redeployed with `scaledown_window` 2 min at 20:34 UTC and **not stopped** (Kickoff 07's finish
-rule); it scales to zero when idle. `seat-swap-vllm-8b` and `seat-swap-vllm-oth` stopped (Kickoff 08).
+All apps stopped. `seat-swap-vllm` was left running at a 2-min scaledown at 20:34 UTC (Kickoff 07's finish rule, in case Kickoff 08
+still needed it); Kickoff 08 had finished at 20:06 UTC, so it was stopped on 2026-10-25 at 04:30 UTC (`modal app stop`).
+`seat-swap-vllm-8b` and `seat-swap-vllm-oth` were stopped by Kickoff 08.
