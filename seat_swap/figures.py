@@ -372,7 +372,7 @@ def fig5(games) -> None:
     save(fig, "fig5_after_shock",
          "Triggered, then undercut. Mean seat-1 CI around the shock (T+30), with 95% intervals for the two "
          "highlighted groups. Notes-arm newcomers scored `re_formed` (History + notes and Notes) cut "
-         "to about Nash and mostly stay low (4 of 18 back at the cartel price in T+51..T+60). The instructed "
+         "to about Nash and mostly stay low (4 of 18 `back_at_cartel`). The instructed "
          "incumbent in Control punishes for one to four rounds (three in 23 of 30) and returns. Grey: notes-arm "
          "newcomers not scored `re_formed`, and History (dashed). The split is pre-registered; this reading of it "
          "is post hoc.")

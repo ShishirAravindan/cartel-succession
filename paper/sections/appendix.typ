@@ -81,6 +81,8 @@ The main experiment also pre-registered a discipline probe on Set A: a side bran
 
 == Before the shock <app:preshock>
 
+#fig("fig2_price_paths") <fig:paths>
+
 #figure(
   table(
     columns: 3,
