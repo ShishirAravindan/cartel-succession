@@ -460,6 +460,9 @@ then `modal app stop -y seat-swap-vllm`.
 - Established-only retaliation (plan §6): control −0.929 (15/15), same_history +0.000 (0/14), same_none
   −0.015 (0/5), same_full −0.215 (5/14), lookalike +0.012 (0/13).
 - `same_full` notes: 14/15 mention 1.70, 11/15 punishment, 4/15 1.47, 0/15 three rounds.
+  - **Correction (2026-10-25, see `72d5986`):** "0/15 three rounds" is wrong: the regex missed the hyphenated "3-round".
+    With the fixed regex, 5/15 P1 `same_full` inherited notes state a duration (3 of the 6 enforcers). The same error is in
+    P1's status (`cce5bd4`, "none mentions 3 rounds").
 - Failures across the 150 arm and probe games: 2 parse (retry ok), 13 transport (retry ok).
 - `same_none`: 6/15 overpriced ($2.89 anchor), several settle at 1.69, just under the 1.70 trigger.
 - Timing: arms 70.8 s/call, probes 121.5 s/call (≈ 300 streams on 2 H100s at peak); newcomers 992
@@ -500,6 +503,8 @@ then `modal app stop -y seat-swap-vllm`.
 - P1b enforcements are nearly all drops to 1.47 right after the shock (unlike P1). P1's six same_full enforcers: 4 real
   (s202, 203, 209, 212), s204 partial/sticky, s205 a metric artefact (overpriced pre-window).
 - Notes features: 1.70 in nearly all inherited notes; "1.47" more often in enforcers' notes (13/18 vs 11/27); no duration ever.
+  - **Correction (2026-10-25, see `72d5986`):** "no duration ever" is wrong (same regex bug). A duration is stated in
+    same_full 6/10 enforcers vs 9/20 non-enforcers (P1 + P1b), same_notes 7/8 vs 3/7.
 - `seat_swap/p1b_analysis.py` (pooled tables, headline rule, §5 tables) → `results/p1b_analysis.{md,json}`.
 - Cost split by generated tokens: P1b ≈ $12 of the 14B app's ≈ $16.6 (20:00 UTC hour estimated); Kickoff 08 seat 0 ≈ $4.7.
 - `seat-swap-vllm` back to 2 min scaledown, not stopped (Kickoff 07 finish).
