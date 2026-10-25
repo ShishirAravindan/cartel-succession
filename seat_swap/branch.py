@@ -14,7 +14,9 @@ given model that inherits the given part of seat 1's state:
     history = the price/profit table up to T;  notes = seat 1's PLANS + INSIGHTS at T.
 A newcomer never inherits seat 1's instruction (planted design, Kickoff 05), so `same_full`
 (history + notes, no instruction) differs from `control`, which replaces no one, and `same_notes`
-(notes, no table: it sees only the rounds it plays) isolates the notes (Kickoff 07).
+(notes, no table: it sees only the rounds it plays) isolates the notes (Kickoff 07). The P1c arms
+`notes_rule_return`, `notes_rule_noreturn` and `notes_status` (Kickoff 09) are `same_notes` with seat 1's
+notes replaced by a fixed template (`prompts.NOTES_TEMPLATES`), identical across seeds.
 
 Enforcement test (`enforce`, Phase A): 10 rounds T+1..T+10 with nobody replaced and seat 0
 forced to p_N at T+1; metrics.enforcement_retaliation measures seat 1.
@@ -45,6 +47,7 @@ from seat_swap import metrics as M
 from seat_swap.game import Game, Seat, git_state, restore_env
 from seat_swap.logging import RunLogger
 from seat_swap.model_config import MODEL_NAME
+from seat_swap.prompts import NOTES_TEMPLATES
 from seat_swap.providers import OpenRouterChat, RawCompletions, ScriptedProvider
 from seat_swap.run_report import read_jsonl
 from seat_swap.scripted import POLICIES, lookalike
@@ -73,6 +76,7 @@ class Arm:
     seat0: str = "incumbent"             # "incumbent" or "lookalike"
     newcomer: Optional[str] = None       # model family key in SELLER_MODELS; None = no replacement
     inherit: Optional[str] = None        # key in INHERITANCE
+    notes: Optional[str] = None          # key in NOTES_TEMPLATES: replaces the inherited notes (P1c)
 
 
 ARMS = {a.name: a for a in [
@@ -89,8 +93,12 @@ ARMS = {a.name: a for a in [
     Arm("oth_history", newcomer="oth", inherit="history"),
     Arm("oth_none", newcomer="oth", inherit="none"),
     Arm("lookalike_oth", seat0="lookalike", newcomer="oth", inherit="history"),
+    # Kickoff 09 (P1c): same_notes with fixed template notes
+    Arm("notes_rule_return", newcomer="same", inherit="notes", notes="rule_return"),
+    Arm("notes_rule_noreturn", newcomer="same", inherit="notes", notes="rule_noreturn"),
+    Arm("notes_status", newcomer="same", inherit="notes", notes="status"),
 ]}
-assert len(ARMS) == 13
+assert len(ARMS) == 16
 
 
 def apply_inheritance(env, seat: int, inherit: str) -> None:
@@ -165,6 +173,8 @@ def run_branch(parent_dir: Path, T: int, arm: str, *, dry_run: bool, max_calls: 
         rounds, shocks = rounds or PHASE_B_ROUNDS, {T + (shock_offset or SHOCK_OFFSET): {0: M.P_NASH}}
         if spec.newcomer:
             apply_inheritance(env, 1, spec.inherit)
+        if spec.notes:
+            env.notes[1] = dict(NOTES_TEMPLATES[spec.notes])
 
     seat_models = [cfg["seats"][0]["model"], SELLER_MODELS[spec.newcomer] if spec.newcomer else cfg["seats"][1]["model"]]
     if dry_run:
@@ -188,7 +198,7 @@ def run_branch(parent_dir: Path, T: int, arm: str, *, dry_run: bool, max_calls: 
                 shocks=shocks, shock_calls_llm=False, parallel=parallel)
     logger.config(game.config({
         "parent_run_id": cfg["run_id"], "parent_git": cfg["git"], "branch_T": T, "rounds": rounds,
-        "arm_spec": asdict(spec), "newcomer_model": seat_models[1] if spec.newcomer else None,
+        "arm_spec": asdict(spec), "notes_template": NOTES_TEMPLATES.get(spec.notes), "newcomer_model": seat_models[1] if spec.newcomer else None,
         "inheritance": INHERITANCE.get(spec.inherit) and dict(zip(("history", "notes"), INHERITANCE[spec.inherit])),
         "shocks": {str(r): {str(s): p for s, p in v.items()} for r, v in shocks.items()},
         "shock_calls_llm": False, "threshold": threshold,

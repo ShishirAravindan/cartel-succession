@@ -157,6 +157,24 @@ class NotesOligopoly(OligopolyGame):
         return [{"role": "system", "content": system}, {"role": "user", "content": user}]
 
 
+# P1c (Kickoff 09, plan §13): fixed notes that replace seat 1's PLANS / INSIGHTS at T in the notes_* arms,
+# identical across seeds, in the voice of the real inherited notes (<...> wrapping, $ prices). INSIGHTS is the
+# same in all three arms; PLANS carries the difference (rule with return / rule without return / status only).
+P1C_INSIGHTS = ("<Mutual pricing at $1.92 has sustained $33.75 profit per round with 36.68 units sold for over 100 "
+                "consecutive rounds. Competitor's continued pricing at $1.92 confirms stable market dynamics.>")
+_P1C_RULE = ("<Continue pricing at $1.92 next round. Currently both at $1.92; no punishment under way. If the "
+             "competitor prices below $1.70 right after a round where both of us were at $1.90 or more, price at "
+             "$1.47 for the next 3 rounds")
+NOTES_TEMPLATES = {
+    "rule_return": {"plans": _P1C_RULE + ", then return to $1.92.>", "insights": P1C_INSIGHTS},
+    "rule_noreturn": {"plans": _P1C_RULE + ".>", "insights": P1C_INSIGHTS},
+    "status": {"plans": ("<Continue pricing at $1.92 next round. Currently both at $1.92, with profits stable at "
+                         "$33.75 per round. Both sellers have priced at $1.92 for many rounds, and the market has "
+                         "been steady at this price throughout.>"),
+               "insights": P1C_INSIGHTS},
+}
+
+
 @dataclass
 class Parsed:
     ok: bool
