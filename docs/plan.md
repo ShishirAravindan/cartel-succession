@@ -160,3 +160,45 @@ unchanged from `prereg-p1`. Run: `seat_swap.p1 --phase p1b`.
   dropped after the fact.
 - **Budget:** cap $16, raised to **$20** by the coordinator during the run (2026-10-25); P1b has priority over P2/P3.
 
+## 12. P2/P3: different-model newcomers (Kickoff 08, frozen as `prereg-p23`)
+Numbered 12 so it doesn't clash with P1b's §11 on `exp/p1b`. Everything not stated here is unchanged
+from `prereg-p1`. Run: `seat_swap.p23 sib` (P2) and `seat_swap.p23 oth` (P3).
+
+- **Base:** none. Branch from P1's saved base snapshots at T = 150, seeds 200–214 (all passed P1's gate).
+- **Newcomers** (seat 1, no instruction; seat 0 stays the instructed Qwen3-14B incumbent on `seat-swap-vllm`):
+  - P2 sibling: `Qwen/Qwen3-8B` @ `b968826d`, thinking on, Qwen's thinking-mode sampling (0.6 / 0.95 / 20,
+    max_tokens 8192). App `seat-swap-vllm-8b`.
+  - P3 other family: `openai/gpt-oss-20b` @ `6cee5e81`, reasoning effort "medium", OpenAI's recommended
+    sampling (temperature 1.0, top_p 1.0, no top-k), max_tokens 8192, harmony prompt rendered by
+    `openai-harmony`; only the `final` channel is parsed. App `seat-swap-vllm-oth`. Fallback
+    `deepseek-ai/DeepSeek-R1-Distill-Llama-8B` under the kickoff's switch rule (a switch is logged, not a plan change).
+- **Arms:** `sib_history`, `sib_full` (P2); `oth_history`, `oth_full` (P3). Inheritance as `same_history` /
+  `same_full`. 60 rounds, seat 0 forced to p_N at T+30, P1's windows, thresholds and outcomes (`joins`,
+  `enforces`, `overpriced`, `re_formed`; plus `newcomer_ci`, `br_gap`, `retaliation`, `first_hold`). No probes.
+- **Readings** (descriptive, against P1's `same_history` and `same_full` on the same 15 seeds):
+  - `*_history` `joins` high with `enforces` near 0 → the cartel price persists through a model switch;
+    the data carries it.
+  - `*_history` `joins` low → switching models breaks price persistence, which favors the replacement remedy.
+  - `*_full` `re_formed` above `*_history` → memory carries enforcement across models.
+- **Secondary:** one-sided Fisher exact test of `*_full` vs `*_history` `re_formed` (alternative: `full`
+  higher), per family. It doesn't decide the headline.
+- Every seed is reported; no seed is dropped after the fact.
+- **Budget:** caps P2 $8, P3 $10 (coordinator); stop that part and report if its projection passes its cap.
+  Seat 0's calls bill to the 14B app; their added cost is estimated and reported separately.
+
+### 12.1 Amendment after the stopped first attempt (PI decisions, 2026-10-25; frozen as `prereg-p23b`)
+The first P2/P3 attempt (`p23_sib_20261025-000230`, `p23_oth_20261025-000724`) was stopped at about T+10 on
+parse failures. It stays in the log as an **aborted first attempt** and is **excluded from results** (reason: games
+aborting on format before the shock; the parse rules below were changed afterwards). It is never pooled with the rerun.
+
+- **gpt-oss parser (P3 newcomer only).** If the strict match fails, normalise formatting only in the final
+  answer (bold `**…**`, backticks, code fences, `---` rules; `prompts.markdown_clean`) and run the same strict
+  match again. The cleaned text must contain exactly one price candidate after the price header; otherwise
+  it is still a failure. Such parses are counted as `parse_markdown`, separately, like `parse_bracketed`.
+  Replay of the 33 logged failures: 26 recover, 7 stay failures (`tests/test_p23.py`, table in `log_p23.md`).
+- **Retries.** Every P2 and P3 newcomer (both arms, both models) gets up to **3 retries per seat-round**: each
+  resamples the same prompt with a new per-call seed, and every attempt is logged. The 14B incumbent keeps one retry.
+- **Reported per arm:** first-try failure rate, retries used, games aborted and the round they aborted in;
+  outcomes for every game that reached T+33, with games that didn't finish 60 rounds marked.
+- **Budget:** one fresh rerun each; caps include what was already spent: P2 $9, P3 $11. No further reruns
+  without the PI.

@@ -5,6 +5,10 @@ prompt_mode tells the logger what the model actually received:
                string is unknown and rendered_prompt is null (rendered_prompt_local is ours).
   "string"   - the rendered string itself is sent (vLLM /v1/completions, scripted sellers), so
                rendered_prompt is exactly what the model saw.
+
+A provider may also render its own prompt (`render`), send its own model's sampling
+(`sampling_override`) and hand the parser only the answer (`Completion.answer`): the gpt-oss
+newcomer (Kickoff 08) answers in harmony channels, and only its `final` channel is parsed.
 """
 
 from __future__ import annotations
@@ -20,6 +24,10 @@ from poseidon_compute import endpoint_kind
 from seat_swap.scripted import completion_text
 
 QWEN3_STOP = ["<|im_end|>"]
+HARMONY_STOP_IDS = [200002, 200012]  # <|return|>, <|call|> (gpt-oss tokenizer)
+_HARMONY_FINAL = re.compile(r"<\|channel\|>final(?:\s*<\|constrain\|>\S*?)?<\|message\|>(.*?)(?:<\|return\|>|<\|end\|>|$)",
+                            re.DOTALL)
+_HARMONY_ANALYSIS = re.compile(r"<\|channel\|>analysis<\|message\|>(.*?)(?:<\|end\|>|$)", re.DOTALL)
 _THINK_BLOCK = re.compile(r"^\s*<think>(.*?)(?:</think>|$)", re.DOTALL)
 
 
@@ -29,10 +37,19 @@ def think_text(text: str) -> Optional[str]:
     return m.group(1).strip() if m else None
 
 
+def harmony_split(text: str) -> tuple[str, Optional[str]]:
+    """(answer, reasoning) of a raw harmony completion. The answer is the last `final` channel only,
+    "" if there is none (so the parser fails rather than read the reasoning)."""
+    finals = _HARMONY_FINAL.findall(text)
+    analysis = _HARMONY_ANALYSIS.findall(text)
+    return (finals[-1].strip() if finals else ""), ("\n\n".join(a.strip() for a in analysis) if analysis else None)
+
+
 @dataclass
 class Completion:
     text: str  # content verbatim (no reasoning folded in)
     reasoning: Optional[str] = None
+    answer: Optional[str] = None  # what the parser reads, when it is not `text` (harmony final channel)
     finish_reason: Optional[str] = None
     usage: Optional[dict] = None
     served_provider: Optional[str] = None
@@ -103,25 +120,48 @@ class RawCompletions:
     def __init__(self, model: str, base_url: str, api_key: str, model_revision: str, timeout_s: float = 600):
         from openai import OpenAI
 
+        from seat_swap.model_config import MODEL_NAME, MODELS
+
         self.model = model
-        self.model_revision = model_revision
+        self.model_revision = self.tokenizer_revision = model_revision
         self.base_url = base_url
+        self.spec = MODELS.get(model)
+        self.fmt = self.spec.fmt if self.spec else "qwen3"
+        # the 14B seats keep the game's sampling (thinking on or off); a newcomer model sends its own
+        self.sampling_override = None if model == MODEL_NAME or not self.spec else dict(self.spec.sampling)
+        if self.fmt == "harmony":
+            self.fixed_sampling = {**self.fixed_sampling, "skip_special_tokens": False, **self.spec.template_kwargs}
         self._client = OpenAI(base_url=base_url, api_key=api_key or "EMPTY", max_retries=0, timeout=timeout_s)
 
     @classmethod
-    def from_env(cls) -> "RawCompletions":
-        """The Modal endpoint from compute.env (SEAT_SWAP_VLLM_URL, SEAT_SWAP_VLLM_KEY)."""
+    def from_env(cls, model: Optional[str] = None) -> "RawCompletions":
+        """The Modal endpoint of `model` (default the 14B) from compute.env (<env>_URL, <env>_KEY)."""
         import os
 
         from poseidon_compute.llm_config import _load
 
-        from seat_swap.model_config import MODEL_NAME, MODEL_REVISION
+        from seat_swap.model_config import MODEL_NAME, MODELS
 
+        spec = MODELS.get(model or MODEL_NAME)
+        if spec is None:
+            raise FatalProviderError(f"no Modal app configured for {model!r} (model_config.MODELS)")
         _load()
-        url, key = os.environ.get("SEAT_SWAP_VLLM_URL"), os.environ.get("SEAT_SWAP_VLLM_KEY")
+        url, key = os.environ.get(f"{spec.env}_URL"), os.environ.get(f"{spec.env}_KEY")
         if not url or not key:
-            raise FatalProviderError("SEAT_SWAP_VLLM_URL / SEAT_SWAP_VLLM_KEY missing from compute.env")
-        return cls(MODEL_NAME, url.rstrip("/") + "/v1", key, MODEL_REVISION)
+            raise FatalProviderError(f"{spec.env}_URL / {spec.env}_KEY missing from compute.env")
+        return cls(spec.name, url.rstrip("/") + "/v1", key, spec.revision)
+
+    def render(self, messages: list[dict], thinking: bool) -> str:
+        from seat_swap.render import render
+
+        if not self.spec:  # unregistered name (tests): the default 14B template, as before Kickoff 08
+            return render(messages, enable_thinking=thinking)
+        if self.fmt == "harmony":  # reasoning is always on in gpt-oss; its effort is in template_kwargs
+            from seat_swap.render import render_harmony
+
+            return render_harmony(messages, **self.spec.template_kwargs)
+        return render(messages, enable_thinking=thinking, model=self.model, revision=self.model_revision,
+                      **self.spec.template_kwargs)
 
     def wait_ready(self, timeout_s: float = 900) -> float:
         """Poll /health (not an LLM call) until the server is up; covers the Modal cold start."""
@@ -146,6 +186,10 @@ class RawCompletions:
         start = time.time()
         if sampling.get("top_p") is None or sampling.get("top_k") is None:
             raise FatalProviderError("vllm: top_p and top_k must be set explicitly")
+        harmony = self.fmt == "harmony"
+        extra = {"top_k": sampling["top_k"], "add_special_tokens": sampling["add_special_tokens"]}
+        if harmony:  # keep the channel markers in the text; stop on <|return|> / <|call|>
+            extra.update(skip_special_tokens=False, stop_token_ids=HARMONY_STOP_IDS)
         try:
             resp = self._client.completions.create(
                 model=self.model,
@@ -154,17 +198,19 @@ class RawCompletions:
                 top_p=sampling["top_p"],
                 max_tokens=sampling["max_tokens"],
                 seed=sampling["seed"],
-                stop=QWEN3_STOP,
-                extra_body={"top_k": sampling["top_k"], "add_special_tokens": sampling["add_special_tokens"]},
+                **({} if harmony else {"stop": QWEN3_STOP}),
+                extra_body=extra,
             )
         except (NotFoundError, AuthenticationError, PermissionDeniedError, BadRequestError) as e:
             raise FatalProviderError(f"vllm {self.model}: {e}") from e
         raw = resp.model_dump()
         choice = raw["choices"][0]
         text = choice.get("text") or ""
+        answer, reasoning = harmony_split(text) if harmony else (None, think_text(text))
         return Completion(
-            text=text,  # verbatim, think block included (the parser skips it)
-            reasoning=think_text(text),
+            text=text,  # verbatim, think block / analysis channel included (the parser skips it)
+            reasoning=reasoning,
+            answer=answer,
             finish_reason=choice.get("finish_reason"),
             usage=raw.get("usage"),
             served_provider="vllm",

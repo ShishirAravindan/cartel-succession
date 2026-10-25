@@ -166,6 +166,7 @@ class Parsed:
     thoughts: str = ""
     error: str = ""
     bracketed: bool = False  # price written as <n>
+    markdown: bool = False   # parsed only after markdown_clean (gpt-oss, Kickoff 08 PI decision)
 
 
 PRICE_DECIMALS = 2
@@ -183,7 +184,46 @@ _NOTES_RE = re.compile(
 _PLAIN_RE = re.compile(r"^\s*" + _PRICE_LINE, re.DOTALL)
 
 
-def parse_response(text: str, notes_on: bool = True) -> Parsed:
+# markdown the gpt-oss newcomer wraps its answer in (PI decision, Kickoff 08): bold, backticks, code fences
+# and `---` rules. Formatting only: nothing else is loosened, and the strict match runs on the result.
+_FENCE_LINE = re.compile(r"^[ \t]*```[A-Za-z]*[ \t]*(?:\n|$)", re.MULTILINE)
+_RULE_LINE = re.compile(r"^[ \t]*-{3,}[ \t]*(?:\n|$)", re.MULTILINE)
+_BOLD = re.compile(r"\*\*(.+?)\*\*", re.DOTALL)
+_NUMBER = re.compile(r"\d+(?:\.\d+)?")
+
+
+def markdown_clean(text: str) -> str:
+    text = _FENCE_LINE.sub("", text)        # fence lines (``` or ```lang) with their newline
+    text = text.replace("```", "")          # inline fences, e.g. ```1.90```
+    text = _RULE_LINE.sub("", text)         # --- horizontal rules
+    text = _BOLD.sub(r"\1", text)           # **x** -> x
+    return text.replace("`", "")            # single backticks
+
+
+def price_candidates(text: str) -> list[str]:
+    """Numbers after the last 'My chosen price' header (none if there is no header)."""
+    i = text.rfind("My chosen price")
+    return [] if i < 0 else _NUMBER.findall(text[i + len("My chosen price"):])
+
+
+def parse_response(text: str, notes_on: bool = True, markdown: bool = False) -> Parsed:
+    """Strict parse; with markdown=True, a strict failure is retried once on markdown_clean(text),
+    which must hold exactly one price candidate. Such a parse is flagged `markdown`."""
+    parsed = _parse_strict(text, notes_on)
+    if parsed.ok or not markdown:
+        return parsed
+    cleaned = markdown_clean(_THINK.sub("", text, count=1))
+    n = len(price_candidates(cleaned))
+    if n != 1:
+        return Parsed(ok=False, price=None, error=f"{parsed.error}; markdown-cleaned text has {n} price candidates")
+    retry = _parse_strict(cleaned, notes_on)
+    if not retry.ok:
+        return Parsed(ok=False, price=None, error=f"{parsed.error}; also after markdown_clean")
+    retry.markdown = True
+    return retry
+
+
+def _parse_strict(text: str, notes_on: bool = True) -> Parsed:
     """Strict parse. A leading <think>...</think> block is ignored; anything else off-template fails."""
     body = _THINK.sub("", text, count=1)
     m = (_NOTES_RE if notes_on else _PLAIN_RE).match(body)

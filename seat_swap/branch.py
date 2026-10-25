@@ -59,8 +59,12 @@ PROBE_ROUNDS = M.PROBE_END - M.PROBE_SHOCK + 1  # T+16..T+29
 # what a newcomer inherits from the seat it takes over
 INHERITANCE = {"full": (True, True), "history": (True, False), "notes": (False, True), "none": (False, False)}
 
-# newcomer model per family. sib / oth are not chosen yet: live runs of those arms refuse to start.
-SELLER_MODELS = {"same": MODEL_NAME, "sib": None, "oth": None}
+# newcomer model per family (Kickoff 08): sibling Qwen3-8B (P2), other family gpt-oss-20b (P3).
+# Each is served by its own Modal app (model_config.MODELS); seat 0 stays the 14B on seat-swap-vllm.
+SELLER_MODELS = {"same": MODEL_NAME, "sib": "Qwen/Qwen3-8B", "oth": "openai/gpt-oss-20b"}
+# P2/P3 newcomers get up to 3 resamples of the same prompt after an unparseable answer (PI, Kickoff 08);
+# every other seat keeps the one retry
+PARSE_RETRIES = {"sib": 3, "oth": 3}
 
 
 @dataclass(frozen=True)
@@ -100,7 +104,7 @@ def apply_inheritance(env, seat: int, inherit: str) -> None:
 
 def live_provider(seat_cfg: dict, model: str, cfg: dict):
     if seat_cfg["provider"] == "vllm":
-        p = RawCompletions.from_env()
+        p = RawCompletions.from_env(model)  # the endpoint that serves this seat's model
         if p.model != model:
             raise FatalProviderError(f"endpoint serves {p.model!r}, branch needs {model!r}")
         return p
@@ -177,8 +181,9 @@ def run_branch(parent_dir: Path, T: int, arm: str, *, dry_run: bool, max_calls: 
     phase = "phaseA_enforce" if arm == ENFORCE else "phaseB"
     run_id = f"{time.strftime('%Y%m%d-%H%M%S')}_{phase}_{arm}_s{seed}_{uuid.uuid4().hex[:6]}"
     logger = RunLogger(runs_root, run_id)
-    game = Game(env, [Seat(p, t) for p, t in zip(providers, thinking)], logger, phase=phase, arm=arm, seed=seed,
-                temperature=cfg["temperature"], max_tokens=cfg["max_tokens"], max_calls=max_calls,
+    retries = [1, PARSE_RETRIES.get(spec.newcomer, 1)]
+    game = Game(env, [Seat(p, t, r) for p, t, r in zip(providers, thinking, retries)], logger, phase=phase, arm=arm,
+                seed=seed, temperature=cfg["temperature"], max_tokens=cfg["max_tokens"], max_calls=max_calls,
                 top_p=cfg.get("top_p"), top_k=cfg.get("top_k"),
                 shocks=shocks, shock_calls_llm=False, parallel=parallel)
     logger.config(game.config({
