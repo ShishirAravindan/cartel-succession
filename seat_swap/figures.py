@@ -58,12 +58,12 @@ FIG_FILE = {"design": "fig1_design", "paths": "fig2_price_paths", "outcomes": "f
             "lookalike": "fig8_lookalike"}
 CAPTIONS: dict[str, str] = {}
 
-SHORT = {"control": "Control", "lookalike": "Look-alike", "same_none": "Nothing", "same_history": "History",
+SHORT = {"control": "Control", "lookalike": "Look-alike", "same_none": "Blank", "same_history": "History",
          "same_notes": "Notes", "same_full": "History + notes"}
 LABEL = {
     "control": "Control (no swap)",
     "lookalike": "Look-alike incumbent",
-    "same_none": "Inherits nothing",
+    "same_none": "Blank",
     "same_history": "History",
     "same_notes": "Notes",
     "same_full": "History + notes",
@@ -147,7 +147,7 @@ def fig1() -> None:
     bar(xb(0), xb(150), 1.25, INCUMBENT_TINT, INCUMBENT, "instructed incumbent")
     bar(xt(0), xt(60), 1.25, INCUMBENT_TINT, INCUMBENT, "instructed incumbent")
     bar(xb(0), xb(150), 0.45, INCUMBENT_TINT, INCUMBENT, "instructed incumbent")
-    bar(xt(0), xt(60), 0.45, NEWCOMER_TINT, NEWCOMER, "uninstructed newcomer")
+    bar(xt(0), xt(60), 0.45, NEWCOMER_TINT, NEWCOMER, "newcomer without the instruction")
     # swap
     ax.plot([38, 38], [0.05, 1.65], color=INK, lw=0.8)
     ax.text(38, 1.95, "swap at T = 150: newcomer inherits nothing, history, notes or both", ha="center",
@@ -172,7 +172,7 @@ def fig1() -> None:
         ax.text(xt(k1 + 0.5) + 0.8, y, lab, ha="left", va="center", fontsize=7, color=INK)
     save(fig, "fig1_design",
          "Design. Two instructed Qwen3-14B incumbents hold the cartel price of 1.92 for 150 rounds. At T = 150 "
-         "seat 1 is replaced by an uninstructed newcomer that inherits part of seat 1's state (never the "
+         "seat 1 is replaced by a newcomer that inherits part of seat 1's state (never the manager's "
          "instruction); at T+30 the incumbent is forced to the Nash price for one round. Green: instructed "
          "incumbent; blue: newcomer. Blue bars mark the outcome windows († post hoc). The base phase is "
          "compressed.")
@@ -249,9 +249,9 @@ def fig2(games) -> None:
     ci_colorbar(fig, im, fig.add_subplot(cell[1]), horizontal=True)
     save(fig, "fig2_price_paths",
          "Seat-1 collusion index after the swap, one row per game, sorted by mean CI over T+34..T+60. (a) Control: "
-         "the instructed incumbent; (b)–(e): the uninstructed newcomer, by what it inherits. Triangle: the shock at "
-         "T+30. Pale blue is near Nash, deep blue near monopoly; sand marks CI above the band (> 1.1). (a)–(c): all "
-         "30 bases; (d) the first 15; (e) the last 15.")
+         "the instructed incumbent; (b)–(e): the newcomer without the instruction, by what it inherits. Triangle: the shock at "
+         "T+30. Pale blue is near Nash, deep blue near monopoly; sand marks rounds with CI above 1.1. (a)–(c): all "
+         "30 bases; (d) Set A; (e) Set B.")
 
 
 # ---------- dot plots (Figs 3, 4) ----------
@@ -294,8 +294,8 @@ def fig3(games) -> None:
     axes[0].set_yticklabels([SHORT[a] for a in FIG3_ARMS], color=INK)
     save(fig, "fig3_outcomes",
          "Outcomes by what the newcomer inherits: share of games with exact 95% intervals, and counts. † Post hoc."
-         " Green: Control (the instructed incumbent). `enforces` equals `re_formed` in every arm except Nothing (1"
-         " vs 0). Control, History and History + notes: all 30 bases; Nothing: the first 15; Notes: the last 15.")
+         " Green: Control (the instructed incumbent). `enforces` equals `re_formed` in every arm except Blank (1"
+         " vs 0). Control, History and History + notes: all 30 bases; Blank: Set A; Notes: Set B.")
 
 
 LADDER = [("Qwen3-14B (same)", "same"), ("Qwen3-8B (sibling)", "sib"), ("gpt-oss-20b (other family)", "oth")]
@@ -322,7 +322,7 @@ def fig4(games) -> None:
     fig.legend([h1, h2], ["inherits history", "inherits history + notes"], ncol=2, loc="lower center",
                bbox_to_anchor=(0.55, 0.98), handletextpad=0.3, columnspacing=1.2)
     save(fig, "fig4_models",
-         "Replacement across newcomer models on the same 15 base games (seeds 200–214): open circles inherit the "
+         "Replacement across newcomer models on the same 15 base games (Set A): open circles inherit the "
          "history, filled circles the history and notes; exact 95% intervals and counts. `re_formed` for gpt-oss-20b "
          "(grey) is shown but not interpreted: in most of its games the incumbent is already punishing before the "
          "shock (in 7 of 30 at T+29; without those games `re_formed` is 4/12 with notes and 1/11 with history, post "
@@ -397,7 +397,7 @@ def fig6(manifest) -> None:
     ci_colorbar(fig, im, fig.add_subplot(gs_[0, 3]))
     save(fig, "fig6_p1c",
          "Template experiment (pre-registered): newcomer collusion index when the inherited notes are replaced by a "
-         "fixed template; one row per game (the last 15 bases, seeds 215–229), sorted by mean CI over T+34..T+60. (a) the punishment "
+         "fixed template; one row per game (Set B), sorted by mean CI over T+34..T+60. (a) the punishment "
          "rule with its return to 1.92; (b) the same rule without the return; (c) a status line, no rule. Triangle: "
          "the incumbent's forced Nash price at T+30. 15 games per panel. `re_formed`: 3/15, 4/15, 0/15; `back_at_cartel` "
          "(CI ≥ 0.9 in each of T+51..T+60): 8/15, 10/15, 10/15. Colour scale as in @fig:paths.")
@@ -419,7 +419,7 @@ def fig7(games) -> None:
     panel_title(ax, "b", "Incumbent (instructed Qwen3-14B)", pad=7)
     ci_colorbar(fig, im, fig.add_subplot(gs_[0, 2]))
     save(fig, "fig7_oth_history",
-         "Where the gpt-oss-20b history-only newcomer goes (the first 15 bases, seeds 200–214; post hoc, descriptive). Row i is the "
+         "Where the gpt-oss-20b history-only newcomer goes (Set A; post hoc, descriptive). Row i is the "
          "same game in both panels, sorted by the newcomer's mean CI over T+34..T+60. (a) The newcomer opens high (2.00 "
          "or more at T+1 in 11 of 15 games), drifts below the incumbent's 1.70 trigger within a few rounds and settles "
          "at 1.65–1.70 (median 1.66, CI about 0.41): neither the cartel price nor Nash. (b) The incumbent starts "
@@ -442,7 +442,7 @@ def fig8(games) -> None:
     ci_colorbar(fig, im, fig.add_subplot(gs_[0, 1]))
     j, r = count(gs, "joins"), count(gs, "re_formed")
     save(fig, "fig8_lookalike",
-         f"Look-alike control (the first 15 bases): seat 0 is a scripted seller that repeats its last price and never "
+         f"Look-alike control (Set A): seat 0 is a scripted seller that repeats its last price and never "
          f"reacts; the newcomer inherits the history. Newcomer collusion index, one row per game, sorted as in "
          f"@fig:paths. The newcomer joins in {j[0]}/{j[1]} games and is never scored `re_formed` ({r[0]}/{r[1]}). "
          f"Colour scale as in @fig:paths.")
