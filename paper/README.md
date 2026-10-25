@@ -112,5 +112,8 @@ surface, limitations as prose, dual use and ethics. Needs the author's review.
   paths 10/29 vs 1/30, p = .0023, Control 7/7; Set B T+31 cutters 11 (all cite the rule) and 4 that cite but don't
   cut; 4 games with a persistent undercut while the incumbent stays ≥ 1.90. Add them to the PI review's addendum.
 
-**Fill in:** affiliation; make the GitHub repo public, and decide whether the raw run directories ship with it
-(`seat_swap/runs/` is gitignored, yet Code and Data promises run logs); first names for Garra (still cited).
+**Fill in**
+- Affiliation: "Independent researcher" unless the author decides otherwise.
+- Raw run logs (about 2 GB, `seat_swap/runs/` is gitignored): publish as a compressed archive outside git, e.g. a
+  GitHub release asset or a Zenodo/Hugging Face dataset, and link it from Code and Data. Check the logs for anything
+  that shouldn't ship (keys, local paths) first. The repository itself is already public.
