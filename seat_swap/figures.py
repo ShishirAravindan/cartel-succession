@@ -2,13 +2,15 @@
 
     uv run --project seat_swap python -m seat_swap.figures
 
-Writes fig1_design .. fig5_after_shock (PDF + PNG) and captions.md to seat_swap/results/figures/. One style throughout:
+Writes fig1_design .. fig5_after_shock (and fig6_p1c once a P1c manifest has finished games) (PDF + PNG) and captions.md to seat_swap/results/figures/. One style throughout:
 the newcomer is dark blue (solid), the incumbent orange (dashed); the two differ in greyscale lightness as well as hue
 (palette checked with the dataviz validator: CVD ΔE 25, normal-vision ΔE 37). Outcome bars use a light-to-dark blue
 ramp with hatching, so they read in greyscale. Outcomes beyond P1's pre-registered ones are post hoc and labelled so.
 """
 
 from __future__ import annotations
+
+import json
 
 import matplotlib
 
@@ -43,7 +45,8 @@ plt.rcParams.update({
 def save(fig, name: str, caption: str) -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     for ext in ("pdf", "png"):
-        fig.savefig(OUT / f"{name}.{ext}", bbox_inches="tight")
+        meta = {"CreationDate": None} if ext == "pdf" else {}
+        fig.savefig(OUT / f"{name}.{ext}", bbox_inches="tight", metadata=meta)  # no timestamp: reruns don't churn
     plt.close(fig)
     CAPTIONS[name] = caption
 
@@ -247,6 +250,38 @@ def fig5(games) -> None:
          "pre-registered re_formed; the post-shock reading is post hoc.")
 
 
+# ---------- Fig 6 (P1c) ----------
+
+P1C_ARMS = ["notes_rule_return", "notes_rule_noreturn", "notes_status"]
+
+
+def fig6(manifest) -> None:
+    games = load_games(("P1c",), {"P1c": manifest})
+    fig, axes = plt.subplots(1, 3, figsize=(7.2, 2.5), sharey=True)
+    for ax, arm in zip(axes, P1C_ARMS):
+        gs = select(games, arm)
+        price_axes(ax)
+        for g in gs:
+            ax.plot(range(1, len(g["path"]) + 1), g["path"], color=NEWCOMER, lw=0.7, alpha=0.45)
+        k, n = count(gs, "back_at_cartel")
+        kr, nr = count(gs, "re_formed")
+        ax.set_title(f"{arm}\nn = {len(gs)}; re_formed {kr}/{nr}; back {k}/{n}", color=INK, fontsize=8)
+        ax.set_xlabel("round after the swap (T+k)")
+    axes[0].set_ylabel("newcomer price")
+    save(fig, "fig6_p1c",
+         "P1c (pre-registered, plan §13): newcomer price after the swap when the inherited notes are replaced by a fixed "
+         "template, one line per seed (P1b bases, seeds 215–229). notes_rule_return: the punishment rule with its return "
+         "to 1.92; notes_rule_noreturn: the same rule without the return; notes_status: a status line, no rule. Grey band: "
+         "CI 0.9–1.1; dashed line: the incumbent's forced 1.47 at T+30. back = back_at_cartel (CI ≥ 0.9 in each of "
+         "T+51..T+60).")
+
+
+def p1c_manifest():
+    ms = sorted((RESULTS.parent / "runs").glob("p1c_*.json"))
+    ms = [m for m in ms if not json.loads(m.read_text())["dry_run"] and json.loads(m.read_text())["arms"]]
+    return ms[-1] if ms else None
+
+
 def main():
     games = load_games()
     fig1()
@@ -254,6 +289,8 @@ def main():
     fig3(games)
     fig4(games)
     fig5(games)
+    if (m := p1c_manifest()):
+        fig6(m)
     (OUT / "captions.md").write_text("# Figure captions\n\n" + "\n\n".join(
         f"**{k}** ({k}.pdf / .png): {v}" for k, v in CAPTIONS.items()) + "\n")
     print(f"wrote {len(CAPTIONS)} figures to {OUT}")
