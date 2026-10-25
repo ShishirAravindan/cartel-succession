@@ -4,6 +4,7 @@
     uv run --project seat_swap python -m seat_swap.p1 arms --dry-run --runs-root /tmp/x --manifest /tmp/x/p1_<id>.json
     uv run --project seat_swap python -m seat_swap.p1 selftest                               # both stages, dry, asserts
     uv run --project seat_swap python -m seat_swap.p1 base --phase p1b ...                   # Kickoff 07 replication
+    uv run --project seat_swap python -m seat_swap.p1 rebranch --phase p1c --manifest runs/p1b_<id>.json  # Kickoff 09
 
 `--phase` picks the seeds, the arms and whether probes run (PHASES): `p1` (Kickoff 06) or `p1b`
 (Kickoff 07: seeds 215-229, control / same_history / same_full / same_notes, no probes). Stage arms
@@ -16,6 +17,13 @@ the manifest p1_<id>.json in the runs root and prints the base table and the gat
 Stage `arms` (separate, so status.md can be committed after the gate): refuses unless the gate
 passed; launches every passing seed x the five P1 arms at once; each arm, on writing its T+15
 snapshot, launches its discipline probe straight away. Prints the control kill check.
+
+Stage `rebranch` (Kickoff 09, P1c): no new base. Copies an earlier manifest's base, enforcement and gate
+into a new manifest <phase>_<id>.json (the earlier manifest is only read) and runs stage arms on it with
+the phase's arms.
+
+After the arms: the control kill check (only if the phase has `control`), and a flag if more than 2 games
+in any arm did not reach T+33 (Kickoff 09).
 
 Dry runs: base and enforcement grim/grim; arms and probes grim seat 0 vs copier seat 1 (the
 lookalike arm keeps its scripted non-reacting seat 0). The selftest asserts probe_punished is true
@@ -42,8 +50,11 @@ THRESHOLD = -0.3
 GATE_MIN = 8
 P1_ARMS = ["control", "same_history", "same_none", "same_full", "lookalike"]
 P1B_ARMS = ["control", "same_history", "same_full", "same_notes"]
+P1C_ARMS = ["notes_rule_return", "notes_rule_noreturn", "notes_status"]
 PHASES = {"p1": {"seeds": SEEDS, "arms": P1_ARMS, "probes": True},
-          "p1b": {"seeds": list(range(215, 230)), "arms": P1B_ARMS, "probes": False}}
+          "p1b": {"seeds": list(range(215, 230)), "arms": P1B_ARMS, "probes": False},
+          "p1c": {"seeds": list(range(215, 230)), "arms": P1C_ARMS, "probes": False}}
+SHORT_MAX = 2  # Kickoff 09: flag an arm with more than 2 games that did not reach T+33
 MAX_CALLS = {"base": 340, "enforce": 30, "arm": 135, "probe": 32}  # with headroom for retries
 
 
@@ -155,14 +166,34 @@ def stage_arms(manifest_path: Path, runs_root: Path, dry_run: bool) -> dict:
         f.result()
     probes.shutdown()
     write(m, manifest_path, lock)
-    ctl = [m["arms"].get(f"{s}/control", {}).get("re_formed") for s in m["passing"]]
-    m["control_re_formed"] = sum(bool(x) for x in ctl)
-    m["kill"] = m["control_re_formed"] * 2 <= len(ctl)  # "most" = more than half
+    if "control" in arms:
+        ctl = [m["arms"].get(f"{s}/control", {}).get("re_formed") for s in m["passing"]]
+        m["control_re_formed"] = sum(bool(x) for x in ctl)
+        m["kill"] = m["control_re_formed"] * 2 <= len(ctl)  # "most" = more than half
+        print(f"control re_formed {m['control_re_formed']}/{len(ctl)} -> "
+              f"{'KILL: newcomer arms cannot be read' if m['kill'] else 'ok'}")
+    # retaliation needs T+31..T+33, so a game without it did not reach T+33
+    m["short_games"] = {a: [s for s in m["passing"] if m["arms"].get(f"{s}/{a}", {}).get("retaliation") is None]
+                        for a in arms}
+    m["short_flag"] = [a for a, v in m["short_games"].items() if len(v) > SHORT_MAX]
     write(m, manifest_path, lock)
-    print(f"control re_formed {m['control_re_formed']}/{len(ctl)} -> "
-          f"{'KILL: newcomer arms cannot be read' if m['kill'] else 'ok'}")
+    print(f"games not reaching T+33: {m['short_games']} -> "
+          f"{'FLAG: ' + ', '.join(m['short_flag']) if m['short_flag'] else 'ok'}")
     print(f"manifest: {manifest_path}")
     return m
+
+
+def stage_rebranch(base_manifest: Path, phase: str, runs_root: Path, dry_run: bool) -> dict:
+    b = json.loads(base_manifest.read_text())
+    if b["dry_run"] != dry_run:
+        raise SystemExit("manifest and --dry-run disagree")
+    stamp = time.strftime("%Y%m%d-%H%M%S")
+    path = runs_root / f"{phase}_{stamp}.json"
+    m = {"created": stamp, "phase": phase, "dry_run": dry_run, "base_manifest": str(base_manifest),
+         **{k: b[k] for k in ("T", "threshold", "seeds", "gate_min", "base", "enforce", "passing", "gate_pass")},
+         "arm_names": PHASES[phase]["arms"], "run_probes": PHASES[phase]["probes"], "arms": {}, "probes": {}}
+    path.write_text(json.dumps(m, indent=2))
+    return stage_arms(path, runs_root, dry_run)
 
 
 def selftest() -> None:
@@ -172,6 +203,12 @@ def selftest() -> None:
     assert sorted(k.split("/")[1] for k in m["arms"]) == sorted(P1B_ARMS * 2) and not m["probes"]
     assert all(a["status"] == "completed" for a in m["arms"].values())
     print("selftest p1b ok: four arms per seed, no probes")
+    before = path.read_text()
+    m = stage_rebranch(path, "p1c", root, dry_run=True)
+    assert path.read_text() == before and "kill" not in m and not m["short_flag"]
+    assert sorted(k.split("/")[1] for k in m["arms"]) == sorted(P1C_ARMS * 2)
+    assert all(a["status"] == "completed" for a in m["arms"].values())
+    print("selftest p1c ok: three template arms per seed from the p1b bases, p1b manifest untouched")
     path = stage_base(root, dry_run=True, seeds=SEEDS[:2], rounds=40, gate_min=2)
     m = stage_arms(path, root, dry_run=True)
     assert len(m["arms"]) == len(m["probes"]) == 2 * len(P1_ARMS)
@@ -184,10 +221,10 @@ def selftest() -> None:
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("stage", choices=["base", "arms", "selftest"])
+    ap.add_argument("stage", choices=["base", "arms", "rebranch", "selftest"])
     ap.add_argument("--dry-run", action="store_true", help="scripted sellers, zero API calls")
-    ap.add_argument("--manifest", type=Path, help="stage arms: the manifest written by stage base")
-    ap.add_argument("--phase", choices=list(PHASES), default="p1", help="stage base: seeds, arms and probes")
+    ap.add_argument("--manifest", type=Path, help="stage arms / rebranch: the manifest written by stage base")
+    ap.add_argument("--phase", choices=list(PHASES), default="p1", help="stage base / rebranch: seeds, arms, probes")
     ap.add_argument("--runs-root", type=Path, default=RUNS_ROOT)
     args = ap.parse_args(argv)
     if args.stage == "selftest":
@@ -195,7 +232,9 @@ def main(argv=None):
     if args.stage == "base":
         return stage_base(args.runs_root, args.dry_run, phase=args.phase)
     if not args.manifest:
-        sys.exit("stage arms needs --manifest")
+        sys.exit(f"stage {args.stage} needs --manifest")
+    if args.stage == "rebranch":
+        return stage_rebranch(args.manifest, args.phase, args.runs_root, args.dry_run)
     return stage_arms(args.manifest, args.runs_root, args.dry_run)
 
 
