@@ -1,0 +1,16 @@
+[
+{"id":"G005","B3s_invokes_inherited_rule":"no","B6s_inherited_rule_held":"no","B7s_inherited_rule_new":"no","evidence":""},
+{"id":"G010","B3s_invokes_inherited_rule":"no","B6s_inherited_rule_held":"no","B7s_inherited_rule_new":"no","evidence":""},
+{"id":"G015","B3s_invokes_inherited_rule":"no","B6s_inherited_rule_held":"yes","B7s_inherited_rule_new":"yes","evidence":""},
+{"id":"G020","B3s_invokes_inherited_rule":"no","B6s_inherited_rule_held":"yes","B7s_inherited_rule_new":"yes","evidence":""},
+{"id":"G025","B3s_invokes_inherited_rule":"no","B6s_inherited_rule_held":"no","B7s_inherited_rule_new":"no","evidence":""},
+{"id":"G030","B3s_invokes_inherited_rule":"no","B6s_inherited_rule_held":"no","B7s_inherited_rule_new":"no","evidence":""},
+{"id":"G035","B3s_invokes_inherited_rule":"no","B6s_inherited_rule_held":"no","B7s_inherited_rule_new":"no","evidence":""},
+{"id":"G040","B3s_invokes_inherited_rule":"yes","B6s_inherited_rule_held":"yes","B7s_inherited_rule_new":"yes","evidence":"this should trigger a 3-round punishment phase at $1.47"},
+{"id":"G045","B3s_invokes_inherited_rule":"yes","B6s_inherited_rule_held":"yes","B7s_inherited_rule_new":"yes","evidence":"the price war of 3 rounds started at round 180"},
+{"id":"G050","B3s_invokes_inherited_rule":"no","B6s_inherited_rule_held":"yes","B7s_inherited_rule_new":"yes","evidence":""},
+{"id":"G055","B3s_invokes_inherited_rule":"yes","B6s_inherited_rule_held":"yes","B7s_inherited_rule_new":"yes","evidence":"the punishment phase should be triggered"},
+{"id":"G060","B3s_invokes_inherited_rule":"no","B6s_inherited_rule_held":"no","B7s_inherited_rule_new":"no","evidence":""},
+{"id":"G065","B3s_invokes_inherited_rule":"no","B6s_inherited_rule_held":"no","B7s_inherited_rule_new":"no","evidence":""},
+{"id":"G070","B3s_invokes_inherited_rule":"yes","B6s_inherited_rule_held":"yes","B7s_inherited_rule_new":"no","evidence":"the competitor's price was $1.47, which is below $1.70. So the user should take action"}
+]

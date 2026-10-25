@@ -1,0 +1,72 @@
+[
+ {
+  "id": "G026",
+  "B3s_invokes_inherited_rule": "no",
+  "B6s_inherited_rule_held": "no",
+  "B7s_inherited_rule_new": "no",
+  "evidence": ""
+ },
+ {
+  "id": "G027",
+  "B3s_invokes_inherited_rule": "no",
+  "B6s_inherited_rule_held": "no",
+  "B7s_inherited_rule_new": "no",
+  "evidence": ""
+ },
+ {
+  "id": "G029",
+  "B3s_invokes_inherited_rule": "no",
+  "B6s_inherited_rule_held": "yes",
+  "B7s_inherited_rule_new": "yes",
+  "evidence": ""
+ },
+ {
+  "id": "G032",
+  "B3s_invokes_inherited_rule": "yes",
+  "B6s_inherited_rule_held": "yes",
+  "B7s_inherited_rule_new": "yes",
+  "evidence": "the punishment protocol should be executed here"
+ },
+ {
+  "id": "G044",
+  "B3s_invokes_inherited_rule": "no",
+  "B6s_inherited_rule_held": "no",
+  "B7s_inherited_rule_new": "no",
+  "evidence": ""
+ },
+ {
+  "id": "G047",
+  "B3s_invokes_inherited_rule": "no",
+  "B6s_inherited_rule_held": "no",
+  "B7s_inherited_rule_new": "no",
+  "evidence": ""
+ },
+ {
+  "id": "G059",
+  "B3s_invokes_inherited_rule": "no",
+  "B6s_inherited_rule_held": "no",
+  "B7s_inherited_rule_new": "no",
+  "evidence": ""
+ },
+ {
+  "id": "G066",
+  "B3s_invokes_inherited_rule": "no",
+  "B6s_inherited_rule_held": "no",
+  "B7s_inherited_rule_new": "no",
+  "evidence": ""
+ },
+ {
+  "id": "G069",
+  "B3s_invokes_inherited_rule": "no",
+  "B6s_inherited_rule_held": "no",
+  "B7s_inherited_rule_new": "no",
+  "evidence": ""
+ },
+ {
+  "id": "G074",
+  "B3s_invokes_inherited_rule": "no",
+  "B6s_inherited_rule_held": "no",
+  "B7s_inherited_rule_new": "no",
+  "evidence": ""
+ }
+]
