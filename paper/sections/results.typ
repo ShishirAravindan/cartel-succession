@@ -4,13 +4,13 @@
 
 == Before the shock, every newcomer looks like a cartel member <sec:join>
 
-Up to the shock the arms are almost indistinguishable (@fig:paths): over T+1..T+29 the mean newcomer CI is between +0.97 and +1.03 for History, Notes and History + notes (@tab:preshock). The exception is the newcomer that inherits nothing. It does not compete; it overprices, at a mean CI of +1.42, lands above the band in 6/15 games, and joins in only 5/15, against 13/15 for history-only newcomers on the same 15 bases. Across all 30 bases, history-only newcomers join in 28/30 games. The price history is enough to anchor a newcomer at the cartel price: joining, on this evidence, is cheap.
+Up to the shock the arms are almost indistinguishable (@fig:paths): over T+1..T+29 the mean newcomer CI is between +0.97 and +1.03 for History, Notes and History + notes (@tab:preshock). The exception is the Blank newcomer, which inherits nothing. It does not compete: its mean CI is +1.42, it is `overpriced` in 6/15 games, and it joins in only 5/15, against 13/15 for history-only newcomers on Set A. Across all 30 bases, history-only newcomers join in 28/30 games. The price history is enough to anchor a newcomer at the cartel price: joining, on this evidence, is cheap.
 
 #fig("fig2_price_paths") <fig:paths>
 
 == Only the notes transfer enforcement <sec:notes>
 
-Enforcement is where the arms separate (@fig:outcomes). On the pre-registered outcome, History + notes newcomers re-form the cartel in 10/30 games, against 1/30 for History ($p = .0028$). The pre-registered replication holds: the last 15 bases alone give 4 vs 1. Notes alone give 8/15 against 1/15 for History on the same 15 bases ($p = .0071$; paired McNemar 7–0). The result survives the cleaner post-hoc metric: on `clean_punish`, History + notes leads 8/30 vs 1/30 ($p = .013$), and Notes leads 6/15 vs 1/15. It also survives dropping games in which the incumbent was already punishing before the shock: 10/30 vs 1/26 ($p = .006$).
+Enforcement is where the arms separate (@fig:outcomes). On the pre-registered outcome, History + notes newcomers re-form the cartel in 10/30 games, against 1/30 for History ($p = .0028$). The pre-registered replication holds: Set B alone gives 4 vs 1. Notes alone give 8/15 against 1/15 for History on Set B ($p = .0071$†; paired McNemar 7–0†). The result survives the cleaner post-hoc metric: on `clean_punish`, History + notes leads 8/30 vs 1/30 ($p = .013$†), and Notes leads 6/15 vs 1/15. It also survives dropping games in which the incumbent was already punishing before the shock: 10/30 vs 1/26 ($p = .006$†). On unique paths the headline is 10/29 vs 1/30 ($p = .0023$†); Control, whose rule-following incumbents often replay the same path, keeps all 7 of its unique paths `re_formed`.
 
 #fig("fig3_outcomes") <fig:outcomes>
 

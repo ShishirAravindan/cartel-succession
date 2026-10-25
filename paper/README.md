@@ -46,14 +46,18 @@ Change a caption there and regenerate.
 
 ## Conventions
 
-- **Arms** use readable names everywhere: Control, Nothing, History, Notes, History + notes. Code names
+- **Arms** use readable names everywhere: Control, Blank, History, Notes, History + notes. Code names
   (`same_full` …) appear only in the appendix arms table.
-- **Outcome metrics** are code identifiers in raw: `joins`, `enforces`, `re_formed`, `clean_punish` †,
-  `back_at_cartel` † († = post hoc).
+- **Outcome metrics** are code identifiers in raw: `joins`, `overpriced`, `enforces`, `re_formed`, `clean_punish` †,
+  `back_at_cartel` † († = post hoc; also marks post-hoc p-values). Only the pooled History + notes vs History Fisher
+  test is pre-registered in the main experiment.
+- **No "band".** *Holds* = mean CI over a window in (0.5, 1.1]; *at the cartel price* = CI ≥ 0.9; `overpriced` =
+  mean CI > 1.1 (above the monopoly price).
 - **Round windows** as plain text: T+20..T+29. "Punishment", not "retaliation".
-- **Samples are never named by internal phase codes.** Internal → paper: P1 = the first 15 bases (seeds 200–214);
-  P1b = the last 15 (seeds 215–229, pre-registered replication, adds Notes); P1c = the template experiment (last 15);
-  P2 / P3 = the model experiment, Qwen3-8B / gpt-oss-20b (first 15). P2/P3 raw runs live in the sibling worktree
+- **Base sets** are neutral labels, Set A and Set B (batches are provenance, not design). Seeds appear only in
+  appendix A.1. Never "first/last 15" or internal phase codes. Internal → paper: P1 = Set A (seeds 200–214);
+  P1b = Set B (seeds 215–229, pre-registered replication, adds Notes); P1c = the template experiment (Set B);
+  P2 / P3 = the model experiment, Qwen3-8B / gpt-oss-20b (Set A). P2/P3 raw runs live in the sibling worktree
   `../cartel-succession-p23/seat_swap/runs`.
 - **Colours** (shared with the figures): blue = newcomer, green = instructed incumbent, pale→deep blue = CI.
 - **Voice:** "we".
@@ -71,7 +75,7 @@ with a live preview. No commits unless the author asks (then: conventional, one 
 
 - Every result number must trace to `docs/pi_review.md`; run `python3 paper/tools/numcheck.py <file>` after content
   edits. Expected misses: styling values, citation years, seeds, and numbers sourced from `docs/log.md` / `docs/status.md`
-  (pilots and the base gate, A.1–A.2; costs, A.3; the discipline probe, A.4), which were not independently recomputed.
+  (pilots and the base gate, A.2–A.3; costs, A.4; the discipline probe, A.5), which were not independently recomputed.
 - Citations: check claims against `literature/papers.csv` (summaries and links for nearly every cited paper) and the
   PDFs (`python3 literature/fetch_papers.py`). Bib entries with a braced `{X et al.}` author are placeholders for full
   author lists.
