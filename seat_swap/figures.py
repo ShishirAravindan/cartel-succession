@@ -265,7 +265,7 @@ def fig6(manifest) -> None:
             ax.plot(range(1, len(g["path"]) + 1), g["path"], color=NEWCOMER, lw=0.7, alpha=0.45)
         k, n = count(gs, "back_at_cartel")
         kr, nr = count(gs, "re_formed")
-        ax.set_title(f"{arm}\nn = {len(gs)}; re_formed {kr}/{nr}; back {k}/{n}", color=INK, fontsize=8)
+        ax.set_title(f"{arm}\nn = {len(gs)}\nre_formed {kr}/{nr}; back {k}/{n}", color=INK, fontsize=8)
         ax.set_xlabel("round after the swap (T+k)")
     axes[0].set_ylabel("newcomer price")
     save(fig, "fig6_p1c",

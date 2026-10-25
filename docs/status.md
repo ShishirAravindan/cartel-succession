@@ -1,23 +1,72 @@
-# Status, 2026-10-25 12:50 IST, after kickoff 09 (in progress)
+# Status, 2026-10-25 13:35 IST, after kickoff 09
 
 ## One-line summary
-Branches merged, corrections and provenance in; post-hoc analyses and figures 1–5 pushed. P1c (rewritten notes) is
-frozen as `prereg-p1c` and its 45 games are running. Post hoc: newcomers that enforce through the notes mostly don't
-return to the cartel price (pooled `same_full` re-formed: 2/10 back at the cartel vs 16/20 for the rest).
+P1c's predictions fail. Rewritten rule notes transmit enforcement much less than the real inherited notes:
+`notes_rule_return` `re_formed` 3/15 vs `notes_status` 0/15 (p = 0.11), against 8/15 for `same_notes` on the same
+bases. The return clause doesn't bring enforcers back: `back_at_cartel` was 8/15 with it vs 10/15 without (p = 0.87),
+and 0 of the 7 template-arm enforcers get back. Descriptively, newcomers drop the template rule from their own notes
+within 10 rounds. Post hoc on P1–P3: enforcing through the notes mostly ends the cartel price instead of sustaining it.
 
 ## Finished
 | run id(s) | what | key numbers |
 |---|---|---|
+| `20261025-1240*_phaseB_notes_{rule_return,rule_noreturn,status}_s{215..229}_*` (manifest `runs/p1c_20261025-124057.json`) | P1c, 45 games, 60 rounds, shock T+30, code `9c54acb` (= `prereg-p1c`, tag `p1c`) | 45/45 completed; 0 parse / 0 transport failures; none short of T+33 |
 | – | merges into `main`, duration corrections, `docs/provenance.md` | – |
 | – | post-hoc analyses, `seat_swap.posthoc` → `results/posthoc.{md,json}` | 195 games (P1, P1b, P2, P3) |
-| – | paper figures, `seat_swap.figures` → `results/figures/fig{1..5}_*.{pdf,png}`, `captions.md` | – |
+| – | paper figures, `seat_swap.figures` → `results/figures/fig{1..6}_*.{pdf,png}`, `captions.md` | fig 6 = P1c |
 
 ## Still running
 | run id(s) | what | expected finish (IST) |
 |---|---|---|
-| `20261025-1240*_phaseB_notes_*_s{215..229}_*` (manifest `runs/p1c_20261025-124057.json`) | P1c, 3 arms × 15 seeds, 60 rounds | ~14:00 |
+| – | nothing | – |
 
-## Key results
+## P1c results (pre-registered, plan §13)
+Full tables: `results/p1c_analysis.md` (`seat_swap.p1c_analysis`); seed-level rows and prices: `results/p1c.{md,json}`,
+`p1c_prices.csv` (`seat_swap.p1_report`). P1b's arms on the same bases are shown for reference (no test).
+
+| arm | joins | enforces | re_formed | clean_punish | clean_punish_return | back_at_cartel | newcomer CI T+34..60 | market CI T+34..60 |
+|---|---|---|---|---|---|---|---|---|
+| notes_rule_return | 15/15 | 3/15 | 3/15 | 2/15 | 0/15 | 8/15 | +0.80 | +0.88 |
+| notes_rule_noreturn | 15/15 | 4/15 | 4/15 | 4/15 | 1/15 | 10/15 | +0.75 | +0.83 |
+| notes_status | 15/15 | 0/15 | 0/15 | 0/15 | 0/15 | 10/15 | +0.91 | +0.95 |
+| same_notes (P1b, reference) | 14/15 | 8/15 | 8/15 | 6/15 | 3/15 | 7/15 | +0.74 | +0.85 |
+| same_history (P1b, reference) | 15/15 | 1/15 | 1/15 | 1/15 | 0/15 | 9/15 | +0.87 | +0.92 |
+
+**Primary tests** (one-sided Fisher):
+- `re_formed`, `notes_rule_return` > `notes_status`: 3/15 vs 0/15, p = 0.112. Not supported.
+- `back_at_cartel`, `notes_rule_return` > `notes_rule_noreturn`: 8/15 vs 10/15, p = 0.868. Not supported.
+
+**Predictions:**
+- `notes_rule_return`, `re_formed` high and `back_at_cartel` high: not met (3/15 and 8/15).
+- `notes_rule_noreturn`, `re_formed` high and `back_at_cartel` low: not met (4/15 and 10/15).
+- `notes_status`, like `same_history`: met (`re_formed` 0/15, `joins` 15/15).
+
+**Descriptive, not pre-registered:** does the inherited rule stay in the newcomer's notes? Counts of games whose
+PLANS + INSIGHTS mention both 1.47 and 1.70:
+
+| arm | T+1 | T+10 | T+29 |
+|---|---|---|---|
+| notes_rule_return | 15/15 | 3/15 | 3/15 |
+| notes_rule_noreturn | 15/15 | 7/15 | 5/15 |
+| same_notes (P1b) | 10/15 | 8/15 | 7/15 |
+| same_full (P1b) | 10/15 | 6/15 | 3/15 |
+
+None of the 7 template-arm enforcers is `back_at_cartel` (s215, s223, s224 with the return clause; s215, s220, s221,
+s222 without it). Duplicate newcomer paths: one pair each in `notes_rule_return` and `notes_rule_noreturn` (14/15 unique).
+
+**Newcomer notes at T+31, s215 in each arm:**
+- `notes_rule_return` (price 1.75): "Initiate a 3-round $1.75 price test to evaluate volume resilience following
+  competitor pricing below $1.85 … consider gradual price recovery tests post-competitor normalization."
+- `notes_rule_noreturn` (price 1.47): "Continue the 3-round test at $1.47 to fully assess market share recovery. If profit
+  remains below $33.75 after 3 rounds, revert to $1.92 immediately." It reads its own punishment as a "test", and it
+  writes its own return.
+- `notes_status` (price 1.92): "Continue maintaining $1.92 as the baseline price … If competitors lower prices below
+  $1.92, test a 5-10 cent price reduction (e.g., $1.85) in a controlled experiment."
+
+**Timing:** 45 games, 5,355 calls, 07:11–07:56 UTC (45 min) on 2 H100s; 29.9 s/call overall, newcomers 32.6 s/call and
+865 reasoning tokens per call (thinking on).
+
+## Post-hoc results (P1, P1b, P2, P3)
 All of this section is **post hoc, not pre-registered** (full tables in `results/posthoc.md`).
 
 **Effective sample size.** History, full and notes arms have no duplicate newcomer paths (P1 `same_full`: one pair,
@@ -57,7 +106,7 @@ p = 0.016; on `clean_punish` 5 vs 0, p = 0.063. `same_full` vs `same_history`: 3
 `oth_full` `re_formed` is 4/12 (was 6/15) and `oth_history` 1/11 (was 2/15).
 
 **Figures** (`seat_swap/results/figures/`, captions in `captions.md`): 1 design, 2 price paths by arm, 3 outcomes by
-arm with exact CIs, 4 replacement across models, 5 mean CI after the shock ("punish but not forgive"). Newcomer dark
+arm with exact CIs, 4 replacement across models, 5 mean CI after the shock ("punish but not forgive"), 6 P1c price paths. Newcomer dark
 blue (solid), incumbent orange (dashed) throughout; bars use a blue ramp with hatching, so they read in greyscale.
 
 **Correction (2026-10-25, see `72d5986`):** P1's status (`cce5bd4`) said the inherited `same_full` notes "none mentions
@@ -65,16 +114,29 @@ blue (solid), incumbent orange (dashed) throughout; bars use a blue ramp with ha
 enforcers). The P1b status's "no duration ever" in `log.md` is corrected there too.
 
 ## Surprises or worries
-None yet.
+- The templates carry much less enforcement than the real notes, even though `notes_rule_return` states the rule more
+  completely than most real notes. The real notes also restate a long compliance history ("149 rounds of mutual
+  compliance") and are seed-specific. A template is the same short text in every game, and newcomers rewrite it
+  within 10 rounds. So P1c doesn't isolate "which clause transfers enforcement": the rule's persistence in the
+  newcomer's own notes looks like the bottleneck, not its content. This reading is descriptive.
+- With n = 15 per arm, 3/15 vs 0/15 has little power. The test was fixed in advance, and the result is reported as is.
+- The `back_at_cartel` comparison is dominated by non-enforcers, who mostly stay high whatever their notes. Among
+  enforcers it is 0/3 vs 0/4.
+- P2/P3 raw runs exist only in the `cartel-succession-p23` worktree (gitignored). Keep it until `runs/` is archived.
 
 ## Decisions needed
-1. Operational choices in the new outcomes (frozen in plan §13 before the P1c run; the kickoff left them open).
+1. Operational choices in the new outcomes, frozen in plan §13 before the P1c run (the kickoff left them open).
    "No punishment under way in T+25..T+29" = both seats ≥ 1.70 in each round. "Back within 6 rounds" counts from the
    first round at ≤ 1.55, and one round at CI ≥ 0.9 suffices. `back_at_cartel` has no upper bound. Options: keep / change
-   (change would be post hoc for P1c). My recommendation: keep.
+   (a change would be post hoc for P1c). My recommendation: keep.
+2. The merged branches (`exp/p1b`, `exp/p23`, `analysis/notes-reading`) are not deleted, because P2/P3's runs live in
+   the p23 worktree. Options: delete the branches now and keep the worktree directory / keep both until archiving. My
+   recommendation: keep both until `runs/` is archived.
 
 ## Spend
-This task so far: Modal 14B app since 07:00 UTC (estimate later). Sprint total before today ≈ $55.8.
+P1c on the 14B app (Modal hourly report): $6.39 for the 07:00 UTC hour (deploy, smoke and the full run; stopped
+07:58 UTC, so any 08:00 UTC charge is at most a minute or two). **This task: ≈ $6.4** (cap $13). Sprint total ≈ $55.8 +
+$6.4 ≈ **$62.2** of $80.
 
 ## Modal state
-`seat-swap-vllm` deployed at 10-min scaledown (07:07 UTC), running P1c.
+`seat-swap-vllm` redeployed at 2-min scaledown and stopped (07:58 UTC). No Modal app running.

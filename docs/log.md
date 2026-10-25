@@ -538,3 +538,19 @@ then `modal app stop -y seat-swap-vllm`.
   second completed: model revision `40c06982`, template in the rendered prompt, no table, no instruction.
 - **Launch** 07:10 UTC: `seat_swap.p1 rebranch --phase p1c --manifest seat_swap/runs/p1b_20261024-234550.json` →
   manifest `seat_swap/runs/p1c_20261025-124057.json`, 45/45 games started on `9c54acb`. `seat-swap-vllm` at 10-min scaledown.
+
+## 2026-10-25 — Kickoff 09: post-hoc analyses, figures, P1c results
+
+- `seat_swap/posthoc.py` → `results/posthoc.{md,json}` (post hoc, not pre-registered; 195 games P1/P1b/P2/P3; pre-registered
+  outcomes recomputed and matched every run summary). Key numbers: all 30 bases share one price path; pooled `same_full`
+  vs `same_history` on unique paths p = 0.0023; pooled `same_full` re-formed 2/10 back at the cartel vs 16/20 for the rest;
+  clean_punish pooled `same_full` 8/30, `same_notes` 6/15; P1b McNemar `same_notes` vs `same_history` `re_formed` 7–0,
+  p = 0.016; P3 without the 7 invisible-shock games: `oth_full` re_formed 4/12.
+- `seat_swap/figures.py` → figs 1–6 (PDF/PNG, deterministic PDFs) + `captions.md`. matplotlib added to the project.
+- **P1c** (manifest `runs/p1c_20261025-124057.json`, code `9c54acb`, tag `p1c`): 45/45 completed 07:11–07:56 UTC,
+  0 parse / 0 transport failures, 5,355 calls, 29.9 s/call, newcomers 865 reasoning tok/call.
+  re_formed: rule_return 3/15, rule_noreturn 4/15, status 0/15; back_at_cartel 8/15, 10/15, 10/15.
+  Primary tests: rule_return > status on re_formed p = 0.112; rule_return > noreturn on back_at_cartel p = 0.868.
+  Neither prediction for the rule arms met; status arm as predicted. Descriptive: the template rule survives in the newcomer's
+  notes to T+10 in 3/15 (return) and 7/15 (no return) vs 8/15 for real notes; 0/7 template enforcers back at the cartel.
+- Cost: 14B app $6.39 (07:00 UTC hour). Sprint ≈ $62.2. App redeployed at 2 min and stopped 07:58 UTC.

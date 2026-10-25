@@ -9,6 +9,7 @@ From the `git.sha` recorded in every run's `config.json` (all clean trees). A "f
 | P1b (seeds 215–229) | `9e44323` | `24f922b` (status-only commit after the gate) | `prereg-p1b` = `9e44323` | `p1b` = `24f922b` | base 15, enforce 15, arms 60; manifest `runs/p1b_20261024-234550.json` |
 | P2 sibling, Qwen3-8B (seeds 200–214) | P1's base, `650e722` (no new base) | `126cf3f` | `prereg-p23` = `ff2bb5d`, amended `prereg-p23b` = `126cf3f` | `p23` = `126cf3f` | 30 arms; manifest `runs/p23_sib_20261025-002242.json` (in the `cartel-succession-p23` worktree) |
 | P3 other family, gpt-oss-20b (seeds 200–214) | P1's base, `650e722` (no new base) | `126cf3f` | `prereg-p23` = `ff2bb5d`, amended `prereg-p23b` = `126cf3f` | `p23` = `126cf3f` | 30 arms; manifest `runs/p23_oth_20261025-002243.json` (same worktree) |
+| P1c (seeds 215–229, template notes) | P1b's base, `9e44323` (no new base) | `9c54acb` | `prereg-p1c` = `9c54acb` | `p1c` = `9c54acb` | 45 arms; manifest `runs/p1c_20261025-124057.json` |
 
 - P2/P3's stopped first attempt ran on `ff2bb5d` (`p23_sib_20261025-000230`, `p23_oth_20261025-000724`) and is
   excluded from results (plan §12.1).
