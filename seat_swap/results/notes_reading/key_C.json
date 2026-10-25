@@ -1,0 +1,856 @@
+{
+  "C": {
+    "H001": {
+      "sample": "P23",
+      "arm": "oth_history",
+      "seed": 206,
+      "model": "gpt-oss-20b",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": -0.19174041297935107,
+      "price_T31_33": [
+        1.47,
+        1.68,
+        1.66
+      ]
+    },
+    "H002": {
+      "sample": "P23",
+      "arm": "sib_history",
+      "seed": 210,
+      "model": "Qwen3-8B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H003": {
+      "sample": "P1b",
+      "arm": "same_history",
+      "seed": 218,
+      "model": "Qwen3-14B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.8,
+        1.8,
+        1.8
+      ]
+    },
+    "H004": {
+      "sample": "P23",
+      "arm": "sib_history",
+      "seed": 201,
+      "model": "Qwen3-8B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H005": {
+      "sample": "P23",
+      "arm": "sib_history",
+      "seed": 212,
+      "model": "Qwen3-8B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": -0.04424778761061943,
+      "price_T31_33": [
+        1.9,
+        1.9,
+        1.9
+      ]
+    },
+    "H006": {
+      "sample": "P23",
+      "arm": "sib_history",
+      "seed": 204,
+      "model": "Qwen3-8B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H007": {
+      "sample": "P1",
+      "arm": "same_history",
+      "seed": 201,
+      "model": "Qwen3-14B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H008": {
+      "sample": "P23",
+      "arm": "sib_history",
+      "seed": 213,
+      "model": "Qwen3-8B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H009": {
+      "sample": "P23",
+      "arm": "oth_history",
+      "seed": 210,
+      "model": "gpt-oss-20b",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": -0.029498525073746285,
+      "price_T31_33": [
+        1.64,
+        1.65,
+        1.65
+      ]
+    },
+    "H010": {
+      "sample": "P23",
+      "arm": "oth_history",
+      "seed": 212,
+      "model": "gpt-oss-20b",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 1.6653345369377348e-16,
+      "price_T31_33": [
+        1.6,
+        1.65,
+        1.7
+      ]
+    },
+    "H011": {
+      "sample": "P23",
+      "arm": "sib_history",
+      "seed": 214,
+      "model": "Qwen3-8B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H012": {
+      "sample": "P1b",
+      "arm": "same_history",
+      "seed": 219,
+      "model": "Qwen3-14B",
+      "enforces": true,
+      "re_formed": true,
+      "retaliation": -0.9292035398230087,
+      "price_T31_33": [
+        1.5,
+        1.5,
+        1.5
+      ]
+    },
+    "H013": {
+      "sample": "P1b",
+      "arm": "same_history",
+      "seed": 215,
+      "model": "Qwen3-14B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H014": {
+      "sample": "P23",
+      "arm": "sib_history",
+      "seed": 205,
+      "model": "Qwen3-8B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H015": {
+      "sample": "P1b",
+      "arm": "same_history",
+      "seed": 226,
+      "model": "Qwen3-14B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H016": {
+      "sample": "P23",
+      "arm": "oth_history",
+      "seed": 200,
+      "model": "gpt-oss-20b",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": -0.1843657817109145,
+      "price_T31_33": [
+        1.45,
+        1.66,
+        1.66
+      ]
+    },
+    "H017": {
+      "sample": "P1",
+      "arm": "same_history",
+      "seed": 211,
+      "model": "Qwen3-14B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H018": {
+      "sample": "P1b",
+      "arm": "same_history",
+      "seed": 220,
+      "model": "Qwen3-14B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H019": {
+      "sample": "P1",
+      "arm": "same_history",
+      "seed": 202,
+      "model": "Qwen3-14B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H020": {
+      "sample": "P23",
+      "arm": "sib_history",
+      "seed": 203,
+      "model": "Qwen3-8B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H021": {
+      "sample": "P1",
+      "arm": "same_history",
+      "seed": 210,
+      "model": "Qwen3-14B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H022": {
+      "sample": "P1b",
+      "arm": "same_history",
+      "seed": 227,
+      "model": "Qwen3-14B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H023": {
+      "sample": "P1b",
+      "arm": "same_history",
+      "seed": 228,
+      "model": "Qwen3-14B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H024": {
+      "sample": "P1b",
+      "arm": "same_history",
+      "seed": 216,
+      "model": "Qwen3-14B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H025": {
+      "sample": "P1",
+      "arm": "same_history",
+      "seed": 206,
+      "model": "Qwen3-14B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": -0.02212389380530977,
+      "price_T31_33": [
+        1.47,
+        1.55,
+        1.6
+      ]
+    },
+    "H026": {
+      "sample": "P1",
+      "arm": "same_history",
+      "seed": 209,
+      "model": "Qwen3-14B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H027": {
+      "sample": "P1b",
+      "arm": "same_history",
+      "seed": 229,
+      "model": "Qwen3-14B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H028": {
+      "sample": "P23",
+      "arm": "oth_history",
+      "seed": 202,
+      "model": "gpt-oss-20b",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.86,
+        1.86,
+        1.86
+      ]
+    },
+    "H029": {
+      "sample": "P23",
+      "arm": "sib_history",
+      "seed": 211,
+      "model": "Qwen3-8B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H030": {
+      "sample": "P1b",
+      "arm": "same_history",
+      "seed": 224,
+      "model": "Qwen3-14B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H031": {
+      "sample": "P1",
+      "arm": "same_history",
+      "seed": 204,
+      "model": "Qwen3-14B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H032": {
+      "sample": "P23",
+      "arm": "oth_history",
+      "seed": 203,
+      "model": "gpt-oss-20b",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.10324483775811219,
+      "price_T31_33": [
+        1.49,
+        1.48,
+        1.55
+      ]
+    },
+    "H033": {
+      "sample": "P23",
+      "arm": "oth_history",
+      "seed": 205,
+      "model": "gpt-oss-20b",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": -0.15486725663716797,
+      "price_T31_33": [
+        1.55,
+        1.65,
+        1.55
+      ]
+    },
+    "H034": {
+      "sample": "P23",
+      "arm": "oth_history",
+      "seed": 209,
+      "model": "gpt-oss-20b",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": -0.25073746312684364,
+      "price_T31_33": [
+        1.47,
+        1.47,
+        1.65
+      ]
+    },
+    "H035": {
+      "sample": "P23",
+      "arm": "sib_history",
+      "seed": 202,
+      "model": "Qwen3-8B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H036": {
+      "sample": "P1",
+      "arm": "same_history",
+      "seed": 213,
+      "model": "Qwen3-14B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H037": {
+      "sample": "P1",
+      "arm": "same_history",
+      "seed": 203,
+      "model": "Qwen3-14B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H038": {
+      "sample": "P1b",
+      "arm": "same_history",
+      "seed": 223,
+      "model": "Qwen3-14B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.75,
+        1.75,
+        1.75
+      ]
+    },
+    "H039": {
+      "sample": "P23",
+      "arm": "oth_history",
+      "seed": 214,
+      "model": "gpt-oss-20b",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.48,
+        1.65,
+        1.48
+      ]
+    },
+    "H040": {
+      "sample": "P23",
+      "arm": "sib_history",
+      "seed": 208,
+      "model": "Qwen3-8B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H041": {
+      "sample": "P1b",
+      "arm": "same_history",
+      "seed": 217,
+      "model": "Qwen3-14B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H042": {
+      "sample": "P23",
+      "arm": "oth_history",
+      "seed": 208,
+      "model": "gpt-oss-20b",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": -0.25811209439527993,
+      "price_T31_33": [
+        1.55,
+        1.55,
+        1.55
+      ]
+    },
+    "H043": {
+      "sample": "P23",
+      "arm": "oth_history",
+      "seed": 211,
+      "model": "gpt-oss-20b",
+      "enforces": true,
+      "re_formed": true,
+      "retaliation": -0.3097345132743362,
+      "price_T31_33": [
+        1.46,
+        1.46,
+        1.68
+      ]
+    },
+    "H044": {
+      "sample": "P1",
+      "arm": "same_history",
+      "seed": 212,
+      "model": "Qwen3-14B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H045": {
+      "sample": "P23",
+      "arm": "sib_history",
+      "seed": 200,
+      "model": "Qwen3-8B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H046": {
+      "sample": "P1b",
+      "arm": "same_history",
+      "seed": 221,
+      "model": "Qwen3-14B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.8,
+        1.8,
+        1.8
+      ]
+    },
+    "H047": {
+      "sample": "P1b",
+      "arm": "same_history",
+      "seed": 222,
+      "model": "Qwen3-14B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": -0.10324483775811188,
+      "price_T31_33": [
+        1.92,
+        1.85,
+        1.85
+      ]
+    },
+    "H048": {
+      "sample": "P23",
+      "arm": "oth_history",
+      "seed": 207,
+      "model": "gpt-oss-20b",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.09587020648967548,
+      "price_T31_33": [
+        1.55,
+        1.68,
+        1.68
+      ]
+    },
+    "H049": {
+      "sample": "P23",
+      "arm": "sib_history",
+      "seed": 209,
+      "model": "Qwen3-8B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H050": {
+      "sample": "P1",
+      "arm": "same_history",
+      "seed": 200,
+      "model": "Qwen3-14B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H051": {
+      "sample": "P1",
+      "arm": "same_history",
+      "seed": 205,
+      "model": "Qwen3-14B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H052": {
+      "sample": "P23",
+      "arm": "oth_history",
+      "seed": 204,
+      "model": "gpt-oss-20b",
+      "enforces": true,
+      "re_formed": false,
+      "retaliation": -0.35398230088495564,
+      "price_T31_33": [
+        1.33,
+        1.3,
+        1.3
+      ]
+    },
+    "H053": {
+      "sample": "P1b",
+      "arm": "same_history",
+      "seed": 225,
+      "model": "Qwen3-14B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H054": {
+      "sample": "P23",
+      "arm": "oth_history",
+      "seed": 201,
+      "model": "gpt-oss-20b",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.02949852507374634,
+      "price_T31_33": [
+        1.6,
+        1.6,
+        1.65
+      ]
+    },
+    "H055": {
+      "sample": "P23",
+      "arm": "sib_history",
+      "seed": 207,
+      "model": "Qwen3-8B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H056": {
+      "sample": "P1",
+      "arm": "same_history",
+      "seed": 208,
+      "model": "Qwen3-14B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H057": {
+      "sample": "P23",
+      "arm": "oth_history",
+      "seed": 213,
+      "model": "gpt-oss-20b",
+      "enforces": true,
+      "re_formed": true,
+      "retaliation": -0.929203539823009,
+      "price_T31_33": [
+        1.42,
+        1.44,
+        1.46
+      ]
+    },
+    "H058": {
+      "sample": "P1",
+      "arm": "same_history",
+      "seed": 214,
+      "model": "Qwen3-14B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H059": {
+      "sample": "P23",
+      "arm": "sib_history",
+      "seed": 206,
+      "model": "Qwen3-8B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    },
+    "H060": {
+      "sample": "P1",
+      "arm": "same_history",
+      "seed": 207,
+      "model": "Qwen3-14B",
+      "enforces": false,
+      "re_formed": false,
+      "retaliation": 0.0,
+      "price_T31_33": [
+        1.92,
+        1.92,
+        1.92
+      ]
+    }
+  },
+  "C_rel": [
+    "H004",
+    "H008",
+    "H015",
+    "H016",
+    "H026",
+    "H028",
+    "H031",
+    "H045",
+    "H049",
+    "H058"
+  ]
+}

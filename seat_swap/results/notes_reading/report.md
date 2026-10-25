@@ -262,3 +262,40 @@ Copy share = difflib similarity of the newcomer's T+1 notes to the inherited not
 | G057 | oth_full | 212 | P23 | yes | 1.70 1.71 1.66 | 0.22 | conditional_plan | yes | yes | deterrence | market_signal | explicit | no | match_or_undercut | no | yes | med | In a price war, you have to undercut to maintain market share. |
 | G020 | oth_full | 213 | P23 | yes | 1.47 1.92 1.47 | 0.06 | conditional_plan | yes | yes | deterrence | defection | explicit | no | punish | yes | yes | med | So we must price at 1.47 to try to regain collusion quickly. |
 | G064 | oth_full | 214 | P23 | yes | 1.33 1.25 1.92 | 0.10 | status_only | no | no | profit | market_signal | explicit | no | match_or_undercut | no | yes | med | Thus choose price 1.33. |
+
+## Comparison group (amendment 2): newcomers without inherited notes
+
+History-only newcomers coded: 60 (missing: none).
+
+### Agreement (reliability coder vs batch coder, 10 games)
+
+Items coded twice: 10.
+
+| code | agreement | disagreements (id: first / second) |
+|---|---|---|
+| C1_notices_cut | 100% | – |
+| C2_reading | 100% | – |
+| C3_punishment_logic | 100% | – |
+| C4_response | 100% | – |
+| C5_return_plan | 100% | – |
+| C8_own_scheme | 90% | H045: no / yes |
+
+### Same decision at T+31, with vs without inherited notes
+
+| newcomer | arms | games | enforces | reads the cut as defection | punishment logic (C3) / invokes inherited rule (B3s) | response = punish | holds | own retaliation or matching rule |
+|---|---|---|---|---|---|---|---|---|
+| Qwen3-14B | history only (same_history) | 30 | 1/30 | 0/30 | 0/30 | 0/30 | 28/30 | 4/30 |
+| Qwen3-14B | with notes (same_full, same_notes) | 45 | 18/45 | 15/45 | 18/45 | 13/45 | 25/45 | 13/45 |
+| Qwen3-8B | history only (sib_history) | 15 | 0/15 | 0/15 | 0/15 | 0/15 | 14/15 | 0/15 |
+| Qwen3-8B | with notes (sib_full) | 14 | 3/14 | 1/14 | 2/14 | 1/14 | 10/14 | 3/14 |
+| gpt-oss-20b | history only (oth_history) | 15 | 3/15 | 0/15 | 0/15 | 0/15 | 4/15 | 13/15 |
+| gpt-oss-20b | with notes (oth_full) | 15 | 6/15 | 2/15 | 1/15 | 2/15 | 2/15 | 13/15 |
+
+History-only readings of the cut (C2), all models: market_signal 51, competitor_experiment 6, not_discussed 3.
+
+History-only games where the newcomer enforced (pre-registered metric):
+
+- same_history s219: C2 market_signal, C3 no, C4 match_or_undercut, T+31..33 [1.5, 1.5, 1.5]: "So, the user might need to lower their price to stay competitive."
+- oth_history s211: C2 market_signal, C3 no, C4 hold, T+31..33 [1.46, 1.46, 1.68]: "Thus we plan: If competitor >=1.90, test price 1.68 (max profit found). Should hold until competitor drops below 1.90."
+- oth_history s204: C2 market_signal, C3 no, C4 match_or_undercut, T+31..33 [1.33, 1.3, 1.3]: "Thus we might set price 1.33."
+- oth_history s213: C2 market_signal, C3 no, C4 match_or_undercut, T+31..33 [1.42, 1.44, 1.46]: "So we should set our price to ~1.42 (competitor 1.47 -0.05=1.42)."

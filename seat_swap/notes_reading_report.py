@@ -54,6 +54,46 @@ def crosstab(items: list[dict], code: str) -> list[str]:
     return lines
 
 
+C_CODES = ["C1_notices_cut", "C2_reading", "C3_punishment_logic", "C4_response", "C5_return_plan", "C8_own_scheme"]
+
+
+def comparison(notes_items: list[dict]) -> list[str]:
+    """Amendment 2: the history-only newcomers (pass C) next to the newcomers with notes (pass B)."""
+    key = json.loads((DIR / "key_C.json").read_text())
+    c = {}
+    for k in range(1, 5):
+        c.update(load(f"C_batch{k}.json"))
+    hist = [{"id": g, **v, **c.get(g, {})} for g, v in key["C"].items()]
+    L = ["", "## Comparison group (amendment 2): newcomers without inherited notes", "",
+         f"History-only newcomers coded: {len(hist)} (missing: {[h['id'] for h in hist if 'C2_reading' not in h] or 'none'}).", "",
+         "### Agreement (reliability coder vs batch coder, 10 games)", ""]
+    L += agreement(c, load("C_rel.json"), C_CODES)
+    L += ["", "### Same decision at T+31, with vs without inherited notes", "",
+          "| newcomer | arms | games | enforces | reads the cut as defection | punishment logic (C3) / invokes inherited rule (B3s) | "
+          "response = punish | holds | own retaliation or matching rule |", "|---|---|---|---|---|---|---|---|---|"]
+    for model in ("Qwen3-14B", "Qwen3-8B", "gpt-oss-20b"):
+        for label, xs, logic, own in (
+                ("history only", [h for h in hist if h["model"] == model], "C3_punishment_logic", "C8_own_scheme"),
+                ("with notes", [x for x in notes_items if x["model"] == model], "B3s_invokes_inherited_rule", "B8_own_scheme")):
+            arms = ", ".join(sorted({x["arm"] for x in xs}))
+            r = "C2_reading" if label == "history only" else "B2_reading"
+            resp = "C4_response" if label == "history only" else "B4_response"
+            n = len(xs)
+            f = lambda cond: f"{sum(1 for x in xs if cond(x))}/{n}"
+            L.append(f"| {model} | {label} ({arms}) | {n} | {f(lambda x: x['enforces'])} | {f(lambda x: x.get(r) == 'defection')} | "
+                     f"{f(lambda x: x.get(logic) == 'yes')} | {f(lambda x: x.get(resp) == 'punish')} | {f(lambda x: x.get(resp) == 'hold')} | "
+                     f"{f(lambda x: x.get(own) == 'yes')} |")
+    L += ["", "History-only readings of the cut (C2), all models: " +
+          ", ".join(f"{v} {n}" for v, n in Counter(h.get("C2_reading") for h in hist).most_common()) + "."]
+    L += ["", "History-only games where the newcomer enforced (pre-registered metric):", ""]
+    for h in hist:
+        if h["enforces"]:
+            L.append(f"- {h['arm']} s{h['seed']}: C2 {h.get('C2_reading')}, C3 {h.get('C3_punishment_logic')}, C4 {h.get('C4_response')}, "
+                     f"T+31..33 {h['price_T31_33']}: \"{(h.get('C9_quote') or '')[:200]}\"")
+    (DIR / "merged_C.json").write_text(json.dumps(hist, indent=2))
+    return L
+
+
 def main() -> dict:
     key = json.loads((DIR / "key.json").read_text())
     a1, a2 = load("A_coder1.json"), load("A_coder2.json")
@@ -129,6 +169,7 @@ def main() -> dict:
                  f"{x.get('B3_cites_rule')} | {x.get('B3s_invokes_inherited_rule')} | {x.get('B4_response')} | "
                  f"{x.get('B6s_inherited_rule_held')} | "
                  f"{x.get('B8_own_scheme')} | {x.get('B10_confidence')} | {q} |")
+    L += comparison(items)
     (DIR / "report.md").write_text("\n".join(L) + "\n")
     (DIR / "merged.json").write_text(json.dumps(items, indent=2))
     print("\n".join(L))
