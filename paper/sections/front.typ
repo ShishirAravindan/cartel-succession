@@ -9,8 +9,7 @@
 #line(length: 100%, stroke: 0.6pt + black)
 #v(1em)
 #align(center)[
-  Shishir Aravindan \
-  [Affiliation]
+  Shishir Aravindan
   #v(0.6em)
   *With* \
   Apart Research

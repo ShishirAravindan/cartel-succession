@@ -113,7 +113,6 @@ surface, limitations as prose, dual use and ethics. Needs the author's review.
   cut; 4 games with a persistent undercut while the incumbent stays ≥ 1.90. Add them to the PI review's addendum.
 
 **Fill in**
-- Affiliation: "Independent researcher" unless the author decides otherwise.
 - Raw run logs (about 2 GB, `seat_swap/runs/` is gitignored): publish as a compressed archive outside git, e.g. a
   GitHub release asset or a Zenodo/Hugging Face dataset, and link it from Code and Data. Check the logs for anything
   that shouldn't ship (keys, local paths) first. The repository itself is already public.
