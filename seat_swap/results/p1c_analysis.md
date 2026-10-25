@@ -29,6 +29,18 @@ Exact 95% CIs (Clopper–Pearson):
 
 Kill flag (more than 2 games in an arm not reaching T+33): none.
 
+## Does the rule stay in the newcomer's notes? (descriptive, not pre-registered)
+
+Games whose newcomer PLANS + INSIGHTS, written at round T+k, mention both 1.47 and 1.70 (regexes `1\.47`, `1\.70`). P1b arms on the same bases for reference.
+
+| arm | T+1 | T+10 | T+29 | enforcers (seed, back_at_cartel) |
+|---|---|---|---|---|
+| notes_rule_return | 15/15 | 3/15 | 3/15 | s215 no, s223 no, s224 no |
+| notes_rule_noreturn | 15/15 | 7/15 | 5/15 | s215 no, s220 no, s221 no, s222 no |
+| notes_status | 0/15 | 0/15 | 0/15 | – |
+| same_notes (P1b) | 10/15 | 8/15 | 7/15 | s218 yes, s219 yes, s220 no, s222 no, s223 no, s225 no, s226 no, s227 no |
+| same_full (P1b) | 10/15 | 6/15 | 3/15 | s217 no, s219 no, s222 no, s223 yes |
+
 ## Newcomer notes at T+31 (one per arm)
 
 - `notes_rule_return`, s215, price 1.75 at T+31.

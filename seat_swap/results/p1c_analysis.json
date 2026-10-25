@@ -383,5 +383,164 @@
    "insights": "<Price sensitivity is extreme: any deviation from $1.92 reduces profit. Competitor parity at $1.92 ensures maximum volume and profit. The $2.89 ceiling is infeasible without rigorous testing, which is not currently warranted. However, the strategy must now account for competitor price *decreases*\u2014which can drastically reduce volume. A controlled experiment is needed to determine if price reductions can recover market share during competitor price cuts. Stability remains key, but responsiveness to downward competitor pressure is now critical.>"
   }
  },
- "short_flag": []
+ "short_flag": [],
+ "descriptive_rule_kept": {
+  "notes_rule_return": {
+   "1": [
+    15,
+    15
+   ],
+   "10": [
+    3,
+    15
+   ],
+   "29": [
+    3,
+    15
+   ]
+  },
+  "notes_rule_noreturn": {
+   "1": [
+    15,
+    15
+   ],
+   "10": [
+    7,
+    15
+   ],
+   "29": [
+    5,
+    15
+   ]
+  },
+  "notes_status": {
+   "1": [
+    0,
+    15
+   ],
+   "10": [
+    0,
+    15
+   ],
+   "29": [
+    0,
+    15
+   ]
+  },
+  "same_notes": {
+   "1": [
+    10,
+    15
+   ],
+   "10": [
+    8,
+    15
+   ],
+   "29": [
+    7,
+    15
+   ]
+  },
+  "same_full": {
+   "1": [
+    10,
+    15
+   ],
+   "10": [
+    6,
+    15
+   ],
+   "29": [
+    3,
+    15
+   ]
+  }
+ },
+ "descriptive_enforcers_back": {
+  "notes_rule_return": [
+   [
+    215,
+    false
+   ],
+   [
+    223,
+    false
+   ],
+   [
+    224,
+    false
+   ]
+  ],
+  "notes_rule_noreturn": [
+   [
+    215,
+    false
+   ],
+   [
+    220,
+    false
+   ],
+   [
+    221,
+    false
+   ],
+   [
+    222,
+    false
+   ]
+  ],
+  "notes_status": [],
+  "same_notes": [
+   [
+    218,
+    true
+   ],
+   [
+    219,
+    true
+   ],
+   [
+    220,
+    false
+   ],
+   [
+    222,
+    false
+   ],
+   [
+    223,
+    false
+   ],
+   [
+    225,
+    false
+   ],
+   [
+    226,
+    false
+   ],
+   [
+    227,
+    false
+   ]
+  ],
+  "same_full": [
+   [
+    217,
+    false
+   ],
+   [
+    219,
+    false
+   ],
+   [
+    222,
+    false
+   ],
+   [
+    223,
+    true
+   ]
+  ]
+ }
 }

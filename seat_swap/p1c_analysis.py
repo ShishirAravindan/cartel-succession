@@ -11,6 +11,7 @@ newcomer paths; games that did not reach T+33; one excerpt per arm of the newcom
 from __future__ import annotations
 
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -27,6 +28,22 @@ OUTCOMES = ["joins", "enforces", "re_formed", "clean_punish", "clean_punish_retu
 PRIMARY = [("notes_rule_return", "notes_status", "re_formed"),
            ("notes_rule_return", "notes_rule_noreturn", "back_at_cartel")]
 EXCERPT_SEED = 215  # lowest seed; the first later seed with a parsed T+31 call if it has none
+# descriptive, not pre-registered: is the rule still in the newcomer's own notes? (both prices mentioned)
+RULE_RE = (re.compile(r"1\.47"), re.compile(r"1\.70"))
+RULE_ROUNDS = (1, 10, 29)
+RULE_ARMS = P1C_ARMS + ["same_notes", "same_full"]
+
+
+def rule_kept(games, arm):
+    out = {}
+    for k in RULE_ROUNDS:
+        hits = 0
+        for g in select(games, arm):
+            n = notes_at(Path(g["dir"]), T + k) or {}
+            text = n.get("plans", "") + n.get("insights", "")
+            hits += all(r.search(text) for r in RULE_RE)
+        out[k] = [hits, len(select(games, arm))]
+    return out
 
 
 def per_arm(games, arm):
@@ -52,6 +69,8 @@ def main(argv=None):
     manifest = Path(args[0])
     m = json.loads(manifest.read_text())
     games = load_games(("P1c",), {"P1c": manifest}) + load_games(("P1b",))
+    rule = {a: rule_kept(games, a) for a in RULE_ARMS}
+    enforcers = {a: [(g["seed"], g["back_at_cartel"]) for g in select(games, a) if g["enforces"]] for a in RULE_ARMS}
     games = [g for g in games if g["family"] == "P1c" or g["arm"] in REFERENCE]
     arms = {a: per_arm(games, a) for a in P1C_ARMS + REFERENCE}
     tests = []
@@ -63,7 +82,8 @@ def main(argv=None):
     ex = {a: excerpt(games, a) for a in P1C_ARMS}
     flag = [a for a in P1C_ARMS if len(arms[a]["short"]) > 2]
     out = {"manifest": str(manifest), "status": {k: v.get("status") for k, v in m["arms"].items()},
-           "arms": arms, "tests": tests, "excerpts_T31": ex, "short_flag": flag}
+           "arms": arms, "tests": tests, "excerpts_T31": ex, "short_flag": flag,
+           "descriptive_rule_kept": rule, "descriptive_enforcers_back": enforcers}
     (RESULTS / "p1c_analysis.json").write_text(json.dumps(out, indent=1))
 
     def fr(r):
@@ -93,6 +113,16 @@ def main(argv=None):
         a, b = [k for k in t if k not in ("test", "p_one_sided")]
         L.append(f"| {t['test']} | {a} {t[a][0]}/{t[a][1]} | {b} {t[b][0]}/{t[b][1]} | {t['p_one_sided']:.4f} |")
     L += ["", f"Kill flag (more than 2 games in an arm not reaching T+33): {', '.join(flag) or 'none'}.", "",
+          "## Does the rule stay in the newcomer's notes? (descriptive, not pre-registered)", "",
+          "Games whose newcomer PLANS + INSIGHTS, written at round T+k, mention both 1.47 and 1.70 (regexes `1\\.47`, "
+          "`1\\.70`). P1b arms on the same bases for reference.", "",
+          "| arm | " + " | ".join(f"T+{k}" for k in RULE_ROUNDS) + " | enforcers (seed, back_at_cartel) |",
+          "|---|" + "---|" * len(RULE_ROUNDS) + "---|"]
+    for a in RULE_ARMS:
+        L.append(f"| {a}{' (P1b)' if a not in P1C_ARMS else ''} | " +
+                 " | ".join(f"{rule[a][k][0]}/{rule[a][k][1]}" for k in RULE_ROUNDS) + " | " +
+                 (", ".join(f"s{s} {'yes' if b else 'no'}" for s, b in enforcers[a]) or "–") + " |")
+    L += ["",
           "## Newcomer notes at T+31 (one per arm)", ""]
     for a, n in ex.items():
         if not n:
