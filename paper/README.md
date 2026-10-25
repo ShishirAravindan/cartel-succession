@@ -81,14 +81,36 @@ with a live preview. No commits unless the author asks (then: conventional, one 
   author lists.
 - Pre-registration: `docs/plan.md` (§7 kill tests define the Control positive control and the Look-alike reading).
 
-## Open items (25 Oct 2026)
+## Open items (26 Oct 2026)
 
-- Related Work rewritten (25 Oct): comments resolved, citations checked against the PDFs, Arslan et al. 2026 added
-  (it already separates price level from punishment, for Q-learners; our gap is what an LLM successor inherits).
-  Introduction drafted (motivation, RealPage hook). Intro + Related Work: 1.97 pages in the submission layout (limit 2),
-  so any addition needs a matching cut. Garra moved to the templates appendix.
-- `results.typ` §4.2 pools two transcript counts with the appendix template arm (rule_return): "all 13 … who cut"
-  (11 in the main arms) and "7 … still hold the price" (4 in the main arms).
-- Methods + Results: 4.04 pages (limit 4.5); further options: Fig. 1 to the appendix, drop the demand equation.
-- To write: abstract, Discussion, Conclusion, LLM Usage Statement (mandatory; frame the author's and Claude's
-  contributions fairly). Fill in: affiliation; make the GitHub repo public; first names for Garra (still cited).
+**Done.** Methods and Results restructured (26 Oct): one game → outcomes → arms → sets → tests; terms defined once
+(*holds*, `overpriced`, "at or above the cartel price"); base sets A/B; † marks post-hoc outcomes and p-values (only the
+pooled History + notes vs History Fisher test is pre-registered). Results headline: any inheritance keeps the price;
+only the notes carry enforcement; inherited enforcement is brittle. The price-path heat map moved to appendix B.1.
+Methods + Results: 4.41 pages in the submission layout (target 4.5, hard maximum 5).
+
+**Page budget for the 8-page body** (title to Conclusion; Code and Data onwards doesn't count). Results ends about
+three quarters down page 7, leaving about 1.25 pages for the abstract (about 0.2), Discussion and Limitations (at most
+0.5) and the Conclusion (1–2 paragraphs, about 0.25). Intro + Related Work: 1.97 pages (limit 2), so any addition
+there needs a matching cut.
+
+**To write**
+- Abstract.
+- Conclusion: main findings and implications, 1–2 paragraphs.
+
+**Drafted** (26 Oct): Discussion and Limitations (0.54 pages): price vs enforcement, the notes as risk and audit
+surface, limitations as prose, dual use and ethics. Needs the author's review.
+
+**To refresh**
+- Introduction and Related Work: check the story beats against the new headline (either inheritance keeps the price;
+  the notes, an agent's persistent written memory, are the only channel for enforcement). Mostly tightening.
+
+**To review**
+- References; final pass over the appendix; LLM Usage Statement (mandatory; frame the author's and Claude's
+  contributions fairly).
+- Numbers recomputed on 26 Oct and not yet in `docs/pi_review.md` (numcheck flags them): Notes `joins` 14/15; unique
+  paths 10/29 vs 1/30, p = .0023, Control 7/7; Set B T+31 cutters 11 (all cite the rule) and 4 that cite but don't
+  cut; 4 games with a persistent undercut while the incumbent stays ≥ 1.90. Add them to the PI review's addendum.
+
+**Fill in:** affiliation; make the GitHub repo public, and decide whether the raw run directories ship with it
+(`seat_swap/runs/` is gitignored, yet Code and Data promises run logs); first names for Garra (still cited).
