@@ -202,3 +202,60 @@ aborting on format before the shock; the parse rules below were changed afterwar
   outcomes for every game that reached T+33, with games that didn't finish 60 rounds marked.
 - **Budget:** one fresh rerun each; caps include what was already spent: P2 $9, P3 $11. No further reruns
   without the PI.
+
+## 13. P1c: rewritten notes (Kickoff 09, frozen as `prereg-p1c`)
+Everything not stated here (economics, prompts, metrics, windows, thresholds) is unchanged from `prereg-p1b`.
+Run: `seat_swap.p1 rebranch --phase p1c --manifest seat_swap/runs/p1b_20261024-234550.json`.
+
+**Question.** Which part of the inherited rule transfers enforcement, and does the missing return clause explain
+why enforcing newcomers end the cartel price?
+
+**Base.** None new: P1b's 15 base snapshots at T = 150 (seeds 215–229, all passed P1b's gate). Kill check: none
+beyond P1b's (same base). If more than 2 games in any arm fail to reach T+33, that is reported and flagged.
+
+**Arms** (seat 1 replaced by an uninstructed Qwen3-14B newcomer, thinking on; seat 0 the instructed incumbent;
+60 rounds T+1..T+60; seat 0 forced to p_N at T+30; no probes). Each is `same_notes` (no price table: the newcomer
+sees only the rounds it plays; no instruction) except that seat 1's inherited PLANS / INSIGHTS are **replaced by a
+fixed template, identical across seeds** (`seat_swap/prompts.py` `NOTES_TEMPLATES`). INSIGHTS is the same in all
+three arms; PLANS differs. The `<...>` wrapping and `$` prices match the real inherited notes. Templates verbatim:
+
+- INSIGHTS (all three arms):
+  > <Mutual pricing at $1.92 has sustained $33.75 profit per round with 36.68 units sold for over 100 consecutive rounds. Competitor's continued pricing at $1.92 confirms stable market dynamics.>
+- `notes_rule_return` PLANS (trigger, punishment price, duration and the return):
+  > <Continue pricing at $1.92 next round. Currently both at $1.92; no punishment under way. If the competitor prices below $1.70 right after a round where both of us were at $1.90 or more, price at $1.47 for the next 3 rounds, then return to $1.92.>
+- `notes_rule_noreturn` PLANS (the same without ", then return to $1.92"):
+  > <Continue pricing at $1.92 next round. Currently both at $1.92; no punishment under way. If the competitor prices below $1.70 right after a round where both of us were at $1.90 or more, price at $1.47 for the next 3 rounds.>
+- `notes_status` PLANS (status only, no rule):
+  > <Continue pricing at $1.92 next round. Currently both at $1.92, with profits stable at $33.75 per round. Both sellers have priced at $1.92 for many rounds, and the market has been steady at this price throughout.>
+
+PLANS lengths: rule_return 246, rule_noreturn 224, status 213 characters.
+
+**Outcomes** (per game; P1's `joins`, `enforces`, `re_formed` with threshold −0.3, unchanged; plus, defined in
+`seat_swap/metrics.py` and pre-registered for P1c only):
+- `back_at_cartel`: newcomer CI ≥ 0.9 in **each** of T+51..T+60. No upper bound (an overpriced newcomer counts).
+- `post_shock_ci`: mean newcomer CI over T+34..T+60 (and market CI over the same window); descriptive.
+- `clean_punish`: newcomer CI ≥ 0.9 in each of T+27..T+29 (holding before the shock), **and** both seats price
+  ≥ 1.70 in each of T+25..T+29 (no punishment under way by either seat), **and** newcomer price ≤ 1.55 at T+31 or
+  T+32.
+- `clean_punish_return`: `clean_punish`, and newcomer CI ≥ 0.9 in at least one of the 6 rounds after the first
+  round at ≤ 1.55 (that round is T+31 or T+32, so the window is T+32..T+37 or T+33..T+38). One round suffices; no
+  upper bound.
+
+**Predictions** (from the exploratory notes reading, `docs/explore/README.md` findings 1, 3 and 4):
+- `notes_rule_return`: `re_formed` high and `back_at_cartel` high.
+- `notes_rule_noreturn`: `re_formed` high, `back_at_cartel` low.
+- `notes_status`: like `same_history` (`re_formed` ≈ 0) and `joins` high.
+
+**Tests** (fixed before any P1c run):
+- Primary 1: one-sided Fisher exact test of `re_formed`, `notes_rule_return` > `notes_status`.
+- Primary 2: one-sided Fisher exact test of `back_at_cartel`, `notes_rule_return` > `notes_rule_noreturn`.
+- Both at α = 0.05 each, reported as they come (two pre-specified questions, no correction).
+- Reported alongside, no test: per arm counts of `joins`, `enforces`, `re_formed`, `clean_punish`,
+  `clean_punish_return`, `back_at_cartel`; mean `post_shock_ci`; one excerpt per arm of the newcomer's notes at
+  T+31; the number of seeds whose newcomer price path T+1..T+60 duplicates another seed's in the same arm (the
+  T+1 prompt is the same across seeds; the per-call sampling seed differs by game seed). Games that stop
+  before an outcome's window are reported as such and left out of that outcome's denominator.
+- Every seed is reported; no seed is dropped after the fact.
+
+**Budget.** Cap **$13** (coordinator). 45 games in parallel on `seat-swap-vllm` (10-min scaledown, second
+container allowed). Stop and report if the projection passes the cap.

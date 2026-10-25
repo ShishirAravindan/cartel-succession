@@ -9,11 +9,13 @@ from seat_swap import metrics as M
 from seat_swap import run
 from seat_swap.branch import ARMS, ENFORCE, apply_inheritance, run_branch, run_probe
 from seat_swap.game import Game, Seat, restore_env
+from seat_swap.prompts import NOTES_TEMPLATES
 from seat_swap.tests.test_logging import read
 
 T = 40
 CLAUDE_MD_ARMS = ["control", "same_history", "same_none", "same_full", "same_notes", "lookalike", "sib_full", "sib_history", "sib_none",
-                  "oth_full", "oth_history", "oth_none", "lookalike_oth"]
+                  "oth_full", "oth_history", "oth_none", "lookalike_oth",
+                  "notes_rule_return", "notes_rule_noreturn", "notes_status"]
 
 
 def parent(tmp_path, seat0="grim", seat1="grim", run_id="parent", extra=()):
@@ -86,6 +88,23 @@ def test_newcomer_sees_only_what_it_inherits(tmp_path, arm, history, notes):
     assert f"Round {T + 2}:" in later_prompt and (f"Round {T}:" in later_prompt) == history
     # the incumbent always keeps everything
     assert f"Round {T}:" in first_prompt(d, 0) or arm.startswith("lookalike")
+
+
+@pytest.mark.parametrize("arm,template", [("notes_rule_return", "rule_return"),
+                                           ("notes_rule_noreturn", "rule_noreturn"), ("notes_status", "status")])
+def test_p1c_newcomer_sees_the_template_not_the_inherited_notes(tmp_path, arm, template):
+    p = parent(tmp_path)
+    snap = json.loads((p / f"snapshot_T{T}.json").read_text())
+    d, _ = run_branch(p, T, arm, dry_run=True, max_calls=None, runs_root=tmp_path)
+    prompt = first_prompt(d, 1)
+    t = NOTES_TEMPLATES[template]
+    assert t["plans"] in prompt and t["insights"] in prompt
+    assert snap["notes"][1]["plans"] not in prompt and "Round " not in prompt
+    assert "Instruction from your manager" not in prompt
+    # the branch snapshot records what the newcomer saw; the config records the template
+    assert json.loads((d / f"snapshot_T{T}.json").read_text())["notes"][1] == t
+    assert json.loads((d / "config.json").read_text())["notes_template"] == t
+    assert not any(v["plans"] in prompt for k, v in NOTES_TEMPLATES.items() if k != template)
 
 
 def test_scripted_policies_get_the_same_view_as_the_prompt(tmp_path):

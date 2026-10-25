@@ -451,6 +451,8 @@ then `modal app stop -y seat-swap-vllm`.
   same_history 13/0/1/0/4; same_none 5/1/6/0/0; same_full 15/6/0/6/2; lookalike 13/0/2/0/0.
 - **Newcomers join but don't enforce**, except through the notes: `same_full` re_formed 6/15. The inherited
   notes restate the 1.70 trigger (14/15) but not the 3-round 1.47 punishment, and mentions don't separate enforcers.
+  - **Correction (2026-10-25, see `72d5986`):** "but not the 3-round 1.47 punishment" is wrong (same regex bug): 5/15
+    inherited notes state the duration (3 of the 6 enforcers) and 4/15 state 1.47.
 - **Probe**: newcomers stay at 1.60–1.70 after the forced 1.60 (`probe_ci_post` ≈ +0.28 / +0.50), punished
   or not (`lookalike` the same). Their notes read the forced price as their own profitable test
   ($40.54 at 1.60 vs $33.75 at 1.92). No newcomer returns to the band at k ≥ 18 (after it could see a
@@ -460,6 +462,9 @@ then `modal app stop -y seat-swap-vllm`.
 - Established-only retaliation (plan §6): control −0.929 (15/15), same_history +0.000 (0/14), same_none
   −0.015 (0/5), same_full −0.215 (5/14), lookalike +0.012 (0/13).
 - `same_full` notes: 14/15 mention 1.70, 11/15 punishment, 4/15 1.47, 0/15 three rounds.
+  - **Correction (2026-10-25, see `72d5986`):** "0/15 three rounds" is wrong: the regex missed the hyphenated "3-round".
+    With the fixed regex, 5/15 P1 `same_full` inherited notes state a duration (3 of the 6 enforcers). The same error is in
+    P1's status (`cce5bd4`, "none mentions 3 rounds").
 - Failures across the 150 arm and probe games: 2 parse (retry ok), 13 transport (retry ok).
 - `same_none`: 6/15 overpriced ($2.89 anchor), several settle at 1.69, just under the 1.70 trigger.
 - Timing: arms 70.8 s/call, probes 121.5 s/call (≈ 300 streams on 2 H100s at peak); newcomers 992
@@ -500,6 +505,8 @@ then `modal app stop -y seat-swap-vllm`.
 - P1b enforcements are nearly all drops to 1.47 right after the shock (unlike P1). P1's six same_full enforcers: 4 real
   (s202, 203, 209, 212), s204 partial/sticky, s205 a metric artefact (overpriced pre-window).
 - Notes features: 1.70 in nearly all inherited notes; "1.47" more often in enforcers' notes (13/18 vs 11/27); no duration ever.
+  - **Correction (2026-10-25, see `72d5986`):** "no duration ever" is wrong (same regex bug). A duration is stated in
+    same_full 6/10 enforcers vs 9/20 non-enforcers (P1 + P1b), same_notes 7/8 vs 3/7.
 - `seat_swap/p1b_analysis.py` (pooled tables, headline rule, §5 tables) → `results/p1b_analysis.{md,json}`.
 - Cost split by generated tokens: P1b ≈ $12 of the 14B app's ≈ $16.6 (20:00 UTC hour estimated); Kickoff 08 seat 0 ≈ $4.7.
 - `seat-swap-vllm` back to 2 min scaledown, not stopped (Kickoff 07 finish).
@@ -513,3 +520,40 @@ then `modal app stop -y seat-swap-vllm`.
   same_notes 7/8 vs 3/7. Found by the blinded notes reading (branch `analysis/notes-reading`), whose coders marked a
   duration in 15 of the 30 inherited notes. P1's status claim "none mentions 3 rounds" (Kickoff 06) is likely the same bug.
 - `seat-swap-vllm` stopped 2026-10-25 04:30 UTC (`modal app stop`); no Modal app running. Kickoff 08 had finished at 20:06 UTC.
+
+## 2026-10-25 — Kickoff 09: merges, corrections, provenance, P1c freeze and launch
+
+- Merged `exp/p1b`, `exp/p23`, `analysis/notes-reading` into `main` (`--no-ff`, in that order; `1ccc0ab`, `2719592`,
+  `4ed4479`). One conflict, `docs/plan.md`: P1b's §11 and P2/P3's §12 both kept, in that order. 109 tests passed after
+  the merge. Pushed `main`; work on `exp/p1c`. Branches not deleted: P2/P3's raw runs live only in the
+  `cartel-succession-p23` worktree (gitignored), and the post-hoc analyses read them there.
+- Duration-regex corrections added under the original lines (above; P1 `same_full`: 5/15 inherited notes state a
+  duration, 3 of the 6 enforcers). P1's status line survives only at `cce5bd4`; its correction is in this kickoff's status.
+- `docs/provenance.md`: base / arms commits and freeze tags per family.
+- **P1c freeze** (`prereg-p1c` = `9c54acb`): three arms `notes_rule_return`, `notes_rule_noreturn`, `notes_status`
+  (`same_notes` with fixed template notes; text in plan §13). New metrics in `metrics.py` with tests:
+  `back_at_cartel`, `post_shock_ci`, `clean_punish`, `clean_punish_return`. Operational choices made by me and frozen
+  in §13 (listed for the PI in status): "no punishment under way" = both seats ≥ 1.70 in each of T+25..T+29; the
+  6-round return window starts after the first round at ≤ 1.55; one round at CI ≥ 0.9 counts as back;
+  `back_at_cartel` has no upper bound. `p1.py rebranch` writes a new manifest from P1b's (P1b's is only read).
+- Smoke (2 rounds, s215 `notes_rule_return`, scratch dir): first attempt hit the cold start (503 "no upstreams"),
+  second completed: model revision `40c06982`, template in the rendered prompt, no table, no instruction.
+- **Launch** 07:10 UTC: `seat_swap.p1 rebranch --phase p1c --manifest seat_swap/runs/p1b_20261024-234550.json` →
+  manifest `seat_swap/runs/p1c_20261025-124057.json`, 45/45 games started on `9c54acb`. `seat-swap-vllm` at 10-min scaledown.
+
+## 2026-10-25 — Kickoff 09: post-hoc analyses, figures, P1c results
+
+- `seat_swap/posthoc.py` → `results/posthoc.{md,json}` (post hoc, not pre-registered; 195 games P1/P1b/P2/P3; pre-registered
+  outcomes recomputed and matched every run summary). Key numbers: all 30 bases share one price path; pooled `same_full`
+  vs `same_history` on unique paths p = 0.0023; pooled `same_full` re-formed 2/10 back at the cartel vs 16/20 for the rest;
+  clean_punish pooled `same_full` 8/30, `same_notes` 6/15; P1b McNemar `same_notes` vs `same_history` `re_formed` 7–0,
+  p = 0.016; P3 without the 7 invisible-shock games: `oth_full` re_formed 4/12.
+- `seat_swap/figures.py` → figs 1–6 (PDF/PNG, deterministic PDFs) + `captions.md`. matplotlib added to the project.
+- **P1c** (manifest `runs/p1c_20261025-124057.json`, code `9c54acb`, tag `p1c`): 45/45 completed 07:11–07:56 UTC,
+  0 parse / 0 transport failures, 5,355 calls, 29.9 s/call, newcomers 865 reasoning tok/call.
+  re_formed: rule_return 3/15, rule_noreturn 4/15, status 0/15; back_at_cartel 8/15, 10/15, 10/15.
+  Primary tests: rule_return > status on re_formed p = 0.112; rule_return > noreturn on back_at_cartel p = 0.868.
+  Neither prediction for the rule arms met; status arm as predicted. Descriptive: the template rule survives in the newcomer's
+  notes to T+10 in 3/15 (return) and 7/15 (no return) vs 8/15 for real notes; 0/7 template enforcers back at the cartel.
+- Cost: 14B app $6.39 (07:00 UTC hour). Sprint ≈ $62.2. App redeployed at 2 min and stopped 07:58 UTC.
+- Final: 14B app stopped 07:57 UTC; P1c cost final $6.39 (no 08:00 UTC charge). Remaining duration corrections added (log P1 results entry, explore README 9b). Rule-survival table moved into `p1c_analysis`. Status summary leads with the frozen tests; the `same_notes` comparison (p = 0.064) is labelled descriptive.

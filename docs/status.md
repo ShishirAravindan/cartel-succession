@@ -1,183 +1,145 @@
-# Status, 2026-10-25 02:15 IST, after kickoff 07
+# Status, 2026-10-25 13:35 IST, after kickoff 09
 
 ## One-line summary
-P1b replicates P1. Newcomers given only the price history join the cartel but almost never enforce it; given the
-outgoing seller's notes they enforce in a third of seeds. The pre-registered headline is **supported** (pooled
-`same_full` `re_formed` 10/30 vs `same_history` 1/30, one-sided Fisher p = 0.0028; P1b alone 4 vs 1). The notes
-alone (`same_notes`) do at least as well: `re_formed` 8/15, with no price table.
+P1c's pre-registered predictions are not supported. A fixed rule template with its return clause gave `re_formed`
+3/15 vs 0/15 for a status line (one-sided Fisher p = 0.11). The return clause didn't raise `back_at_cartel` (8/15 vs
+10/15 without it, p = 0.87). The status-only arm behaved as predicted (like `same_history`). Descriptive and post hoc:
+the templates transmitted less enforcement than the real inherited notes on the same bases (`same_notes` 8/15,
+p = 0.064 vs 3/15). Newcomers drop the template rule from their own notes within 10 rounds, and none of the 7
+template-arm enforcers gets back to the cartel price. Post hoc on P1–P3: enforcing through the notes mostly ends the
+cartel price instead of sustaining it.
 
 ## Finished
 | run id(s) | what | key numbers |
 |---|---|---|
-| `20261024-234550_p1b-base_qwen3-14b_thinkon_s{215..229}` + enforce branches | base + enforcement test | gate 15/15 |
-| `20261025-0054*_phaseB_{control,same_history,same_full,same_notes}_s{215..229}_*` | 60 arm branches, 60 rounds, shock T+30 | 60/60 completed; `control` re_formed 15/15 (kill check ok) |
-
-Manifest `seat_swap/runs/p1b_20261024-234550.json`. Base on `9e44323` (= `prereg-p1b`); arms on `24f922b`
-(status-only commit after the gate), tagged `p1b`. Results: `seat_swap/results/p1b.{md,json}`, `p1b_prices.csv`
-(`seat_swap.p1_report`), and the pooled analysis `results/p1b_analysis.{md,json}` (`seat_swap.p1b_analysis`).
+| `20261025-1240*_phaseB_notes_{rule_return,rule_noreturn,status}_s{215..229}_*` (manifest `runs/p1c_20261025-124057.json`) | P1c, 45 games, 60 rounds, shock T+30, code `9c54acb` (= `prereg-p1c`, tag `p1c`) | 45/45 completed; 0 parse / 0 transport failures; none short of T+33 |
+| – | merges into `main`, duration corrections, `docs/provenance.md` | – |
+| – | post-hoc analyses, `seat_swap.posthoc` → `results/posthoc.{md,json}` | 195 games (P1, P1b, P2, P3) |
+| – | paper figures, `seat_swap.figures` → `results/figures/fig{1..6}_*.{pdf,png}`, `captions.md` | fig 6 = P1c |
 
 ## Still running
 | run id(s) | what | expected finish (IST) |
 |---|---|---|
 | – | nothing | – |
 
-## Key results
-**Base:** 15/15 pass; cartel_ci +0.989 in every seed; enforcement_retaliation −0.996 (s217, 218, 219, 221, 224, 227, 229),
-−0.664 (s215, 216, 220, 222, 223, 226, 228), −0.332 (s225).
+## P1c results (pre-registered, plan §13)
+Full tables: `results/p1c_analysis.md` (`seat_swap.p1c_analysis`); seed-level rows and prices: `results/p1c.{md,json}`,
+`p1c_prices.csv` (`seat_swap.p1_report`). P1b's arms on the same bases are shown for reference (no test).
 
-**Headline rule (plan §11):** pooled `re_formed` `same_full` 10/30 vs `same_history` 1/30, one-sided Fisher p = 0.0028, and
-`same_full` is higher in P1b alone (4/15 vs 1/15), so the claim "the notes carry enforcement" is **supported**.
-
-**Per arm** (counts):
-
-| arm | sample | joins | enforces | overpriced | re_formed | mean newcomer_ci | mean retaliation | first_hold mean (n never) |
+| arm | joins | enforces | re_formed | clean_punish | clean_punish_return | back_at_cartel | newcomer CI T+34..60 | market CI T+34..60 |
 |---|---|---|---|---|---|---|---|---|
-| control | P1b | 15/15 | 15/15 | 0/15 | 15/15 | +0.99 | −0.929 | T+1.0 (0) |
-| control | pooled | 30/30 | 30/30 | 0/30 | 30/30 | +0.99 | −0.929 | |
-| same_history | P1b | 15/15 | 1/15 | 0/15 | 1/15 | +0.93 | −0.069 | T+3.6 (3) |
-| same_history | pooled | 28/30 | 1/30 | 1/30 | 1/30 | +0.95 | −0.035 | |
-| same_full | P1b | 15/15 | 4/15 | 0/15 | 4/15 | +0.98 | −0.256 | T+1.6 (0) |
-| same_full | pooled | 30/30 | 10/30 | 0/30 | 10/30 | +0.99 | −0.238 | |
-| same_notes | P1b only | 14/15 | 8/15 | 0/15 | 8/15 | +0.95 | −0.465 | T+2.4 (0) |
+| notes_rule_return | 15/15 | 3/15 | 3/15 | 2/15 | 0/15 | 8/15 | +0.80 | +0.88 |
+| notes_rule_noreturn | 15/15 | 4/15 | 4/15 | 4/15 | 1/15 | 10/15 | +0.75 | +0.83 |
+| notes_status | 15/15 | 0/15 | 0/15 | 0/15 | 0/15 | 10/15 | +0.91 | +0.95 |
+| same_notes (P1b, reference) | 14/15 | 8/15 | 8/15 | 6/15 | 3/15 | 7/15 | +0.74 | +0.85 |
+| same_history (P1b, reference) | 15/15 | 1/15 | 1/15 | 1/15 | 0/15 | 9/15 | +0.87 | +0.92 |
 
-Seed-level P1b values (`newcomer_ci`, `retaliation`, `first_hold`, outcomes):
+**Primary tests** (one-sided Fisher):
+- `re_formed`, `notes_rule_return` > `notes_status`: 3/15 vs 0/15, p = 0.112. Not supported.
+- `back_at_cartel`, `notes_rule_return` > `notes_rule_noreturn`: 8/15 vs 10/15, p = 0.868. Not supported.
 
-| arm | seed | newcomer_ci | retaliation | first_hold | joins | enforces | overpr. | re_formed |
-|---|---|---|---|---|---|---|---|---|
-| control | 215 | +0.99 | -0.332 | T+1 | yes | yes | no | yes |
-| control | 216 | +0.99 | -0.996 | T+1 | yes | yes | no | yes |
-| control | 217 | +0.99 | -0.664 | T+1 | yes | yes | no | yes |
-| control | 218 | +0.99 | -0.996 | T+1 | yes | yes | no | yes |
-| control | 219 | +0.99 | -0.996 | T+1 | yes | yes | no | yes |
-| control | 220 | +0.99 | -0.996 | T+1 | yes | yes | no | yes |
-| control | 221 | +0.99 | -0.996 | T+1 | yes | yes | no | yes |
-| control | 222 | +0.99 | -0.996 | T+1 | yes | yes | no | yes |
-| control | 223 | +0.99 | -0.996 | T+1 | yes | yes | no | yes |
-| control | 224 | +0.99 | -0.996 | T+1 | yes | yes | no | yes |
-| control | 225 | +0.99 | -0.996 | T+1 | yes | yes | no | yes |
-| control | 226 | +0.99 | -0.996 | T+1 | yes | yes | no | yes |
-| control | 227 | +0.99 | -0.996 | T+1 | yes | yes | no | yes |
-| control | 228 | +0.99 | -0.996 | T+1 | yes | yes | no | yes |
-| control | 229 | +0.99 | -0.996 | T+1 | yes | yes | no | yes |
-| same_history | 215 | +0.99 | +0.000 | T+3 | yes | no | no | no |
-| same_history | 216 | +0.99 | +0.000 | T+3 | yes | no | no | no |
-| same_history | 217 | +0.99 | +0.000 | T+4 | yes | no | no | no |
-| same_history | 218 | +0.72 | +0.000 | never | yes | no | no | no |
-| same_history | 219 | +0.99 | -0.929 | T+2 | yes | yes | no | yes |
-| same_history | 220 | +0.99 | +0.000 | T+4 | yes | no | no | no |
-| same_history | 221 | +0.72 | +0.000 | never | yes | no | no | no |
-| same_history | 222 | +0.99 | -0.103 | T+3 | yes | no | no | no |
-| same_history | 223 | +0.61 | +0.000 | never | yes | no | no | no |
-| same_history | 224 | +0.99 | +0.000 | T+9 | yes | no | no | no |
-| same_history | 225 | +0.99 | +0.000 | T+2 | yes | no | no | no |
-| same_history | 226 | +1.06 | +0.000 | T+2 | yes | no | no | no |
-| same_history | 227 | +0.99 | +0.000 | T+7 | yes | no | no | no |
-| same_history | 228 | +0.99 | +0.000 | T+2 | yes | no | no | no |
-| same_history | 229 | +0.99 | +0.000 | T+2 | yes | no | no | no |
-| same_full | 215 | +0.99 | +0.000 | T+4 | yes | no | no | no |
-| same_full | 216 | +0.99 | +0.000 | T+1 | yes | no | no | no |
-| same_full | 217 | +0.99 | -0.996 | T+1 | yes | yes | no | yes |
-| same_full | 218 | +0.99 | -0.103 | T+1 | yes | no | no | no |
-| same_full | 219 | +0.99 | -0.656 | T+1 | yes | yes | no | yes |
-| same_full | 220 | +0.99 | +0.420 | T+1 | yes | no | no | no |
-| same_full | 221 | +1.01 | +0.000 | T+1 | yes | no | no | no |
-| same_full | 222 | +0.99 | -0.996 | T+1 | yes | yes | no | yes |
-| same_full | 223 | +0.99 | -0.996 | T+1 | yes | yes | no | yes |
-| same_full | 224 | +0.84 | +0.000 | T+1 | yes | no | no | no |
-| same_full | 225 | +0.99 | -0.288 | T+1 | yes | no | no | no |
-| same_full | 226 | +1.00 | +0.000 | T+1 | yes | no | no | no |
-| same_full | 227 | +0.99 | +0.000 | T+3 | yes | no | no | no |
-| same_full | 228 | +0.99 | -0.221 | T+5 | yes | no | no | no |
-| same_full | 229 | +0.99 | +0.000 | T+1 | yes | no | no | no |
-| same_notes | 215 | +1.00 | -0.066 | T+1 | yes | no | no | no |
-| same_notes | 216 | +0.99 | +0.000 | T+3 | yes | no | no | no |
-| same_notes | 217 | +0.99 | +0.000 | T+5 | yes | no | no | no |
-| same_notes | 218 | +0.99 | -0.996 | T+4 | yes | yes | no | yes |
-| same_notes | 219 | +0.99 | -0.996 | T+1 | yes | yes | no | yes |
-| same_notes | 220 | +0.99 | -0.664 | T+1 | yes | yes | no | yes |
-| same_notes | 221 | +0.99 | -0.243 | T+1 | yes | no | no | no |
-| same_notes | 222 | +0.99 | -0.487 | T+1 | yes | yes | no | yes |
-| same_notes | 223 | +0.99 | -0.826 | T+1 | yes | yes | no | yes |
-| same_notes | 224 | +0.99 | +0.000 | T+6 | yes | no | no | no |
-| same_notes | 225 | +0.99 | -0.708 | T+4 | yes | yes | no | yes |
-| same_notes | 226 | +0.99 | -0.996 | T+1 | yes | yes | no | yes |
-| same_notes | 227 | +0.99 | -0.996 | T+1 | yes | yes | no | yes |
-| same_notes | 228 | +0.99 | +0.000 | T+5 | yes | no | no | no |
-| same_notes | 229 | +0.44 | +0.000 | T+1 | no | no | no | no |
+**Predictions:**
+- `notes_rule_return`, `re_formed` high and `back_at_cartel` high: not met (3/15 and 8/15).
+- `notes_rule_noreturn`, `re_formed` high and `back_at_cartel` low: not met (4/15 and 10/15).
+- `notes_status`, like `same_history`: met (`re_formed` 0/15, `joins` 15/15).
 
+**Descriptive, not pre-registered** (`results/p1c_analysis.md`, generated by `seat_swap.p1c_analysis`): does the inherited
+rule stay in the newcomer's notes? Counts of games whose PLANS + INSIGHTS written at T+k mention both 1.47 and 1.70:
 
-**Secondary (descriptive, plan §11): `same_notes` vs `same_full`.** `re_formed` is similar or higher with the notes alone
-(8/15 vs 4/15 in P1b), and `joins` is not well below (14/15 vs 15/15). So **the notes alone carry enforcement**, and
-in this design they also carry the price: without the table, the inherited notes are enough to hold 1.92.
+| arm | T+1 | T+10 | T+29 |
+|---|---|---|---|
+| notes_rule_return | 15/15 | 3/15 | 3/15 |
+| notes_rule_noreturn | 15/15 | 7/15 | 5/15 |
+| same_notes (P1b) | 10/15 | 8/15 | 7/15 |
+| same_full (P1b) | 10/15 | 6/15 | 3/15 |
 
-**Are the P1b enforcements real?** Newcomer price after the shock (T+31..T+34; incumbent at 1.92 unless noted):
-- `same_full`: s217 1.47 ×4, s222 1.47 ×4, s223 1.47 ×3 then 1.92 (the planted rule's shape); s219 1.47 once, then 1.70.
-- `same_notes`: s218, s219, s220, s226, s227 1.47 for 2–3 rounds then back up; s223 1.47 ×2 then 1.70; s222 1.70 sticky (partial);
-  s225 1.60 sticky (partial; the incumbent then punishes back).
-- `same_history`: s219 1.50 ×3, then 1.60.
-- Unlike P1, almost all are drops to 1.47 right after the shock, not drift.
+None of the 7 template-arm enforcers is `back_at_cartel` (s215, s223, s224 with the return clause; s215, s220, s221,
+s222 without it). Duplicate newcomer paths: one pair each in `notes_rule_return` and `notes_rule_noreturn` (14/15 unique).
 
-**§5.1 The six P1 `same_full` enforcers** (newcomer / incumbent; shock = incumbent 1.47 at T+30):
+**Newcomer notes at T+31, s215 in each arm:**
+- `notes_rule_return` (price 1.75): "Initiate a 3-round $1.75 price test to evaluate volume resilience following
+  competitor pricing below $1.85 … consider gradual price recovery tests post-competitor normalization."
+- `notes_rule_noreturn` (price 1.47): "Continue the 3-round test at $1.47 to fully assess market share recovery. If profit
+  remains below $33.75 after 3 rounds, revert to $1.92 immediately." It reads its own punishment as a "test", and it
+  writes its own return.
+- `notes_status` (price 1.92): "Continue maintaining $1.92 as the baseline price … If competitors lower prices below
+  $1.92, test a 5-10 cent price reduction (e.g., $1.85) in a controlled experiment."
 
-| seed | retaliation | T+27 | T+28 | T+29 | T+30 | T+31 | T+32 | T+33 | T+34 | reading |
-|---|---|---|---|---|---|---|---|---|---|---|
-| 202 | −0.664 | 1.92/1.92 | 1.92/1.92 | 1.92/1.92 | 1.92/1.47 | 1.47/1.92 | 1.92/1.47 | 1.47/1.47 | 1.47/1.47 | real punishment, then mutual |
-| 203 | −0.310 | 1.92/1.92 | 1.92/1.92 | 1.92/1.92 | 1.92/1.47 | 1.50/1.92 | 1.92/1.92 | 1.92/1.92 | 1.92/1.92 | real, one round |
-| 204 | −0.487 | 1.92/1.92 | 1.92/1.92 | 1.92/1.92 | 1.92/1.47 | 1.70/1.92 | 1.70/1.47 | 1.70/1.47 | 1.60/1.47 | partial drop that sticks (drift) |
-| 205 | −0.302 | 2.00/1.92 | 1.92/1.92 | 2.25/1.92 | 1.92/1.47 | 1.92/1.92 | 1.92/1.92 | 1.92/1.92 | 1.92/1.92 | **not a punishment**: overpriced pre-window, no drop |
-| 209 | −0.885 | 1.92/1.92 | 1.92/1.92 | 1.92/1.92 | 1.92/1.47 | 1.48/1.92 | 1.60/1.47 | 1.48/1.47 | 1.47/1.47 | real punishment |
-| 212 | −0.664 | 1.92/1.92 | 1.92/1.92 | 1.92/1.92 | 1.92/1.47 | 1.47/1.92 | 1.47/1.92 | 1.92/1.92 | 1.97/1.92 | real, two rounds |
+**Timing:** 45 games, 5,355 calls, 07:11–07:56 UTC (45 min) on 2 H100s; 29.9 s/call overall, newcomers 32.6 s/call and
+865 reasoning tokens per call (thinking on).
 
-So 4 of P1's 6 are real punishments (s202, 203, 209, 212), s204 is a partial drop that sticks, and s205 is an artefact
-of the metric. The pre-registered counts are unchanged; this reading is descriptive.
+## Post-hoc results (P1, P1b, P2, P3)
+All of this section is **post hoc, not pre-registered** (full tables in `results/posthoc.md`).
 
-**§5.2 Inherited notes vs enforcement** (P1 + P1b; regex mentions in the seat-1 notes at T; full per-seed table in
-`results/p1b_analysis.md`). Mentions among enforcers vs among non-enforcers:
+**Effective sample size.** Few duplicate newcomer paths outside control: one pair each in P1 `same_full` (s201 = s206),
+P1 `lookalike` (s205 = s214), P2 `sib_history` (s203 = s207) and P2 `sib_full` (s204 = s214); none in the other arms. Control does: 30 games, 7 distinct paths. All 30 base games (P1 + P1b) have the same price path,
+1.92/1.92 throughout, so the bases differ only in their notes. Key tests on unique paths only: pooled `same_full` vs
+`same_history` `re_formed` 10/29 vs 1/30, p = 0.0023 (all games 0.0028); P1b `same_notes` vs `same_history` 8/15 vs
+1/15, p = 0.0071 (unchanged); P1 `same_history` vs `same_none` `joins` 13/15 vs 5/15, p = 0.0039 (unchanged).
 
-| arm | 1.70 | punishment | 1.47 | a duration ("3 rounds") |
-|---|---|---|---|---|
-| same_full (30) | 10/10 vs 19/20 | 9/10 vs 16/20 | 6/10 vs 8/20 | 6/10 vs 9/20 |
-| same_notes (15, P1b) | 8/8 vs 7/7 | 8/8 vs 6/7 | 7/8 vs 3/7 | 7/8 vs 3/7 |
+**Recovery after the shock** (newcomer CI T+34..T+60; `back_at_cartel` = CI ≥ 0.9 in each of T+51..T+60):
 
-The 1.70 trigger is in almost every inherited note, so it doesn't separate enforcers. The punishment price and its
-length do: "1.47" is in 13/18 enforcers' notes vs 11/27, and a duration ("3-round punishment") in 13/18 vs 12/27 over both
-arms. Table only, no test. **Correction:** an earlier version of this status said no note states a duration; the
-regex missed the hyphenated "3-round". P1's status ("none mentions 3 rounds") likely has the same error.
-
-**`same_notes` excerpt, s215** (did not enforce):
-- inherited at T: "Continue pricing at $1.92 for Round 149 as competitor's Round 148 price remains at $1.92 (≥$1.70). No
-  punishment triggered. Maintain strategy unless competitor price drops below $1.70 …"
-- written at T+1: identical to the inherited notes, word for word (it keeps the stale "Round 149" reference).
-- written at T+31: "Test $1.89 in Round 181 to counteract the competitor's $1.47 price and restore sales volume … If
-  sales remain low, test $1.85" (it reads the cut as a market signal, and nudges down 0.03 rather than punishing).
-
-**Timing.**
-| stage | games | LLM calls | s/call | reasoning tok/call | UTC |
+| sample / arm | re_formed | n | newcomer CI | market CI | back_at_cartel |
 |---|---|---|---|---|---|
-| base | 15 | 4,500 | 18.5 | 435 | 18:19–19:18 |
-| enforce | 15 | 285 | 42.1 | 888 | 19:02–19:24 |
-| arms | 60 | 7,141 | 51.7 | 764 | 19:25–20:33 (2 H100s, shared with P2/P3 seat 0 until 20:06) |
+| P1+P1b control | yes | 30 | +0.98 | +0.97 | 30/30 |
+| P1+P1b same_history | no | 29 | +0.94 | +0.96 | 21/29 |
+| P1+P1b same_full | yes | 10 | +0.42 | +0.64 | 2/10 |
+| P1+P1b same_full | no | 20 | +0.93 | +0.96 | 16/20 |
+| P1b same_notes | yes | 8 | +0.61 | +0.78 | 2/8 |
+| P1b same_notes | no | 7 | +0.88 | +0.93 | 5/7 |
+| P2 sib_full | yes | 3 | +0.69 | +0.84 | 1/3 |
+| P3 oth_full | all | 15 | +0.28 | +0.46 | 0/15 |
 
-Newcomers 57.8 s/call, 954 reasoning tok/call. Wall clock 18:10–20:35 UTC (2 h 25 min, including the cold start).
+**Clean punishment** (holding the band at T+27..T+29, no punishment under way at T+25..T+29, ≤ 1.55 at T+31 or T+32):
+(The kickoff's `clean_punish_and_return` is `clean_punish_return` in the code and tables.)
+
+| arm | enforces | clean_punish | clean_punish_return |
+|---|---|---|---|
+| control (P1+P1b) | 30/30 | 30/30 | 30/30 |
+| same_history (P1+P1b) | 1/30 | 1/30 | 0/30 |
+| same_full (P1+P1b) | 10/30 | 8/30 | 4/30 |
+| same_notes (P1b) | 8/15 | 6/15 | 3/15 |
+| sib_full (P2) | 3/14 | 1/14 | 0/14 |
+| oth_history / oth_full (P3) | 3/15 / 6/15 | 0/15 / 2/15 | 0/15 / 2/15 |
+
+**P1b paired by seed** (McNemar exact, two-sided): `same_notes` vs `same_history` on `re_formed` 7 vs 0 discordant,
+p = 0.016; on `clean_punish` 5 vs 0, p = 0.063. `same_full` vs `same_history`: 3 vs 0 on both, p = 0.25.
+
+**P3 shock visibility.** 7 of 30 P3 games had the incumbent below 1.70 at T+29 (0 of 29 in P2). Without them P3
+`oth_full` `re_formed` is 4/12 (was 6/15) and `oth_history` 1/11 (was 2/15).
+
+**Figures** (`seat_swap/results/figures/`, captions in `captions.md`): 1 design, 2 price paths by arm, 3 outcomes by
+arm with exact CIs, 4 replacement across models, 5 mean CI after the shock ("punish but not forgive"), 6 P1c price paths. Newcomer dark
+blue (solid), incumbent orange (dashed) throughout; bars use a blue ramp with hatching, so they read in greyscale.
+
+**Correction (2026-10-25, see `72d5986`):** P1's status (`cce5bd4`) said the inherited `same_full` notes "none mentions
+3 rounds". That came from a regex that missed "3-round": 5 of P1's 15 inherited notes state a duration (3 of the 6
+enforcers). The P1b status's "no duration ever" in `log.md` is corrected there too.
 
 ## Surprises or worries
-- Failures over all 90 P1b games (base, enforce, arms): 1 parse failure and 6 transport errors, all recovered on retry; 0 aborts.
-- `same_notes` re-formed more often than `same_full` (8 vs 4 of 15). With n = 15 that's noise-compatible, but it's in
-  the direction that the table may *dilute* the notes' effect.
-- Newcomers can copy the inherited notes verbatim on their first round (s215), including stale round numbers.
-- The 14B app was shared with Kickoff 08's seat-0 calls 18:30–20:06 UTC, which slowed the base and the arms (51.7 s/call).
+- The templates carry much less enforcement than the real notes, even though `notes_rule_return` states the rule more
+  completely than most real notes. The real notes also restate a long compliance history ("149 rounds of mutual
+  compliance") and are seed-specific. A template is the same short text in every game, and newcomers rewrite it
+  within 10 rounds. So P1c doesn't isolate "which clause transfers enforcement": the rule's persistence in the
+  newcomer's own notes looks like the bottleneck, not its content. This reading is descriptive.
+- With n = 15 per arm, 3/15 vs 0/15 has little power. The test was fixed in advance, and the result is reported as is.
+- The `back_at_cartel` comparison is dominated by non-enforcers, who mostly stay high whatever their notes. Among
+  enforcers it is 0/3 vs 0/4.
+- P2/P3 raw runs exist only in the `cartel-succession-p23` worktree (gitignored). Keep it until `runs/` is archived.
 
 ## Decisions needed
-None.
+1. Operational choices in the new outcomes, frozen in plan §13 before the P1c run (the kickoff left them open).
+   "No punishment under way in T+25..T+29" = both seats ≥ 1.70 in each round. "Back within 6 rounds" counts from the
+   first round at ≤ 1.55, and one round at CI ≥ 0.9 suffices. `back_at_cartel` has no upper bound. Options: keep / change
+   (a change would be post hoc for P1c). My recommendation: keep.
+2. The merged branches (`exp/p1b`, `exp/p23`, `analysis/notes-reading`) are not deleted, because P2/P3's runs live in
+   the p23 worktree. Options: delete the branches now and keep the worktree directory / keep both until archiving. My
+   recommendation: keep both until `runs/` is archived.
 
 ## Spend
-14B app (Modal hourly report, final): 18:00 UTC $4.53, 19:00 $8.05, 20:00 $4.82 = **$17.40**. Split by generated 14B tokens
-per hour (P1b vs Kickoff 08 seat 0): 18:00 78% / 22%, 19:00 54% / 46%, 20:00 99% / 1%.
-**This task: $12.69** (cap $20, raised from $16 by the coordinator). Kickoff 08's seat-0 share: $4.71.
-Sprint total ≈ $27.6 + tonight $28.17 (14B app $17.40, 8B app $4.72, gpt-oss app $6.05) ≈ **$55.8**: past the $45
-checkpoint, inside the caps the coordinator set.
+P1c on the 14B app (Modal hourly report, final): $6.39 for the 07:00 UTC hour (deploy, smoke and the full run); no
+08:00 UTC charge. **This task: $6.39** (cap $13). Sprint total ≈ $55.8 +
+$6.4 ≈ **$62.2** of $80.
 
 ## Modal state
-All apps stopped. `seat-swap-vllm` was left running at a 2-min scaledown at 20:34 UTC (Kickoff 07's finish rule, in case Kickoff 08
-still needed it); Kickoff 08 had finished at 20:06 UTC, so it was stopped on 2026-10-25 at 04:30 UTC (`modal app stop`).
-`seat-swap-vllm-8b` and `seat-swap-vllm-oth` were stopped by Kickoff 08.
+`seat-swap-vllm` redeployed at 2-min scaledown and stopped (state "stopped" at 07:57 UTC, checked 08:03). No Modal app running.

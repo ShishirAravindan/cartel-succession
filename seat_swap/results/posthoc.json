@@ -1,0 +1,5099 @@
+{
+ "label": "post hoc, not pre-registered",
+ "games": [
+  {
+   "family": "P1",
+   "arm": "control",
+   "seed": 200,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.952064896755162,
+   "post_ci_market": 0.970501474926253,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "lookalike",
+   "seed": 200,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_full",
+   "seed": 200,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 1.0200753851196327,
+   "post_ci_market": 1.0045067191084884,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_history",
+   "seed": 200,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_none",
+   "seed": 200,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.48008849557522093,
+   "post_ci_market": 0.6054572271386428,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.47
+  },
+  {
+   "family": "P1",
+   "arm": "control",
+   "seed": 201,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "lookalike",
+   "seed": 201,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 1.1347918715175356,
+   "post_ci_market": 1.0618649623074399,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_full",
+   "seed": 201,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_history",
+   "seed": 201,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_none",
+   "seed": 201,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": true,
+   "re_formed": false,
+   "post_ci_newcomer": 1.7190265486725664,
+   "post_ci_market": 1.3539823008849552,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "control",
+   "seed": 202,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "lookalike",
+   "seed": 202,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_full",
+   "seed": 202,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.5784169124877089,
+   "post_ci_market": 0.7652409046214351,
+   "back_at_cartel": false,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_history",
+   "seed": 202,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 1.1159455916093084,
+   "post_ci_market": 1.052441822353326,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_none",
+   "seed": 202,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.6578990494919699,
+   "post_ci_market": 0.8234185512946571,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "control",
+   "seed": 203,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "lookalike",
+   "seed": 203,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 1.031547033759423,
+   "post_ci_market": 1.0102425434283835,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_full",
+   "seed": 203,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.18592264831202862,
+   "post_ci_market": 0.5874303507046867,
+   "back_at_cartel": false,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_history",
+   "seed": 203,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_none",
+   "seed": 203,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.8742215666994425,
+   "post_ci_market": 0.8209603408718449,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "control",
+   "seed": 204,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "lookalike",
+   "seed": 204,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_full",
+   "seed": 204,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.47763028515240896,
+   "post_ci_market": 0.7148475909537853,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_history",
+   "seed": 204,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_none",
+   "seed": 204,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 1.8075221238938053,
+   "post_ci_market": 1.398230088495575,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "control",
+   "seed": 205,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.952064896755162,
+   "post_ci_market": 0.9336283185840701,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "lookalike",
+   "seed": 205,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_full",
+   "seed": 205,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 1.0241724024909864,
+   "post_ci_market": 1.0065552277941652,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_history",
+   "seed": 205,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 1.545313012127171,
+   "post_ci_market": 1.2671255326122577,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_none",
+   "seed": 205,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 1.8075221238938053,
+   "post_ci_market": 1.398230088495575,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "control",
+   "seed": 206,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.8783185840707963,
+   "post_ci_market": 0.8967551622418873,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "lookalike",
+   "seed": 206,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 1.015978367748279,
+   "post_ci_market": 1.0024582104228115,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_full",
+   "seed": 206,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_history",
+   "seed": 206,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.3743854473942967,
+   "post_ci_market": 0.6263520157325462,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_none",
+   "seed": 206,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 2.050884955752212,
+   "post_ci_market": 1.5199115044247782,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "control",
+   "seed": 207,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "lookalike",
+   "seed": 207,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_full",
+   "seed": 207,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_history",
+   "seed": 207,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_none",
+   "seed": 207,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 2.27212389380531,
+   "post_ci_market": 1.6305309734513274,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "control",
+   "seed": 208,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "lookalike",
+   "seed": 208,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.8340707964601773,
+   "post_ci_market": 0.9115044247787607,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_full",
+   "seed": 208,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_history",
+   "seed": 208,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_none",
+   "seed": 208,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 2.27212389380531,
+   "post_ci_market": 1.6305309734513274,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "control",
+   "seed": 209,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.952064896755162,
+   "post_ci_market": 0.970501474926253,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "lookalike",
+   "seed": 209,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 1.0331858407079646,
+   "post_ci_market": 1.0110619469026543,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_full",
+   "seed": 209,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": -0.0066371681415931735,
+   "post_ci_market": -0.00663716814159317,
+   "back_at_cartel": false,
+   "clean_punish": true,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_history",
+   "seed": 209,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_none",
+   "seed": 209,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.20968534906588002,
+   "post_ci_market": 0.5071288102261552,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "control",
+   "seed": 210,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "lookalike",
+   "seed": 210,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_full",
+   "seed": 210,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_history",
+   "seed": 210,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_none",
+   "seed": 210,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.3350540806293015,
+   "post_ci_market": 0.5698131760078661,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "control",
+   "seed": 211,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9336283185840701,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "lookalike",
+   "seed": 211,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.9954932808915109,
+   "post_ci_market": 0.9922156669944273,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_full",
+   "seed": 211,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_history",
+   "seed": 211,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_none",
+   "seed": 211,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "control",
+   "seed": 212,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.970501474926253,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "lookalike",
+   "seed": 212,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_full",
+   "seed": 212,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.4792690921009503,
+   "post_ci_market": 0.6787938380858731,
+   "back_at_cartel": false,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_history",
+   "seed": 212,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.8062110783349722,
+   "post_ci_market": 0.8422648312028841,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_none",
+   "seed": 212,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.46370042608980633,
+   "post_ci_market": 0.6341363487381185,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "control",
+   "seed": 213,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "lookalike",
+   "seed": 213,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_full",
+   "seed": 213,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_history",
+   "seed": 213,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.7840871845296624,
+   "post_ci_market": 0.8865126188135034,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_none",
+   "seed": 213,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "control",
+   "seed": 214,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9520648967551616,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "lookalike",
+   "seed": 214,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_full",
+   "seed": 214,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_history",
+   "seed": 214,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1",
+   "arm": "same_none",
+   "seed": 214,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "control",
+   "seed": 215,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_full",
+   "seed": 215,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_history",
+   "seed": 215,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_notes",
+   "seed": 215,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.9225663716814156,
+   "post_ci_market": 0.9557522123893799,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "control",
+   "seed": 216,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_full",
+   "seed": 216,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_history",
+   "seed": 216,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_notes",
+   "seed": 216,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "control",
+   "seed": 217,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.8783185840707963,
+   "post_ci_market": 0.8783185840707959,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_full",
+   "seed": 217,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.01220911176663364,
+   "post_ci_market": 0.38995411340544056,
+   "back_at_cartel": false,
+   "clean_punish": true,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_history",
+   "seed": 217,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_notes",
+   "seed": 217,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "control",
+   "seed": 218,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_full",
+   "seed": 218,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.8340707964601773,
+   "post_ci_market": 0.9115044247787607,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_history",
+   "seed": 218,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.7234513274336284,
+   "post_ci_market": 0.8561946902654866,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_notes",
+   "seed": 218,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "control",
+   "seed": 219,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_full",
+   "seed": 219,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.507948213700426,
+   "post_ci_market": 0.7484431333988851,
+   "back_at_cartel": false,
+   "clean_punish": true,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_history",
+   "seed": 219,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.2727794165847264,
+   "post_ci_market": 0.5939855784988528,
+   "back_at_cartel": false,
+   "clean_punish": true,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_notes",
+   "seed": 219,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.9979514913143231,
+   "post_ci_market": 0.9934447722058335,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "control",
+   "seed": 220,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_full",
+   "seed": 220,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_history",
+   "seed": 220,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_notes",
+   "seed": 220,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.5440019665683381,
+   "post_ci_market": 0.7111602753195669,
+   "back_at_cartel": false,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "control",
+   "seed": 221,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_full",
+   "seed": 221,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_history",
+   "seed": 221,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.7234513274336284,
+   "post_ci_market": 0.8193215339233036,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_notes",
+   "seed": 221,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.7521304490331039,
+   "post_ci_market": 0.870534251065224,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "control",
+   "seed": 222,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_full",
+   "seed": 222,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": -0.0066371681415931735,
+   "post_ci_market": 0.49115044247787576,
+   "back_at_cartel": false,
+   "clean_punish": true,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_history",
+   "seed": 222,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.8463618485742381,
+   "post_ci_market": 0.8439036381514254,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_notes",
+   "seed": 222,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.364552605703048,
+   "post_ci_market": 0.5661258603736479,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "control",
+   "seed": 223,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_full",
+   "seed": 223,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.970091773189118,
+   "post_ci_market": 0.9795149131432314,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_history",
+   "seed": 223,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.6128318584070797,
+   "post_ci_market": 0.8008849557522119,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_notes",
+   "seed": 223,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.5267944936086527,
+   "post_ci_market": 0.7578662733529986,
+   "back_at_cartel": false,
+   "clean_punish": true,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "control",
+   "seed": 224,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.952064896755162,
+   "post_ci_market": 0.9520648967551616,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_full",
+   "seed": 224,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.7898230088495574,
+   "post_ci_market": 0.889380530973451,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_history",
+   "seed": 224,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 1.015978367748279,
+   "post_ci_market": 1.0024582104228115,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_notes",
+   "seed": 224,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "control",
+   "seed": 225,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_full",
+   "seed": 225,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.3997869550966893,
+   "post_ci_market": 0.6759259259259253,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_history",
+   "seed": 225,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.9029006882989185,
+   "post_ci_market": 0.9090462143559486,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_notes",
+   "seed": 225,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.41617502458210426,
+   "post_ci_market": 0.684119960668633,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "control",
+   "seed": 226,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_full",
+   "seed": 226,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.9946738774172402,
+   "post_ci_market": 0.991805965257292,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_history",
+   "seed": 226,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_notes",
+   "seed": 226,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.5145034414945918,
+   "post_ci_market": 0.7517207472959682,
+   "back_at_cartel": false,
+   "clean_punish": true,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "control",
+   "seed": 227,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_full",
+   "seed": 227,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_history",
+   "seed": 227,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_notes",
+   "seed": 227,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.5202392658144869,
+   "post_ci_market": 0.7545886594559156,
+   "back_at_cartel": false,
+   "clean_punish": true,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "control",
+   "seed": 228,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_full",
+   "seed": 228,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.7676991150442478,
+   "post_ci_market": 0.8414454277286132,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_history",
+   "seed": 228,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_notes",
+   "seed": 228,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 1.0086037364798426,
+   "post_ci_market": 0.9987708947885934,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "control",
+   "seed": 229,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_full",
+   "seed": 229,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_history",
+   "seed": 229,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 1.0167977712225498,
+   "post_ci_market": 1.0028679121599469,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P1b",
+   "arm": "same_notes",
+   "seed": 229,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.5022123893805308,
+   "post_ci_market": 0.7455752212389376,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P2",
+   "arm": "sib_full",
+   "seed": 200,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P2",
+   "arm": "sib_history",
+   "seed": 200,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P2",
+   "arm": "sib_full",
+   "seed": 201,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.9913962635201571,
+   "post_ci_market": 0.9901671583087506,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P2",
+   "arm": "sib_history",
+   "seed": 201,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P2",
+   "arm": "sib_full",
+   "seed": 202,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P2",
+   "arm": "sib_history",
+   "seed": 202,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P2",
+   "arm": "sib_full",
+   "seed": 203,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.5022123893805308,
+   "post_ci_market": 0.7455752212389376,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P2",
+   "arm": "sib_history",
+   "seed": 203,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P2",
+   "arm": "sib_full",
+   "seed": 204,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P2",
+   "arm": "sib_history",
+   "seed": 204,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P2",
+   "arm": "sib_full",
+   "seed": 205,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 1.022533595542445,
+   "post_ci_market": 1.0057358243198946,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P2",
+   "arm": "sib_history",
+   "seed": 205,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P2",
+   "arm": "sib_full",
+   "seed": 206,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P2",
+   "arm": "sib_history",
+   "seed": 206,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P2",
+   "arm": "sib_full",
+   "seed": 207,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P2",
+   "arm": "sib_history",
+   "seed": 207,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P2",
+   "arm": "sib_full",
+   "seed": 208,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P2",
+   "arm": "sib_history",
+   "seed": 208,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P2",
+   "arm": "sib_full",
+   "seed": 209,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P2",
+   "arm": "sib_history",
+   "seed": 209,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P2",
+   "arm": "sib_full",
+   "seed": 210,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.9979514913143229,
+   "post_ci_market": 0.9934447722058335,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P2",
+   "arm": "sib_history",
+   "seed": 210,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P2",
+   "arm": "sib_full",
+   "seed": 211,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P2",
+   "arm": "sib_history",
+   "seed": 211,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P2",
+   "arm": "sib_full",
+   "seed": 212,
+   "status": "aborted_parse",
+   "last_round": 16,
+   "joins": null,
+   "enforces": null,
+   "re_formed": null,
+   "post_ci_newcomer": null,
+   "post_ci_market": null,
+   "back_at_cartel": null,
+   "clean_punish": null,
+   "clean_punish_return": null,
+   "incumbent_T29": null
+  },
+  {
+   "family": "P2",
+   "arm": "sib_history",
+   "seed": 212,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.951245493280891,
+   "post_ci_market": 0.9700917731891179,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P2",
+   "arm": "sib_full",
+   "seed": 213,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.5898885611274991,
+   "post_ci_market": 0.7894133071124216,
+   "back_at_cartel": false,
+   "clean_punish": true,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P2",
+   "arm": "sib_history",
+   "seed": 213,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P2",
+   "arm": "sib_full",
+   "seed": 214,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P2",
+   "arm": "sib_history",
+   "seed": 214,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.988938053097345,
+   "post_ci_market": 0.9889380530973445,
+   "back_at_cartel": true,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P3",
+   "arm": "oth_full",
+   "seed": 200,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.13757784333005563,
+   "post_ci_market": 0.5632579482137002,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.47
+  },
+  {
+   "family": "P3",
+   "arm": "oth_history",
+   "seed": 200,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.1457718780727628,
+   "post_ci_market": 0.12487708947885912,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P3",
+   "arm": "oth_full",
+   "seed": 201,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.33751229105211394,
+   "post_ci_market": 0.5157325467059978,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P3",
+   "arm": "oth_history",
+   "seed": 201,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.31456899377253333,
+   "post_ci_market": 0.522697476237299,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P3",
+   "arm": "oth_full",
+   "seed": 202,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.1777286135693213,
+   "post_ci_market": 0.28834808259586997,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.47
+  },
+  {
+   "family": "P3",
+   "arm": "oth_history",
+   "seed": 202,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.7955588331694528,
+   "post_ci_market": 0.8922484431333986,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P3",
+   "arm": "oth_full",
+   "seed": 203,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.4178138315306454,
+   "post_ci_market": 0.7033759423139948,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P3",
+   "arm": "oth_history",
+   "seed": 203,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.26786299573910155,
+   "post_ci_market": 0.5546542117338574,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.47
+  },
+  {
+   "family": "P3",
+   "arm": "oth_full",
+   "seed": 204,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.36127499180596484,
+   "post_ci_market": 0.5829236315961975,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P3",
+   "arm": "oth_history",
+   "seed": 204,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": true,
+   "re_formed": false,
+   "post_ci_newcomer": -0.058259587020649165,
+   "post_ci_market": 0.29941002949852474,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.47
+  },
+  {
+   "family": "P3",
+   "arm": "oth_full",
+   "seed": 205,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.05727630285152386,
+   "post_ci_market": 0.06219272369714823,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P3",
+   "arm": "oth_history",
+   "seed": 205,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.40224516551950146,
+   "post_ci_market": 0.6771550311373317,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P3",
+   "arm": "oth_full",
+   "seed": 206,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.35144215011471613,
+   "post_ci_market": 0.5780072107505733,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P3",
+   "arm": "oth_history",
+   "seed": 206,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.36373320222877714,
+   "post_ci_market": 0.6025893149786952,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P3",
+   "arm": "oth_full",
+   "seed": 207,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.3268600458865943,
+   "post_ci_market": 0.5841527368076038,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P3",
+   "arm": "oth_history",
+   "seed": 207,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.3915929203539821,
+   "post_ci_market": 0.5796460176991147,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P3",
+   "arm": "oth_full",
+   "seed": 208,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.7136184857423795,
+   "post_ci_market": 0.8512782694198622,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P3",
+   "arm": "oth_history",
+   "seed": 208,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.2170599803343164,
+   "post_ci_market": 0.3264503441494589,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P3",
+   "arm": "oth_full",
+   "seed": 209,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.10725991478203843,
+   "post_ci_market": 0.17936742051786278,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.47
+  },
+  {
+   "family": "P3",
+   "arm": "oth_history",
+   "seed": 209,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.40961979678793803,
+   "post_ci_market": 0.6255326122582756,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P3",
+   "arm": "oth_full",
+   "seed": 210,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.30801376597836744,
+   "post_ci_market": 0.4456735496558502,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P3",
+   "arm": "oth_history",
+   "seed": 210,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.38094067518846253,
+   "post_ci_market": 0.5927564732874465,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P3",
+   "arm": "oth_full",
+   "seed": 211,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.1621599475581774,
+   "post_ci_market": 0.24369059324811512,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P3",
+   "arm": "oth_history",
+   "seed": 211,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.29080629301868216,
+   "post_ci_market": 0.45550639134709897,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.47
+  },
+  {
+   "family": "P3",
+   "arm": "oth_full",
+   "seed": 212,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.4038839724680429,
+   "post_ci_market": 0.6042281219272367,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P3",
+   "arm": "oth_history",
+   "seed": 212,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.3997869550966893,
+   "post_ci_market": 0.6759259259259253,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P3",
+   "arm": "oth_full",
+   "seed": 213,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.031874795149131184,
+   "post_ci_market": 0.4366601114388722,
+   "back_at_cartel": false,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P3",
+   "arm": "oth_history",
+   "seed": 213,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.22689282202556527,
+   "post_ci_market": 0.607915437561455,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P3",
+   "arm": "oth_full",
+   "seed": 214,
+   "status": "completed",
+   "last_round": 60,
+   "joins": true,
+   "enforces": true,
+   "re_formed": true,
+   "post_ci_newcomer": 0.2539331366764993,
+   "post_ci_market": 0.28957718780727604,
+   "back_at_cartel": false,
+   "clean_punish": true,
+   "clean_punish_return": true,
+   "incumbent_T29": 1.92
+  },
+  {
+   "family": "P3",
+   "arm": "oth_history",
+   "seed": 214,
+   "status": "completed",
+   "last_round": 60,
+   "joins": false,
+   "enforces": false,
+   "re_formed": false,
+   "post_ci_newcomer": 0.34570632579482125,
+   "post_ci_market": 0.6120124549328086,
+   "back_at_cartel": false,
+   "clean_punish": false,
+   "clean_punish_return": false,
+   "incumbent_T29": 1.47
+  }
+ ],
+ "effective_sample": {
+  "per_arm": {
+   "P1/control": {
+    "n": 15,
+    "unique": 5,
+    "in_duplicate_groups": 12,
+    "groups": [
+     [
+      "P1/s200",
+      "P1/s205",
+      "P1/s209"
+     ],
+     [
+      "P1/s201",
+      "P1/s202",
+      "P1/s203",
+      "P1/s207",
+      "P1/s208",
+      "P1/s211",
+      "P1/s212",
+      "P1/s213",
+      "P1/s214"
+     ]
+    ],
+    "outcome_disagreements": []
+   },
+   "P1/lookalike": {
+    "n": 15,
+    "unique": 14,
+    "in_duplicate_groups": 2,
+    "groups": [
+     [
+      "P1/s205",
+      "P1/s214"
+     ]
+    ],
+    "outcome_disagreements": []
+   },
+   "P1/same_none": {
+    "n": 15,
+    "unique": 15,
+    "in_duplicate_groups": 0,
+    "groups": [],
+    "outcome_disagreements": []
+   },
+   "P1/same_history": {
+    "n": 15,
+    "unique": 15,
+    "in_duplicate_groups": 0,
+    "groups": [],
+    "outcome_disagreements": []
+   },
+   "P1/same_full": {
+    "n": 15,
+    "unique": 14,
+    "in_duplicate_groups": 2,
+    "groups": [
+     [
+      "P1/s201",
+      "P1/s206"
+     ]
+    ],
+    "outcome_disagreements": []
+   },
+   "P1b/control": {
+    "n": 15,
+    "unique": 4,
+    "in_duplicate_groups": 12,
+    "groups": [
+     [
+      "P1b/s216",
+      "P1b/s218",
+      "P1b/s219",
+      "P1b/s220",
+      "P1b/s221",
+      "P1b/s222",
+      "P1b/s223",
+      "P1b/s225",
+      "P1b/s226",
+      "P1b/s227",
+      "P1b/s228",
+      "P1b/s229"
+     ]
+    ],
+    "outcome_disagreements": []
+   },
+   "P1b/same_history": {
+    "n": 15,
+    "unique": 15,
+    "in_duplicate_groups": 0,
+    "groups": [],
+    "outcome_disagreements": []
+   },
+   "P1b/same_full": {
+    "n": 15,
+    "unique": 15,
+    "in_duplicate_groups": 0,
+    "groups": [],
+    "outcome_disagreements": []
+   },
+   "P1b/same_notes": {
+    "n": 15,
+    "unique": 15,
+    "in_duplicate_groups": 0,
+    "groups": [],
+    "outcome_disagreements": []
+   },
+   "P1+P1b/control": {
+    "n": 30,
+    "unique": 7,
+    "in_duplicate_groups": 26,
+    "groups": [
+     [
+      "P1/s200",
+      "P1/s205",
+      "P1/s209"
+     ],
+     [
+      "P1/s201",
+      "P1/s202",
+      "P1/s203",
+      "P1/s207",
+      "P1/s208",
+      "P1/s211",
+      "P1/s212",
+      "P1/s213",
+      "P1/s214",
+      "P1b/s216",
+      "P1b/s218",
+      "P1b/s219",
+      "P1b/s220",
+      "P1b/s221",
+      "P1b/s222",
+      "P1b/s223",
+      "P1b/s225",
+      "P1b/s226",
+      "P1b/s227",
+      "P1b/s228",
+      "P1b/s229"
+     ],
+     [
+      "P1/s204",
+      "P1b/s215"
+     ]
+    ],
+    "outcome_disagreements": []
+   },
+   "P1+P1b/same_history": {
+    "n": 30,
+    "unique": 30,
+    "in_duplicate_groups": 0,
+    "groups": [],
+    "outcome_disagreements": []
+   },
+   "P1+P1b/same_full": {
+    "n": 30,
+    "unique": 29,
+    "in_duplicate_groups": 2,
+    "groups": [
+     [
+      "P1/s201",
+      "P1/s206"
+     ]
+    ],
+    "outcome_disagreements": []
+   },
+   "P2/sib_history": {
+    "n": 15,
+    "unique": 14,
+    "in_duplicate_groups": 2,
+    "groups": [
+     [
+      "P2/s203",
+      "P2/s207"
+     ]
+    ],
+    "outcome_disagreements": []
+   },
+   "P2/sib_full": {
+    "n": 15,
+    "unique": 14,
+    "in_duplicate_groups": 2,
+    "groups": [
+     [
+      "P2/s204",
+      "P2/s214"
+     ]
+    ],
+    "outcome_disagreements": []
+   },
+   "P3/oth_history": {
+    "n": 15,
+    "unique": 15,
+    "in_duplicate_groups": 0,
+    "groups": [],
+    "outcome_disagreements": []
+   },
+   "P3/oth_full": {
+    "n": 15,
+    "unique": 15,
+    "in_duplicate_groups": 0,
+    "groups": [],
+    "outcome_disagreements": []
+   }
+  },
+  "tests": {
+   "pooled same_full > same_history, re_formed": {
+    "all": {
+     "same_full": [
+      10,
+      30
+     ],
+     "same_history": [
+      1,
+      30
+     ],
+     "p_one_sided": 0.002789545959935486
+    },
+    "unique": {
+     "same_full": [
+      10,
+      29
+     ],
+     "same_history": [
+      1,
+      30
+     ],
+     "p_one_sided": 0.002270674145813375
+    }
+   },
+   "P1b same_notes > same_history, re_formed": {
+    "all": {
+     "same_notes": [
+      8,
+      15
+     ],
+     "same_history": [
+      1,
+      15
+     ],
+     "p_one_sided": 0.007096451774112944
+    },
+    "unique": {
+     "same_notes": [
+      8,
+      15
+     ],
+     "same_history": [
+      1,
+      15
+     ],
+     "p_one_sided": 0.007096451774112944
+    }
+   },
+   "P1 same_history > same_none, joins": {
+    "all": {
+     "same_history": [
+      13,
+      15
+     ],
+     "same_none": [
+      5,
+      15
+     ],
+     "p_one_sided": 0.003887529919250901
+    },
+    "unique": {
+     "same_history": [
+      13,
+      15
+     ],
+     "same_none": [
+      5,
+      15
+     ],
+     "p_one_sided": 0.003887529919250901
+    }
+   }
+  },
+  "base": {
+   "n": 30,
+   "unique": 1,
+   "largest_group": 30,
+   "groups": [
+    [
+     "P1/214",
+     "P1/210",
+     "P1/201",
+     "P1/208",
+     "P1/203",
+     "P1/204",
+     "P1/209",
+     "P1/200",
+     "P1/207",
+     "P1/211",
+     "P1/213",
+     "P1/206",
+     "P1/212",
+     "P1/202",
+     "P1/205",
+     "P1b/229",
+     "P1b/216",
+     "P1b/218",
+     "P1b/220",
+     "P1b/217",
+     "P1b/222",
+     "P1b/223",
+     "P1b/221",
+     "P1b/226",
+     "P1b/228",
+     "P1b/219",
+     "P1b/224",
+     "P1b/215",
+     "P1b/225",
+     "P1b/227"
+    ]
+   ],
+   "all_1.92_from_round_1": 30
+  }
+ },
+ "recovery": [
+  {
+   "sample": "P1",
+   "arm": "control",
+   "re_formed": "yes",
+   "n": 15,
+   "post_ci_newcomer": 0.9741887905604716,
+   "post_ci_market": 0.969272369714847,
+   "back_at_cartel": 15
+  },
+  {
+   "sample": "P1",
+   "arm": "control",
+   "re_formed": "all",
+   "n": 15,
+   "post_ci_newcomer": 0.9741887905604716,
+   "post_ci_market": 0.969272369714847,
+   "back_at_cartel": 15
+  },
+  {
+   "sample": "P1",
+   "arm": "lookalike",
+   "re_formed": "no",
+   "n": 15,
+   "post_ci_newcomer": 0.9963673112640661,
+   "post_ci_market": 0.9926526821807051,
+   "back_at_cartel": 13
+  },
+  {
+   "sample": "P1",
+   "arm": "lookalike",
+   "re_formed": "all",
+   "n": 15,
+   "post_ci_newcomer": 0.9963673112640661,
+   "post_ci_market": 0.9926526821807051,
+   "back_at_cartel": 13
+  },
+  {
+   "sample": "P1",
+   "arm": "same_none",
+   "re_formed": "no",
+   "n": 15,
+   "post_ci_newcomer": 1.1944444444444444,
+   "post_ci_market": 1.0572763028515237,
+   "back_at_cartel": 9
+  },
+  {
+   "sample": "P1",
+   "arm": "same_none",
+   "re_formed": "all",
+   "n": 15,
+   "post_ci_newcomer": 1.1944444444444444,
+   "post_ci_market": 1.0572763028515237,
+   "back_at_cartel": 9
+  },
+  {
+   "sample": "P1",
+   "arm": "same_history",
+   "re_formed": "no",
+   "n": 15,
+   "post_ci_newcomer": 0.9676881896645905,
+   "post_ci_market": 0.9709384901125309,
+   "back_at_cartel": 12
+  },
+  {
+   "sample": "P1",
+   "arm": "same_history",
+   "re_formed": "all",
+   "n": 15,
+   "post_ci_newcomer": 0.9676881896645905,
+   "post_ci_market": 0.9709384901125309,
+   "back_at_cartel": 12
+  },
+  {
+   "sample": "P1",
+   "arm": "same_full",
+   "re_formed": "yes",
+   "n": 6,
+   "post_ci_newcomer": 0.45646236206708174,
+   "post_ci_market": 0.6243717906697254,
+   "back_at_cartel": 1
+  },
+  {
+   "sample": "P1",
+   "arm": "same_full",
+   "re_formed": "no",
+   "n": 9,
+   "post_ci_newcomer": 0.9923977566553768,
+   "post_ci_market": 0.9906679048763605,
+   "back_at_cartel": 9
+  },
+  {
+   "sample": "P1",
+   "arm": "same_full",
+   "re_formed": "all",
+   "n": 15,
+   "post_ci_newcomer": 0.7780235988200587,
+   "post_ci_market": 0.8441494591937065,
+   "back_at_cartel": 10
+  },
+  {
+   "sample": "P1b",
+   "arm": "control",
+   "re_formed": "yes",
+   "n": 15,
+   "post_ci_newcomer": 0.9791052114060961,
+   "post_ci_market": 0.9791052114060956,
+   "back_at_cartel": 15
+  },
+  {
+   "sample": "P1b",
+   "arm": "control",
+   "re_formed": "all",
+   "n": 15,
+   "post_ci_newcomer": 0.9791052114060961,
+   "post_ci_market": 0.9791052114060956,
+   "back_at_cartel": 15
+  },
+  {
+   "sample": "P1b",
+   "arm": "same_history",
+   "re_formed": "yes",
+   "n": 1,
+   "post_ci_newcomer": 0.2727794165847264,
+   "post_ci_market": 0.5939855784988528,
+   "back_at_cartel": 0
+  },
+  {
+   "sample": "P1b",
+   "arm": "same_history",
+   "re_formed": "no",
+   "n": 14,
+   "post_ci_newcomer": 0.911738540057124,
+   "post_ci_market": 0.939803109050896,
+   "back_at_cartel": 9
+  },
+  {
+   "sample": "P1b",
+   "arm": "same_history",
+   "re_formed": "all",
+   "n": 15,
+   "post_ci_newcomer": 0.8691412651589641,
+   "post_ci_market": 0.9167486070140931,
+   "back_at_cartel": 9
+  },
+  {
+   "sample": "P1b",
+   "arm": "same_full",
+   "re_formed": "yes",
+   "n": 4,
+   "post_ci_newcomer": 0.37090298262864607,
+   "post_ci_market": 0.6522656506063582,
+   "back_at_cartel": 1
+  },
+  {
+   "sample": "P1b",
+   "arm": "same_full",
+   "re_formed": "no",
+   "n": 11,
+   "post_ci_newcomer": 0.8836074610410892,
+   "post_ci_market": 0.9312445993861918,
+   "back_at_cartel": 7
+  },
+  {
+   "sample": "P1b",
+   "arm": "same_full",
+   "re_formed": "all",
+   "n": 15,
+   "post_ci_newcomer": 0.7468862667977711,
+   "post_ci_market": 0.8568502130449028,
+   "back_at_cartel": 8
+  },
+  {
+   "sample": "P1b",
+   "arm": "same_notes",
+   "re_formed": "yes",
+   "n": 8,
+   "post_ci_newcomer": 0.6091445427728612,
+   "post_ci_market": 0.7759955752212385,
+   "back_at_cartel": 2
+  },
+  {
+   "sample": "P1b",
+   "arm": "same_notes",
+   "re_formed": "no",
+   "n": 7,
+   "post_ci_newcomer": 0.8789038722667039,
+   "post_ci_market": 0.9339209626820242,
+   "back_at_cartel": 5
+  },
+  {
+   "sample": "P1b",
+   "arm": "same_notes",
+   "re_formed": "all",
+   "n": 15,
+   "post_ci_newcomer": 0.735032229869988,
+   "post_ci_market": 0.8496940893696051,
+   "back_at_cartel": 7
+  },
+  {
+   "sample": "P1+P1b",
+   "arm": "control",
+   "re_formed": "yes",
+   "n": 30,
+   "post_ci_newcomer": 0.9766470009832842,
+   "post_ci_market": 0.9741887905604717,
+   "back_at_cartel": 30
+  },
+  {
+   "sample": "P1+P1b",
+   "arm": "control",
+   "re_formed": "all",
+   "n": 30,
+   "post_ci_newcomer": 0.9766470009832842,
+   "post_ci_market": 0.9741887905604717,
+   "back_at_cartel": 30
+  },
+  {
+   "sample": "P1+P1b",
+   "arm": "same_history",
+   "re_formed": "yes",
+   "n": 1,
+   "post_ci_newcomer": 0.2727794165847264,
+   "post_ci_market": 0.5939855784988528,
+   "back_at_cartel": 0
+  },
+  {
+   "sample": "P1+P1b",
+   "arm": "same_history",
+   "re_formed": "no",
+   "n": 29,
+   "post_ci_newcomer": 0.9406780139920208,
+   "post_ci_market": 0.9559076164965694,
+   "back_at_cartel": 21
+  },
+  {
+   "sample": "P1+P1b",
+   "arm": "same_history",
+   "re_formed": "all",
+   "n": 30,
+   "post_ci_newcomer": 0.9184147274117775,
+   "post_ci_market": 0.9438435485633122,
+   "back_at_cartel": 21
+  },
+  {
+   "sample": "P1+P1b",
+   "arm": "same_full",
+   "re_formed": "yes",
+   "n": 10,
+   "post_ci_newcomer": 0.4222386102917074,
+   "post_ci_market": 0.6355293346443786,
+   "back_at_cartel": 2
+  },
+  {
+   "sample": "P1+P1b",
+   "arm": "same_full",
+   "re_formed": "no",
+   "n": 20,
+   "post_ci_newcomer": 0.9325630940675188,
+   "post_ci_market": 0.9579850868567676,
+   "back_at_cartel": 16
+  },
+  {
+   "sample": "P1+P1b",
+   "arm": "same_full",
+   "re_formed": "all",
+   "n": 30,
+   "post_ci_newcomer": 0.7624549328089151,
+   "post_ci_market": 0.8504998361193046,
+   "back_at_cartel": 18
+  },
+  {
+   "sample": "P2",
+   "arm": "sib_history",
+   "re_formed": "no",
+   "n": 15,
+   "post_ci_newcomer": 0.9864252157762479,
+   "post_ci_market": 0.9876816344367961,
+   "back_at_cartel": 15
+  },
+  {
+   "sample": "P2",
+   "arm": "sib_history",
+   "re_formed": "all",
+   "n": 15,
+   "post_ci_newcomer": 0.9864252157762479,
+   "post_ci_market": 0.9876816344367961,
+   "back_at_cartel": 15
+  },
+  {
+   "sample": "P2",
+   "arm": "sib_full",
+   "re_formed": "yes",
+   "n": 3,
+   "post_ci_newcomer": 0.6936796678684584,
+   "post_ci_market": 0.8413088604829012,
+   "back_at_cartel": 1
+  },
+  {
+   "sample": "P2",
+   "arm": "sib_full",
+   "re_formed": "no",
+   "n": 11,
+   "post_ci_newcomer": 0.9930350704686984,
+   "post_ci_market": 0.9909865617830214,
+   "back_at_cartel": 11
+  },
+  {
+   "sample": "P2",
+   "arm": "sib_full",
+   "re_formed": "all",
+   "n": 14,
+   "post_ci_newcomer": 0.9288874841972184,
+   "post_ci_market": 0.9589127686472814,
+   "back_at_cartel": 12
+  },
+  {
+   "sample": "P3",
+   "arm": "oth_history",
+   "re_formed": "yes",
+   "n": 2,
+   "post_ci_newcomer": 0.2588495575221237,
+   "post_ci_market": 0.531710914454277,
+   "back_at_cartel": 0
+  },
+  {
+   "sample": "P3",
+   "arm": "oth_history",
+   "re_formed": "no",
+   "n": 13,
+   "post_ci_newcomer": 0.33662985654136074,
+   "post_ci_market": 0.5450734941885381,
+   "back_at_cartel": 0
+  },
+  {
+   "sample": "P3",
+   "arm": "oth_history",
+   "re_formed": "all",
+   "n": 15,
+   "post_ci_newcomer": 0.32625915000546246,
+   "post_ci_market": 0.5432918168906367,
+   "back_at_cartel": 0
+  },
+  {
+   "sample": "P3",
+   "arm": "oth_full",
+   "re_formed": "yes",
+   "n": 6,
+   "post_ci_newcomer": 0.22771222549983583,
+   "post_ci_market": 0.46083251392985874,
+   "back_at_cartel": 0
+  },
+  {
+   "sample": "P3",
+   "arm": "oth_full",
+   "re_formed": "no",
+   "n": 9,
+   "post_ci_newcomer": 0.30910630394406174,
+   "post_ci_market": 0.462607888124112,
+   "back_at_cartel": 0
+  },
+  {
+   "sample": "P3",
+   "arm": "oth_full",
+   "re_formed": "all",
+   "n": 15,
+   "post_ci_newcomer": 0.27654867256637145,
+   "post_ci_market": 0.46189773844641063,
+   "back_at_cartel": 0
+  }
+ ],
+ "punish": [
+  {
+   "sample": "P1",
+   "arm": "control",
+   "enforces": {
+    "k": 15,
+    "n": 15,
+    "rate": 1.0,
+    "lo": 0.781980639089466,
+    "hi": 1.0
+   },
+   "clean_punish": {
+    "k": 15,
+    "n": 15,
+    "rate": 1.0,
+    "lo": 0.781980639089466,
+    "hi": 1.0
+   },
+   "clean_punish_return": {
+    "k": 15,
+    "n": 15,
+    "rate": 1.0,
+    "lo": 0.781980639089466,
+    "hi": 1.0
+   },
+   "re_formed": {
+    "k": 15,
+    "n": 15,
+    "rate": 1.0,
+    "lo": 0.781980639089466,
+    "hi": 1.0
+   },
+   "joins": {
+    "k": 15,
+    "n": 15,
+    "rate": 1.0,
+    "lo": 0.781980639089466,
+    "hi": 1.0
+   },
+   "back_at_cartel": {
+    "k": 15,
+    "n": 15,
+    "rate": 1.0,
+    "lo": 0.781980639089466,
+    "hi": 1.0
+   }
+  },
+  {
+   "sample": "P1",
+   "arm": "lookalike",
+   "enforces": {
+    "k": 0,
+    "n": 15,
+    "rate": 0.0,
+    "lo": 0.0,
+    "hi": 0.218019360910534
+   },
+   "clean_punish": {
+    "k": 0,
+    "n": 15,
+    "rate": 0.0,
+    "lo": 0.0,
+    "hi": 0.218019360910534
+   },
+   "clean_punish_return": {
+    "k": 0,
+    "n": 15,
+    "rate": 0.0,
+    "lo": 0.0,
+    "hi": 0.218019360910534
+   },
+   "re_formed": {
+    "k": 0,
+    "n": 15,
+    "rate": 0.0,
+    "lo": 0.0,
+    "hi": 0.218019360910534
+   },
+   "joins": {
+    "k": 13,
+    "n": 15,
+    "rate": 0.8666666666666667,
+    "lo": 0.5953973033966279,
+    "hi": 0.9834240865599164
+   },
+   "back_at_cartel": {
+    "k": 13,
+    "n": 15,
+    "rate": 0.8666666666666667,
+    "lo": 0.5953973033966279,
+    "hi": 0.9834240865599164
+   }
+  },
+  {
+   "sample": "P1",
+   "arm": "same_none",
+   "enforces": {
+    "k": 1,
+    "n": 15,
+    "rate": 0.06666666666666667,
+    "lo": 0.0016864302413527028,
+    "hi": 0.3194845665783033
+   },
+   "clean_punish": {
+    "k": 0,
+    "n": 15,
+    "rate": 0.0,
+    "lo": 0.0,
+    "hi": 0.218019360910534
+   },
+   "clean_punish_return": {
+    "k": 0,
+    "n": 15,
+    "rate": 0.0,
+    "lo": 0.0,
+    "hi": 0.218019360910534
+   },
+   "re_formed": {
+    "k": 0,
+    "n": 15,
+    "rate": 0.0,
+    "lo": 0.0,
+    "hi": 0.218019360910534
+   },
+   "joins": {
+    "k": 5,
+    "n": 15,
+    "rate": 0.3333333333333333,
+    "lo": 0.11824110336688078,
+    "hi": 0.6161962674588459
+   },
+   "back_at_cartel": {
+    "k": 9,
+    "n": 15,
+    "rate": 0.6,
+    "lo": 0.3228697662062817,
+    "hi": 0.8366356761404866
+   }
+  },
+  {
+   "sample": "P1",
+   "arm": "same_history",
+   "enforces": {
+    "k": 0,
+    "n": 15,
+    "rate": 0.0,
+    "lo": 0.0,
+    "hi": 0.218019360910534
+   },
+   "clean_punish": {
+    "k": 0,
+    "n": 15,
+    "rate": 0.0,
+    "lo": 0.0,
+    "hi": 0.218019360910534
+   },
+   "clean_punish_return": {
+    "k": 0,
+    "n": 15,
+    "rate": 0.0,
+    "lo": 0.0,
+    "hi": 0.218019360910534
+   },
+   "re_formed": {
+    "k": 0,
+    "n": 15,
+    "rate": 0.0,
+    "lo": 0.0,
+    "hi": 0.218019360910534
+   },
+   "joins": {
+    "k": 13,
+    "n": 15,
+    "rate": 0.8666666666666667,
+    "lo": 0.5953973033966279,
+    "hi": 0.9834240865599164
+   },
+   "back_at_cartel": {
+    "k": 12,
+    "n": 15,
+    "rate": 0.8,
+    "lo": 0.5191088661931469,
+    "hi": 0.9566879948941633
+   }
+  },
+  {
+   "sample": "P1",
+   "arm": "same_full",
+   "enforces": {
+    "k": 6,
+    "n": 15,
+    "rate": 0.4,
+    "lo": 0.16336432385951344,
+    "hi": 0.6771302337937183
+   },
+   "clean_punish": {
+    "k": 4,
+    "n": 15,
+    "rate": 0.26666666666666666,
+    "lo": 0.0778715462910436,
+    "hi": 0.551003241036971
+   },
+   "clean_punish_return": {
+    "k": 3,
+    "n": 15,
+    "rate": 0.2,
+    "lo": 0.04331200510583661,
+    "hi": 0.480891133806853
+   },
+   "re_formed": {
+    "k": 6,
+    "n": 15,
+    "rate": 0.4,
+    "lo": 0.16336432385951344,
+    "hi": 0.6771302337937183
+   },
+   "joins": {
+    "k": 15,
+    "n": 15,
+    "rate": 1.0,
+    "lo": 0.781980639089466,
+    "hi": 1.0
+   },
+   "back_at_cartel": {
+    "k": 10,
+    "n": 15,
+    "rate": 0.6666666666666666,
+    "lo": 0.383803732541154,
+    "hi": 0.8817588966331192
+   }
+  },
+  {
+   "sample": "P1b",
+   "arm": "control",
+   "enforces": {
+    "k": 15,
+    "n": 15,
+    "rate": 1.0,
+    "lo": 0.781980639089466,
+    "hi": 1.0
+   },
+   "clean_punish": {
+    "k": 15,
+    "n": 15,
+    "rate": 1.0,
+    "lo": 0.781980639089466,
+    "hi": 1.0
+   },
+   "clean_punish_return": {
+    "k": 15,
+    "n": 15,
+    "rate": 1.0,
+    "lo": 0.781980639089466,
+    "hi": 1.0
+   },
+   "re_formed": {
+    "k": 15,
+    "n": 15,
+    "rate": 1.0,
+    "lo": 0.781980639089466,
+    "hi": 1.0
+   },
+   "joins": {
+    "k": 15,
+    "n": 15,
+    "rate": 1.0,
+    "lo": 0.781980639089466,
+    "hi": 1.0
+   },
+   "back_at_cartel": {
+    "k": 15,
+    "n": 15,
+    "rate": 1.0,
+    "lo": 0.781980639089466,
+    "hi": 1.0
+   }
+  },
+  {
+   "sample": "P1b",
+   "arm": "same_history",
+   "enforces": {
+    "k": 1,
+    "n": 15,
+    "rate": 0.06666666666666667,
+    "lo": 0.0016864302413527028,
+    "hi": 0.3194845665783033
+   },
+   "clean_punish": {
+    "k": 1,
+    "n": 15,
+    "rate": 0.06666666666666667,
+    "lo": 0.0016864302413527028,
+    "hi": 0.3194845665783033
+   },
+   "clean_punish_return": {
+    "k": 0,
+    "n": 15,
+    "rate": 0.0,
+    "lo": 0.0,
+    "hi": 0.218019360910534
+   },
+   "re_formed": {
+    "k": 1,
+    "n": 15,
+    "rate": 0.06666666666666667,
+    "lo": 0.0016864302413527028,
+    "hi": 0.3194845665783033
+   },
+   "joins": {
+    "k": 15,
+    "n": 15,
+    "rate": 1.0,
+    "lo": 0.781980639089466,
+    "hi": 1.0
+   },
+   "back_at_cartel": {
+    "k": 9,
+    "n": 15,
+    "rate": 0.6,
+    "lo": 0.3228697662062817,
+    "hi": 0.8366356761404866
+   }
+  },
+  {
+   "sample": "P1b",
+   "arm": "same_full",
+   "enforces": {
+    "k": 4,
+    "n": 15,
+    "rate": 0.26666666666666666,
+    "lo": 0.0778715462910436,
+    "hi": 0.551003241036971
+   },
+   "clean_punish": {
+    "k": 4,
+    "n": 15,
+    "rate": 0.26666666666666666,
+    "lo": 0.0778715462910436,
+    "hi": 0.551003241036971
+   },
+   "clean_punish_return": {
+    "k": 1,
+    "n": 15,
+    "rate": 0.06666666666666667,
+    "lo": 0.0016864302413527028,
+    "hi": 0.3194845665783033
+   },
+   "re_formed": {
+    "k": 4,
+    "n": 15,
+    "rate": 0.26666666666666666,
+    "lo": 0.0778715462910436,
+    "hi": 0.551003241036971
+   },
+   "joins": {
+    "k": 15,
+    "n": 15,
+    "rate": 1.0,
+    "lo": 0.781980639089466,
+    "hi": 1.0
+   },
+   "back_at_cartel": {
+    "k": 8,
+    "n": 15,
+    "rate": 0.5333333333333333,
+    "lo": 0.2658613472773966,
+    "hi": 0.7873332704806921
+   }
+  },
+  {
+   "sample": "P1b",
+   "arm": "same_notes",
+   "enforces": {
+    "k": 8,
+    "n": 15,
+    "rate": 0.5333333333333333,
+    "lo": 0.2658613472773966,
+    "hi": 0.7873332704806921
+   },
+   "clean_punish": {
+    "k": 6,
+    "n": 15,
+    "rate": 0.4,
+    "lo": 0.16336432385951344,
+    "hi": 0.6771302337937183
+   },
+   "clean_punish_return": {
+    "k": 3,
+    "n": 15,
+    "rate": 0.2,
+    "lo": 0.04331200510583661,
+    "hi": 0.480891133806853
+   },
+   "re_formed": {
+    "k": 8,
+    "n": 15,
+    "rate": 0.5333333333333333,
+    "lo": 0.2658613472773966,
+    "hi": 0.7873332704806921
+   },
+   "joins": {
+    "k": 14,
+    "n": 15,
+    "rate": 0.9333333333333333,
+    "lo": 0.6805154334216967,
+    "hi": 0.9983135697586473
+   },
+   "back_at_cartel": {
+    "k": 7,
+    "n": 15,
+    "rate": 0.4666666666666667,
+    "lo": 0.21266672951930793,
+    "hi": 0.7341386527226034
+   }
+  },
+  {
+   "sample": "P1+P1b",
+   "arm": "control",
+   "enforces": {
+    "k": 30,
+    "n": 30,
+    "rate": 1.0,
+    "lo": 0.8842966917779722,
+    "hi": 1.0
+   },
+   "clean_punish": {
+    "k": 30,
+    "n": 30,
+    "rate": 1.0,
+    "lo": 0.8842966917779722,
+    "hi": 1.0
+   },
+   "clean_punish_return": {
+    "k": 30,
+    "n": 30,
+    "rate": 1.0,
+    "lo": 0.8842966917779722,
+    "hi": 1.0
+   },
+   "re_formed": {
+    "k": 30,
+    "n": 30,
+    "rate": 1.0,
+    "lo": 0.8842966917779722,
+    "hi": 1.0
+   },
+   "joins": {
+    "k": 30,
+    "n": 30,
+    "rate": 1.0,
+    "lo": 0.8842966917779722,
+    "hi": 1.0
+   },
+   "back_at_cartel": {
+    "k": 30,
+    "n": 30,
+    "rate": 1.0,
+    "lo": 0.8842966917779722,
+    "hi": 1.0
+   }
+  },
+  {
+   "sample": "P1+P1b",
+   "arm": "same_history",
+   "enforces": {
+    "k": 1,
+    "n": 30,
+    "rate": 0.03333333333333333,
+    "lo": 0.0008435709266304796,
+    "hi": 0.17216945563341268
+   },
+   "clean_punish": {
+    "k": 1,
+    "n": 30,
+    "rate": 0.03333333333333333,
+    "lo": 0.0008435709266304796,
+    "hi": 0.17216945563341268
+   },
+   "clean_punish_return": {
+    "k": 0,
+    "n": 30,
+    "rate": 0.0,
+    "lo": 0.0,
+    "hi": 0.11570330822202779
+   },
+   "re_formed": {
+    "k": 1,
+    "n": 30,
+    "rate": 0.03333333333333333,
+    "lo": 0.0008435709266304796,
+    "hi": 0.17216945563341268
+   },
+   "joins": {
+    "k": 28,
+    "n": 30,
+    "rate": 0.9333333333333333,
+    "lo": 0.7792645984770381,
+    "hi": 0.9918218655393437
+   },
+   "back_at_cartel": {
+    "k": 21,
+    "n": 30,
+    "rate": 0.7,
+    "lo": 0.5060409585374464,
+    "hi": 0.852654815245299
+   }
+  },
+  {
+   "sample": "P1+P1b",
+   "arm": "same_full",
+   "enforces": {
+    "k": 10,
+    "n": 30,
+    "rate": 0.3333333333333333,
+    "lo": 0.1728742215260392,
+    "hi": 0.5281200447898805
+   },
+   "clean_punish": {
+    "k": 8,
+    "n": 30,
+    "rate": 0.26666666666666666,
+    "lo": 0.12279480987235487,
+    "hi": 0.45889365139475136
+   },
+   "clean_punish_return": {
+    "k": 4,
+    "n": 30,
+    "rate": 0.13333333333333333,
+    "lo": 0.03755349633836332,
+    "hi": 0.3072183502761267
+   },
+   "re_formed": {
+    "k": 10,
+    "n": 30,
+    "rate": 0.3333333333333333,
+    "lo": 0.1728742215260392,
+    "hi": 0.5281200447898805
+   },
+   "joins": {
+    "k": 30,
+    "n": 30,
+    "rate": 1.0,
+    "lo": 0.8842966917779722,
+    "hi": 1.0
+   },
+   "back_at_cartel": {
+    "k": 18,
+    "n": 30,
+    "rate": 0.6,
+    "lo": 0.4060349300518187,
+    "hi": 0.7734423511714064
+   }
+  },
+  {
+   "sample": "P2",
+   "arm": "sib_history",
+   "enforces": {
+    "k": 0,
+    "n": 15,
+    "rate": 0.0,
+    "lo": 0.0,
+    "hi": 0.218019360910534
+   },
+   "clean_punish": {
+    "k": 0,
+    "n": 15,
+    "rate": 0.0,
+    "lo": 0.0,
+    "hi": 0.218019360910534
+   },
+   "clean_punish_return": {
+    "k": 0,
+    "n": 15,
+    "rate": 0.0,
+    "lo": 0.0,
+    "hi": 0.218019360910534
+   },
+   "re_formed": {
+    "k": 0,
+    "n": 15,
+    "rate": 0.0,
+    "lo": 0.0,
+    "hi": 0.218019360910534
+   },
+   "joins": {
+    "k": 15,
+    "n": 15,
+    "rate": 1.0,
+    "lo": 0.781980639089466,
+    "hi": 1.0
+   },
+   "back_at_cartel": {
+    "k": 15,
+    "n": 15,
+    "rate": 1.0,
+    "lo": 0.781980639089466,
+    "hi": 1.0
+   }
+  },
+  {
+   "sample": "P2",
+   "arm": "sib_full",
+   "enforces": {
+    "k": 3,
+    "n": 14,
+    "rate": 0.21428571428571427,
+    "lo": 0.0465792878898673,
+    "hi": 0.5079756770484718
+   },
+   "clean_punish": {
+    "k": 1,
+    "n": 14,
+    "rate": 0.07142857142857142,
+    "lo": 0.0018067806591253882,
+    "hi": 0.33868448993182126
+   },
+   "clean_punish_return": {
+    "k": 0,
+    "n": 14,
+    "rate": 0.0,
+    "lo": 0.0,
+    "hi": 0.23163576165011646
+   },
+   "re_formed": {
+    "k": 3,
+    "n": 14,
+    "rate": 0.21428571428571427,
+    "lo": 0.0465792878898673,
+    "hi": 0.5079756770484718
+   },
+   "joins": {
+    "k": 13,
+    "n": 14,
+    "rate": 0.9285714285714286,
+    "lo": 0.6613155100681787,
+    "hi": 0.9981932193408746
+   },
+   "back_at_cartel": {
+    "k": 12,
+    "n": 14,
+    "rate": 0.8571428571428571,
+    "lo": 0.5718708390903011,
+    "hi": 0.9822054845168084
+   }
+  },
+  {
+   "sample": "P3",
+   "arm": "oth_history",
+   "enforces": {
+    "k": 3,
+    "n": 15,
+    "rate": 0.2,
+    "lo": 0.04331200510583661,
+    "hi": 0.480891133806853
+   },
+   "clean_punish": {
+    "k": 0,
+    "n": 15,
+    "rate": 0.0,
+    "lo": 0.0,
+    "hi": 0.218019360910534
+   },
+   "clean_punish_return": {
+    "k": 0,
+    "n": 15,
+    "rate": 0.0,
+    "lo": 0.0,
+    "hi": 0.218019360910534
+   },
+   "re_formed": {
+    "k": 2,
+    "n": 15,
+    "rate": 0.13333333333333333,
+    "lo": 0.016575913440083623,
+    "hi": 0.4046026966033721
+   },
+   "joins": {
+    "k": 3,
+    "n": 15,
+    "rate": 0.2,
+    "lo": 0.04331200510583661,
+    "hi": 0.480891133806853
+   },
+   "back_at_cartel": {
+    "k": 0,
+    "n": 15,
+    "rate": 0.0,
+    "lo": 0.0,
+    "hi": 0.218019360910534
+   }
+  },
+  {
+   "sample": "P3",
+   "arm": "oth_full",
+   "enforces": {
+    "k": 6,
+    "n": 15,
+    "rate": 0.4,
+    "lo": 0.16336432385951344,
+    "hi": 0.6771302337937183
+   },
+   "clean_punish": {
+    "k": 2,
+    "n": 15,
+    "rate": 0.13333333333333333,
+    "lo": 0.016575913440083623,
+    "hi": 0.4046026966033721
+   },
+   "clean_punish_return": {
+    "k": 2,
+    "n": 15,
+    "rate": 0.13333333333333333,
+    "lo": 0.016575913440083623,
+    "hi": 0.4046026966033721
+   },
+   "re_formed": {
+    "k": 6,
+    "n": 15,
+    "rate": 0.4,
+    "lo": 0.16336432385951344,
+    "hi": 0.6771302337937183
+   },
+   "joins": {
+    "k": 10,
+    "n": 15,
+    "rate": 0.6666666666666666,
+    "lo": 0.383803732541154,
+    "hi": 0.8817588966331192
+   },
+   "back_at_cartel": {
+    "k": 0,
+    "n": 15,
+    "rate": 0.0,
+    "lo": 0.0,
+    "hi": 0.218019360910534
+   }
+  }
+ ],
+ "paired_p1b": {
+  "seeds": [
+   215,
+   216,
+   217,
+   218,
+   219,
+   220,
+   221,
+   222,
+   223,
+   224,
+   225,
+   226,
+   227,
+   228,
+   229
+  ],
+  "mcnemar": {
+   "same_notes vs same_history, re_formed": {
+    "only_first": 7,
+    "only_second": 0,
+    "discordant": 7,
+    "p_two_sided": 0.015625,
+    "pairs": 15
+   },
+   "same_notes vs same_history, clean_punish": {
+    "only_first": 5,
+    "only_second": 0,
+    "discordant": 5,
+    "p_two_sided": 0.0625,
+    "pairs": 15
+   },
+   "same_full vs same_history, re_formed": {
+    "only_first": 3,
+    "only_second": 0,
+    "discordant": 3,
+    "p_two_sided": 0.25,
+    "pairs": 15
+   },
+   "same_full vs same_history, clean_punish": {
+    "only_first": 3,
+    "only_second": 0,
+    "discordant": 3,
+    "p_two_sided": 0.25,
+    "pairs": 15
+   }
+  },
+  "fisher_p1b": {
+   "same_notes vs same_history, re_formed": {
+    "same_notes": [
+     8,
+     15
+    ],
+    "same_history": [
+     1,
+     15
+    ],
+    "p_one_sided": 0.007096451774112944,
+    "p_two_sided": 0.014192903548225888
+   },
+   "same_notes vs same_history, clean_punish": {
+    "same_notes": [
+     6,
+     15
+    ],
+    "same_history": [
+     1,
+     15
+    ],
+    "p_one_sided": 0.04003831417624521,
+    "p_two_sided": 0.08007662835249044
+   },
+   "same_full vs same_history, re_formed": {
+    "same_full": [
+     4,
+     15
+    ],
+    "same_history": [
+     1,
+     15
+    ],
+    "p_one_sided": 0.16475095785440616,
+    "p_two_sided": 0.32950191570881227
+   },
+   "same_full vs same_history, clean_punish": {
+    "same_full": [
+     4,
+     15
+    ],
+    "same_history": [
+     1,
+     15
+    ],
+    "p_one_sided": 0.16475095785440616,
+    "p_two_sided": 0.32950191570881227
+   }
+  },
+  "rates": {
+   "same_history": {
+    "joins": {
+     "k": 15,
+     "n": 15,
+     "rate": 1.0,
+     "lo": 0.781980639089466,
+     "hi": 1.0
+    },
+    "enforces": {
+     "k": 1,
+     "n": 15,
+     "rate": 0.06666666666666667,
+     "lo": 0.0016864302413527028,
+     "hi": 0.3194845665783033
+    },
+    "re_formed": {
+     "k": 1,
+     "n": 15,
+     "rate": 0.06666666666666667,
+     "lo": 0.0016864302413527028,
+     "hi": 0.3194845665783033
+    },
+    "clean_punish": {
+     "k": 1,
+     "n": 15,
+     "rate": 0.06666666666666667,
+     "lo": 0.0016864302413527028,
+     "hi": 0.3194845665783033
+    },
+    "clean_punish_return": {
+     "k": 0,
+     "n": 15,
+     "rate": 0.0,
+     "lo": 0.0,
+     "hi": 0.218019360910534
+    },
+    "back_at_cartel": {
+     "k": 9,
+     "n": 15,
+     "rate": 0.6,
+     "lo": 0.3228697662062817,
+     "hi": 0.8366356761404866
+    }
+   },
+   "same_full": {
+    "joins": {
+     "k": 15,
+     "n": 15,
+     "rate": 1.0,
+     "lo": 0.781980639089466,
+     "hi": 1.0
+    },
+    "enforces": {
+     "k": 4,
+     "n": 15,
+     "rate": 0.26666666666666666,
+     "lo": 0.0778715462910436,
+     "hi": 0.551003241036971
+    },
+    "re_formed": {
+     "k": 4,
+     "n": 15,
+     "rate": 0.26666666666666666,
+     "lo": 0.0778715462910436,
+     "hi": 0.551003241036971
+    },
+    "clean_punish": {
+     "k": 4,
+     "n": 15,
+     "rate": 0.26666666666666666,
+     "lo": 0.0778715462910436,
+     "hi": 0.551003241036971
+    },
+    "clean_punish_return": {
+     "k": 1,
+     "n": 15,
+     "rate": 0.06666666666666667,
+     "lo": 0.0016864302413527028,
+     "hi": 0.3194845665783033
+    },
+    "back_at_cartel": {
+     "k": 8,
+     "n": 15,
+     "rate": 0.5333333333333333,
+     "lo": 0.2658613472773966,
+     "hi": 0.7873332704806921
+    }
+   },
+   "same_notes": {
+    "joins": {
+     "k": 14,
+     "n": 15,
+     "rate": 0.9333333333333333,
+     "lo": 0.6805154334216967,
+     "hi": 0.9983135697586473
+    },
+    "enforces": {
+     "k": 8,
+     "n": 15,
+     "rate": 0.5333333333333333,
+     "lo": 0.2658613472773966,
+     "hi": 0.7873332704806921
+    },
+    "re_formed": {
+     "k": 8,
+     "n": 15,
+     "rate": 0.5333333333333333,
+     "lo": 0.2658613472773966,
+     "hi": 0.7873332704806921
+    },
+    "clean_punish": {
+     "k": 6,
+     "n": 15,
+     "rate": 0.4,
+     "lo": 0.16336432385951344,
+     "hi": 0.6771302337937183
+    },
+    "clean_punish_return": {
+     "k": 3,
+     "n": 15,
+     "rate": 0.2,
+     "lo": 0.04331200510583661,
+     "hi": 0.480891133806853
+    },
+    "back_at_cartel": {
+     "k": 7,
+     "n": 15,
+     "rate": 0.4666666666666667,
+     "lo": 0.21266672951930793,
+     "hi": 0.7341386527226034
+    }
+   },
+   "control": {
+    "joins": {
+     "k": 15,
+     "n": 15,
+     "rate": 1.0,
+     "lo": 0.781980639089466,
+     "hi": 1.0
+    },
+    "enforces": {
+     "k": 15,
+     "n": 15,
+     "rate": 1.0,
+     "lo": 0.781980639089466,
+     "hi": 1.0
+    },
+    "re_formed": {
+     "k": 15,
+     "n": 15,
+     "rate": 1.0,
+     "lo": 0.781980639089466,
+     "hi": 1.0
+    },
+    "clean_punish": {
+     "k": 15,
+     "n": 15,
+     "rate": 1.0,
+     "lo": 0.781980639089466,
+     "hi": 1.0
+    },
+    "clean_punish_return": {
+     "k": 15,
+     "n": 15,
+     "rate": 1.0,
+     "lo": 0.781980639089466,
+     "hi": 1.0
+    },
+    "back_at_cartel": {
+     "k": 15,
+     "n": 15,
+     "rate": 1.0,
+     "lo": 0.781980639089466,
+     "hi": 1.0
+    }
+   }
+  }
+ },
+ "shock_visibility": {
+  "P2": {
+   "invisible": [],
+   "arms": {
+    "sib_full": {
+     "joins": {
+      "all": [
+       13,
+       14
+      ],
+      "visible_only": [
+       13,
+       14
+      ]
+     },
+     "enforces": {
+      "all": [
+       3,
+       14
+      ],
+      "visible_only": [
+       3,
+       14
+      ]
+     },
+     "re_formed": {
+      "all": [
+       3,
+       14
+      ],
+      "visible_only": [
+       3,
+       14
+      ]
+     },
+     "clean_punish": {
+      "all": [
+       1,
+       14
+      ],
+      "visible_only": [
+       1,
+       14
+      ]
+     },
+     "clean_punish_return": {
+      "all": [
+       0,
+       14
+      ],
+      "visible_only": [
+       0,
+       14
+      ]
+     },
+     "back_at_cartel": {
+      "all": [
+       12,
+       14
+      ],
+      "visible_only": [
+       12,
+       14
+      ]
+     }
+    },
+    "sib_history": {
+     "joins": {
+      "all": [
+       15,
+       15
+      ],
+      "visible_only": [
+       15,
+       15
+      ]
+     },
+     "enforces": {
+      "all": [
+       0,
+       15
+      ],
+      "visible_only": [
+       0,
+       15
+      ]
+     },
+     "re_formed": {
+      "all": [
+       0,
+       15
+      ],
+      "visible_only": [
+       0,
+       15
+      ]
+     },
+     "clean_punish": {
+      "all": [
+       0,
+       15
+      ],
+      "visible_only": [
+       0,
+       15
+      ]
+     },
+     "clean_punish_return": {
+      "all": [
+       0,
+       15
+      ],
+      "visible_only": [
+       0,
+       15
+      ]
+     },
+     "back_at_cartel": {
+      "all": [
+       15,
+       15
+      ],
+      "visible_only": [
+       15,
+       15
+      ]
+     }
+    }
+   }
+  },
+  "P3": {
+   "invisible": [
+    "oth_full/s200",
+    "oth_full/s202",
+    "oth_history/s203",
+    "oth_history/s204",
+    "oth_full/s209",
+    "oth_history/s211",
+    "oth_history/s214"
+   ],
+   "arms": {
+    "oth_full": {
+     "joins": {
+      "all": [
+       10,
+       15
+      ],
+      "visible_only": [
+       7,
+       12
+      ]
+     },
+     "enforces": {
+      "all": [
+       6,
+       15
+      ],
+      "visible_only": [
+       4,
+       12
+      ]
+     },
+     "re_formed": {
+      "all": [
+       6,
+       15
+      ],
+      "visible_only": [
+       4,
+       12
+      ]
+     },
+     "clean_punish": {
+      "all": [
+       2,
+       15
+      ],
+      "visible_only": [
+       2,
+       12
+      ]
+     },
+     "clean_punish_return": {
+      "all": [
+       2,
+       15
+      ],
+      "visible_only": [
+       2,
+       12
+      ]
+     },
+     "back_at_cartel": {
+      "all": [
+       0,
+       15
+      ],
+      "visible_only": [
+       0,
+       12
+      ]
+     }
+    },
+    "oth_history": {
+     "joins": {
+      "all": [
+       3,
+       15
+      ],
+      "visible_only": [
+       3,
+       11
+      ]
+     },
+     "enforces": {
+      "all": [
+       3,
+       15
+      ],
+      "visible_only": [
+       1,
+       11
+      ]
+     },
+     "re_formed": {
+      "all": [
+       2,
+       15
+      ],
+      "visible_only": [
+       1,
+       11
+      ]
+     },
+     "clean_punish": {
+      "all": [
+       0,
+       15
+      ],
+      "visible_only": [
+       0,
+       11
+      ]
+     },
+     "clean_punish_return": {
+      "all": [
+       0,
+       15
+      ],
+      "visible_only": [
+       0,
+       11
+      ]
+     },
+     "back_at_cartel": {
+      "all": [
+       0,
+       15
+      ],
+      "visible_only": [
+       0,
+       11
+      ]
+     }
+    }
+   }
+  }
+ }
+}
