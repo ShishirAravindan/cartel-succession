@@ -53,10 +53,16 @@ output, and the three anomaly hunters were resumed after the reset.
    its rule allows (P1b `same_history` s218, s221–s223; P1 s206, s212) and tolerates long runs below 1.70 (P1
    `same_full` s203: 23 rounds at 1.50). After a newcomer punishes, the incumbent often punishes back, so the two
    lock in at 1.47 (P1 s209).
-7. **The metric's false positives.** About a third of "enforces" (9 of the 27 with notes) are matching or undercutting
+7. **In gpt-oss games the shock is often invisible (verified).** In 7 of 30 gpt-oss games the incumbent was
+   already at 1.47 at T+29, punishing a newcomer that sat below 1.70, so the forced 1.47 at T+30 changed nothing.
+   That happened in 0 of 29 Qwen3-8B games. The affected games are `oth_history` s203, s204, s211, s214 and `oth_full`
+   s200, s202, s209. gpt-oss settles at 1.65–1.68, just under the trigger, and the incumbent punishes it only some of
+   the time (`anomalies_P23.md`). P3's `enforces` / `re_formed` are therefore measured in an ongoing price war for a
+   quarter of its games.
+8. **The metric's false positives.** About a third of "enforces" (9 of the 27 with notes) are matching or undercutting
    by the reasoning, plus artefacts such as P1 s205, a 2.25 spike before the shock. The effective sample is also smaller than
    15 per arm: several seeds replay identical paths. The P1 anomaly hunter reports 7 identical control games.
-8. **Two corrections the reading surfaced.**
+9. **Two corrections the reading surfaced.**
    - (a) The regex table said no inherited note states a duration; "3-round" is in 15 of 30. Fixed on `exp/p1b` (`72d5986`).
    - (b) P1's status line "none mentions 3 rounds" is probably the same bug.
 
