@@ -451,6 +451,8 @@ then `modal app stop -y seat-swap-vllm`.
   same_history 13/0/1/0/4; same_none 5/1/6/0/0; same_full 15/6/0/6/2; lookalike 13/0/2/0/0.
 - **Newcomers join but don't enforce**, except through the notes: `same_full` re_formed 6/15. The inherited
   notes restate the 1.70 trigger (14/15) but not the 3-round 1.47 punishment, and mentions don't separate enforcers.
+  - **Correction (2026-10-25, see `72d5986`):** "but not the 3-round 1.47 punishment" is wrong (same regex bug): 5/15
+    inherited notes state the duration (3 of the 6 enforcers) and 4/15 state 1.47.
 - **Probe**: newcomers stay at 1.60–1.70 after the forced 1.60 (`probe_ci_post` ≈ +0.28 / +0.50), punished
   or not (`lookalike` the same). Their notes read the forced price as their own profitable test
   ($40.54 at 1.60 vs $33.75 at 1.92). No newcomer returns to the band at k ≥ 18 (after it could see a
@@ -554,3 +556,4 @@ then `modal app stop -y seat-swap-vllm`.
   Neither prediction for the rule arms met; status arm as predicted. Descriptive: the template rule survives in the newcomer's
   notes to T+10 in 3/15 (return) and 7/15 (no return) vs 8/15 for real notes; 0/7 template enforcers back at the cartel.
 - Cost: 14B app $6.39 (07:00 UTC hour). Sprint ≈ $62.2. App redeployed at 2 min and stopped 07:58 UTC.
+- Final: 14B app stopped 07:57 UTC; P1c cost final $6.39 (no 08:00 UTC charge). Remaining duration corrections added (log P1 results entry, explore README 9b). Rule-survival table moved into `p1c_analysis`. Status summary leads with the frozen tests; the `same_notes` comparison (p = 0.064) is labelled descriptive.

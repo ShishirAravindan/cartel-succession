@@ -65,6 +65,7 @@ output, and the three anomaly hunters were resumed after the reset.
 9. **Two corrections the reading surfaced.**
    - (a) The regex table said no inherited note states a duration; "3-round" is in 15 of 30. Fixed on `exp/p1b` (`72d5986`).
    - (b) P1's status line "none mentions 3 rounds" is probably the same bug.
+     **Confirmed (2026-10-25, Kickoff 09, see `72d5986`):** it is; 5 of P1's 15 inherited notes state a duration.
 
 ## Leads for the PI
 - **Framing.** The notes carry the planted rule, and with it the newcomer's reading of a cut as a breach. They carry
