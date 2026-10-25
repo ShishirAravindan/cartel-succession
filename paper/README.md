@@ -94,6 +94,11 @@ three quarters down page 7, leaving about 1.25 pages for the abstract (about 0.2
 0.5) and the Conclusion (1–2 paragraphs, about 0.25). Intro + Related Work: 1.97 pages (limit 2), so any addition
 there needs a matching cut.
 
+**Next session, in this order** (agreed 26 Oct, 1:35 a.m.; deadline 17:29 IST the same day): abstract; intro
+consistency check against the new Results (no "history alone keeps the price", no "re-formed the cartel"); conclusion;
+LLM usage statement skeleton with `#cmt` where only the author can say how they worked; then appendix, references and
+a light Related Work pass if time allows. Drafts go uncommitted with `#cmt` on judgment calls, for one author review.
+
 **To write**
 - Abstract.
 - Conclusion: main findings and implications, 1–2 paragraphs.
