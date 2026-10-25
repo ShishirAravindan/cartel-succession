@@ -293,7 +293,8 @@ def render(es, rec, pun, paired, vis) -> str:
          "", "Definitions (`metrics.py`): `back_at_cartel` = newcomer CI ≥ 0.9 in each of T+51..T+60 (no upper bound). "
          "`clean_punish` = newcomer CI ≥ 0.9 in each of T+27..T+29, both seats ≥ 1.70 in each of T+25..T+29, and newcomer "
          "≤ 1.55 at T+31 or T+32. `clean_punish_return` = `clean_punish`, then newcomer CI ≥ 0.9 in at least one of the 6 "
-         "rounds after the first round at ≤ 1.55. Post-shock CI = mean over T+34..T+60.", ""]
+         "rounds after the first round at ≤ 1.55 (the kickoff's `clean_punish_and_return`). Post-shock CI = mean over "
+         "T+34..T+60.", ""]
 
     L += ["## 1. Effective sample size", "", LABEL, "",
           "Seeds whose newcomer price path T+1..T+60 is identical to another seed's in the same arm.", "",

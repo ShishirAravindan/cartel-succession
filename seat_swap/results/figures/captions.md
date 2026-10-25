@@ -1,5 +1,7 @@
 # Figure captions
 
+clean_punish_return is the kickoff's clean_punish_and_return.
+
 **fig1_design** (fig1_design.pdf / .png): Design. Two instructed Qwen3-14B incumbents hold the cartel price for 150 rounds (seeds 200–214 in P1, 215–229 in P1b). At T = 150 seat 1 is replaced by an uninstructed newcomer that inherits the listed part of seat 1's state; seat 0 stays the instructed incumbent. At T+30 the incumbent is forced to the Nash price for one round. All newcomers are Qwen3-14B with thinking on, except the sib_* (Qwen3-8B) and oth_* (gpt-oss-20b) arms.
 
 **fig2_price_paths** (fig2_price_paths.pdf / .png): Seat-1 price after the swap, one line per seed. In control seat 1 is the original instructed incumbent (orange, dashed); in every other panel it is the newcomer (blue). Grey band: cartel band, CI 0.9–1.1 (1.88–1.97). Dashed vertical line: the incumbent's forced 1.47 at T+30. control, same_history and same_full pool P1 and P1b (30 seeds); lookalike and same_none are P1 only, same_notes P1b only (15 seeds). Identical paths overlap (e.g. 26 of 30 control games share 3 paths).

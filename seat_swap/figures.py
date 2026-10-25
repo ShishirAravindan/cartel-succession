@@ -291,7 +291,7 @@ def main():
     fig5(games)
     if (m := p1c_manifest()):
         fig6(m)
-    (OUT / "captions.md").write_text("# Figure captions\n\n" + "\n\n".join(
+    (OUT / "captions.md").write_text("# Figure captions\n\nclean_punish_return is the kickoff's clean_punish_and_return.\n\n" + "\n\n".join(
         f"**{k}** ({k}.pdf / .png): {v}" for k, v in CAPTIONS.items()) + "\n")
     print(f"wrote {len(CAPTIONS)} figures to {OUT}")
 
