@@ -81,6 +81,8 @@ The main experiment also pre-registered a discipline probe on Set A: a side bran
 
 == Before the shock <app:preshock>
 
+@fig:paths shows seat 1's price in every main-experiment game after the swap, and @tab:preshock gives the mean newcomer CI before the shock, by set. Before T+30 the arms with any inheritance look alike; Blank stands out by pricing above 1.1.
+
 #fig("fig2_price_paths") <fig:paths>
 
 #figure(
