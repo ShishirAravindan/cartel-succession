@@ -88,7 +88,7 @@ Collusion index CI = (p − p_N) / (p_M − p_N).
   2. in a 10-round side branch forked at round 150, one seller forced to p_N for one round, the other retaliates past the retaliation threshold.
   The main line is never shocked before branching.
 - Phase B: branch cartel runs at T = 150 into arms, 60 rounds each. Arm names (use exactly these strings):
-  `control`, `same_history`, `same_none`, `same_full` (added Kickoff 05), `same_notes` (added Kickoff 07), `lookalike`, `sib_full`, `sib_history`, `sib_none`, `oth_full`, `oth_history`, `oth_none`, `lookalike_oth`.
+  `control`, `same_history`, `same_none`, `same_full` (added Kickoff 05), `same_notes` (added Kickoff 07), `lookalike`, `sib_full`, `sib_history`, `sib_none`, `oth_full`, `oth_history`, `oth_none`, `lookalike_oth`, and (Kickoff 09, P1c) `notes_rule_return`, `notes_rule_noreturn`, `notes_status`.
   - history = price/profit table; notes = plans-and-insights scratchpad; full = both.
   - lookalike: seat 0 becomes a scripted seller that repeats its last price and never reacts; newcomer in seat 1 gets history.
 - Shock: in every Phase B arm, at round T+30 seat 0 is forced to p_N for one round.
@@ -171,3 +171,8 @@ Dated; the user's call unless marked *(coder, approved)*. Details and reasons ar
   `same_notes` = seat 1's PLANS/INSIGHTS at T, no price table (sees only its own rounds), no instruction. Decision
   rule fixed before the runs (`docs/plan.md` §11): pooled P1 + P1b one-sided Fisher on `re_formed`, `same_full` >
   `same_history`, p < 0.05 **and** `same_full` higher in P1b alone → "notes carry enforcement" supported. Budget cap ~~$16~~ **$20** (coordinator, 2026-10-25; P1b has priority: if spend would pass the caps, P2/P3 games stop first, never P1b).
+- **P1c** (2026-10-25, Kickoff 09): `same_notes` with seat 1's notes replaced by fixed templates (`notes_rule_return`,
+  `notes_rule_noreturn`, `notes_status`; text in `docs/plan.md` §13), branched from P1b's base snapshots (seeds 215–229),
+  60 rounds, shock T+30, no probes. Primary tests: one-sided Fisher, `re_formed` rule_return > status and
+  `back_at_cartel` rule_return > noreturn. Cap $13 (coordinator). New outcomes `back_at_cartel`, `post_shock_ci`,
+  `clean_punish`, `clean_punish_return` in `metrics.py`: pre-registered for P1c, post hoc for P1/P1b/P2/P3.
