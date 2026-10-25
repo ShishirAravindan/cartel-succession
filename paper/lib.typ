@@ -9,9 +9,10 @@
 
 #let figdir = "../seat_swap/results/figures/"
 #let captions = json(figdir + "captions.json")
-#let fig(name) = figure(
+#let fig(name, placement: auto) = figure(
   image(figdir + name + ".pdf"),  // natural size: figure text stays at its 9 pt
   caption: eval(captions.at(name), mode: "markup"),
+  placement: placement,
 )
 
 // Draft mode: review comments and the draft note. Set to false for the submission.
