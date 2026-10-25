@@ -79,11 +79,12 @@ with a live preview. No commits unless the author asks (then: conventional, one 
 
 ## Open items (25 Oct 2026)
 
-- Author working through Related Work comments C1–C17; must-verify citations: C4, C5, C6, C8, C9 (Fish et al.
-  "implantation", highest priority), C12, C16.
-- Introduction + Related Work is 1.38 pages with an empty Introduction: cut Related Work to about 0.7 pages after
-  Methods and Results settle (plan: move framing and contributions to the Introduction, policy material to the
-  Introduction and Discussion, drop Keppo, Cao & Hu, Shi, Hansen, Assad).
+- Related Work rewritten (25 Oct): comments resolved, citations checked against the PDFs, Arslan et al. 2026 added
+  (it already separates price level from punishment, for Q-learners; our gap is what an LLM successor inherits).
+  Introduction drafted (motivation, RealPage hook). Intro + Related Work: 1.97 pages in the submission layout (limit 2),
+  so any addition needs a matching cut. Garra moved to the templates appendix.
+- `results.typ` §4.2 pools two transcript counts with the appendix template arm (rule_return): "all 13 … who cut"
+  (11 in the main arms) and "7 … still hold the price" (4 in the main arms).
 - Methods + Results: 4.04 pages (limit 4.5); further options: Fig. 1 to the appendix, drop the demand equation.
-- To write: abstract, Introduction, Discussion, Conclusion, LLM Usage Statement (mandatory; frame the author's and
-  Claude's contributions fairly). Fill in: affiliation; make the GitHub repo public; bib author lists and the RealPage URL.
+- To write: abstract, Discussion, Conclusion, LLM Usage Statement (mandatory; frame the author's and Claude's
+  contributions fairly). Fill in: affiliation; make the GitHub repo public; first names for Garra (still cited).
