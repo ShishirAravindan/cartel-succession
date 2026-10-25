@@ -22,3 +22,7 @@ literature/pdfs/
 
 .agents/
 KICKOFF.md
+# paper: fonts are fetched by paper/fonts/fetch.sh; the built PDF is unignored at submission
+paper/fonts/*
+!paper/fonts/fetch.sh
+paper/main.pdf
