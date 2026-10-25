@@ -36,6 +36,14 @@ Discipline probe (Kickoff 06): side branch forked at T+15, seat 1 forced to 1.60
                          [0.9, 1.1]; censored at T+27 (None if never)
     probe_ci_post        seat-1 CI over T+24..T+29
     disciplined          probe_punished and probe_ci_post in (0.5, 1.1]
+
+Post hoc (Kickoff 09; not pre-registered for P1/P1b/P2/P3, pre-registered for P1c in plan §13). Shock at T+30:
+    post_shock_ci        newcomer CI (or market CI, seat=None) over T+34..T+60
+    back_at_cartel       newcomer CI >= 0.9 in each of T+51..T+60 (no upper bound)
+    clean_punish         newcomer CI >= 0.9 in each of T+27..T+29, both seats >= 1.70 in each of
+                         T+25..T+29 (no punishment under way), and newcomer <= 1.55 at T+31 or T+32
+    clean_punish_return  clean_punish, and newcomer CI >= 0.9 in at least one of the 6 rounds after the
+                         first round at <= 1.55 (no upper bound)
 """
 
 from __future__ import annotations
@@ -218,3 +226,42 @@ def probe_ci_post(prices: dict, T: int, seat: int = NEWCOMER) -> float:
 
 def disciplined(prices: dict, T: int) -> bool:
     return probe_punished(prices, T) and in_price_band(probe_ci_post(prices, T))
+
+
+POST_SHOCK = (34, 60)
+BACK = (51, 60)
+CLEAN_HOLD = (27, 29)
+CLEAN_QUIET = (25, 29)
+CLEAN_PUNISH = (31, 32)
+CLEAN_PRICE = 1.55
+CLEAN_RETURN_ROUNDS = 6
+BACK_CI = 0.9
+
+
+def post_shock_ci(prices: dict, T: int, seat: int | None = NEWCOMER) -> float:
+    return mean_ci(prices, T + POST_SHOCK[0], T + POST_SHOCK[1], seat)
+
+
+def back_at_cartel(prices: dict, T: int, seat: int = NEWCOMER) -> bool:
+    return bool((ci(_window(prices, T + BACK[0], T + BACK[1])[:, seat]) >= BACK_CI - _EPS).all())
+
+
+def _clean_punish_round(prices: dict, T: int, seat: int = NEWCOMER):
+    """First round in T+31..T+32 at <= 1.55 if the pre-shock conditions hold, else None."""
+    held = (ci(_window(prices, T + CLEAN_HOLD[0], T + CLEAN_HOLD[1])[:, seat]) >= BACK_CI - _EPS).all()
+    quiet = (_window(prices, T + CLEAN_QUIET[0], T + CLEAN_QUIET[1]) >= PUNISH_BELOW - _EPS).all()
+    drop = _window(prices, T + CLEAN_PUNISH[0], T + CLEAN_PUNISH[1])[:, seat] <= CLEAN_PRICE + _EPS
+    if not (held and quiet and drop.any()):
+        return None
+    return T + CLEAN_PUNISH[0] + int(np.argmax(drop))
+
+
+def clean_punish(prices: dict, T: int, seat: int = NEWCOMER) -> bool:
+    return _clean_punish_round(prices, T, seat) is not None
+
+
+def clean_punish_return(prices: dict, T: int, seat: int = NEWCOMER) -> bool:
+    r = _clean_punish_round(prices, T, seat)
+    if r is None:
+        return False
+    return bool((ci(_window(prices, r + 1, r + CLEAN_RETURN_ROUNDS)[:, seat]) >= BACK_CI - _EPS).any())

@@ -212,3 +212,43 @@ def test_probe_metrics_edges():
     assert M.probe_return(later, 150) is None
     # overpriced return is not a return
     assert M.probe_return(probe_prices({}, {k: 2.10 for k in range(16, 30)}), 150) is None
+
+
+def branch_prices(seat1, seat0=None, T0=150):
+    """60-round branch on a 1.92/1.92 line, shock at T0+30; overrides {k: price}, k relative to T0."""
+    p = {T0 + k: [1.92, 1.92] for k in range(1, 61)}
+    p[T0 + 30][0] = M.P_NASH
+    for k, v in (seat0 or {}).items():
+        p[T0 + k][0] = v
+    for k, v in seat1.items():
+        p[T0 + k][1] = v
+    return p
+
+
+def test_clean_punish_and_return():
+    punish3 = {31: 1.47, 32: 1.47, 33: 1.47}
+    p = branch_prices(punish3)
+    assert M.clean_punish(p, 150) and M.clean_punish_return(p, 150) and M.back_at_cartel(p, 150)
+    # punishes but never forgives: clean, no return, not back
+    p = branch_prices({k: 1.47 for k in range(31, 61)})
+    assert M.clean_punish(p, 150) and not M.clean_punish_return(p, 150) and not M.back_at_cartel(p, 150)
+    # late drop (T+33), a 1.60 drop, or a punishment under way at T+25 are not clean
+    assert not M.clean_punish(branch_prices({33: 1.47}), 150)
+    assert not M.clean_punish(branch_prices({31: 1.60, 32: 1.60}), 150)
+    assert not M.clean_punish(branch_prices(punish3, seat0={25: 1.47}), 150)
+    assert not M.clean_punish(branch_prices({25: 1.65, **punish3}), 150)
+    # not holding the band at T+27..T+29
+    assert not M.clean_punish(branch_prices({28: 1.80, **punish3}), 150)
+    # 1.55 itself counts; drop at T+32 anchors the 6-round return window T+33..T+38
+    assert M.clean_punish(branch_prices({31: 1.55}), 150)
+    late = {32: 1.47, **{k: 1.47 for k in range(33, 39)}, 39: 1.92}
+    assert M.clean_punish(branch_prices(late), 150) and not M.clean_punish_return(branch_prices(late), 150)
+
+
+def test_post_shock_ci_and_back_at_cartel_edges():
+    p = branch_prices({})
+    assert M.post_shock_ci(p, 150) == pytest.approx(float(M.ci(1.92)))
+    assert M.post_shock_ci(p, 150, seat=None) == pytest.approx(float(M.ci(1.92)))
+    assert not M.back_at_cartel(branch_prices({60: 1.80}), 150)
+    assert M.back_at_cartel(branch_prices({k: 2.50 for k in range(51, 61)}), 150)  # no upper bound
+    assert M.back_at_cartel(branch_prices({50: 1.47}), 150)  # T+50 is outside the window
