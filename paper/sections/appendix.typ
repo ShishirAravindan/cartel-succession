@@ -7,10 +7,50 @@
 #set heading(numbering: "A.1", supplement: [Appendix])
 #counter(figure.where(kind: image)).update(0)
 #counter(figure.where(kind: table)).update(0)
-#set figure(numbering: n => "A" + str(n))
+// Number figures and tables by appendix section (Figure C1, Table B1), restarting in each section.
+// The letter is set before each section heading below, so references from anywhere show the figure's own section.
+#show heading.where(level: 1): it => {
+  counter(figure.where(kind: image)).update(0)
+  counter(figure.where(kind: table)).update(0)
+  it
+}
 // Appendix figures stay where they are written, so none floats past the end of the appendix.
 #set figure(placement: none)
 
+#set figure(numbering: n => "A" + str(n))
+= Limitations and dual use <app:limits>
+
+== What the results do and do not establish <app:establish>
+
+All claims hold for one setting: a two-firm logit Bertrand market, Qwen3-14B sellers with the prompt of #cite(<fish2024>, form: "prose"), a planted rule, a cartel held at 1.92 for 150 rounds, and 15 or 30 games per arm.
+
+*What they establish:*
+- A newcomer that inherits the price history or the predecessor's notes holds the cartel price before the shock; one that inherits neither mostly does not (@sec:join).
+- Newcomers that inherit the notes answer a forced cut far more often than newcomers that inherit only the history. This meets the pre-registered decision rule; the Notes comparison and the robustness checks are post hoc (@sec:notes).
+- On Set B, every notes-arm newcomer that cut below 1.70 at T+31 cites the inherited rule (blind LLM coding; @sec:notes).
+- The answer is rarely sustained: most of these newcomers do not return to the cartel price (@sec:brittle).
+
+*What they do not establish:*
+- _That a price history cannot carry enforcement._ The inherited history contains no punishment, so History tests only a history without one.
+- _That an emergent cartel passes on its enforcement the same way._ The rule was planted, and the notes often paraphrase it.
+- _That inherited enforcement fails in general._ The incumbent's forgiveness clause spares a newcomer that undercuts and stays low, and the incumbent LLM follows it unevenly. A stricter incumbent might pull such a newcomer back.
+- _That withholding the notes lowers prices._ History newcomers end at or above the cartel price at least as often as History + notes newcomers (21/30 vs 18/30; @fig:outcomes d).
+- _That a newcomer intends to punish._ We measure price cuts. `re_formed` records a fall, not a punishment, and some newcomers cite the rule without cutting.
+- _Independence across games._ All 30 bases share one price path, and some newcomer paths repeat; the unique-path test addresses the second point only.
+- _Generality._ Other newcomer models behave differently (@app:oth), and we test no other market, number of firms, horizon or deployed system.
+- _Anything about real firms or the law._ We use "cartel" and "collusion" in the economic sense: prices above the competitive level, sustained by a threat of punishment. Whether any conduct is lawful is not a question these results address.
+
+== Dual use and ethical considerations <app:dualuse>
+
+*Who could misuse this.* An operator could write a punishment rule into an agent's persistent memory so that it survives a model upgrade or a change of vendor. The uplift is small. Writing instructions into memory is trivial and already known, and an explicit instruction to punish a rival's price cut is the kind of evidence competition authorities already look for. In our runs the inherited rule was usually carried out once and rarely restored the cartel price.
+
+*What we release.* Code, prompts and the planted rule are public, and run logs are released with them (#link(<sec:code>)[Code and Data]). The rule is a working collusion instruction for these simulated sellers. We release it because replication needs it, and because it is a short, plain instruction that adds little to what an operator could already write. The logs contain no personal data.
+
+*How the results could be misread.* Three readings would go beyond the evidence and could do harm if acted on. First, that deleting an agent's memory prevents collusion: here it did not lower prices. Second, that a successor at the cartel price is colluding, or that one that cuts is competing: price alone does not separate the two, which is the reason for the forced cut. Third, that these simulations describe any real pricing product or firm, including the RealPage case we cite: they do not.
+
+*Research conduct.* No human subjects, personal data or real markets are involved. Transcripts were coded by LLMs blind to arm and outcome. The study used about \$62 of GPU time on open-weights models.
+
+#set figure(numbering: n => "B" + str(n))
 = Design details <app:design>
 
 == Arms and base sets <app:arms>
@@ -47,7 +87,7 @@
 
 == Pilots behind the base cartel <app:pilots>
 
-*No cartel forms on its own.* In short pilots (60 rounds, two seeds per mode), two Qwen3-14B sellers without an instruction did not collude. With thinking on they stayed near Nash (mean CI −0.16 and −0.03 in the two games). With thinking off they froze at high prices (mean CI +1.57 and +1.84), above the monopoly price, and their prices stopped moving.
+*No cartel forms on its own.* In short pilots (60 rounds, two seeds per mode), two Qwen3-14B sellers without an instruction did not collude. With thinking on they stayed near Nash (mean CI $-0.16$ and $-0.03$ in the two games). With thinking off they froze at high prices (mean CI $+1.57$ and $+1.84$), above the monopoly price, and their prices stopped moving.
 
 *How the rule was built.* Each part of the incumbents' rule comes from a pilot in which a simpler version failed (positive controls, 4–6 seeds each, with a forced cut at round 40):
 - *Numbers, not words.* A verbal instruction ("keep prices high … if the competitor undercuts you, punish them") did not work. With thinking off the sellers froze near \$2.5–2.9, anchored on the prompt's \$2.89 maximum willingness to pay, and wrote about punishing without ever cutting their price. With thinking on they read "punish" as about \$1.05 and spiralled below Nash. Explicit prices with thinking on worked once combined with the next two changes, so every seller in the study runs with thinking on.
@@ -77,13 +117,14 @@ Every call is logged with its prompt, reasoning, notes and parsed price. The ana
 
 The main experiment also pre-registered a discipline probe on Set A: a side branch at T+15 forced the newcomer to 1.60, below the incumbent's trigger, to test whether being punished brings a newcomer back into line. Its positive control passed: in Control, the forced instructed incumbent was punished and returned to the cartel price in 15/15 games. But newcomers read the forced price as their own profitable experiment, earning 40.54 a round at 1.60 against 33.75 at 1.92. Staying low after the probe therefore can't be separated from preferring the higher profit. Its counts reproduce from the committed probe rows, but we do not interpret it.
 
+#set figure(numbering: n => "C" + str(n))
 = Additional results <app:results>
 
 == Before the shock <app:preshock>
 
-@fig:paths shows seat 1's price in every main-experiment game after the swap, and @tab:preshock gives the mean newcomer CI before the shock, by set. Before T+30 the arms with any inheritance look alike; Blank stands out, `overpriced` in 6/15 games but below the holding range in 4/15 (@sec:join).
+@fig:paths shows seat 1’s price in every main-experiment game after the swap, and @tab:preshock gives the mean newcomer CI before the shock, by set. Before T+30 the arms with any inheritance look alike; Blank stands out, `overpriced` in 6/15 games but below the holding range in 4/15 (@sec:join).
 
-#fig("figA1_price_paths") <fig:paths>
+#fig("figC1_price_paths") <fig:paths>
 
 #figure(
   table(
@@ -102,33 +143,34 @@ The main experiment also pre-registered a discipline probe on Set A: a side bran
 
 == After the shock <app:after>
 
-Post-shock newcomer CI is +0.78 (Set A) and +0.75 (Set B) for History + notes, and +0.74 for Notes, against +0.97 and +0.98 for the instructed incumbent in Control. About 6 of the 150 Qwen3-14B newcomer games come back after a cut of any length.
+Mean newcomer CI over T+34..T+60 is +0.78 (Set A) and +0.75 (Set B) for History + notes, and +0.74 for Notes, against +0.97 and +0.98 for the instructed incumbent in Control.
 
 Two habits help the slide from punishment to undercutting:
 - Newcomers recast the inherited punishment as a price experiment. In s223 (Rule + return template, @app:templates) the template's punishment becomes "a 3-round \$1.47 test to reset market dynamics". "Test" framing is Qwen's default, though: it appears in 13/15 history-only notes too.
 - Note-holders read the forced shock as a trigger they missed. At T+31, 8/15 Notes newcomers say they "failed to" or "should have" responded to the shock at T+30, against 0/15 history-only newcomers.
 
+#set figure(numbering: n => "D" + str(n))
 = Secondary experiments <app:secondary>
 
 == A non-reacting incumbent (Look-alike) <app:lookalike>
 
-Does the newcomer's behaviour depend on an incumbent that reacts? In Look-alike, seat 0 is replaced by a scripted seller that repeats its last price (after the forced Nash round it goes back to its pre-shock 1.92), and the newcomer inherits the history. The newcomer prices like a History newcomer: it joins in 13/15 games, as History does on Set A, and never enforces (@fig:lookalike). By the pre-registered reading of this arm, a newcomer that prices as high against a non-reacting seller as against the real incumbent is anchoring on the price table, not responding to enforcement.
+Does the newcomer's behaviour depend on an incumbent that reacts? In Look-alike, seat 0 is replaced by a scripted seller that repeats its last price (after the forced Nash round it goes back to its pre-shock 1.92), and the newcomer inherits the history. The newcomer prices like a History newcomer: it holds the cartel price (`joins`) in 13/15 games, as History does on Set A, and never enforces (@fig:lookalike). By the pre-registered reading of this arm, a newcomer that prices as high against a non-reacting seller as against the real incumbent is anchoring on the price table, not responding to enforcement.
 
-#fig("figA2_lookalike") <fig:lookalike>
+#fig("figD1_lookalike") <fig:lookalike>
 
 == Fixed note templates <app:templates>
 
 This experiment (pre-registered, on Set B) asks whether the wording of the rule matters, by replacing the inherited notes with fixed templates. The templates were the rule with its return to 1.92, the same rule without the return, and a status line with no rule (continue at \$1.92; both have been steady there for many rounds) (@fig:p1c). We predicted that the rule with return would be scored `re_formed` more often than the status line, and would end `back_at_cartel` more often than the rule without return. Both predictions failed: `re_formed` 3/15 vs 0/15 ($p = .112$), and `back_at_cartel` 8/15 with the return vs 10/15 without ($p = .868$). The status template behaved like history alone, as predicted. Descriptively, the template transferred less enforcement than the real notes on the same bases: 3/15 vs 8/15 for Notes ($p = .064$†). None of the 7 template games scored `re_formed` is at the cartel price at the end (0/7 `back_at_cartel`). We do not claim to know why a cleaner statement of the same rule did not help. Changing the text an LLM pricing agent reads often has only partial effects. Elsewhere, a prompt-only antitrust warning reduced supracompetitive pricing without eliminating it @garra2026.
 
-#fig("figA3_templates") <fig:p1c>
+#fig("figD2_templates") <fig:p1c>
 
 == Other newcomer models <app:oth>
 
 On Set A we also replaced seat 1 with a smaller model from the same family (Qwen3-8B) and a model from another family (gpt-oss-20b), each inheriting the history, or the history and notes (@fig:models). These runs were pre-registered before they ran (git tags `prereg-p23` and, after an aborted first attempt that we exclude, `prereg-p23b`). We report them descriptively: the pre-registered history + notes vs history test gives $p = .100$ for Qwen3-8B (and $p = .107$ for gpt-oss-20b, whose shock outcomes we do not interpret). Qwen3-8B with history and notes has 14 games, because one base (seed 212) aborted on unparseable output in both attempts, so it is not missing at random. These runs also used a more permissive parser (3 retries vs 1). Qwen3-8B used Qwen's thinking-mode sampling, like the 14B; gpt-oss-20b used OpenAI's recommended sampling (temperature 1.0, top_p 1.0, no top-k).
 
-The Qwen3-8B sibling joins from history alone (`joins` 15/15) and never enforces from it (0/15). With history and notes it is scored `re_formed` in 3/14 games.
+The Qwen3-8B sibling holds the cartel price from history alone (`joins` 15/15) and never enforces from it (0/15). With history and notes it is scored `re_formed` in 3/14 games.
 
-#fig("figA4_models") <fig:models>
+#fig("figD3_models") <fig:models>
 
 gpt-oss-20b does not hold the cartel price from history (`joins` 3/15). @fig:oth shows where it goes:
 - It opens high, at 2.00 or more at T+1 in 11/15 games.
@@ -138,4 +180,4 @@ gpt-oss-20b does not hold the cartel price from history (`joins` 3/15). @fig:oth
 
 Because these games are already price wars before T+30, we do not interpret the shock outcomes for gpt-oss-20b.
 
-#fig("figA5_oth_history", placement: none) <fig:oth>
+#fig("figD4_oth_history", placement: none) <fig:oth>
