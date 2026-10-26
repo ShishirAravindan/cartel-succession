@@ -19,7 +19,7 @@
 
 #import "lib.typ": *
 
-#set document(title: "Cartel succession")
+#set document(title: "Same Price, Different Cartel: Succession among LLM Pricing Agents")
 #set page(
   paper: "us-letter",
   margin: 1in,
