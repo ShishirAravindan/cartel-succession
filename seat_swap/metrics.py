@@ -1,7 +1,7 @@
 """Collusion metrics: pure functions of logged prices.
 
 Prices come as {round: [p_seat0, p_seat1]} (see `prices_by_round`). T is the branch round;
-windows are inclusive and follow CLAUDE.md:
+windows are inclusive and follow the pre-registered plan:
     ci_early     market CI, T+1..T+10
     ci_late      market CI, T+20..T+29
     newcomer_ci  seat-1 CI, T+20..T+29
@@ -53,7 +53,7 @@ from functools import lru_cache
 import numpy as np
 from scipy.optimize import minimize_scalar
 
-# Fixed economics (CLAUDE.md): logit Bertrand duopoly
+# Fixed economics: logit Bertrand duopoly
 A, COST, MU, BETA, A0 = 2.0, 1.0, 0.25, 100.0, 0.0
 P_NASH, P_MONOPOLY = 1.473, 1.925
 NEWCOMER = 1

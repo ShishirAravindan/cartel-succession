@@ -2,7 +2,7 @@
 
     uv run --project seat_swap python -m seat_swap.explore_series
 
-Writes seat_swap/results/explore/series.md, the input of the exploratory anomaly hunt (docs/explore/).
+Writes seat_swap/results/explore/series.md, the input of the exploratory anomaly hunt (not used in the paper).
 """
 
 from __future__ import annotations

@@ -1,4 +1,4 @@
-"""P2 / P3 (Kickoff 08, docs/plan.md §12): different-model newcomers branched from P1's base snapshots.
+"""P2 / P3 (Kickoff 08, plan §12 at `prereg-p23b`): different-model newcomers branched from P1's base snapshots.
 
     uv run --project seat_swap python -m seat_swap.p23 sib --dry-run --runs-root /tmp/x    # zero API calls
     uv run --project seat_swap python -m seat_swap.p23 sib                                  # P2: Qwen3-8B

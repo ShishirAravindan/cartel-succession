@@ -1,4 +1,4 @@
-"""P1b analysis (Kickoff 07 §5–6, docs/plan.md §11): P1b alone and pooled with P1, the headline rule,
+"""P1b analysis (Kickoff 07 §5–6, plan §11 at `prereg-p1b`): P1b alone and pooled with P1, the headline rule,
 the P1 same_full enforcers' prices around the shock, and inherited-notes features vs enforcement.
 
     uv run --project seat_swap python -m seat_swap.p1b_analysis

@@ -1,4 +1,4 @@
-"""Aggregate the notes-reading codes (docs/notes_reading/protocol.md) into results/notes_reading/report.md.
+"""Aggregate the notes-reading codes (`docs/notes_reading/protocol.md` at commit `25fa264`) into results/notes_reading/report.md.
 
     uv run --project seat_swap python -m seat_swap.notes_reading_report
 
@@ -112,7 +112,7 @@ def main() -> dict:
     missing = [g for g in key["B"] if g not in b]
 
     L = ["# Notes reading: results (exploratory)", "",
-         "Protocol: `docs/notes_reading/protocol.md` (fixed before coding). Coders: Sonnet subagents, blind to arm, seed, "
+         "Protocol: `docs/notes_reading/protocol.md` at commit `25fa264` (fixed before coding). Coders: Sonnet subagents, blind to arm, seed, "
          "model and outcome. `enforces` = the pre-registered metric (retaliation ≤ −0.3). Descriptive only; no tests.", "",
          f"Games: {len(items)} (missing codes: {missing or 'none'}). Inherited notes: {len(a1)}.", "",
          "## Coder agreement", "", "### Pass A (two coders, all 30 notes)", ""]

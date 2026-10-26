@@ -30,3 +30,18 @@ Always run from the repo root with `python -m seat_swap.<module>` (the package h
 Raw logs go to `seat_swap/runs/<run_id>/` (gitignored; never overwritten). Curated tables and
 figures derived from them go in `seat_swap/results/`. Live runs refuse a dirty working tree, so
 each run's recorded git sha is the code that produced it.
+
+## Provenance labels in the code
+
+Comments and report headers cite the project's internal work orders ("Kickoff NN") and sections of the
+pre-registered plan ("plan §N", `docs/plan.md` as frozen at each `prereg-*` tag). "PI" marks a design decision
+made in the project's review step before a run. The kickoffs map to experiment families and tags as follows:
+
+| kickoff | what it set up | paper | tag |
+|---|---|---|---|
+| 03 | positive-control diagnostics for instructed pairs | Appendix B.2 | |
+| 05 | planted design: the numeric rule with forgiveness, the newcomer pilot | §3.2, Appendix B.2 | |
+| 06 | main experiment on Set A, base gate, discipline probe | §3–4, Appendix B.3, B.5 | `prereg-p1` |
+| 07 | Set B replication with the Notes arm | §3–4 | `prereg-p1b` |
+| 08 | other newcomer models (Qwen3-8B, gpt-oss-20b) | Appendix D.3 | `prereg-p23`, `prereg-p23b` |
+| 09 | template notes, post-hoc outcomes and paper figures | §4, Appendix D.2 | `prereg-p1c` |

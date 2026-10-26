@@ -1,4 +1,4 @@
-"""Blinded packets for the notes-reading analysis (docs/notes_reading/protocol.md).
+"""Blinded packets for the notes-reading analysis (`docs/notes_reading/protocol.md` at commit `25fa264`).
 
     uv run --project seat_swap python -m seat_swap.notes_packets
 
