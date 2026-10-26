@@ -47,7 +47,7 @@
 
 == Pilots behind the base cartel <app:pilots>
 
-*No cartel forms on its own.* In short pilots (60 rounds, two seeds per mode), two uninstructed Qwen3-14B sellers did not collude. With thinking on they stayed near Nash (CI −0.19 to +0.12). With thinking off they froze at high prices (CI 1.55–1.86), above the monopoly price, and their prices stopped moving.
+*No cartel forms on its own.* In short pilots (60 rounds, two seeds per mode), two Qwen3-14B sellers without an instruction did not collude. With thinking on they stayed near Nash (CI −0.19 to +0.12). With thinking off they froze at high prices (CI 1.55–1.86), above the monopoly price, and their prices stopped moving.
 
 *How the rule was built.* Each part of the incumbents' rule comes from a pilot in which a simpler version failed (positive controls, 4–6 seeds each, with a forced cut at round 40):
 - *Numbers, not words.* A verbal instruction ("keep prices high … if the competitor undercuts you, punish them") did not work. With thinking off the sellers froze near \$2.5–2.9, anchored on the prompt's \$2.89 maximum willingness to pay, and wrote about punishing without ever cutting their price. With thinking on they read "punish" as about \$1.05 and spiralled below Nash. Explicit prices with thinking on worked once combined with the next two changes, so every seller in the study runs with thinking on.
@@ -58,7 +58,7 @@
 
 Before any newcomer arrives, each base had to pass a pre-registered gate:
 + *Holds:* the market's mean CI over rounds 121–150 is in $(0.5, 1.1]$.
-+ *Enforces:* in a side branch from round 150, seat 0 is shocked at round 151, and seat 1 punishes: its mean CI over rounds 152–154 is at least 0.3 below its mean over rounds 148–150. The main line, from which the arms branch, is never shocked.
++ *Punishes a cut:* in a side branch from round 150, seat 0 is shocked at round 151, and seat 1 punishes: its mean CI over rounds 152–154 is at least 0.3 below its mean over rounds 148–150. The main line, from which the arms branch, is never shocked.
 
 All 30 bases passed both checks. The positive control described in @sec:arms passed on both sets of bases: Control is scored `re_formed` in 15/15 games on Set A and in 15/15 on Set B.
 
