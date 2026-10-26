@@ -26,3 +26,10 @@ KICKOFF.md
 paper/fonts/*
 !paper/fonts/fetch.sh
 paper/main.pdf
+
+# working notes: kept locally and in git history, not in the released tree
+/docs/
+/CLAUDE.md
+/paper/notes.md
+/paper/README.md
+/paper/tools/
