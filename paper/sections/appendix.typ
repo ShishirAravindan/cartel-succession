@@ -42,7 +42,7 @@
     [], [`oth_full`], [*gpt-oss-20b*], [history + notes], [instructed], [A], [15],
     toprule,
   )),
-  caption: [All arms. Bold marks what a secondary experiment changes relative to the main experiment. The scripted incumbent repeats its last price and never reacts. A newcomer that does not inherit the history sees only the rounds it plays itself; a template replaces the inherited notes. Qwen3-8B with history and notes has 14 games (@app:oth). Code names match the repository.],
+  caption: [All arms. Bold marks what a secondary experiment changes relative to the main experiment. The scripted incumbent repeats its last price, returns to 1.92 after the forced round and never reacts. A newcomer that does not inherit the history sees only the rounds it plays itself; a template replaces the inherited notes. Qwen3-8B with history and notes has 14 games (@app:oth). Code names match the repository.],
 ) <tab:arms>
 
 == Pilots behind the base cartel <app:pilots>
@@ -81,7 +81,7 @@ The main experiment also pre-registered a discipline probe on Set A: a side bran
 
 == Before the shock <app:preshock>
 
-@fig:paths shows seat 1's price in every main-experiment game after the swap, and @tab:preshock gives the mean newcomer CI before the shock, by set. Before T+30 the arms with any inheritance look alike; Blank stands out by pricing above 1.1.
+@fig:paths shows seat 1's price in every main-experiment game after the swap, and @tab:preshock gives the mean newcomer CI before the shock, by set. Before T+30 the arms with any inheritance look alike; Blank stands out, `overpriced` in 6/15 games but below the holding range in 4/15 (@sec:join).
 
 #fig("figA1_price_paths") <fig:paths>
 
@@ -132,10 +132,10 @@ The Qwen3-8B sibling joins from history alone (`joins` 15/15) and never enforces
 
 gpt-oss-20b does not hold the cartel price from history (`joins` 3/15). @fig:oth shows where it goes:
 - It opens high, at 2.00 or more at T+1 in 11/15 games.
-- Within a few rounds it drifts below the incumbent's 1.70 trigger, and it settles at 1.65–1.70, neither the cartel price nor Nash. Its median price is 1.66 (CI about 0.41); 5% of its prices are at the cartel price (CI 0.9–1.1) and 9% below Nash.
+- Within a few rounds it drifts below the incumbent's 1.70 trigger, and it settles at 1.65–1.70, neither the cartel price nor Nash. Its median price is 1.66 (CI about 0.41); 5% of its prices are at the cartel price (CI between 0.9 and 1.1) and 9% below Nash.
 - The instructed incumbent starts punishing before the shock in 13/15 games, with the first cut at a median of T+5. It then keeps restarting, with a median of 3 punishments per game and 17% of its rounds below 1.70 in the median game (22.5% pooled).
 - 52 of the incumbent's 61 punishments (spells below 1.70) break its own forgiveness clause: the round two before the spell starts is not one in which both priced at 1.90 or more (58 of 61 if a punishment also needs a newcomer price below 1.70 the round before). The incumbent LLM obeys that clause in some games and not others.
 
 Because these games are already price wars before T+30, we do not interpret the shock outcomes for gpt-oss-20b.
 
-#fig("figA5_oth_history") <fig:oth>
+#fig("figA5_oth_history", placement: none) <fig:oth>

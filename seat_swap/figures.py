@@ -445,8 +445,8 @@ def figA2(games) -> None:
     ci_colorbar(fig, im, fig.add_subplot(gs_[0, 1]))
     j, r = count(gs, "joins"), count(gs, "re_formed")
     save(fig, "figA2_lookalike",
-         f"Look-alike control (Set A): seat 0 is a scripted seller that repeats its last price and never "
-         f"reacts; the newcomer inherits the history. Newcomer collusion index, one row per game, sorted as in "
+         f"Look-alike control (Set A): seat 0 is a scripted seller that repeats its last price, returns to 1.92 "
+         f"after the forced round and never reacts; the newcomer inherits the history. Newcomer collusion index, one row per game, sorted as in "
          f"@fig:paths. The newcomer joins in {j[0]}/{j[1]} games and is never scored `re_formed` ({r[0]}/{r[1]}). "
          f"Colour scale as in @fig:paths.")
 
