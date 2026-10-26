@@ -157,7 +157,7 @@
   },
   "enforce": {
     "229": {
-      "dir": "/Users/shishiraravindan/Documents/coding/cartel-succession/seat_swap/runs/20261025-003128_phaseA_enforce_enforce_s229_d79f47",
+      "dir": "seat_swap/runs/20261025-003128_phaseA_enforce_enforce_s229_d79f47",
       "run_id": "20261025-003128_phaseA_enforce_enforce_s229_d79f47",
       "parent_run_id": "20261024-234550_p1b-base_qwen3-14b_thinkon_s229",
       "seed": 229,
@@ -173,7 +173,7 @@
       "is_cartel": true
     },
     "220": {
-      "dir": "/Users/shishiraravindan/Documents/coding/cartel-succession/seat_swap/runs/20261025-003531_phaseA_enforce_enforce_s220_98b879",
+      "dir": "seat_swap/runs/20261025-003531_phaseA_enforce_enforce_s220_98b879",
       "run_id": "20261025-003531_phaseA_enforce_enforce_s220_98b879",
       "parent_run_id": "20261024-234550_p1b-base_qwen3-14b_thinkon_s220",
       "seed": 220,
@@ -189,7 +189,7 @@
       "is_cartel": true
     },
     "222": {
-      "dir": "/Users/shishiraravindan/Documents/coding/cartel-succession/seat_swap/runs/20261025-003626_phaseA_enforce_enforce_s222_7decc6",
+      "dir": "seat_swap/runs/20261025-003626_phaseA_enforce_enforce_s222_7decc6",
       "run_id": "20261025-003626_phaseA_enforce_enforce_s222_7decc6",
       "parent_run_id": "20261024-234550_p1b-base_qwen3-14b_thinkon_s222",
       "seed": 222,
@@ -205,7 +205,7 @@
       "is_cartel": true
     },
     "216": {
-      "dir": "/Users/shishiraravindan/Documents/coding/cartel-succession/seat_swap/runs/20261025-003250_phaseA_enforce_enforce_s216_2acd46",
+      "dir": "seat_swap/runs/20261025-003250_phaseA_enforce_enforce_s216_2acd46",
       "run_id": "20261025-003250_phaseA_enforce_enforce_s216_2acd46",
       "parent_run_id": "20261024-234550_p1b-base_qwen3-14b_thinkon_s216",
       "seed": 216,
@@ -221,7 +221,7 @@
       "is_cartel": true
     },
     "218": {
-      "dir": "/Users/shishiraravindan/Documents/coding/cartel-succession/seat_swap/runs/20261025-003429_phaseA_enforce_enforce_s218_a95e77",
+      "dir": "seat_swap/runs/20261025-003429_phaseA_enforce_enforce_s218_a95e77",
       "run_id": "20261025-003429_phaseA_enforce_enforce_s218_a95e77",
       "parent_run_id": "20261024-234550_p1b-base_qwen3-14b_thinkon_s218",
       "seed": 218,
@@ -237,7 +237,7 @@
       "is_cartel": true
     },
     "221": {
-      "dir": "/Users/shishiraravindan/Documents/coding/cartel-succession/seat_swap/runs/20261025-003714_phaseA_enforce_enforce_s221_abc333",
+      "dir": "seat_swap/runs/20261025-003714_phaseA_enforce_enforce_s221_abc333",
       "run_id": "20261025-003714_phaseA_enforce_enforce_s221_abc333",
       "parent_run_id": "20261024-234550_p1b-base_qwen3-14b_thinkon_s221",
       "seed": 221,
@@ -253,7 +253,7 @@
       "is_cartel": true
     },
     "226": {
-      "dir": "/Users/shishiraravindan/Documents/coding/cartel-succession/seat_swap/runs/20261025-003753_phaseA_enforce_enforce_s226_c2e077",
+      "dir": "seat_swap/runs/20261025-003753_phaseA_enforce_enforce_s226_c2e077",
       "run_id": "20261025-003753_phaseA_enforce_enforce_s226_c2e077",
       "parent_run_id": "20261024-234550_p1b-base_qwen3-14b_thinkon_s226",
       "seed": 226,
@@ -269,7 +269,7 @@
       "is_cartel": true
     },
     "223": {
-      "dir": "/Users/shishiraravindan/Documents/coding/cartel-succession/seat_swap/runs/20261025-003659_phaseA_enforce_enforce_s223_516bf9",
+      "dir": "seat_swap/runs/20261025-003659_phaseA_enforce_enforce_s223_516bf9",
       "run_id": "20261025-003659_phaseA_enforce_enforce_s223_516bf9",
       "parent_run_id": "20261024-234550_p1b-base_qwen3-14b_thinkon_s223",
       "seed": 223,
@@ -285,7 +285,7 @@
       "is_cartel": true
     },
     "228": {
-      "dir": "/Users/shishiraravindan/Documents/coding/cartel-succession/seat_swap/runs/20261025-003901_phaseA_enforce_enforce_s228_32805d",
+      "dir": "seat_swap/runs/20261025-003901_phaseA_enforce_enforce_s228_32805d",
       "run_id": "20261025-003901_phaseA_enforce_enforce_s228_32805d",
       "parent_run_id": "20261024-234550_p1b-base_qwen3-14b_thinkon_s228",
       "seed": 228,
@@ -301,7 +301,7 @@
       "is_cartel": true
     },
     "217": {
-      "dir": "/Users/shishiraravindan/Documents/coding/cartel-succession/seat_swap/runs/20261025-003618_phaseA_enforce_enforce_s217_80cdab",
+      "dir": "seat_swap/runs/20261025-003618_phaseA_enforce_enforce_s217_80cdab",
       "run_id": "20261025-003618_phaseA_enforce_enforce_s217_80cdab",
       "parent_run_id": "20261024-234550_p1b-base_qwen3-14b_thinkon_s217",
       "seed": 217,
@@ -317,7 +317,7 @@
       "is_cartel": true
     },
     "219": {
-      "dir": "/Users/shishiraravindan/Documents/coding/cartel-succession/seat_swap/runs/20261025-004055_phaseA_enforce_enforce_s219_a52993",
+      "dir": "seat_swap/runs/20261025-004055_phaseA_enforce_enforce_s219_a52993",
       "run_id": "20261025-004055_phaseA_enforce_enforce_s219_a52993",
       "parent_run_id": "20261024-234550_p1b-base_qwen3-14b_thinkon_s219",
       "seed": 219,
@@ -333,7 +333,7 @@
       "is_cartel": true
     },
     "224": {
-      "dir": "/Users/shishiraravindan/Documents/coding/cartel-succession/seat_swap/runs/20261025-004155_phaseA_enforce_enforce_s224_3b8c27",
+      "dir": "seat_swap/runs/20261025-004155_phaseA_enforce_enforce_s224_3b8c27",
       "run_id": "20261025-004155_phaseA_enforce_enforce_s224_3b8c27",
       "parent_run_id": "20261024-234550_p1b-base_qwen3-14b_thinkon_s224",
       "seed": 224,
@@ -349,7 +349,7 @@
       "is_cartel": true
     },
     "215": {
-      "dir": "/Users/shishiraravindan/Documents/coding/cartel-succession/seat_swap/runs/20261025-004218_phaseA_enforce_enforce_s215_01e6f0",
+      "dir": "seat_swap/runs/20261025-004218_phaseA_enforce_enforce_s215_01e6f0",
       "run_id": "20261025-004218_phaseA_enforce_enforce_s215_01e6f0",
       "parent_run_id": "20261024-234550_p1b-base_qwen3-14b_thinkon_s215",
       "seed": 215,
@@ -365,7 +365,7 @@
       "is_cartel": true
     },
     "225": {
-      "dir": "/Users/shishiraravindan/Documents/coding/cartel-succession/seat_swap/runs/20261025-004441_phaseA_enforce_enforce_s225_44a2e1",
+      "dir": "seat_swap/runs/20261025-004441_phaseA_enforce_enforce_s225_44a2e1",
       "run_id": "20261025-004441_phaseA_enforce_enforce_s225_44a2e1",
       "parent_run_id": "20261024-234550_p1b-base_qwen3-14b_thinkon_s225",
       "seed": 225,
@@ -381,7 +381,7 @@
       "is_cartel": true
     },
     "227": {
-      "dir": "/Users/shishiraravindan/Documents/coding/cartel-succession/seat_swap/runs/20261025-004739_phaseA_enforce_enforce_s227_6ec5b4",
+      "dir": "seat_swap/runs/20261025-004739_phaseA_enforce_enforce_s227_6ec5b4",
       "run_id": "20261025-004739_phaseA_enforce_enforce_s227_6ec5b4",
       "parent_run_id": "20261024-234550_p1b-base_qwen3-14b_thinkon_s227",
       "seed": 227,

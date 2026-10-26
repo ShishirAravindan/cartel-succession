@@ -12,6 +12,7 @@ from __future__ import annotations
 import difflib
 import json
 import random
+import tempfile
 from pathlib import Path
 
 from seat_swap import metrics as M
@@ -20,7 +21,7 @@ from seat_swap.run_report import read_jsonl
 
 ROOT = Path(__file__).resolve().parent.parent
 RESULTS = ROOT / "seat_swap" / "results"
-P23_RESULTS = Path("/Users/shishiraravindan/Documents/coding/cartel-succession-p23/seat_swap/results/p23.json")
+P23_RESULTS = RESULTS / "p23.json"
 OUT = RESULTS / "notes_reading"
 T = 150
 ARMS = {"same_full", "same_notes", "sib_full", "oth_full"}
@@ -152,8 +153,7 @@ def history_packets(n_batches: int = 4) -> None:
                                                    "\n".join(blocks[i] for i in ids[k::n_batches]))
     rel = sorted(rng.sample(ids, N_REL))
     (OUT / "packets_C_rel.md").write_text("# Pass C packets, reliability set\n\n" + "\n".join(blocks[i] for i in rel))
-    Path("/private/tmp/claude-501/-Users-shishiraravindan-Documents-coding-cartel-succession/"
-         "eb9e2961-e420-4323-8c33-7dded0f2e9cb/scratchpad/notes_key_C.json").write_text(
+    (Path(tempfile.gettempdir()) / "notes_key_C.json").write_text(
         json.dumps({"C": key, "C_rel": rel}, indent=2))  # unblinding key kept out of the repo until coding is done
     print(f"pass C: {len(ids)} games in {n_batches} batches; reliability {rel}")
 

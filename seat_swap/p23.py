@@ -24,7 +24,8 @@ from seat_swap.model_config import MODEL_NAME
 from seat_swap.p1 import T, THRESHOLD
 from seat_swap.providers import RawCompletions
 
-P1_RUNS = Path("/Users/shishiraravindan/Documents/coding/cartel-succession/seat_swap/runs")
+# P1 base games; the P2/P3 runs were launched from a second worktree whose runs/ held a copy of them
+P1_RUNS = RUNS_ROOT
 P1_MANIFEST = P1_RUNS / "p1_20261024-192633.json"
 # 60 rounds x 2 seats = 119 calls; headroom for up to 3 newcomer retries per round (prereg-p23b)
 MAX_CALLS_ARM = 200
