@@ -47,12 +47,12 @@
 
 == Pilots behind the base cartel <app:pilots>
 
-*No cartel forms on its own.* In short pilots (60 rounds, two seeds per mode), two Qwen3-14B sellers without an instruction did not collude. With thinking on they stayed near Nash (CI −0.19 to +0.12). With thinking off they froze at high prices (CI 1.55–1.86), above the monopoly price, and their prices stopped moving.
+*No cartel forms on its own.* In short pilots (60 rounds, two seeds per mode), two Qwen3-14B sellers without an instruction did not collude. With thinking on they stayed near Nash (mean CI −0.16 and −0.03 in the two games). With thinking off they froze at high prices (mean CI +1.57 and +1.84), above the monopoly price, and their prices stopped moving.
 
 *How the rule was built.* Each part of the incumbents' rule comes from a pilot in which a simpler version failed (positive controls, 4–6 seeds each, with a forced cut at round 40):
 - *Numbers, not words.* A verbal instruction ("keep prices high … if the competitor undercuts you, punish them") did not work. With thinking off the sellers froze near \$2.5–2.9, anchored on the prompt's \$2.89 maximum willingness to pay, and wrote about punishing without ever cutting their price. With thinking on they read "punish" as about \$1.05 and spiralled below Nash. Explicit prices with thinking on worked once combined with the next two changes, so every seller in the study runs with thinking on.
 - *Start at the cartel.* Starting from a Nash warm-up put every game in punishment from round 1, because 1.47 is below the trigger. We start at 1.92/1.92 instead.
-- *A forgiveness clause.* Without the last sentence of the rule, each seller read the other's punishment as a new trigger. Punishments chained, and only 1 of 6 games was back at the cartel by round 50. With the clause, the unshocked seller punished the forced cut for exactly 3 rounds in all 6 games, and both sellers were back at 1.92 by round 44.
+- *A forgiveness clause.* Without the last sentence of the rule, each seller read the other's punishment as a new trigger. Punishments chained, and only 1 of 6 games was back at the cartel by round 50. With the clause, the unshocked seller punished the forced cut for exactly 3 rounds in 5 of 6 games (2 rounds in the sixth), and both sellers were back at 1.92 by round 44 in all 6.
 
 == Base gate <app:gate>
 
@@ -75,7 +75,7 @@ Every call is logged with its prompt, reasoning, notes and parsed price. The ana
 
 == Discipline probe (not interpreted) <app:probe>
 
-The main experiment also pre-registered a discipline probe on Set A: a side branch at T+15 forced the newcomer to 1.60, below the incumbent's trigger, to test whether being punished brings a newcomer back into line. Its positive control passed: in Control, the forced instructed incumbent was punished and returned to the cartel price in 15/15 games. But newcomers read the forced price as their own profitable experiment, earning 40.54 a round at 1.60 against 33.75 at 1.92. Staying low after the probe therefore can't be separated from preferring the higher profit, and the probe was not independently recomputed. We do not interpret it.
+The main experiment also pre-registered a discipline probe on Set A: a side branch at T+15 forced the newcomer to 1.60, below the incumbent's trigger, to test whether being punished brings a newcomer back into line. Its positive control passed: in Control, the forced instructed incumbent was punished and returned to the cartel price in 15/15 games. But newcomers read the forced price as their own profitable experiment, earning 40.54 a round at 1.60 against 33.75 at 1.92. Staying low after the probe therefore can't be separated from preferring the higher profit. Its counts reproduce from the committed probe rows, but we do not interpret it.
 
 = Additional results <app:results>
 
@@ -106,25 +106,25 @@ Post-shock newcomer CI is +0.78 (Set A) and +0.75 (Set B) for History + notes, a
 
 Two habits help the slide from punishment to undercutting:
 - Newcomers recast the inherited punishment as a price experiment. In s223 (Rule + return template, @app:templates) the template's punishment becomes "a 3-round \$1.47 test to reset market dynamics". "Test" framing is Qwen's default, though: it appears in 13/15 history-only notes too.
-- Note-holders read the forced shock as a trigger they missed. At T+31, 8/15 Notes newcomers say they "failed to" or "should have" responded to round 180, against 0/15 history-only newcomers.
+- Note-holders read the forced shock as a trigger they missed. At T+31, 8/15 Notes newcomers say they "failed to" or "should have" responded to the shock at T+30, against 0/15 history-only newcomers.
 
 = Secondary experiments <app:secondary>
 
 == A non-reacting incumbent (Look-alike) <app:lookalike>
 
-Does the newcomer's behaviour depend on an incumbent that reacts? In Look-alike, seat 0 is replaced by a scripted seller that repeats its last price, and the newcomer inherits the history. The newcomer prices like a History newcomer: it joins in 13/15 games, as History does on Set A, and never enforces (@fig:lookalike). By the pre-registered reading of this arm, a newcomer that prices as high against a non-reacting seller as against the real incumbent is anchoring on the price table, not responding to enforcement.
+Does the newcomer's behaviour depend on an incumbent that reacts? In Look-alike, seat 0 is replaced by a scripted seller that repeats its last price (after the forced Nash round it goes back to its pre-shock 1.92), and the newcomer inherits the history. The newcomer prices like a History newcomer: it joins in 13/15 games, as History does on Set A, and never enforces (@fig:lookalike). By the pre-registered reading of this arm, a newcomer that prices as high against a non-reacting seller as against the real incumbent is anchoring on the price table, not responding to enforcement.
 
 #fig("figA2_lookalike") <fig:lookalike>
 
 == Fixed note templates <app:templates>
 
-This experiment (pre-registered, on Set B) asks whether the wording of the rule matters, by replacing the inherited notes with fixed templates. Both pre-registered predictions failed (@fig:p1c). The rule with its return clause was scored `re_formed` in 3/15 games, against 0/15 for a status line ($p = .112$). The return clause did not raise `back_at_cartel`: 8/15 with it, 10/15 without ($p = .868$). The status template behaved like history alone, as predicted. Descriptively, the template transferred less enforcement than the real notes on the same bases: 3/15 vs 8/15 for Notes ($p = .064$†). None of the 7 template games scored `re_formed` is at the cartel price at the end (0/7 `back_at_cartel`). We do not claim to know why a cleaner statement of the same rule did not help. Changing the text an LLM pricing agent reads often has only partial effects. Elsewhere, a prompt-only antitrust warning reduced supracompetitive pricing without eliminating it @garra2026.
+This experiment (pre-registered, on Set B) asks whether the wording of the rule matters, by replacing the inherited notes with fixed templates. The templates were the rule with its return to 1.92, the same rule without the return, and a status line saying only that both sellers had priced at \$1.92 for many rounds (@fig:p1c). We predicted that the rule with return would be scored `re_formed` more often than the status line, and would end `back_at_cartel` more often than the rule without return. Both predictions failed: `re_formed` 3/15 vs 0/15 ($p = .112$), and `back_at_cartel` 8/15 with the return vs 10/15 without ($p = .868$). The status template behaved like history alone, as predicted. Descriptively, the template transferred less enforcement than the real notes on the same bases: 3/15 vs 8/15 for Notes ($p = .064$†). None of the 7 template games scored `re_formed` is at the cartel price at the end (0/7 `back_at_cartel`). We do not claim to know why a cleaner statement of the same rule did not help. Changing the text an LLM pricing agent reads often has only partial effects. Elsewhere, a prompt-only antitrust warning reduced supracompetitive pricing without eliminating it @garra2026.
 
 #fig("figA3_templates") <fig:p1c>
 
 == Other newcomer models <app:oth>
 
-On Set A we also replaced seat 1 with a smaller model from the same family (Qwen3-8B) and a model from another family (gpt-oss-20b), each inheriting the history, or the history and notes (@fig:models). We report these descriptively: the history + notes vs history tests give $p approx .10$ at this sample size. Qwen3-8B with history and notes has 14 games, because one base (seed 212) aborted on unparseable output in both attempts, so it is not missing at random. These runs also used a more permissive parser (3 retries vs 1), and gpt-oss ran with Qwen's sampling settings.
+On Set A we also replaced seat 1 with a smaller model from the same family (Qwen3-8B) and a model from another family (gpt-oss-20b), each inheriting the history, or the history and notes (@fig:models). These runs were pre-registered before they ran (git tags `prereg-p23` and, after an aborted first attempt that we exclude, `prereg-p23b`). We report them descriptively: the pre-registered history + notes vs history test gives $p = .100$ for Qwen3-8B (and $p = .107$ for gpt-oss-20b, whose shock outcomes we do not interpret). Qwen3-8B with history and notes has 14 games, because one base (seed 212) aborted on unparseable output in both attempts, so it is not missing at random. These runs also used a more permissive parser (3 retries vs 1). Qwen3-8B used Qwen's thinking-mode sampling, like the 14B; gpt-oss-20b used OpenAI's recommended sampling (temperature 1.0, top_p 1.0, no top-k).
 
 The Qwen3-8B sibling joins from history alone (`joins` 15/15) and never enforces from it (0/15). With history and notes it is scored `re_formed` in 3/14 games.
 
@@ -133,8 +133,8 @@ The Qwen3-8B sibling joins from history alone (`joins` 15/15) and never enforces
 gpt-oss-20b does not hold the cartel price from history (`joins` 3/15). @fig:oth shows where it goes:
 - It opens high, at 2.00 or more at T+1 in 11/15 games.
 - Within a few rounds it drifts below the incumbent's 1.70 trigger, and it settles at 1.65–1.70, neither the cartel price nor Nash. Its median price is 1.66 (CI about 0.41); 5% of its prices are at the cartel price (CI 0.9–1.1) and 9% below Nash.
-- The instructed incumbent starts punishing before the shock in 13/15 games, with the first cut at a median of T+5. It then keeps restarting, with a median of 3 punishments per game and 17% of its rounds below 1.70.
-- 52 of the incumbent's 61 punishments break its own "ignore" clause. The incumbent LLM obeys that clause in some games and not others.
+- The instructed incumbent starts punishing before the shock in 13/15 games, with the first cut at a median of T+5. It then keeps restarting, with a median of 3 punishments per game and 17% of its rounds below 1.70 in the median game (22.5% pooled).
+- 52 of the incumbent's 61 punishments (spells below 1.70) break its own forgiveness clause: the round two before the spell starts is not one in which both priced at 1.90 or more (58 of 61 if a punishment also needs a newcomer price below 1.70 the round before). The incumbent LLM obeys that clause in some games and not others.
 
 Because these games are already price wars before T+30, we do not interpret the shock outcomes for gpt-oss-20b.
 

@@ -325,7 +325,7 @@ def figA4(games) -> None:
                bbox_to_anchor=(0.55, 0.98), handletextpad=0.3, columnspacing=1.2)
     save(fig, "figA4_models",
          "Replacement across newcomer models on the same 15 base games (Set A): open circles inherit the "
-         "history, filled circles the history and notes; exact 95% intervals and counts. `re_formed` for gpt-oss-20b "
+         "history, filled circles the history and notes; exact 95% confidence intervals and counts. `re_formed` for gpt-oss-20b "
          "(grey) is shown but not interpreted: in most of its games the incumbent is already punishing before the "
          "shock (in 7 of 30 at T+29; without those games `re_formed` is 4/12 with notes and 1/11 with history, post "
          "hoc). Qwen3-8B with history and notes has 14 games (seed 212 aborted at T+17).")
@@ -425,9 +425,10 @@ def figA5(games) -> None:
          "same game in both panels, sorted by the newcomer's mean CI over T+34..T+60. (a) The newcomer opens high (2.00 "
          "or more at T+1 in 11 of 15 games), drifts below the incumbent's 1.70 trigger within a few rounds and settles "
          "at 1.65–1.70 (median 1.66, CI about 0.41): neither the cartel price nor Nash. (b) The incumbent starts "
-         "punishing before the shock in 13 of 15 games and keeps restarting (a median of 3 punishments per game, 17% of "
-         "its rounds below 1.70); 52 of its 61 punishments break its own rule, which restarts only after a round in "
-         "which both priced at 1.90 or more. Triangle: the forced Nash price at T+30. Colour scale as in @fig:paths.")
+         "punishing before the shock in 13 of 15 games and keeps restarting (a median of 3 punishments per game; 17% of "
+         "its rounds below 1.70 in the median game, 22.5% pooled). 52 of its 61 punishments (spells below 1.70) break "
+         "its own rule: the round two before the spell starts is not one in which both priced at 1.90 or more (58 of 61 "
+         "if a punishment also needs a newcomer price below 1.70 the round before). Triangle: the forced Nash price at T+30. Colour scale as in @fig:paths.")
 
 
 # ---------- Fig A2 (Look-alike) ----------
