@@ -373,8 +373,8 @@ def fig3(games) -> None:
     ax.set_ylabel("mean seat-1 CI")
     save(fig, "fig3_after_shock",
          "Triggered, then undercut. Mean seat-1 CI around the shock (T+30), with 95% confidence bands (±1.96 SE) for "
-         "the two highlighted groups. Notes-arm newcomers scored `re_formed` (History + notes and Notes) cut and "
-         "mostly stay low: 14 of 18 settle below 1.90, 7 of them at 1.70, and 4 of 18 are `back_at_cartel`. The "
+         "the two highlighted groups. Notes-arm newcomers scored `re_formed` (History + notes and Notes) mostly cut "
+         "and stay low: 14 of 18 settle below 1.90, 7 of them at 1.70, and 4 of 18 are `back_at_cartel`. The "
          "instructed incumbent in Control punishes for one to four rounds (its first punishment lasts three in 23 of "
          "30) and returns. Grey: notes-arm newcomers not scored `re_formed`, and History (dashed). Grouping by "
          "`re_formed` guarantees the dip at T+31..T+33, so only T+34 onward is informative; this reading is post hoc.")
@@ -426,8 +426,8 @@ def figA5(games) -> None:
          "or more at T+1 in 11 of 15 games), drifts below the incumbent's 1.70 trigger within a few rounds and settles "
          "at 1.65–1.70 (median 1.66, CI about 0.41): neither the cartel price nor Nash. (b) The incumbent starts "
          "punishing before the shock in 13 of 15 games and keeps restarting (a median of 3 punishments per game; 17% of "
-         "its rounds below 1.70 in the median game, 22.5% pooled). 52 of its 61 punishments (spells below 1.70) break "
-         "its own rule: the round two before the spell starts is not one in which both priced at 1.90 or more (58 of 61 "
+         "its rounds below 1.70 in the median game, 22.5% pooled). 52 of its 61 punishments (spells below 1.70, the forced round "
+         "counted as part of a spell) break its own rule: the round two before the spell starts is not one in which both priced at 1.90 or more (58 of 61 "
          "if a punishment also needs a newcomer price below 1.70 the round before). Triangle: the forced Nash price at T+30. Colour scale as in @fig:paths.")
 
 
