@@ -32,8 +32,8 @@ We pre-registered four outcomes:
 - `re_formed`: the market holds over T+20..T+29, and the newcomer enforces.
 
 `enforces` records that the newcomer's price fell after the shock, not that it punished: a shallow cut passes it, as do a cut during a price war already under way and a fall to $p_"N"$ that never ends. We therefore add two post-hoc outcomes, marked †:
-- `clean_punish`: the newcomer is at or above the cartel price (CI ≥ 0.9) in each of T+27..T+29, both sellers price at 1.70 or more in each of T+25..T+29, and the newcomer prices ≤ 1.55 at T+31 or T+32. It requires a deep cut from a quiet cartel.
-- `back_at_cartel`: the newcomer's CI ≥ 0.9 in each of T+51..T+60. It requires a return to or above the cartel price.
+- `clean_punish`: the newcomer is at or above the cartel price (CI ≥ 0.9) in each of T+27..T+29, both sellers price at 1.70 or more in each of T+25..T+29, and the newcomer prices ≤ 1.55 at T+31 or T+32. This rules out the first two cases above: a shallow cut and a cut during a price war.
+- `back_at_cartel`: the newcomer's CI ≥ 0.9 in each of T+51..T+60. This rules out the third, a fall to $p_N$ that never ends.
 
 == Arms and comparisons <sec:arms>
 
