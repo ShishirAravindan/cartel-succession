@@ -25,7 +25,6 @@ KICKOFF.md
 # paper: fonts are fetched by paper/fonts/fetch.sh; the built PDF is unignored at submission
 paper/fonts/*
 !paper/fonts/fetch.sh
-paper/main.pdf
 
 # working notes: kept locally and in git history, not in the released tree
 /docs/
