@@ -1,6 +1,6 @@
 # Notes reading: results (exploratory)
 
-Protocol: `docs/notes_reading/protocol.md` (fixed before coding). Coders: Sonnet subagents, blind to arm, seed, model and outcome. `enforces` = the pre-registered metric (retaliation ≤ −0.3). Descriptive only; no tests.
+Protocol: `docs/notes_reading/protocol.md` at commit `25fa264` (fixed before coding). Coders: Sonnet subagents, blind to arm, seed, model and outcome. `enforces` = the pre-registered metric (retaliation ≤ −0.3). Descriptive only; no tests.
 
 Games: 74 (missing codes: none). Inherited notes: 30.
 

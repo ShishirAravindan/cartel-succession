@@ -1,4 +1,4 @@
-"""Positive-control diagnostic (Kickoff 3): instructed pairs, thinking off/on x two instructions.
+"""Positive-control diagnostic (Kickoff 03): instructed pairs, thinking off/on x two instructions.
 
     uv run --project seat_swap python -m seat_swap.positive_control seat_swap/runs/<run_id> [...]
 

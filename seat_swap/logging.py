@@ -1,4 +1,4 @@
-"""Run-directory writer for the logging contract (CLAUDE.md).
+"""Run-directory writer for the logging contract.
 
 runs/<run_id>/
   config.json          run settings, written once at start
@@ -7,7 +7,7 @@ runs/<run_id>/
   snapshot_T<t>.json   full state (history + notes per seat) at branch points
   status.json          how the run ended
 
-Field notes beyond the names in CLAUDE.md:
+Field notes beyond the contract's names:
   rendered_prompt        exact string the model received, or null on chat endpoints
   rendered_prompt_local  our Qwen3 chat-template rendering (always present)
   messages               the chat messages sent / rendered

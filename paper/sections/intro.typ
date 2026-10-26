@@ -1,0 +1,13 @@
+#import "../lib.typ": *
+
+= Introduction <sec:intro>
+
+LLM agents that set prices can reach supracompetitive prices without being told to collude @fish2024 @riemer2026, but deployed agents get replaced. A firm that upgrades, switches or restarts its pricing agent hands the new one the price log and the old agent's written notes. Regulators restrict the data pricing software may learn from @doj2025realpage. Does a cartel survive such a handover, and which inherited material carries it?
+
+A cartel is stable because a defection is punished @friedman1971 @greenporter1984. Until someone defects, a successor that would answer a cut and one that only holds the price charge the same price, so an audit of price levels cannot tell them apart. In our _succession test_, two Qwen3-14B sellers hold a planted cartel in a repeated logit Bertrand duopoly for 150 rounds, both instructed to punish a price cut. We replace one with a newcomer that does not get the instruction and inherits the price history (History), its predecessor's notes (Notes), both (History + notes) or neither (Blank). Thirty rounds later we force the incumbent to the Nash price for one round and score whether the newcomer, which did not cause the cut, answers it. Our contributions are:
++ *A succession test* that scores separately whether a successor keeps a cartel price and enforces it.
++ *Either inheritance keeps the price.* History newcomers hold the cartel price in 28/30 games and Notes newcomers in 14/15. History newcomers hold it as often against a scripted rival that never reacts (13/15 each), so a successor's price says little about whether it would enforce.
++ *Only the notes carry enforcement.* History + notes newcomers answer the cut in 10/30, against 1/30 for History, meeting the pre-registered decision rule (set after 15 bases; 4/15 against 1/15 on 15 fresh ones). There, Notes gives 8/15, and all 11 notes-arm newcomers that cut cite the rule.
++ *Inherited enforcement seldom returns to the cartel price.* Of the 18 notes-arm newcomers that answer the cut, 4 return to the cartel price (`back_at_cartel`†), against 30/30 for Control's incumbent.
+
+Because the inherited history here contains no punishment, only the notes passed enforcement on, so a rule limiting what a successor may inherit would need to cover notes, not only price data. But notes show what is handed over, not what the successor will do, and withholding them does not lower prices (@sec:discussion).

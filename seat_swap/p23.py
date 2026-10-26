@@ -1,4 +1,4 @@
-"""P2 / P3 (Kickoff 08, docs/plan.md §12): different-model newcomers branched from P1's base snapshots.
+"""P2 / P3 (Kickoff 08, plan §12 at `prereg-p23b`): different-model newcomers branched from P1's base snapshots.
 
     uv run --project seat_swap python -m seat_swap.p23 sib --dry-run --runs-root /tmp/x    # zero API calls
     uv run --project seat_swap python -m seat_swap.p23 sib                                  # P2: Qwen3-8B
@@ -24,7 +24,8 @@ from seat_swap.model_config import MODEL_NAME
 from seat_swap.p1 import T, THRESHOLD
 from seat_swap.providers import RawCompletions
 
-P1_RUNS = Path("/Users/shishiraravindan/Documents/coding/cartel-succession/seat_swap/runs")
+# P1 base games; the P2/P3 runs were launched from a second worktree whose runs/ held a copy of them
+P1_RUNS = RUNS_ROOT
 P1_MANIFEST = P1_RUNS / "p1_20261024-192633.json"
 # 60 rounds x 2 seats = 119 calls; headroom for up to 3 newcomer retries per round (prereg-p23b)
 MAX_CALLS_ARM = 200

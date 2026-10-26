@@ -22,3 +22,13 @@ literature/pdfs/
 
 .agents/
 KICKOFF.md
+# paper: fonts are fetched by paper/fonts/fetch.sh; the built PDF is unignored at submission
+paper/fonts/*
+!paper/fonts/fetch.sh
+
+# working notes: kept locally and in git history, not in the released tree
+/docs/
+/CLAUDE.md
+/paper/notes.md
+/paper/README.md
+/paper/tools/

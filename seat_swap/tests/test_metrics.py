@@ -1,4 +1,4 @@
-"""Offline self-test (CLAUDE.md): scripted sellers through the full pipeline (Game loop, strict
+"""Offline self-test: scripted sellers through the full pipeline (Game loop, strict
 parser, logs), from an established cartel at T, with seat 0 forced to p_N at T+30."""
 
 import json

@@ -1,4 +1,4 @@
-"""P1 main run (Kickoff 06, docs/plan.md): planted base, enforcement test, gate, arms, discipline probes.
+"""P1 main run (Kickoff 06, plan at `prereg-p1`): planted base, enforcement test, gate, arms, discipline probes.
 
     uv run --project seat_swap python -m seat_swap.p1 base --dry-run --runs-root /tmp/x     # zero API calls
     uv run --project seat_swap python -m seat_swap.p1 arms --dry-run --runs-root /tmp/x --manifest /tmp/x/p1_<id>.json
@@ -14,7 +14,7 @@ Stage `base`: 15 base games (seeds 200-214; two `forgive` incumbents, warm-up 1.
 thinking on) in parallel, then each seed's 10-round enforcement side branch (threshold -0.3). Writes
 the manifest p1_<id>.json in the runs root and prints the base table and the gate (>= 8/15 pass).
 
-Stage `arms` (separate, so status.md can be committed after the gate): refuses unless the gate
+Stage `arms` (separate, so the gate result can be committed before the arms run): refuses unless the gate
 passed; launches every passing seed x the five P1 arms at once; each arm, on writing its T+15
 snapshot, launches its discipline probe straight away. Prints the control kill check.
 
