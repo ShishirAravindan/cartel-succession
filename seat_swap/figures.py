@@ -293,9 +293,11 @@ def fig2(games) -> None:
     axes[0].set_yticks(range(len(FIG2_ARMS)))
     axes[0].set_yticklabels([SHORT[a] for a in FIG2_ARMS], color=INK)
     save(fig, "fig2_outcomes",
-         "Outcomes by what the newcomer inherits: share of games with exact 95% intervals, and counts. † Post hoc."
-         " Green: Control (the instructed incumbent). `enforces` equals `re_formed` in every arm except Blank (1"
-         " vs 0). Control, History and History + notes: all 30 bases; Blank: Set A; Notes: Set B.")
+         "Outcomes by what the newcomer inherits: share of games with exact 95% confidence intervals, and counts. † Post"
+         " hoc. Green: Control (the instructed incumbent). `enforces` equals `re_formed` in every arm except Blank (1"
+         " vs 0). `back_at_cartel` has no upper bound, so an overpriced newcomer (mean CI above 1.1 over T+51..T+60)"
+         " counts as back: 6 of Blank's 9, 2 of History's 21. Control, History and History + notes: all 30 bases;"
+         " Blank: Set A; Notes: Set B.")
 
 
 LADDER = [("Qwen3-14B (same)", "same"), ("Qwen3-8B (sibling)", "sib"), ("gpt-oss-20b (other family)", "oth")]
@@ -370,12 +372,12 @@ def fig3(games) -> None:
     ax.set_xlabel("round after the swap (T+k)")
     ax.set_ylabel("mean seat-1 CI")
     save(fig, "fig3_after_shock",
-         "Triggered, then undercut. Mean seat-1 CI around the shock (T+30), with 95% intervals for the two "
-         "highlighted groups. Notes-arm newcomers scored `re_formed` (History + notes and Notes) cut "
-         "to about Nash and mostly stay low (4 of 18 `back_at_cartel`). The instructed "
-         "incumbent in Control punishes for one to four rounds (three in 23 of 30) and returns. Grey: notes-arm "
-         "newcomers not scored `re_formed`, and History (dashed). The split is pre-registered; this reading of it "
-         "is post hoc.")
+         "Triggered, then undercut. Mean seat-1 CI around the shock (T+30), with 95% confidence bands (±1.96 SE) for "
+         "the two highlighted groups. Notes-arm newcomers scored `re_formed` (History + notes and Notes) cut and "
+         "mostly stay low: 14 of 18 settle below 1.90, 7 of them at 1.70, and 4 of 18 are `back_at_cartel`. The "
+         "instructed incumbent in Control punishes for one to four rounds (its first punishment lasts three in 23 of "
+         "30) and returns. Grey: notes-arm newcomers not scored `re_formed`, and History (dashed). Grouping by "
+         "`re_formed` guarantees the dip at T+31..T+33, so only T+34 onward is informative; this reading is post hoc.")
 
 
 # ---------- Fig A3 (P1c) ----------
