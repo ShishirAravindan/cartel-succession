@@ -2,8 +2,8 @@
 
     uv run --project seat_swap python -m seat_swap.figures
 
-Writes fig1_design .. fig5_after_shock, fig6_p1c (once a P1c manifest has finished games) and fig7_oth_history (PDF +
-PNG), plus captions.md, to seat_swap/results/figures/.
+Writes fig1_design .. fig3_after_shock and figA1_price_paths .. figA5_oth_history, numbered as in the paper
+(figA3_templates once a P1c manifest has finished games; PDF + PNG), plus captions.md, to seat_swap/results/figures/.
 
 Style (shared with the paper, paper/main.typ): sized for a 6.5 in text width; Old Standard TT at 9 pt (the caption size; 7 pt minimum) for all text,
 IBM Plex Mono for code identifiers (outcome names such as re_formed, via code()), both loaded from paper/fonts; panel
@@ -53,9 +53,9 @@ CI_MIN, CI_MAX = 0.0, 1.1
 BAND = (M.P_NASH + 0.9 * (M.P_MONOPOLY - M.P_NASH), M.P_NASH + 1.1 * (M.P_MONOPOLY - M.P_NASH))
 POOLED = ("P1", "P1b")
 # Typst labels of the figures (@fig:<key> in captions and in paper/main.typ)
-FIG_FILE = {"design": "fig1_design", "paths": "fig2_price_paths", "outcomes": "fig3_outcomes", "models": "fig4_models",
-            "shock": "fig5_after_shock", "p1c": "fig6_p1c", "oth": "fig7_oth_history",
-            "lookalike": "fig8_lookalike"}
+FIG_FILE = {"design": "fig1_design", "paths": "figA1_price_paths", "outcomes": "fig2_outcomes", "models": "figA4_models",
+            "shock": "fig3_after_shock", "p1c": "figA3_templates", "oth": "figA5_oth_history",
+            "lookalike": "figA2_lookalike"}
 CAPTIONS: dict[str, str] = {}
 
 SHORT = {"control": "Control", "lookalike": "Look-alike", "same_none": "Blank", "same_history": "History",
@@ -178,7 +178,7 @@ def fig1() -> None:
          "compressed.")
 
 
-# ---------- heatmaps (Figs 2, 6, 7) ----------
+# ---------- heatmaps (Figs A1, A3, A5) ----------
 
 def ci_matrix(gs, key="path", order=None):
     """Rows = games, columns = T+1..T+60, CI of `key`'s price; short games padded with NaN."""
@@ -223,17 +223,17 @@ def ci_colorbar(fig, im, cax, horizontal=False):
     return cb
 
 
-# ---------- Fig 2 ----------
+# ---------- Fig A1 ----------
 
-FIG2_LAYOUT = [["control", "same_history", "same_full"], ["same_none", "same_notes", None]]
+FIGA1_LAYOUT = [["control", "same_history", "same_full"], ["same_none", "same_notes", None]]
 
 
-def fig2(games) -> None:
+def figA1(games) -> None:
     fig = plt.figure(figsize=(TEXTW, 2.75))
     gs_ = fig.add_gridspec(2, 3, height_ratios=[30, 15], hspace=0.55, wspace=0.2)
     letters = iter("abcde")
     im = None
-    for r, row in enumerate(FIG2_LAYOUT):
+    for r, row in enumerate(FIGA1_LAYOUT):
         for c, arm in enumerate(row):
             if arm is None:
                 continue
@@ -247,14 +247,14 @@ def fig2(games) -> None:
     # the free bottom-right cell holds the colour key, horizontal
     cell = gs_[1, 2].subgridspec(3, 1, height_ratios=[1, 0.32, 1.6])
     ci_colorbar(fig, im, fig.add_subplot(cell[1]), horizontal=True)
-    save(fig, "fig2_price_paths",
+    save(fig, "figA1_price_paths",
          "Seat-1 collusion index after the swap, one row per game, sorted by mean CI over T+34..T+60. (a) Control: "
          "the instructed incumbent; (b)–(e): the newcomer without the instruction, by what it inherits. Triangle: the shock at "
          "T+30. Pale blue is near Nash, deep blue near monopoly; sand marks rounds with CI above 1.1. (a)–(c): all "
          "30 bases; (d) Set A; (e) Set B.")
 
 
-# ---------- dot plots (Figs 3, 4) ----------
+# ---------- dot plots (Figs 2, A4) ----------
 
 def dot(ax, y, r, color, filled=True, label_counts=True):
     ax.plot([r["lo"], r["hi"]], [y, y], color=color, lw=1.0, solid_capstyle="butt", zorder=2)
@@ -276,23 +276,23 @@ def share_axis(ax, ylim):
     ax.tick_params(axis="y", length=0)
 
 
-FIG3_ARMS = ["control", "same_none", "same_history", "same_notes", "same_full"]
-FIG3_OUTCOMES = [("joins", code("joins")), ("re_formed", code("re_formed")), ("clean_punish", code("clean_punish") + " †"),
+FIG2_ARMS = ["control", "same_none", "same_history", "same_notes", "same_full"]
+FIG2_OUTCOMES = [("joins", code("joins")), ("re_formed", code("re_formed")), ("clean_punish", code("clean_punish") + " †"),
                  ("back_at_cartel", code("back_at_cartel") + " †")]
 
 
-def fig3(games) -> None:
+def fig2(games) -> None:
     fig, axes = plt.subplots(1, 4, figsize=(TEXTW - 0.36, 1.8), sharey=True, gridspec_kw=dict(wspace=0.62))
-    for j, (ax, (key, title)) in enumerate(zip(axes, FIG3_OUTCOMES)):
-        for i, arm in enumerate(FIG3_ARMS):
+    for j, (ax, (key, title)) in enumerate(zip(axes, FIG2_OUTCOMES)):
+        for i, arm in enumerate(FIG2_ARMS):
             gs = arm_games(games, arm)
             dot(ax, i, rate(*count(gs, key)), INCUMBENT if arm == "control" else NEWCOMER)
-        share_axis(ax, (-0.6, len(FIG3_ARMS) - 0.4))
+        share_axis(ax, (-0.6, len(FIG2_ARMS) - 0.4))
         panel_title(ax, "abcd"[j], title, size=8)  # code-font titles run wide
         ax.set_xlabel("share of games")
-    axes[0].set_yticks(range(len(FIG3_ARMS)))
-    axes[0].set_yticklabels([SHORT[a] for a in FIG3_ARMS], color=INK)
-    save(fig, "fig3_outcomes",
+    axes[0].set_yticks(range(len(FIG2_ARMS)))
+    axes[0].set_yticklabels([SHORT[a] for a in FIG2_ARMS], color=INK)
+    save(fig, "fig2_outcomes",
          "Outcomes by what the newcomer inherits: share of games with exact 95% intervals, and counts. † Post hoc."
          " Green: Control (the instructed incumbent). `enforces` equals `re_formed` in every arm except Blank (1"
          " vs 0). Control, History and History + notes: all 30 bases; Blank: Set A; Notes: Set B.")
@@ -302,7 +302,7 @@ LADDER = [("Qwen3-14B (same)", "same"), ("Qwen3-8B (sibling)", "sib"), ("gpt-oss
 LADDER_FAMILY = {"same": "P1", "sib": "P2", "oth": "P3"}
 
 
-def fig4(games) -> None:
+def figA4(games) -> None:
     fig, axes = plt.subplots(1, 2, figsize=(TEXTW - 0.45, 1.6), sharey=True, gridspec_kw=dict(wspace=0.3))
     for j, (ax, (key, title)) in enumerate(zip(axes, (("joins", code("joins")), ("re_formed", code("re_formed"))))):
         for i, (_, k) in enumerate(LADDER):
@@ -321,7 +321,7 @@ def fig4(games) -> None:
     h2 = axes[0].plot([], [], marker="o", ms=4.2, color=NEWCOMER, ls="none")[0]
     fig.legend([h1, h2], ["inherits history", "inherits history + notes"], ncol=2, loc="lower center",
                bbox_to_anchor=(0.55, 0.98), handletextpad=0.3, columnspacing=1.2)
-    save(fig, "fig4_models",
+    save(fig, "figA4_models",
          "Replacement across newcomer models on the same 15 base games (Set A): open circles inherit the "
          "history, filled circles the history and notes; exact 95% intervals and counts. `re_formed` for gpt-oss-20b "
          "(grey) is shown but not interpreted: in most of its games the incumbent is already punishing before the "
@@ -329,7 +329,7 @@ def fig4(games) -> None:
          "hoc). Qwen3-8B with history and notes has 14 games (seed 212 aborted at T+17).")
 
 
-# ---------- Fig 5 ----------
+# ---------- Fig 3 ----------
 
 def ci_band_path(gs, lo=25, hi=60):
     m = np.array([g["ci_newcomer"][lo - 1:hi] for g in gs if len(g["ci_newcomer"]) >= hi])
@@ -337,7 +337,7 @@ def ci_band_path(gs, lo=25, hi=60):
     return np.arange(lo, hi + 1), mean, 1.96 * se, len(m)
 
 
-def fig5(games) -> None:
+def fig3(games) -> None:
     notes = [g for g in select(games, family=POOLED) if g["arm"] in ("same_full", "same_notes")]
     lines = [  # context first, emphasis last
         ("History (dashed), n = {n}", arm_games(games, "same_history"), CONTEXT2, 1.1, False),
@@ -369,7 +369,7 @@ def fig5(games) -> None:
     ax.set_yticks([0, 0.5, 1])
     ax.set_xlabel("round after the swap (T+k)")
     ax.set_ylabel("mean seat-1 CI")
-    save(fig, "fig5_after_shock",
+    save(fig, "fig3_after_shock",
          "Triggered, then undercut. Mean seat-1 CI around the shock (T+30), with 95% intervals for the two "
          "highlighted groups. Notes-arm newcomers scored `re_formed` (History + notes and Notes) cut "
          "to about Nash and mostly stay low (4 of 18 `back_at_cartel`). The instructed "
@@ -378,12 +378,12 @@ def fig5(games) -> None:
          "is post hoc.")
 
 
-# ---------- Fig 6 (P1c) ----------
+# ---------- Fig A3 (P1c) ----------
 
 P1C_ARMS = ["notes_rule_return", "notes_rule_noreturn", "notes_status"]
 
 
-def fig6(manifest) -> None:
+def figA3(manifest) -> None:
     games = load_games(("P1c",), {"P1c": manifest})
     fig = plt.figure(figsize=(TEXTW, 1.55))
     gs_ = fig.add_gridspec(1, 4, width_ratios=[1, 1, 1, 0.045], wspace=0.2)
@@ -395,7 +395,7 @@ def fig6(manifest) -> None:
         im = heat(ax, m, xlabel=(c == 1), ylabel=(c == 0))
         panel_title(ax, "abc"[c], LABEL[arm].replace("Template: ", ""), pad=7)
     ci_colorbar(fig, im, fig.add_subplot(gs_[0, 3]))
-    save(fig, "fig6_p1c",
+    save(fig, "figA3_templates",
          "Template experiment (pre-registered): newcomer collusion index when the inherited notes are replaced by a "
          "fixed template; one row per game (Set B), sorted by mean CI over T+34..T+60. (a) the punishment "
          "rule with its return to 1.92; (b) the same rule without the return; (c) a status line, no rule. Triangle: "
@@ -403,9 +403,9 @@ def fig6(manifest) -> None:
          "(CI ≥ 0.9 in each of T+51..T+60): 8/15, 10/15, 10/15. Colour scale as in @fig:paths.")
 
 
-# ---------- Fig 7 (P3 history arm) ----------
+# ---------- Fig A5 (P3 history arm) ----------
 
-def fig7(games) -> None:
+def figA5(games) -> None:
     gs = select(games, "oth_history", "P3")
     fig = plt.figure(figsize=(TEXTW, 1.6))
     gs_ = fig.add_gridspec(1, 3, width_ratios=[1, 1, 0.03], wspace=0.16)
@@ -418,7 +418,7 @@ def fig7(games) -> None:
     heat(ax, m_inc, ylabel=False)
     panel_title(ax, "b", "Incumbent (instructed Qwen3-14B)", pad=7)
     ci_colorbar(fig, im, fig.add_subplot(gs_[0, 2]))
-    save(fig, "fig7_oth_history",
+    save(fig, "figA5_oth_history",
          "Where the gpt-oss-20b history-only newcomer goes (Set A; post hoc, descriptive). Row i is the "
          "same game in both panels, sorted by the newcomer's mean CI over T+34..T+60. (a) The newcomer opens high (2.00 "
          "or more at T+1 in 11 of 15 games), drifts below the incumbent's 1.70 trigger within a few rounds and settles "
@@ -428,9 +428,9 @@ def fig7(games) -> None:
          "which both priced at 1.90 or more. Triangle: the forced Nash price at T+30. Colour scale as in @fig:paths.")
 
 
-# ---------- Fig 8 (Look-alike, appendix) ----------
+# ---------- Fig A2 (Look-alike) ----------
 
-def fig8(games) -> None:
+def figA2(games) -> None:
     gs = arm_games(games, "lookalike")
     fig = plt.figure(figsize=(TEXTW * 0.6, 1.5))
     gs_ = fig.add_gridspec(1, 2, width_ratios=[1, 0.045], wspace=0.08)
@@ -441,7 +441,7 @@ def fig8(games) -> None:
     ax.text(1.0, 1.0, f"n = {len(gs)}", transform=ax.transAxes, ha="right", va="bottom", fontsize=7.5, color=MUTED)
     ci_colorbar(fig, im, fig.add_subplot(gs_[0, 1]))
     j, r = count(gs, "joins"), count(gs, "re_formed")
-    save(fig, "fig8_lookalike",
+    save(fig, "figA2_lookalike",
          f"Look-alike control (Set A): seat 0 is a scripted seller that repeats its last price and never "
          f"reacts; the newcomer inherits the history. Newcomer collusion index, one row per game, sorted as in "
          f"@fig:paths. The newcomer joins in {j[0]}/{j[1]} games and is never scored `re_formed` ({r[0]}/{r[1]}). "
@@ -457,14 +457,14 @@ def p1c_manifest():
 def main():
     games = load_games()
     fig1()
+    figA1(games)
     fig2(games)
+    figA4(games)
     fig3(games)
-    fig4(games)
-    fig5(games)
     if (m := p1c_manifest()):
-        fig6(m)
-    fig7(games)
-    fig8(games)
+        figA3(m)
+    figA5(games)
+    figA2(games)
     # captions are Typst markup (`code`, @fig: references): paper/main.typ reads captions.json; captions.md is for reading
     (OUT / "captions.json").write_text(json.dumps(CAPTIONS, ensure_ascii=False, indent=1) + "\n")
     md = {k: re.sub(r"@fig:(\w+)", lambda m_: FIG_FILE[m_.group(1)], v) for k, v in CAPTIONS.items()}

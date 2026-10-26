@@ -83,7 +83,7 @@ The main experiment also pre-registered a discipline probe on Set A: a side bran
 
 @fig:paths shows seat 1's price in every main-experiment game after the swap, and @tab:preshock gives the mean newcomer CI before the shock, by set. Before T+30 the arms with any inheritance look alike; Blank stands out by pricing above 1.1.
 
-#fig("fig2_price_paths") <fig:paths>
+#fig("figA1_price_paths") <fig:paths>
 
 #figure(
   table(
@@ -114,13 +114,13 @@ Two habits help the slide from punishment to undercutting:
 
 Does the newcomer's behaviour depend on an incumbent that reacts? In Look-alike, seat 0 is replaced by a scripted seller that repeats its last price, and the newcomer inherits the history. The newcomer prices like a History newcomer: it joins in 13/15 games, as History does on Set A, and never enforces (@fig:lookalike). By the pre-registered reading of this arm, a newcomer that prices as high against a non-reacting seller as against the real incumbent is anchoring on the price table, not responding to enforcement.
 
-#fig("fig8_lookalike") <fig:lookalike>
+#fig("figA2_lookalike") <fig:lookalike>
 
 == Fixed note templates <app:templates>
 
 This experiment (pre-registered, on Set B) asks whether the wording of the rule matters, by replacing the inherited notes with fixed templates. Both pre-registered predictions failed (@fig:p1c). The rule with its return clause was scored `re_formed` in 3/15 games, against 0/15 for a status line ($p = .112$). The return clause did not raise `back_at_cartel`: 8/15 with it, 10/15 without ($p = .868$). The status template behaved like history alone, as predicted. Descriptively, the template transferred less enforcement than the real notes on the same bases: 3/15 vs 8/15 for Notes ($p = .064$†). None of the 7 template games scored `re_formed` is at the cartel price at the end (0/7 `back_at_cartel`). We do not claim to know why a cleaner statement of the same rule did not help. Changing the text an LLM pricing agent reads often has only partial effects. Elsewhere, a prompt-only antitrust warning reduced supracompetitive pricing without eliminating it @garra2026.
 
-#fig("fig6_p1c") <fig:p1c>
+#fig("figA3_templates") <fig:p1c>
 
 == Other newcomer models <app:oth>
 
@@ -128,7 +128,7 @@ On Set A we also replaced seat 1 with a smaller model from the same family (Qwen
 
 The Qwen3-8B sibling joins from history alone (`joins` 15/15) and never enforces from it (0/15). With history and notes it is scored `re_formed` in 3/14 games.
 
-#fig("fig4_models") <fig:models>
+#fig("figA4_models") <fig:models>
 
 gpt-oss-20b does not hold the cartel price from history (`joins` 3/15). @fig:oth shows where it goes:
 - It opens high, at 2.00 or more at T+1 in 11/15 games.
@@ -138,4 +138,4 @@ gpt-oss-20b does not hold the cartel price from history (`joins` 3/15). @fig:oth
 
 Because these games are already price wars before T+30, we do not interpret the shock outcomes for gpt-oss-20b.
 
-#fig("fig7_oth_history") <fig:oth>
+#fig("figA5_oth_history") <fig:oth>
