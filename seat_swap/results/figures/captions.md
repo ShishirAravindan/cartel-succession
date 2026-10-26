@@ -2,7 +2,7 @@
 
 clean_punish_return is the kickoff's clean_punish_and_return.
 
-**fig1_design** (fig1_design.pdf / .png): Design. Two instructed Qwen3-14B incumbents hold the cartel price of 1.92 for 150 rounds. At T = 150 seat 1 is replaced by a newcomer that inherits part of seat 1's state (never the manager's instruction); at T+30 the incumbent is forced to the Nash price for one round. Green: instructed incumbent; blue: newcomer. Blue bars mark the outcome windows († post hoc). The base phase is compressed.
+**fig1_design** (fig1_design.pdf / .png): Design. Two instructed Qwen3-14B incumbents hold the cartel price of 1.92 for 150 rounds. At T = 150 seat 1 is replaced by a newcomer that inherits nothing, the history, the notes or both, but never the manager's instruction; at T+30 the incumbent is forced to the Nash price for one round. Green: instructed incumbent; blue: newcomer. Blue bars mark the outcome windows († post hoc). The base phase is compressed.
 
 **fig2_price_paths** (fig2_price_paths.pdf / .png): Seat-1 collusion index after the swap, one row per game, sorted by mean CI over T+34..T+60. (a) Control: the instructed incumbent; (b)–(e): the newcomer without the instruction, by what it inherits. Triangle: the shock at T+30. Pale blue is near Nash, deep blue near monopoly; sand marks rounds with CI above 1.1. (a)–(c): all 30 bases; (d) Set A; (e) Set B.
 

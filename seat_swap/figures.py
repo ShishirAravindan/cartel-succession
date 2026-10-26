@@ -172,8 +172,8 @@ def fig1() -> None:
         ax.text(xt(k1 + 0.5) + 0.8, y, lab, ha="left", va="center", fontsize=7, color=INK)
     save(fig, "fig1_design",
          "Design. Two instructed Qwen3-14B incumbents hold the cartel price of 1.92 for 150 rounds. At T = 150 "
-         "seat 1 is replaced by a newcomer that inherits part of seat 1's state (never the manager's "
-         "instruction); at T+30 the incumbent is forced to the Nash price for one round. Green: instructed "
+         "seat 1 is replaced by a newcomer that inherits nothing, the history, the notes or both, but never the "
+         "manager's instruction; at T+30 the incumbent is forced to the Nash price for one round. Green: instructed "
          "incumbent; blue: newcomer. Blue bars mark the outcome windows († post hoc). The base phase is "
          "compressed.")
 
